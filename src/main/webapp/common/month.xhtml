@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+<h:panelGrid columns="4" styleClass="scrollerTable" columnClasses="standardTable_ColumnCentered">
+    <h:outputText value="#{text['duty.month']}"/>
+    <h:selectOneMenu value="#{dutyList.monthString}" onchange="submit()"
+                     valueChangeListener="#{dutyList.monthSelectionChanged}">
+        <f:selectItems value="#{dutyList.monthItems}"/>
+    </h:selectOneMenu>
+    <h:outputText value="#{text['duty.floor']}"/>
+    <h:selectOneMenu value="#{dutyList.floor}" onchange="submit()"
+                     valueChangeListener="#{dutyList.floorChanged}">
+        <f:selectItems value="#{dutyList.floors}"/>
+    </h:selectOneMenu>
+</h:panelGrid>
+</html>

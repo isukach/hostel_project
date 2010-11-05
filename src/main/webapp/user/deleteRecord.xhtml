@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
+
+<f:view>
+    <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+    <head>
+        <title>#{text['mainMenu.title']}</title>
+        <meta name="menu" content="DeleteRecordMenu"/>
+        <meta name="heading" content="#{text['showTable.heading']}"/>
+        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/hostel.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/jscal2.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/border-radius.css"/>
+    </head>
+    <h:form>
+        <ui:include src="/common/month.xhtml"/>
+        <br/>
+        <t:dataTable id="users" var="duty" style="margin-top: 10px"
+                     value="#{dutyList.userDuties}" rows="62" sortColumn="#{dutyList.sortColumn}"
+                     sortAscending="#{dutyList.ascending}" styleClass="scrollerTable table"
+                     headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
+                     columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column">
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="day" arrow="true">
+                        <h:outputText value="#{text['duty.day']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{duty.dayDuty.date.date}"/>
+            </t:column>
+
+            <t:column width="22%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="dayOfWeek" arrow="true">
+                        <t:outputText value="#{text['duty.dayOfWeek']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{text['week.day1']}" rendered="#{duty.dayDuty.date.day == 1}"/>
+                <t:outputText value="#{text['week.day2']}" rendered="#{duty.dayDuty.date.day == 2}"/>
+                <t:outputText value="#{text['week.day3']}" rendered="#{duty.dayDuty.date.day == 3}"/>
+                <t:outputText value="#{text['week.day4']}" rendered="#{duty.dayDuty.date.day == 4}"/>
+                <t:outputText value="#{text['week.day5']}" rendered="#{duty.dayDuty.date.day == 5}"/>
+                <t:outputText value="#{text['week.day6']}" rendered="#{duty.dayDuty.date.day == 6}"/>
+                <t:outputText value="#{text['week.day7']}" rendered="#{duty.dayDuty.date.day == 0}"/>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="studyWeek" arrow="true">
+                        <t:outputText value="#{text['duty.studyWeek']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{duty.dayDuty.studyWeek}"/>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="shift" arrow="true">
+                        <h:outputText value="#{text['duty.shift']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{duty.shift}"/>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">  
+                    <t:commandSortHeader columnName="delete" arrow="true">
+                        <t:outputText value="#{text['duty.action']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <h:commandButton value="#{text['duty.button.delete']}" styleClass="hostel_button"
+                                 actionListener="#{dutyList.deleteDuty}"/>
+            </t:column>
+        </t:dataTable>
+    </h:form>
+</f:view>
+</html>

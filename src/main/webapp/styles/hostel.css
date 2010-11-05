@@ -1,0 +1,9 @@
+.hostel_button {
+    display: block;
+    background: #b4cdff;
+    border: 1px solid #999999;
+    /*width: 100px;*/
+    height: 20px;
+    text-align: center;
+    text-decoration: none;
+}
