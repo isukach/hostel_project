@@ -128,6 +128,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     private User getEmptyUser() {
+    	//her
         User user = new User();
         user.setFirstName("");
         user.setLastName("");
