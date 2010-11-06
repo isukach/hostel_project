@@ -20,7 +20,7 @@ public class MonthDaoHibernate extends GenericDaoHibernate<DutyMonth, Long> impl
         if (months == null || months.isEmpty()) {
             return null;
         }
-        //tt
+        //tt2
         return (DutyMonth) months.get(0);
     }
 
