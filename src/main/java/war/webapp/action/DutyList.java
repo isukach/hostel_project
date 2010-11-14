@@ -68,7 +68,7 @@ public class DutyList extends BasePage implements Serializable {
 		setMonth(Calendar.getInstance().get(Calendar.MONTH));
 	}
 
- 	public List<DayDuty> getDutyList() {
+	public List<DayDuty> getDutyList() {
 		if (getFloor() == null) {
 			setFloor(userLocationManager.getByUser(user).getFloor());
 		}
@@ -96,8 +96,6 @@ public class DutyList extends BasePage implements Serializable {
 	public void showUpdateForm(ActionEvent e) throws Exception {
 		upDateFormVisible = true;
 
-		int index = Integer.valueOf(e.getComponent()
-				.getClientId(getFacesContext()).split(":")[2]);
 		String shift = ((HtmlCommandLink) e.getComponent()).getId();
 
 		Date date = getDate(e);
@@ -179,10 +177,11 @@ public class DutyList extends BasePage implements Serializable {
 							HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY))
 					.getAuthentication().getPrincipal();
 		UserLocation starostaLocation = userLocationManager.getByUser(user);
-		if (starostaLocation.getFloor().equals(Integer.valueOf(floor)))
+		if (starostaLocation.getFloor().equals(Integer.valueOf(floor))) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	public List<UserDuty> getUserDuties() throws Exception {
@@ -354,7 +353,7 @@ public class DutyList extends BasePage implements Serializable {
 			ex.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace(); // To change body of catch statement use File
-								  // | Settings | File Templates.
+									// | Settings | File Templates.
 		} finally {
 			sem.release();
 		}
