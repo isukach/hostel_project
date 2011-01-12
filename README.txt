@@ -1,10 +1,13 @@
-AppFuse Basic JSF Archetype
---------------------------------------------------------------------------------
-If you're reading this then you've created your new project using Maven and
-hostel_project.  You have only created the shell of an AppFuse Java EE
-application.  The project object model (pom) is defined in the file pom.xml.
-The application is ready to run as a web application. The pom.xml file is
-pre-defined with Hibernate as a persistence model and JSF as the web framework.
+после инициализации git-репозитория, обязательно добавить в .git/info/exclude строки:
+*.log
+.settings
+.project
+.classpath
+target
+.cmd
+.bat
+
+и другую свои файлы напрямую не относящиеся к исходникам проекта
 
 To get started, please complete the following steps:
 
@@ -13,9 +16,3 @@ To get started, please complete the following steps:
 
 2. Run "mvn jetty:run-war" and view the application at http://localhost:8080.
 
-3. More information can be found at:
-
-   http://appfuse.org/display/APF/QuickStart+Guide
-
-WarCraft III Forever !
-hello branch //test from web werwqewerqw

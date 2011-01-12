@@ -1,1 +1,1 @@
-mvn jetty:run-war > run_log.log 2>&1
+mvn jetty:run-war
