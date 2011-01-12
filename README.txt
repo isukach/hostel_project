@@ -1,5 +1,5 @@
 ﻿добавить в .git/info/exclude:
-*.log
+.log
 .settings
 .project
 .classpath
