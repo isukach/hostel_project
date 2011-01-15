@@ -16,3 +16,5 @@ To get started, please complete the following steps:
 
 2. Run "mvn jetty:run-war" and view the application at http://localhost:8080.
 
+A5 command. русский язык =)
+
