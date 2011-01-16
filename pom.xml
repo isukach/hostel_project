@@ -7,8 +7,7 @@
     <artifactId>hostel_project</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
-    <name>AppFuse JSF Application</name>
-    <url>http://www.mycompany.com</url>
+    <name>Hostel Project</name>
 
     <prerequisites>
         <maven>2.2.1</maven>
@@ -29,7 +28,7 @@
         <developer>
         </developer>
     </developers>
-
+    
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
@@ -145,58 +144,11 @@
                     </scanTargetPatterns>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-alpha-1</version>
-                <configuration>
-                    <dest>target/classes</dest>
-                    <src>src/main/resources</src>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>native2ascii-utf8</id>
-                        <goals>
-                            <goal>native2ascii</goal>
-                        </goals>
-                        <configuration>
-                            <encoding>UTF8</encoding>
-                            <includes>ApplicationResources_ko.properties,
-                                ApplicationResources_no.properties,
-                                ApplicationResources_tr.properties,
-                                ApplicationResources_zh*.properties
-                            </includes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>native2ascii-8859_1</id>
-                        <goals>
-                            <goal>native2ascii</goal>
-                        </goals>
-                        <configuration>
-                            <encoding>8859_1</encoding>
-                            <includes>ApplicationResources_de.properties,
-                                ApplicationResources_fr.properties,
-                                ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>ApplicationResources_de.properties</exclude>
-                    <exclude>ApplicationResources_fr.properties</exclude>
-                    <exclude>ApplicationResources_ko.properties</exclude>
-                    <exclude>ApplicationResources_nl.properties</exclude>
-                    <exclude>ApplicationResources_no.properties</exclude>
-                    <exclude>ApplicationResources_pt*.properties</exclude>
-                    <exclude>ApplicationResources_tr.properties</exclude>
-                    <exclude>ApplicationResources_zh*.properties</exclude>
                     <exclude>applicationContext-resources.xml</exclude>
                 </excludes>
                 <filtering>true</filtering>
@@ -211,7 +163,71 @@
     </build>
 
     <repositories>
+        <repository><distributionManagement>
         <repository>
+            <id>appfuse-releases</id>
+            <name>AppFuse Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>appfuse-site</id>
+            <name>AppFuse Maven Site</name>
+            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
+        </site>
+    </distributionManagement><distributionManagement>
+        <repository>
+            <id>appfuse-releases</id>
+            <name>AppFuse Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>appfuse-site</id>
+            <name>AppFuse Maven Site</name>
+            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
+        </site>
+    </distributionManagement><distributionManagement>
+        <repository>
+            <id>appfuse-releases</id>
+            <name>AppFuse Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>appfuse-site</id>
+            <name>AppFuse Maven Site</name>
+            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
+        </site>
+    </distributionManagement><distributionManagement>
+        <repository>
+            <id>appfuse-releases</id>
+            <name>AppFuse Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>appfuse-site</id>
+            <name>AppFuse Maven Site</name>
+            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
+        </site>
+    </distributionManagement>
             <id>appfuse-snapshots</id>
             <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
             <releases>
@@ -326,6 +342,192 @@
             <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
+        
+        
+        
+        
+        
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core-tiger</artifactId>
+            <version>${spring.security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-support</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>${ehcache.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${javamail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>${velocity.version}</version>
+        </dependency>
+        <!-- CXF Dependencies -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+            <!-- Exclude Spring in order to get latest version -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.codehaus.woodstox</groupId>
+                    <artifactId>wstx-asl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Explicitly include latest version of wstx-asl to prevent downstream issues with Tapestry -->
+        <dependency>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>woodstox-core-asl</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-common-utilities</artifactId>
+            <version>${cxf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.woodstox</groupId>
+                    <artifactId>wstx-asl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- JSON Parser -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>${hibernate.annotations.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>ejb3-persistence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Upgrade Hibernate version -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <!-- Enable EhCache support -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
+            <!-- Exclude old EhCache (artifactId changed) -->
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>${ehcache.version}</version>
+        </dependency>
+        
 
     </dependencies>
 
@@ -380,6 +582,53 @@
         <facelets.version>1.1.14</facelets.version>
         <myfaces.version>2.0.0</myfaces.version>
         <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
+        
+        <acegijsf.version>1.1.3</acegijsf.version>
+        <ajax4jsf.version>1.0.6</ajax4jsf.version>
+        <asm.version>2.2.3</asm.version>
+        <aspectj.version>1.6.6</aspectj.version>
+        <cargo.version>1.0</cargo.version>
+        <commons.lang.version>2.4</commons.lang.version>
+        <commons.beanutils.version>1.8.1</commons.beanutils.version>
+        <commons.collections.version>3.2</commons.collections.version>
+        <commons.dbcp.version>1.2.1</commons.dbcp.version>
+        <commons.fileupload.version>1.2.1</commons.fileupload.version>
+        <commons.io.version>1.4</commons.io.version>
+        <compass.version>2.1.3</compass.version>
+        <cxf.version>2.2.4</cxf.version>
+        <displaytag.version>1.2</displaytag.version>
+        <dwr.version>2.0.1</dwr.version>
+        <ehcache.version>1.7.0</ehcache.version>
+        <ehcache.web.version>1.6.0-beta2</ehcache.web.version>
+        <el.version>1.2</el.version>
+        <facelets.version>1.1.14</facelets.version>
+        <hibernate.version>3.3.1.GA</hibernate.version>
+        <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
+        <hibernate.entitymanager.version>3.4.0.GA</hibernate.entitymanager.version>
+        <ibatis.version>2.3.4.726</ibatis.version>
+        <javamail.version>1.4.1</javamail.version>
+        <jetty.version>6.1.21</jetty.version>
+        <jmock.version>2.5.1</jmock.version>
+        <jpa.version>1.0</jpa.version>
+        <jsp.version>2.0</jsp.version>
+        <jstl.version>1.1.2</jstl.version>
+        <junit.version>4.4</junit.version>
+        <log4j.version>1.2.13</log4j.version>
+        <myfaces.version>1.2.7</myfaces.version>
+        <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
+        <servlet.version>2.4</servlet.version>
+        <shale.version>1.0.5</shale.version>
+        <sitemesh.version>2.4.2</sitemesh.version>
+        <spring.version>2.5.6</spring.version>
+        <spring.security.version>2.0.4</spring.security.version>
+        <springmodules.validation.version>0.8</springmodules.validation.version>
+        <struts.version>2.1.8</struts.version>
+        <struts.menu.version>2.4.3</struts.menu.version>
+        <tapestry.version>5.1.0.5</tapestry.version>
+        <urlrewrite.version>3.1.0</urlrewrite.version>
+        <velocity.version>1.4</velocity.version>
+        <webtest.version>3.0</webtest.version>
+        <wiser.version>1.2</wiser.version>
 
         <!-- Testing dependency versions -->
         <jsp.version>2.1</jsp.version>

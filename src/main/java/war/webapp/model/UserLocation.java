@@ -13,13 +13,10 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.appfuse.model.BaseObject;
-import org.appfuse.model.User;
 
 /**
  * This class represents map between user and his hostel address (floor, room) and group
  * 
- * @author <a href="mailto:tokefa@tut.by">kefa</a>
  */
 @Entity
 @Table(name = "user_location")

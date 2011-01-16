@@ -3,7 +3,6 @@ package war.webapp.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import org.appfuse.service.impl.GenericManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import war.webapp.dao.DayDutyDao;

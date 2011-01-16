@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.jstl.core.Config;
 
-import org.appfuse.Constants;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import war.webapp.Constants;
 
 /**
  * Filter to wrap request with a request including user preferred locale.
@@ -67,7 +68,7 @@ public class LocaleFilter extends OncePerRequestFilter {
 
         String theme = request.getParameter("theme");
         if (theme != null && request.isUserInRole(Constants.ADMIN_ROLE)) {
-            Map<String, Object> config = (Map) getServletContext().getAttribute(Constants.CONFIG);
+            Map<String, Object> config = (Map<String, Object>) getServletContext().getAttribute(Constants.CONFIG);
             config.put(Constants.CSS_THEME, theme);
         }
 

@@ -5,9 +5,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
-import org.appfuse.service.impl.UserManagerImpl;
+import war.webapp.model.User;
+import war.webapp.service.UserManager;
+import war.webapp.service.impl.UserManagerImpl;
 
 public class UserConverter implements Converter{
 

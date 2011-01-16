@@ -1,9 +1,9 @@
 package war.webapp.action;
 
-import org.appfuse.model.User;
-
 import java.io.Serializable;
 import java.util.List;
+
+import war.webapp.model.User;
 
 public class UserList extends BasePage implements Serializable {
     private static final long serialVersionUID = 972359310602744018L;

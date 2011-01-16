@@ -7,12 +7,7 @@ import javax.persistence.*;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.appfuse.model.BaseObject;
-import org.appfuse.model.User;
 
-/**
- * @author <a href="mailto:tokefa@tut.by">kefa</a>
- */
 @Entity
 @Table(name = "day_duty")
 public class DayDuty extends BaseObject implements Serializable {
@@ -71,8 +66,7 @@ public class DayDuty extends BaseObject implements Serializable {
 
 	@Transient
 	public Integer getStudyWeek() {
-		int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30,
-				31 };
+		int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 		int totalDaysFromFirstSeptember = -1;
 		for (int i = 8; i < date.getMonth(); ++i) {
 			totalDaysFromFirstSeptember += daysInMonth[i];

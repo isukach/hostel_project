@@ -2,9 +2,7 @@ package war.webapp.dao;
 
 import java.util.List;
 
-import org.appfuse.dao.GenericDao;
-import org.appfuse.model.User;
-
+import war.webapp.model.User;
 import war.webapp.model.UserLocation;
 
 /**

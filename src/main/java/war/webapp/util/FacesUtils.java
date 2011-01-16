@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
  * Utility class for JavaServer Faces. Found in JavaWorld article:
  * http://www.javaworld.com/javaworld/jw-07-2004/jw-0719-jsf.html
  *
- * @author <a href="mailto:derek_shen@hotmail.com">Derek Y. Shen</a>
  */
 public class FacesUtils {
     /**

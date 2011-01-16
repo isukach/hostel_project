@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 
-import org.appfuse.Constants;
+import war.webapp.Constants;
 
 public class FileUpload extends BasePage implements Serializable {
     private static final long serialVersionUID = 6932775516007291334L;

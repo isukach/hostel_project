@@ -1,19 +1,21 @@
 package war.webapp.action;
 
+import java.io.Serializable;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.mail.MailException;
 import org.springframework.security.AccessDeniedException;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.appfuse.Constants;
-import org.appfuse.model.User;
-import org.appfuse.service.RoleManager;
-import org.appfuse.service.UserExistsException;
+
+import war.webapp.Constants;
+import war.webapp.model.User;
 import war.webapp.model.UserLocation;
+import war.webapp.service.RoleManager;
+import war.webapp.service.UserExistsException;
 import war.webapp.service.UserLocationManager;
 import war.webapp.util.RequestUtil;
-import org.springframework.mail.MailException;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
 
 /**
  * JSF Page class to handle signing up a new user.

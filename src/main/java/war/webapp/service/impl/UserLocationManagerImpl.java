@@ -2,12 +2,11 @@ package war.webapp.service.impl;
 
 import java.util.List;
 
-import org.appfuse.model.User;
-import org.appfuse.service.impl.GenericManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
+
 import war.webapp.dao.UserLocationDao;
+import war.webapp.model.User;
 import war.webapp.model.UserLocation;
 import war.webapp.service.UserLocationManager;
 

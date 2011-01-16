@@ -24,12 +24,12 @@ import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.appfuse.Constants;
-import org.appfuse.model.User;
-import org.appfuse.service.MailEngine;
-import org.appfuse.service.UserManager;
-
 import org.springframework.mail.SimpleMailMessage;
+
+import war.webapp.Constants;
+import war.webapp.model.User;
+import war.webapp.service.MailEngine;
+import war.webapp.service.UserManager;
 
 public class BasePage {
     protected final Log log = LogFactory.getLog(getClass());
@@ -54,7 +54,7 @@ public class BasePage {
         return getRequest().getParameter(name);
     }
 
-    public Map getCountries() {
+    public Map<String, String> getCountries() {
         CountryModel model = new CountryModel();
         return model.getCountries(getRequest().getLocale());
     }
@@ -103,7 +103,7 @@ public class BasePage {
     protected void addMessage(String key, Object arg) {
         // JSF Success Messages won't live past a redirect, so it's not used
         // FacesUtils.addInfoMessage(formatMessage(key, arg));
-        List<String> messages = (List) getSession().getAttribute("messages");
+        List<String> messages = (List<String>) getSession().getAttribute("messages");
 
         if (messages == null) {
             messages = new ArrayList<String>();
@@ -121,7 +121,7 @@ public class BasePage {
     protected void addError(String key, Object arg) {
         // The "JSF Way" doesn't allow you to put HTML in your error messages, so I don't use it.
         // FacesUtils.addErrorMessage(formatMessage(key, arg));
-        List<String> errors = (List) getSession().getAttribute("errors");
+        List<String> errors = (List<String>) getSession().getAttribute("errors");
 
         if (errors == null) {
             errors = new ArrayList<String>();
@@ -191,6 +191,7 @@ public class BasePage {
      *
      * @return the user's populated form from the session
      */
+    @SuppressWarnings("rawtypes")
     protected Map getConfiguration() {
         Map config = (HashMap) getServletContext().getAttribute(Constants.CONFIG);
 
@@ -262,8 +263,8 @@ public class BasePage {
      * @return ordered list
      */
     @SuppressWarnings("unchecked")
-    protected List sort(List list) {
-        Comparator comparator = new BeanComparator(sortColumn, new NullComparator(nullsAreHigh));
+    protected <T> List<T> sort(List<T> list) {
+        Comparator<Object> comparator = new BeanComparator(sortColumn, new NullComparator(nullsAreHigh));
         if (!ascending) {
             comparator = new ReverseComparator(comparator);
         }

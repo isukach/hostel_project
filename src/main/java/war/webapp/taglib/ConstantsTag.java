@@ -11,7 +11,8 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.Constants;
+
+import war.webapp.Constants;
 
 
 /**
@@ -55,6 +56,7 @@ public class ConstantsTag extends TagSupport {
      * @return int
      * @throws JspException if processing fails
      */
+    @SuppressWarnings("rawtypes")
     @Override
     public int doStartTag() throws JspException {
         // Using reflection, get the available field names in the class

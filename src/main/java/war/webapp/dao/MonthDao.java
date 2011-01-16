@@ -1,6 +1,5 @@
 package war.webapp.dao;
 
-import org.appfuse.dao.GenericDao;
 import war.webapp.model.DutyMonth;
 
 public interface MonthDao extends GenericDao<DutyMonth, Long> {

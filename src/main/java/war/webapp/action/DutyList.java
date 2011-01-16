@@ -16,18 +16,18 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 
 import war.webapp.model.DayDuty;
 import war.webapp.model.DutyMonth;
+import war.webapp.model.User;
 import war.webapp.model.UserDuty;
 import war.webapp.model.UserLocation;
 import war.webapp.service.DayDutyManager;
 import war.webapp.service.MonthManager;
 import war.webapp.service.UserLocationManager;
+import war.webapp.service.UserManager;
 import war.webapp.util.GeneratorToExcel;
 
 public class DutyList extends BasePage implements Serializable {

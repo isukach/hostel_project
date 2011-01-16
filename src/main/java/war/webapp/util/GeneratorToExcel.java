@@ -5,28 +5,29 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Semaphore;
-
-
-
-
-import jxl.*;
-import jxl.format.*;
-import jxl.format.Alignment;
-import jxl.format.Border;
-import jxl.format.BorderLineStyle;
-import jxl.format.VerticalAlignment;
-import jxl.write.*;
-import jxl.write.biff.*;
-import war.webapp.model.DayDuty;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Orientation;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
+import war.webapp.model.DayDuty;
 
 public class GeneratorToExcel{
 
@@ -44,7 +45,6 @@ public class GeneratorToExcel{
 	}
 
 	public GeneratorToExcel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void download(String fileName, HttpServletResponse response, HttpSession session) throws IOException{
@@ -55,7 +55,7 @@ public class GeneratorToExcel{
 		         int pz = fileName.lastIndexOf('/');
 		         String shortFileName=fileName.substring(pz+1);
 		         response.setContentLength((int) file.length());
-		         String mimeType = session.getServletContext().getMimeType(fileName);
+//		         String mimeType = session.getServletContext().getMimeType(fileName);
 		         response.setContentType("application/vnd.ms-excel;");
 		         response.setDateHeader("Expires", System.currentTimeMillis());
 		         response.setHeader("Cache-Control", "must-revalidate");
@@ -71,28 +71,26 @@ public class GeneratorToExcel{
 		                  int len = from.read(bufferFile);
 		                  if (len < 0)
 		                        break;
-		                  out.write(bufferFile, 0, len);
-		         }
-		         out.flush();
-		   } else {
-		        response.getWriter().println("requested file "+fileName + " not found");
-		   }
-		}   finally{
-		            if (from != null) {
-		                    from.close();
-		                    from = null;
-		          }
-		}
-
-	}
+                    out.write(bufferFile, 0, len);
+                }
+                out.flush();
+            } else {
+                response.getWriter().println(
+                        "requested file " + fileName + " not found");
+            }
+        } finally {
+            if (from != null) {
+                from.close();
+                from = null;
+            }
+        }
+    }
 
 	private void createTemplate( WritableSheet sheet, String month, String floor, String starosta, String vospetka) throws WriteException {
-
 		createHeader(sheet, month, floor);
 		createContent(sheet, duties, starosta, vospetka);
 
 	}
-
 
 	private void createHeader(WritableSheet sheet, String month, String floor) throws WriteException{
 
@@ -173,9 +171,7 @@ public class GeneratorToExcel{
 		} catch (RowsExceededException e) {
 			e.printStackTrace();
 		}
-
 	}
-
 
 	private void createContent(WritableSheet sheet, List<DayDuty> duties, String starosta, String vosptka) throws WriteException{
 		WritableFont fontHeader =
@@ -194,16 +190,12 @@ public class GeneratorToExcel{
 		dataFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
 		dataFormat.setWrap(true);
 
-
 		WritableFont fontPData =
 			new WritableFont(WritableFont.TIMES, 14, WritableFont.NO_BOLD);
 		WritableCellFormat pdataFormat = new WritableCellFormat(fontPData);
 
-
-
 		int distCol = 0;
 		int distRow = 10;
-		String empty = "";
 
 		sheet.mergeCells(distCol + 1, distRow, distCol + 3,distRow);
 		sheet.mergeCells(distCol + 4, distRow, distCol + 6,distRow);
@@ -222,7 +214,6 @@ public class GeneratorToExcel{
 		Label hpart6 = new Label(distCol + 4 , distRow + 1, "ФИО", headerFormat);
 		Label hpart7 = new Label(distCol + 5 , distRow + 1, "Группа", headerFormat);
 		Label hpart8 = new Label(distCol + 6 , distRow + 1, "Комната", headerFormat);
-
 
 		int dataRow = distRow + 2;
 
@@ -272,8 +263,6 @@ public class GeneratorToExcel{
 		Label pdata13 = new Label(distCol , dataRow + 4, "Воспитатель общежития №1", pdataFormat);
 		Label pdata21 = new Label(distCol + 4 , dataRow + 4, "    _________" + vosptka, pdataFormat);
 
-
-
 		try {
 			sheet.addCell(hpart03);
 			sheet.addCell(hpart04);
@@ -299,9 +288,6 @@ public class GeneratorToExcel{
 		}
 
 	}
-
-
-
 
 	public void generate(String month, String floor, String starosta, String vosptka) {
 		WorkbookSettings ws = new WorkbookSettings();

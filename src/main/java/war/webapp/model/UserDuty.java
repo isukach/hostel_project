@@ -1,6 +1,5 @@
 package war.webapp.model;
 
-import java.util.Date;
 
 public class UserDuty {
     private int shift;

@@ -48,7 +48,7 @@
         <level value="WARN"/>
     </logger>
    
-    <logger name="org.appfuse">
+    <logger name="war.webapp">
         <level value="DEBUG"/>
     </logger>
 

@@ -1,9 +1,14 @@
 package war.webapp.listener;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.Constants;
-import org.appfuse.service.LookupManager;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.providers.AuthenticationProvider;
@@ -12,11 +17,8 @@ import org.springframework.security.providers.encoding.PasswordEncoder;
 import org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import java.util.HashMap;
-import java.util.Map;
+import war.webapp.Constants;
+import war.webapp.service.LookupManager;
 
 /**
  * <p>StartupListener class used to initialize and database settings

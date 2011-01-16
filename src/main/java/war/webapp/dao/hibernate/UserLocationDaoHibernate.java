@@ -2,11 +2,10 @@ package war.webapp.dao.hibernate;
 
 import java.util.List;
 
-import org.appfuse.dao.hibernate.GenericDaoHibernate;
-import org.appfuse.model.User;
 import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.UserLocationDao;
+import war.webapp.model.User;
 import war.webapp.model.UserLocation;
 
 /**
@@ -28,7 +27,7 @@ public class UserLocationDaoHibernate extends GenericDaoHibernate<UserLocation, 
         return getHibernateTemplate().find("from UserLocation where floor=?", floor);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public UserLocation getByUser(User user) {
         List userLocations = getHibernateTemplate().find("from UserLocation where user_id=?",
                 user.getId());

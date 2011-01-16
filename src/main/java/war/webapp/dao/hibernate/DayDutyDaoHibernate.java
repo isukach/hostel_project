@@ -1,18 +1,13 @@
 package war.webapp.dao.hibernate;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-
 import java.util.List;
 
-import org.appfuse.dao.hibernate.GenericDaoHibernate;
-import org.appfuse.model.User;
 import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.DayDutyDao;
 import war.webapp.model.DayDuty;
-import war.webapp.model.UserLocation;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and retrieve DayDuty objects.
@@ -26,7 +21,6 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         super(DayDuty.class);
     }
 
-    @SuppressWarnings("unchecked")
     public DayDuty loadDayDutyByDateAndFloor(Date date, Integer floor) {
         clearDate(date);
         List dayDuties = getHibernateTemplate().find("from DayDuty where date=? and floor=?",
@@ -38,6 +32,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         }
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, Integer floor) {
         List dayDuties = getHibernateTemplate().find("from DayDuty where floor=?", floor);
         if (dayDuties == null || dayDuties.isEmpty()) {

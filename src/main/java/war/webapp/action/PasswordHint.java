@@ -1,9 +1,10 @@
 package war.webapp.action;
 
-import org.springframework.security.userdetails.UsernameNotFoundException;
-import org.appfuse.model.User;
-import war.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
+import org.springframework.security.userdetails.UsernameNotFoundException;
+
+import war.webapp.model.User;
+import war.webapp.util.RequestUtil;
 
 /**
  * Managed Bean to send password hints to registered users.

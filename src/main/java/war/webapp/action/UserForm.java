@@ -7,14 +7,14 @@ import org.springframework.security.AccessDeniedException;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 
-import org.appfuse.Constants;
-import org.appfuse.model.Role;
-import org.appfuse.model.User;
-import org.appfuse.service.RoleManager;
-import org.appfuse.service.UserExistsException;
-import org.appfuse.util.ConvertUtil;
+import war.webapp.Constants;
+import war.webapp.model.Role;
+import war.webapp.model.User;
 import war.webapp.model.UserLocation;
+import war.webapp.service.RoleManager;
+import war.webapp.service.UserExistsException;
 import war.webapp.service.UserLocationManager;
+import war.webapp.util.ConvertUtil;
 import war.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
 
@@ -227,7 +227,7 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     // Form Controls ==========================================================
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Map<String, String> getAvailableRoles() {
         if (availableRoles == null) {
             List roles = (List) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.appfuse.model.LabelValue;
+import war.webapp.model.LabelValue;
 
 public class CountryModel {
     private Map<String, String> availableCountries;
@@ -65,6 +65,7 @@ public class CountryModel {
      * Class to compare LabelValues using their labels with
      * locale-sensitive behaviour.
      */
+    @SuppressWarnings("rawtypes")
     public class LabelValueComparator implements Comparator {
         private Comparator<Object> c;
 

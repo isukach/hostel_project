@@ -1,6 +1,5 @@
 package war.webapp.dao.hibernate;
 
-import org.appfuse.dao.hibernate.GenericDaoHibernate;
 import org.springframework.stereotype.Repository;
 import war.webapp.dao.MonthDao;
 import war.webapp.model.DutyMonth;
@@ -14,6 +13,7 @@ public class MonthDaoHibernate extends GenericDaoHibernate<DutyMonth, Long> impl
         super(DutyMonth.class);
     }
 
+    @SuppressWarnings("rawtypes")
     public DutyMonth loadMonth(Integer year, Integer month, Integer floor) {
         List months = getHibernateTemplate().find("from DutyMonth where year=? and month=? and floor=?",
                 new Object[]{year, month, floor});

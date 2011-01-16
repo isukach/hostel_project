@@ -11,7 +11,8 @@ import javax.servlet.jsp.tagext.VariableInfo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.Constants;
+
+import war.webapp.Constants;
 
 
 /**
@@ -39,6 +40,7 @@ public class ConstantsTei extends TagExtraInfo {
                 clazz = Constants.class.getName();
             }
 
+            @SuppressWarnings("rawtypes")
             Class c = Class.forName(clazz);
 
             // if no var specified, get all

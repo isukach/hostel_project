@@ -4,13 +4,10 @@
       xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
 
 <f:view>
-<!-- huita -->
-<h:outputLabel value="#{dutyList.dutyList}" rendered="false"/>
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
 <head>
     <title>#{text['mainMenu.title']}</title>
     <meta name="menu" content="MainMenu"/>
-   
     <meta name="heading" content="#{text['mainMenu.heading']}"/>
 </head>
 
@@ -23,12 +20,12 @@
     <li>
         <h:commandLink value="#{text['menu.user']}" action="#{userForm.edit}"/>
     </li>
-   <!-- <li>
+   <li>
         <h:commandLink value="#{text['menu.selectFile']}" action="selectFile"/>
     </li>
     <li>
         <h:commandLink value="Ajax4JSF Demo" action="ajax4jsf"/>
-    </li>-->
+    </li>
 </ul>
 </h:form>
 

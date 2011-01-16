@@ -2,9 +2,7 @@ package war.webapp.service;
 
 import java.util.List;
 
-import org.appfuse.model.User;
-import org.appfuse.service.GenericManager;
-
+import war.webapp.model.User;
 import war.webapp.model.UserLocation;
 
 /**
