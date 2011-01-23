@@ -12,10 +12,12 @@ import java.util.concurrent.Semaphore;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
@@ -23,41 +25,43 @@ import org.springframework.security.context.SecurityContext;
 
 import war.webapp.model.DayDuty;
 import war.webapp.model.DutyMonth;
+import war.webapp.model.EmptyUser;
+import war.webapp.model.EmptyUserLocation;
 import war.webapp.model.UserDuty;
 import war.webapp.model.UserLocation;
 import war.webapp.service.DayDutyManager;
 import war.webapp.service.MonthManager;
 import war.webapp.service.UserLocationManager;
 import war.webapp.util.GeneratorToExcel;
+import war.webapp.util.MonthHelper;
 
 public class DutyList extends BasePage implements Serializable {
 	private static final long serialVersionUID = 911159310602744018L;
 
 	public static final int MIN_FLOOR = 2;
 	public static final int MAX_FLOOR = 12;
+	
+	public static final String ROLE_STAROSTA = "ROLE_STAROSTA";
+	public static final String FIRST_SHIFT = "firstShift";
+	public static final String SECOND_SHIFT = "secondShift";
+	public static final String SELECT_USER_STRING = "Select User";
 
 	private DayDutyManager dayDutyManager;
 	private UserLocationManager userLocationManager;
 	private MonthManager monthManager;
 	private UserManager userManager;
+	
 	private User user;
 	private Integer month;
 	private String monthString;
 	private Integer floor;
 	private boolean firstBoot = true;
-	private HtmlPanelGrid updateForm;
+	
 	private String selectedUser;
-	private UserDuty selectedUserDuty;
-
-	public boolean isUpdateFormVisible() {
-		return upDateFormVisible;
-	}
-
-	public void setUpdateFormVisible(boolean updateFormVisible) {
-		upDateFormVisible = updateFormVisible;
-	}
-
-	private boolean upDateFormVisible = false;
+	private UserLocation userLocation;	
+	private List<SelectItem> floorUsersList;
+	
+	private List<DayDuty> dutyList;
 
 	public DutyList() {
 		user = (User) ((SecurityContext) getSession()
@@ -65,123 +69,120 @@ public class DutyList extends BasePage implements Serializable {
 						HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY))
 				.getAuthentication().getPrincipal();
 		setSortColumn("dayOfWeek");
-		setMonth(Calendar.getInstance().get(Calendar.MONTH));
+		setMonth(Calendar.getInstance().get(Calendar.MONTH));		
 	}
 
 	public List<DayDuty> getDutyList() {
 		if (getFloor() == null) {
 			setFloor(userLocationManager.getByUser(user).getFloor());
 		}
-		List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(month,
-				floor);
-		for (DayDuty duty : d) {
-			if (duty.getFirstEmpty()) {
-				duty.setFirstUser(getEmptyUser());
-				duty.setFirstUserLocation(getEmptyLocation());
+		if (dutyList == null) {
+			List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(month,
+					floor);
+			for (DayDuty duty : d) {
+				if (duty.getFirstEmpty()) {
+					duty.setFirstUser(getEmptyUser());
+					duty.setFirstUserLocation(getEmptyLocation());
+				}
+				if (duty.getSecondEmpty()) {
+					duty.setSecondUser(getEmptyUser());
+					duty.setSecondUserLocation(getEmptyLocation());
+				}
 			}
-			if (duty.getSecondEmpty()) {
-				duty.setSecondUser(getEmptyUser());
-				duty.setSecondUserLocation(getEmptyLocation());
+			List<DayDuty> result = getEmptyDutyList();
+			if (d != null) {
+				for (DayDuty dayDuty : d) {
+					result.set(dayDuty.getDate().getDate() - 1, dayDuty);
+				}
 			}
+			dutyList = result;
 		}
-		List<DayDuty> result = getEmptyDutyList();
-		if (d != null) {
-			for (DayDuty dayDuty : d) {
-				result.set(dayDuty.getDate().getDate() - 1, dayDuty);
-			}
-		}
-		return result;
-	}
-
-	public void showUpdateForm(ActionEvent e) throws Exception {
-		upDateFormVisible = true;
-
-		String shift = ((HtmlCommandLink) e.getComponent()).getId();
-
-		Date date = getDate(e);
-		DayDuty selectedDayDuty = getDayDutyManager()
-				.loadDayDutyByDateAndFloor(date, floor);
-		if (selectedDayDuty == null) {
-			selectedDayDuty = new DayDuty();
-			selectedDayDuty.setDate(date);
-			selectedDayDuty.setFloor(floor);
-		}
-
-		if (shift.equals("first"))
-			selectedUserDuty = new UserDuty(1, selectedDayDuty);
-		else
-			selectedUserDuty = new UserDuty(2, selectedDayDuty);
-	}
-
-	public void saveSelectedUser() {
-		upDateFormVisible = false;
-
-		String selectedUserName = selectedUser.split(" ")[0];
-		User user = userManager.getUserByUsername(selectedUserName);
-		DayDuty selectedDayDuty = selectedUserDuty.getDayDuty();
-		UserLocation ul = userLocationManager.getByUser(user);
-		if (selectedUserDuty.getShift() == 1) {
-			selectedDayDuty.setFirstUser(user);
-			selectedDayDuty.setFirstUserLocation(ul);
-		} else {
-			selectedDayDuty.setSecondUser(user);
-			selectedDayDuty.setSecondUserLocation(ul);
-		}
-		dayDutyManager.saveDayDuty(selectedDayDuty);
+		return dutyList;
 	}
 
 	private User getEmptyUser() {
-		// her
-		User user = new User();
-		user.setFirstName("");
-		user.setLastName("");
-		return user;
+		return new EmptyUser();
 	}
 
 	private UserLocation getEmptyLocation() {
-		UserLocation ul = new UserLocation();
-		ul.setRoom("");
-		ul.setUniversityGroup("");
-		return ul;
+		return new EmptyUserLocation();
 	}
 
-	public List<SelectItem> getUsersByStarostaFloor() {
-		user = (User) ((SecurityContext) getSession()
-				.getAttribute(
-						HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY))
-				.getAuthentication().getPrincipal();
-		UserLocation starostaLocation = userLocationManager.getByUser(user);
-
-		List<SelectItem> users = new ArrayList<SelectItem>();
-		users.add(new SelectItem("Select user"));
-
-		int starostaFloor = userLocationManager.getByUser(user).getFloor();
-		if (starostaFloor == floor) {
-			List<UserLocation> userLocations = userLocationManager
-					.getByFloor(starostaFloor);
-			userLocations.remove(starostaLocation);
-
+	public List<SelectItem> getUsersByStarostaFloor() {		
+		if (isOnOwnFloor() && isUserStarosta() && floorUsersList == null) {
+			floorUsersList = new ArrayList<SelectItem>();
+			floorUsersList.add(new SelectItem(SELECT_USER_STRING));
+			
+			List<UserLocation> userLocations = userLocationManager.getByFloor(floor);
+			userLocations.remove(getUserLocation());
 			for (UserLocation userLocation : userLocations) {
-				users.add(new SelectItem(userLocation.getUser().getUsername()
-						+ " " + userLocation.getUser().getFirstName() + " "
-						+ userLocation.getUser().getLastName()));
+				floorUsersList.add(new SelectItem(userLocation.getUser().getUsername()
+								   + " " + userLocation.getUser().getFirstName() + " "
+						           + userLocation.getUser().getLastName()));
 			}
 		}
-		return users;
+		return floorUsersList;
+	}
+	
+	public void delFirstUser(ActionEvent e) {
+		int index = getTableRowNumber(e);
+		User emptyUser = getEmptyUser();
+		UserLocation emptyUserLocation = getEmptyLocation();
+		DayDuty dayDuty = dutyList.get(index);
+		dayDuty.setFirstUser(emptyUser);
+		dayDuty.setFirstUserLocation(emptyUserLocation);
+		return;
+	}
+	
+	public void delSecondUser(ActionEvent e) {
+		int index = getTableRowNumber(e);
+		User emptyUser = getEmptyUser();
+		UserLocation emptyUserLocation = getEmptyLocation();
+		DayDuty dayDuty = dutyList.get(index);
+		dayDuty.setSecondUser(emptyUser);
+		dayDuty.setSecondUserLocation(emptyUserLocation);
+		return;
 	}
 
-	public boolean isStarostaFloor() {
-		if (user == null)
-			user = (User) ((SecurityContext) getSession()
-					.getAttribute(
-							HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY))
-					.getAuthentication().getPrincipal();
-		UserLocation starostaLocation = userLocationManager.getByUser(user);
-		if (starostaLocation.getFloor().equals(Integer.valueOf(floor))) {
-			return true;
-		} else {
-			return false;
+	public void floorUserChanged(ValueChangeEvent e) {		
+		String newValue = (String)e.getNewValue();
+		
+		if (newValue.equals(SELECT_USER_STRING))
+			return;
+		
+		String userName = newValue.split(" ")[0];
+		User userToWriteOnDuty = userManager.getUserByUsername(userName);
+		UserLocation userToWriteLocation = userLocationManager.getByUser(userToWriteOnDuty);
+		
+		Date date = getDate(e);
+		DayDuty dayDuty = dayDutyManager.loadDayDutyByDateAndFloor(date, floor);
+		if (dayDuty == null) {
+			dayDuty = new DayDuty();
+			dayDuty.setDate(date);
+			dayDuty.setFloor(floor);
 		}
+		
+		String shift = e.getComponent().getId();
+		if (shift.equals(FIRST_SHIFT)) {
+			dayDuty.setFirstUser(userToWriteOnDuty);
+			dayDuty.setFirstUserLocation(userToWriteLocation);
+		} else if (shift.equals(SECOND_SHIFT)){
+			dayDuty.setSecondUser(userToWriteOnDuty);
+			dayDuty.setSecondUserLocation(userToWriteLocation);
+		}
+		
+		dayDutyManager.saveDayDuty(dayDuty);
+		dutyList = null;
+		
+	}
+
+	public boolean isUserStarosta() {
+		return user.getRoles().contains(new Role(ROLE_STAROSTA));
+	}
+	
+	public int getTableRowNumber(FacesEvent e) {
+		return Integer.valueOf(e.getComponent()
+				.getClientId(getFacesContext()).split(":")[2]);
 	}
 
 	public List<UserDuty> getUserDuties() throws Exception {
@@ -200,13 +201,13 @@ public class DutyList extends BasePage implements Serializable {
 	}
 
 	public void writeFirstOnDuty(ActionEvent e) {
-		if (!onOwnFloor() || !isMonthAvailable()) {
+		if (!isOnOwnFloor() || !isMonthAvailable()) {
 			return;
 		}
 		Date date = getDate(e);
 		DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date,
 				floor);
-		// TODO ����������� ����������
+		
 		if (dayDuty == null) {
 			dayDuty = new DayDuty();
 			dayDuty.setDate(date);
@@ -222,7 +223,7 @@ public class DutyList extends BasePage implements Serializable {
 	}
 
 	public void writeSecondOnDuty(ActionEvent e) {
-		if (!onOwnFloor() || !isMonthAvailable()) {
+		if (!isOnOwnFloor() || !isMonthAvailable()) {
 			return;
 		}
 		Date date = getDate(e);
@@ -243,8 +244,7 @@ public class DutyList extends BasePage implements Serializable {
 	}
 
 	public void deleteDuty(ActionEvent e) throws Exception {
-		int index = Integer.valueOf(e.getComponent()
-				.getClientId(getFacesContext()).split(":")[2]);
+		int index = getTableRowNumber(e);
 		try {
 			UserDuty userDuty = getUserDuties().get(index);
 			if (userDuty.getShift() == 1) {
@@ -255,23 +255,14 @@ public class DutyList extends BasePage implements Serializable {
 				userDuty.getDayDuty().setSecondUser(null);
 				userDuty.getDayDuty().setSecondUserLocation(null);
 			}
-			// dayDutyManager.saveDayDuty(userDuty.getDayDuty());
+			
 			dayDutyManager.deleteDayDuty(userDuty.getDayDuty());
 		} catch (Exception ex) {
 			throw new Exception(ex);
 		}
 	}
 
-	private Date getDate(ActionEvent e) {
-		String id = e.getComponent().getClientId(getFacesContext());
-		int day = Integer.parseInt(id.split(":")[2]) + 1;
-		Calendar date = Calendar.getInstance();
-		date.set(Calendar.MONTH, month);
-		date.set(Calendar.DAY_OF_MONTH, day);
-		return date.getTime();
-	}
-
-	private Date getDate(ValueChangeEvent e) {
+	private Date getDate(FacesEvent e) {
 		String id = e.getComponent().getClientId(getFacesContext());
 		int day = Integer.parseInt(id.split(":")[2]) + 1;
 		Calendar date = Calendar.getInstance();
@@ -282,22 +273,18 @@ public class DutyList extends BasePage implements Serializable {
 
 	private List<DayDuty> getEmptyDutyList() {
 		List<DayDuty> result = new ArrayList<DayDuty>();
-		for (int i = 1; i <= getDaysNum(month + 1); ++i) {
+		for (int i = 1; i <= MonthHelper.getDaysNum(month + 1); ++i) {
 			Date date = new Date();
 			date.setMonth(month);
 			date.setDate(i);
 			DayDuty dayDuty = new DayDuty();
 			dayDuty.setDate(date);
 
-			User user = new User();
-			user.setFirstName("");
-			user.setLastName("");
+			User user = getEmptyUser();
 			dayDuty.setFirstUser(user);
 			dayDuty.setSecondUser(user);
 
-			UserLocation ul = new UserLocation();
-			ul.setRoom("");
-			ul.setUniversityGroup("");
+			UserLocation ul = getEmptyLocation();
 			dayDuty.setFirstUserLocation(ul);
 			dayDuty.setSecondUserLocation(ul);
 
@@ -308,7 +295,7 @@ public class DutyList extends BasePage implements Serializable {
 
 	public List<SelectItem> getMonthItems() {
 		ArrayList<SelectItem> items = new ArrayList<SelectItem>();
-		String[] months = getMonths();
+		String[] months = MonthHelper.getMonths(getBundle());
 		for (int i = 0; i < months.length; ++i) {
 			items.add(new SelectItem(months[i]));
 		}
@@ -317,7 +304,8 @@ public class DutyList extends BasePage implements Serializable {
 
 	public void monthSelectionChanged(ValueChangeEvent e) {
 		String newValue = (String) e.getNewValue();
-		setMonth(getMonth(newValue));
+		setMonth(MonthHelper.getMonth(newValue, getBundle()));
+		dutyList = null;
 	}
 
 	public List<SelectItem> getFloors() {
@@ -330,6 +318,7 @@ public class DutyList extends BasePage implements Serializable {
 
 	public void floorChanged(ValueChangeEvent e) {
 		setFloor((Integer) e.getNewValue());
+		dutyList = null;
 	}
 
 	public void print(ActionEvent e) {
@@ -360,7 +349,6 @@ public class DutyList extends BasePage implements Serializable {
 	}
 
 	public void closeOpen(ActionEvent e) {
-		// TODO
 		Integer year = Calendar.getInstance().get(Calendar.YEAR);
 		DutyMonth dutyMonth = monthManager.loadMonth(year, month, floor);
 		if (dutyMonth == null) {
@@ -376,141 +364,12 @@ public class DutyList extends BasePage implements Serializable {
 	}
 
 	public boolean isMonthAvailable() {
-		// TODO
 		Integer year = Calendar.getInstance().get(Calendar.YEAR);
 		DutyMonth dutyMonth = monthManager.loadMonth(year, month, floor);
 		if (dutyMonth == null) {
 			return false;
 		}
 		return dutyMonth.getAvailable();
-	}
-
-	private String[] getMonths() {
-		return new String[] { getBundle().getString("month.jan"),
-				getBundle().getString("month.feb"),
-				getBundle().getString("month.mar"),
-				getBundle().getString("month.apr"),
-				getBundle().getString("month.may"),
-				getBundle().getString("month.jun"),
-				getBundle().getString("month.jul"),
-				getBundle().getString("month.aug"),
-				getBundle().getString("month.sep"),
-				getBundle().getString("month.oct"),
-				getBundle().getString("month.nov"),
-				getBundle().getString("month.dec"), };
-	}
-
-	private int getMonth(String monthString) {
-		if (monthString.equals(getBundle().getString("month.jan"))) {
-			return 0;
-		}
-		if (monthString.equals(getBundle().getString("month.feb"))) {
-			return 1;
-		}
-		if (monthString.equals(getBundle().getString("month.mar"))) {
-			return 2;
-		}
-		if (monthString.equals(getBundle().getString("month.apr"))) {
-			return 3;
-		}
-		if (monthString.equals(getBundle().getString("month.may"))) {
-			return 4;
-		}
-		if (monthString.equals(getBundle().getString("month.jun"))) {
-			return 5;
-		}
-		if (monthString.equals(getBundle().getString("month.jul"))) {
-			return 6;
-		}
-		if (monthString.equals(getBundle().getString("month.aug"))) {
-			return 7;
-		}
-		if (monthString.equals(getBundle().getString("month.sep"))) {
-			return 8;
-		}
-		if (monthString.equals(getBundle().getString("month.oct"))) {
-			return 9;
-		}
-		if (monthString.equals(getBundle().getString("month.nov"))) {
-			return 10;
-		}
-		if (monthString.equals(getBundle().getString("month.dec"))) {
-			return 11;
-		}
-		return 0;
-	}
-
-	private String getMonthString(int month) {
-		if (month == 0) {
-			return getBundle().getString("month.jan");
-		}
-		if (month == 1) {
-			return getBundle().getString("month.feb");
-		}
-		if (month == 2) {
-			return getBundle().getString("month.mar");
-		}
-		if (month == 3) {
-			return getBundle().getString("month.apr");
-		}
-		if (month == 4) {
-			return getBundle().getString("month.may");
-		}
-		if (month == 5) {
-			return getBundle().getString("month.jun");
-		}
-		if (month == 6) {
-			return getBundle().getString("month.jul");
-		}
-		if (month == 7) {
-			return getBundle().getString("month.aug");
-		}
-		if (month == 8) {
-			return getBundle().getString("month.sep");
-		}
-		if (month == 9) {
-			return getBundle().getString("month.oct");
-		}
-		if (month == 10) {
-			return getBundle().getString("month.nov");
-		}
-		if (month == 11) {
-			return getBundle().getString("month.dec");
-		}
-		return null;
-	}
-
-	public int getDaysNum(int month) {
-		switch (month) {
-		case 1:
-			return 31;
-		case 2:
-			if (Calendar.getInstance().get(Calendar.YEAR) % 4 == 0) {
-				return 29;
-			}
-			return 28;
-		case 3:
-			return 31;
-		case 4:
-			return 30;
-		case 5:
-			return 31;
-		case 6:
-			return 30;
-		case 7:
-			return 31;
-		case 8:
-			return 31;
-		case 9:
-			return 30;
-		case 10:
-			return 31;
-		case 11:
-			return 30;
-		case 12:
-			return 31;
-		}
-		return 0;
 	}
 
 	public DayDutyManager getDayDutyManager() {
@@ -523,7 +382,7 @@ public class DutyList extends BasePage implements Serializable {
 
 	public void setMonth(Integer month) {
 		this.month = month;
-		monthString = getMonthString(month);
+		monthString = MonthHelper.getMonthString(month, getBundle());
 	}
 
 	public Integer getFloor() {
@@ -534,8 +393,8 @@ public class DutyList extends BasePage implements Serializable {
 		return floor;
 	}
 
-	public boolean onOwnFloor() {
-		return userLocationManager.getByUser(user).getFloor()
+	public boolean isOnOwnFloor() {
+		return getUserLocation().getFloor()
 				.equals(getFloor());
 	}
 
@@ -571,12 +430,12 @@ public class DutyList extends BasePage implements Serializable {
 		this.monthString = monthString;
 	}
 
-	public HtmlPanelGrid getUpdateForm() {
-		return updateForm;
+	public UserManager getUserManager() {
+		return userManager;
 	}
 
-	public void setUpdateForm(HtmlPanelGrid updateForm) {
-		this.updateForm = updateForm;
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
 	}
 
 	public String getSelectedUser() {
@@ -587,11 +446,9 @@ public class DutyList extends BasePage implements Serializable {
 		this.selectedUser = selectedUser;
 	}
 
-	public UserManager getUserManager() {
-		return userManager;
-	}
-
-	public void setUserManager(UserManager userManager) {
-		this.userManager = userManager;
+	public UserLocation getUserLocation() {
+		if (userLocation == null)
+			userLocation = userLocationManager.getByUser(user);
+		return userLocation;
 	}
 }

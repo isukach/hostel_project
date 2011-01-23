@@ -16,13 +16,6 @@
     <h:form>
         <ui:include src="/common/month.xhtml"/>
         <ui:include src="/common/manageDutyButtons.xhtml"/>
-        <h:panelGroup columns="3" rendered="#{dutyList.updateFormVisible}">
-            <h:outputText value="Select user:"/>
-            <h:selectOneMenu value="#{dutyList.selectedUser}" id="selectedUser">
-                <f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
-            </h:selectOneMenu>
-            <h:commandButton value="Save" action="#{dutyList.saveSelectedUser}"/>
-        </h:panelGroup>
         <t:dataTable id="duties" var="duty" style="margin-top: 10px"
                      value="#{dutyList.dutyList}" rows="31"
                      styleClass="scrollerTable table"
@@ -68,9 +61,14 @@
                         <t:outputText value="#{text['duty.firstShift']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{duty.firstUser.lastName}"/>
-                <h:outputText rendered="#{!dutyList.starostaFloor}" value="Not Allowed"/>
-                <h:commandLink rendered="#{dutyList.starostaFloor}" id="first" value="Edit" actionListener="#{dutyList.showUpdateForm}"/>
+				<h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
+					<h:commandLink id="firstShiftChange" rendered="#{!empty duty.firstUser.firstName}" actionListener="#{dutyList.delFirstUser}"
+						value="#{duty.firstUser.firstName} #{duty.firstUser.lastName}"/>
+            		<h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}" onchange="submit();"
+            			valueChangeListener="#{dutyList.floorUserChanged}">
+                		<f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
+            		</h:selectOneMenu>
+        		</h:panelGroup>
             </t:column>
 
             <t:column>
@@ -79,11 +77,17 @@
                         <t:outputText value="#{text['duty.secondShift']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{duty.secondUser.lastName}"/>
-                <h:outputText rendered="#{!dutyList.starostaFloor}" value="Not Allowed"/>
-                <h:commandLink rendered="#{dutyList.starostaFloor}" id="second" value="Edit" actionListener="#{dutyList.showUpdateForm}"/>
+				<h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
+					<h:commandLink id="secondShiftChange" rendered="#{!empty duty.secondUser.firstName}" actionListener="#{dutyList.delSecondUser}"
+						value="#{duty.secondUser.firstName} #{duty.secondUser.lastName}"/>
+            		<h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}" onchange="submit();"
+            			valueChangeListener="#{dutyList.floorUserChanged}">
+                		<f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
+            		</h:selectOneMenu>
+        		</h:panelGroup>
             </t:column>
         </t:dataTable>
+       
     </h:form>
 </f:view>
 </html>
