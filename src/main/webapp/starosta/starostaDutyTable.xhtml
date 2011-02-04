@@ -62,7 +62,7 @@
                     </t:commandSortHeader>
                 </f:facet>
 				<h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
-					<h:commandLink id="firstShiftChange" rendered="#{!empty duty.firstUser.firstName}" actionListener="#{dutyList.delFirstUser}"
+					<h:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}" actionListener="#{dutyList.deleteUser}"
 						value="#{duty.firstUser.firstName} #{duty.firstUser.lastName}"/>
             		<h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}" onchange="submit();"
             			valueChangeListener="#{dutyList.floorUserChanged}">
@@ -78,7 +78,7 @@
                     </t:commandSortHeader>
                 </f:facet>
 				<h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
-					<h:commandLink id="secondShiftChange" rendered="#{!empty duty.secondUser.firstName}" actionListener="#{dutyList.delSecondUser}"
+					<h:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}" actionListener="#{dutyList.deleteUser}"
 						value="#{duty.secondUser.firstName} #{duty.secondUser.lastName}"/>
             		<h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}" onchange="submit();"
             			valueChangeListener="#{dutyList.floorUserChanged}">

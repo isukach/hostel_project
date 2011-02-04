@@ -44,6 +44,8 @@ public class DutyList extends BasePage implements Serializable {
 	public static final String ROLE_STAROSTA = "ROLE_STAROSTA";
 	public static final String FIRST_SHIFT = "firstShift";
 	public static final String SECOND_SHIFT = "secondShift";
+	public static final String FIRST_SHIFT_USER = "firstShiftUser";
+	public static final String SECOND_SHIFT_USER = "secondShiftUser";
 	public static final String SELECT_USER_STRING = "Select User";
 
 	private DayDutyManager dayDutyManager;
@@ -124,23 +126,18 @@ public class DutyList extends BasePage implements Serializable {
 		return floorUsersList;
 	}
 	
-	public void delFirstUser(ActionEvent e) {
+	public void deleteUser(ActionEvent e) {
 		int index = getTableRowNumber(e);
 		User emptyUser = getEmptyUser();
 		UserLocation emptyUserLocation = getEmptyLocation();
 		DayDuty dayDuty = dutyList.get(index);
-		dayDuty.setFirstUser(emptyUser);
-		dayDuty.setFirstUserLocation(emptyUserLocation);
-		return;
-	}
-	
-	public void delSecondUser(ActionEvent e) {
-		int index = getTableRowNumber(e);
-		User emptyUser = getEmptyUser();
-		UserLocation emptyUserLocation = getEmptyLocation();
-		DayDuty dayDuty = dutyList.get(index);
-		dayDuty.setSecondUser(emptyUser);
-		dayDuty.setSecondUserLocation(emptyUserLocation);
+		if (e.getComponent().getId().equals(FIRST_SHIFT_USER)) {
+			dayDuty.setFirstUser(emptyUser);
+			dayDuty.setFirstUserLocation(emptyUserLocation);
+		} else if (e.getComponent().getId().equals(SECOND_SHIFT_USER)) {
+			dayDuty.setSecondUser(emptyUser);
+			dayDuty.setSecondUserLocation(emptyUserLocation);
+		}
 		return;
 	}
 
