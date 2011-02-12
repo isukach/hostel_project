@@ -17,18 +17,10 @@
         <license>
         </license>
     </licenses>
-
-    <scm>
-    </scm>
-
+    
     <issueManagement>
     </issueManagement>
 
-    <developers>
-        <developer>
-        </developer>
-    </developers>
-    
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
@@ -164,7 +156,6 @@
     </build>
 
     <repositories>
-        <repository><distributionManagement>
         <repository>
             <id>appfuse-releases</id>
             <name>AppFuse Release Repository</name>
