@@ -72,7 +72,7 @@ public final class RequestUtil {
      *
      * @param response the current web response
      * @param cookie the cookie to delete
-     * @param path the path on which the cookie was set (i.e. /appfuse)
+     * @param path the path on which the cookie was set (i.e. /foo)
      */
     public static void deleteCookie(HttpServletResponse response,
                                     Cookie cookie, String path) {

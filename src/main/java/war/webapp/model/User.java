@@ -30,7 +30,7 @@ import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
 
 /**
- * This class represents the basic "user" object in AppFuse that allows for authentication
+ * This class represents the basic "user" object in Hostel Duty that allows for authentication
  * and user management.  It implements Acegi Security's UserDetails interface.
  *
  */

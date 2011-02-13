@@ -14,6 +14,3 @@
     <!-- <p><fmt:message key="webapp.tagline"/></p> -->
 </div>
 <hr />
-
-<%-- Put constants into request scope --%>
-<appfuse:constants scope="request"/>
