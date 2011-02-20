@@ -1,94 +1,3 @@
-<<<<<<< HEAD:src/main/webapp/floorhead/floorheadDutyTable.xhtml
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
-
-<f:view>
-    <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
-    <head>
-        <title>#{text['mainMenu.title']}</title>
-        <meta name="heading" content="#{text['showTable.heading']}"/>
-        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/hostel.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/jscal2.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/border-radius.css"/>
-    </head>
-    <h:form>
-        <ui:include src="/common/month.xhtml"/>
-        <ui:include src="/common/manageDutyButtons.xhtml"/>
-        <h:panelGroup columns="3" rendered="#{dutyList.updateFormVisible}">
-            <h:outputText value="Select user:"/>
-            <h:selectOneMenu value="#{dutyList.selectedUser}" id="selectedUser">
-                <f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
-            </h:selectOneMenu>
-            <h:commandButton value="Save" action="#{dutyList.saveSelectedUser}"/>
-        </h:panelGroup>
-        <t:dataTable id="duties" var="duty" style="margin-top: 10px"
-                     value="#{dutyList.dutyList}" rows="31"
-                     styleClass="scrollerTable table"
-                     headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
-                     columnClasses="standardTable_Column, standardTable_Column, standardTable_ColumnCentered, standardTable_ColumnCentered">
-
-            <t:column>
-                <f:facet name="header">
-                    <t:commandSortHeader columnName="day" arrow="false">
-                        <t:outputText value="#{text['duty.day']}"/>
-                    </t:commandSortHeader>
-                </f:facet>
-                <h:outputText value="#{duty.date.date}"/>
-            </t:column>
-
-            <t:column>
-                <f:facet name="header">
-                    <t:commandSortHeader columnName="weekDay" arrow="false">
-                        <t:outputText value="#{text['duty.dayOfWeek']}"/>
-                    </t:commandSortHeader>
-                </f:facet>
-                <h:outputText value="#{text['week.day1']}" rendered="#{duty.date.day == 1}"/>
-                <h:outputText value="#{text['week.day2']}" rendered="#{duty.date.day == 2}"/>
-                <h:outputText value="#{text['week.day3']}" rendered="#{duty.date.day == 3}"/>
-                <h:outputText value="#{text['week.day4']}" rendered="#{duty.date.day == 4}"/>
-                <h:outputText value="#{text['week.day5']}" rendered="#{duty.date.day == 5}"/>
-                <h:outputText value="#{text['week.day6']}" rendered="#{duty.date.day == 6}"/>
-                <h:outputText value="#{text['week.day7']}" rendered="#{duty.date.day == 0}"/>
-            </t:column>
-
-            <t:column>
-                <f:facet name="header">
-                    <t:commandSortHeader columnName="studyWeek" arrow="false">
-                        <t:outputText value="#{text['duty.studyWeek']}"/>
-                    </t:commandSortHeader>
-                </f:facet>
-                <h:outputText value="#{duty.studyWeek}"/>
-            </t:column>
-
-            <t:column>
-                <f:facet name="header">
-                    <t:commandSortHeader columnName="firstShift" arrow="false">
-                        <t:outputText value="#{text['duty.firstShift']}"/>
-                    </t:commandSortHeader>
-                </f:facet>
-                <h:outputText value="#{duty.firstUser.lastName}"/>
-                <h:outputText rendered="#{!dutyList.starostaFloor}" value="Not Allowed"/>
-                <h:commandLink rendered="#{dutyList.starostaFloor}" id="first" value="Edit" actionListener="#{dutyList.showUpdateForm}"/>
-            </t:column>
-
-            <t:column>
-                <f:facet name="header">
-                    <t:commandSortHeader columnName="secondShift" arrow="false">
-                        <t:outputText value="#{text['duty.secondShift']}"/>
-                    </t:commandSortHeader>
-                </f:facet>
-                <h:outputText value="#{duty.secondUser.lastName}"/>
-                <h:outputText rendered="#{!dutyList.starostaFloor}" value="Not Allowed"/>
-                <h:commandLink rendered="#{dutyList.starostaFloor}" id="second" value="Edit" actionListener="#{dutyList.showUpdateForm}"/>
-            </t:column>
-        </t:dataTable>
-    </h:form>
-</f:view>
-</html>
-=======
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
@@ -152,14 +61,14 @@
                         <t:outputText value="#{text['duty.firstShift']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-				<h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
-					<h:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}" actionListener="#{dutyList.deleteUser}"
-						value="#{duty.firstUser.firstName} #{duty.firstUser.lastName}"/>
-            		<h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}" onchange="submit();"
-            			valueChangeListener="#{dutyList.floorUserChanged}">
-                		<f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
-            		</h:selectOneMenu>
-        		</h:panelGroup>
+                <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
+                    <h:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}" actionListener="#{dutyList.deleteUser}"
+                        value="#{duty.firstUser.firstName} #{duty.firstUser.lastName}"/>
+                    <h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}" onchange="submit();"
+                        valueChangeListener="#{dutyList.floorUserChanged}">
+                        <f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
             </t:column>
 
             <t:column>
@@ -168,18 +77,17 @@
                         <t:outputText value="#{text['duty.secondShift']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-				<h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
-					<h:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}" actionListener="#{dutyList.deleteUser}"
-						value="#{duty.secondUser.firstName} #{duty.secondUser.lastName}"/>
-            		<h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}" onchange="submit();"
-            			valueChangeListener="#{dutyList.floorUserChanged}">
-                		<f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
-            		</h:selectOneMenu>
-        		</h:panelGroup>
+                <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
+                    <h:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}" actionListener="#{dutyList.deleteUser}"
+                        value="#{duty.secondUser.firstName} #{duty.secondUser.lastName}"/>
+                    <h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}" onchange="submit();"
+                        valueChangeListener="#{dutyList.floorUserChanged}">
+                        <f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
             </t:column>
         </t:dataTable>
        
     </h:form>
 </f:view>
 </html>
->>>>>>> b54b107a77ca36a45fa20d0cad54bafaafd4072b:src/main/webapp/starosta/starostaDutyTable.xhtml

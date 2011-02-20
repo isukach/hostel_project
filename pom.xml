@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>hostel</groupId>                                              
+    <groupId>hostel</groupId>
     <artifactId>hostel_project</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
@@ -12,7 +12,7 @@
     <prerequisites>
         <maven>2.2.1</maven>
     </prerequisites>
-    
+
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
@@ -86,14 +86,14 @@
                 </configuration>
             </plugin>
 
-            
-           
+
+
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.21</version>
                 <configuration>
-             		<stopPort>4000</stopPort>
+                    <stopPort>4000</stopPort>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <scanTargetPatterns>
@@ -199,13 +199,13 @@
             <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>${commons.lang.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core-tiger</artifactId>
@@ -235,54 +235,54 @@
             <version>2.5.6</version>
         </dependency>
         <dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-dao</artifactId>
-		    <version>2.0.8</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-dao</artifactId>
+            <version>2.0.8</version>
         </dependency>
         <dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-orm</artifactId>
-		    <version>2.5.6</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>2.5.6</version>
         </dependency>
         <dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-jdbc</artifactId>
-		    <version>2.5.6</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>2.5.6</version>
         </dependency>
         <dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-hibernate</artifactId>
-		    <version>1.2.9</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-hibernate</artifactId>
+            <version>1.2.9</version>
         </dependency>
         <dependency>
-		    <groupId>javax.persistence</groupId>
-		    <artifactId>persistence-api</artifactId>
-		    <version>1.0</version>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
-		    <groupId>org.compass-project</groupId>
-		    <artifactId>compass</artifactId>
-		    <version>2.2.0</version>
+            <groupId>org.compass-project</groupId>
+            <artifactId>compass</artifactId>
+            <version>2.2.0</version>
         </dependency>
         <dependency>
-		    <groupId>commons-dbcp</groupId>
-		    <artifactId>commons-dbcp</artifactId>
-		    <version>1.4</version>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
         </dependency>
         <dependency>
-		    <groupId>struts-menu</groupId>
-		    <artifactId>struts-menu</artifactId>
-		    <version>2.4.3</version>
+            <groupId>struts-menu</groupId>
+            <artifactId>struts-menu</artifactId>
+            <version>2.4.3</version>
         </dependency>
         <dependency>
-		    <groupId>org.directwebremoting</groupId>
-		    <artifactId>dwr</artifactId>
-		    <version>2.0.3</version>
+            <groupId>org.directwebremoting</groupId>
+            <artifactId>dwr</artifactId>
+            <version>2.0.3</version>
         </dependency>
         <dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-log4j12</artifactId>
-		    <version>1.6.1</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>javassist</groupId>
@@ -290,32 +290,32 @@
             <version>3.4.GA</version>
         </dependency>
         <dependency>
-		    <groupId>net.sf.ehcache</groupId>
-		    <artifactId>ehcache-web</artifactId>
-		    <version>2.0.3</version>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-web</artifactId>
+            <version>2.0.3</version>
         </dependency>
         <dependency>
-		    <groupId>org.tuckey</groupId>
-		    <artifactId>urlrewritefilter</artifactId>
-		    <version>3.1.0</version>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
-		    <groupId>opensymphony</groupId>
-		    <artifactId>sitemesh</artifactId>
-		    <version>2.4.2</version>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>2.4.2</version>
         </dependency>
         <dependency>
-		    <groupId>jstl</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.1.2</version>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.1.2</version>
         </dependency>
-        
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
@@ -357,7 +357,8 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- Explicitly include latest version of wstx-asl to prevent downstream issues with Tapestry -->
+        <!-- Explicitly include latest version of wstx-asl to prevent downstream 
+            issues with Tapestry -->
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
             <artifactId>woodstox-core-asl</artifactId>
@@ -425,7 +426,7 @@
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
@@ -504,7 +505,7 @@
         <facelets.version>1.1.14</facelets.version>
         <myfaces.version>2.0.0</myfaces.version>
         <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
-        
+
         <commons.lang.version>2.4</commons.lang.version>
         <cxf.version>2.2.4</cxf.version>
         <ehcache.version>1.7.0</ehcache.version>
@@ -534,7 +535,7 @@
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8</jdbc.url>
         <jdbc.username>root</jdbc.username>
-        <jdbc.password>123</jdbc.password>
+        <jdbc.password>root</jdbc.password>
 
         <skipTests>true</skipTests>
     </properties>
