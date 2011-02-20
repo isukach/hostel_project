@@ -21,14 +21,11 @@ import org.springframework.security.context.SecurityContext;
 import war.webapp.model.DayDuty;
 import war.webapp.model.DutyMonth;
 import war.webapp.model.EmptyUser;
-import war.webapp.model.EmptyUserLocation;
 import war.webapp.model.Role;
 import war.webapp.model.User;
 import war.webapp.model.UserDuty;
-import war.webapp.model.UserLocation;
 import war.webapp.service.DayDutyManager;
 import war.webapp.service.MonthManager;
-import war.webapp.service.UserLocationManager;
 import war.webapp.service.UserManager;
 import war.webapp.util.GeneratorToExcel;
 import war.webapp.util.MonthHelper;
@@ -47,7 +44,6 @@ public class DutyList extends BasePage implements Serializable {
 	public static final String SELECT_USER_STRING = "Select User";
 
 	private DayDutyManager dayDutyManager;
-	private UserLocationManager userLocationManager;
 	private MonthManager monthManager;
 	private UserManager userManager;
 	
@@ -57,8 +53,7 @@ public class DutyList extends BasePage implements Serializable {
 	private Integer floor;
 	private boolean firstBoot = true;
 	
-	private String selectedUser;
-	private UserLocation userLocation;	
+	private String selectedUser;	
 	private List<SelectItem> floorUsersList;
 	
 	private List<DayDuty> dutyList;
@@ -74,18 +69,16 @@ public class DutyList extends BasePage implements Serializable {
 
 	public List<DayDuty> getDutyList() {
 		if (getFloor() == null) {
-			setFloor(userLocationManager.getByUser(user).getFloor());
+			setFloor(user.getAddress().getHostelFloor());
 		}
 		if (dutyList == null) {
 			List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(month, floor);
 			for (DayDuty duty : d) {
 				if (duty.getFirstEmpty()) {
 					duty.setFirstUser(getEmptyUser());
-					duty.setFirstUserLocation(getEmptyLocation());
 				}
 				if (duty.getSecondEmpty()) {
 					duty.setSecondUser(getEmptyUser());
-					duty.setSecondUserLocation(getEmptyLocation());
 				}
 			}
 			List<DayDuty> result = getEmptyDutyList();
@@ -103,21 +96,17 @@ public class DutyList extends BasePage implements Serializable {
 		return new EmptyUser();
 	}
 
-	private UserLocation getEmptyLocation() {
-		return new EmptyUserLocation();
-	}
-
 	public List<SelectItem> getUsersByStarostaFloor() {		
 		if (isOnOwnFloor() && isUserStarosta() && floorUsersList == null) {
 			floorUsersList = new ArrayList<SelectItem>();
 			floorUsersList.add(new SelectItem(SELECT_USER_STRING));
 			
-			List<UserLocation> userLocations = userLocationManager.getByFloor(floor);
-			userLocations.remove(getUserLocation());
-			for (UserLocation userLocation : userLocations) {
-				floorUsersList.add(new SelectItem(userLocation.getUser().getUsername()
-								   + " " + userLocation.getUser().getFirstName() + " "
-						           + userLocation.getUser().getLastName()));
+			List<User> floorUsers = userManager.getUsersByFloor(floor);
+			floorUsers.remove(user);
+			for (User floorUser : floorUsers) {
+				floorUsersList.add(new SelectItem(floorUser.getUsername()
+								   + " " + user.getFirstName() + " "
+						           + user.getLastName()));
 			}
 		}
 		return floorUsersList;
@@ -126,14 +115,11 @@ public class DutyList extends BasePage implements Serializable {
 	public void deleteUser(ActionEvent e) {
 		int index = getTableRowNumber(e);
 		User emptyUser = getEmptyUser();
-		UserLocation emptyUserLocation = getEmptyLocation();
 		DayDuty dayDuty = dutyList.get(index);
 		if (e.getComponent().getId().equals(FIRST_SHIFT_USER)) {
 			dayDuty.setFirstUser(emptyUser);
-			dayDuty.setFirstUserLocation(emptyUserLocation);
 		} else if (e.getComponent().getId().equals(SECOND_SHIFT_USER)) {
 			dayDuty.setSecondUser(emptyUser);
-			dayDuty.setSecondUserLocation(emptyUserLocation);
 		}
 		return;
 	}
@@ -146,7 +132,6 @@ public class DutyList extends BasePage implements Serializable {
 		
 		String userName = newValue.split(" ")[0];
 		User userToWriteOnDuty = userManager.getUserByUsername(userName);
-		UserLocation userToWriteLocation = userLocationManager.getByUser(userToWriteOnDuty);
 		
 		Date date = getDate(e);
 		DayDuty dayDuty = dayDutyManager.loadDayDutyByDateAndFloor(date, floor);
@@ -159,10 +144,8 @@ public class DutyList extends BasePage implements Serializable {
 		String shift = e.getComponent().getId();
 		if (shift.equals(FIRST_SHIFT)) {
 			dayDuty.setFirstUser(userToWriteOnDuty);
-			dayDuty.setFirstUserLocation(userToWriteLocation);
 		} else if (shift.equals(SECOND_SHIFT)){
 			dayDuty.setSecondUser(userToWriteOnDuty);
-			dayDuty.setSecondUserLocation(userToWriteLocation);
 		}
 		
 		dayDutyManager.saveDayDuty(dayDuty);
@@ -211,7 +194,6 @@ public class DutyList extends BasePage implements Serializable {
 			return;
 		}
 		dayDuty.setFirstUser(user);
-		dayDuty.setFirstUserLocation(userLocationManager.getByUser(user));
 		getDayDutyManager().saveDayDuty(dayDuty);
 		return;
 	}
@@ -232,7 +214,6 @@ public class DutyList extends BasePage implements Serializable {
 			return;
 		}
 		dayDuty.setSecondUser(user);
-		dayDuty.setSecondUserLocation(userLocationManager.getByUser(user));
 		getDayDutyManager().saveDayDuty(dayDuty);
 		return;
 	}
@@ -243,11 +224,9 @@ public class DutyList extends BasePage implements Serializable {
 			UserDuty userDuty = getUserDuties().get(index);
 			if (userDuty.getShift() == 1) {
 				userDuty.getDayDuty().setFirstUser(null);
-				userDuty.getDayDuty().setFirstUserLocation(null);
 			}
 			if (userDuty.getShift() == 2) {
 				userDuty.getDayDuty().setSecondUser(null);
-				userDuty.getDayDuty().setSecondUserLocation(null);
 			}
 			
 			dayDutyManager.deleteDayDuty(userDuty.getDayDuty());
@@ -277,10 +256,6 @@ public class DutyList extends BasePage implements Serializable {
 			User user = getEmptyUser();
 			dayDuty.setFirstUser(user);
 			dayDuty.setSecondUser(user);
-
-			UserLocation ul = getEmptyLocation();
-			dayDuty.setFirstUserLocation(ul);
-			dayDuty.setSecondUserLocation(ul);
 
 			result.add(dayDuty);
 		}
@@ -381,14 +356,14 @@ public class DutyList extends BasePage implements Serializable {
 
 	public Integer getFloor() {
 		if (firstBoot) {
-			setFloor(userLocationManager.getByUser(user).getFloor());
+			setFloor(user.getAddress().getHostelFloor());
 			firstBoot = false;
 		}
 		return floor;
 	}
 
 	public boolean isOnOwnFloor() {
-		return getUserLocation().getFloor()
+		return user.getAddress().getHostelFloor()
 				.equals(getFloor());
 	}
 
@@ -398,14 +373,6 @@ public class DutyList extends BasePage implements Serializable {
 
 	public void setDayDutyManager(DayDutyManager dayDutyManager) {
 		this.dayDutyManager = dayDutyManager;
-	}
-
-	public UserLocationManager getUserLocationManager() {
-		return userLocationManager;
-	}
-
-	public void setUserLocationManager(UserLocationManager userLocationManager) {
-		this.userLocationManager = userLocationManager;
 	}
 
 	public MonthManager getMonthManager() {
@@ -439,10 +406,5 @@ public class DutyList extends BasePage implements Serializable {
 	public void setSelectedUser(String selectedUser) {
 		this.selectedUser = selectedUser;
 	}
-
-	public UserLocation getUserLocation() {
-		if (userLocation == null)
-			userLocation = userLocationManager.getByUser(user);
-		return userLocation;
-	}
+	
 }

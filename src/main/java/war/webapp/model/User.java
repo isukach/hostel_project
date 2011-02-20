@@ -51,6 +51,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private String phoneNumber;
     private String website;
     private Address address = new Address();
+    private String universityGroup;
     private Integer version;
     private Set<Role> roles = new HashSet<Role>();
     private boolean enabled;
@@ -144,6 +145,11 @@ public class User extends BaseObject implements Serializable, UserDetails {
     @SearchableComponent
     public Address getAddress() {
         return address;
+    }    
+    
+    @Column(name = "university_group")
+    public String getUniversityGroup() {
+		return universityGroup;    	
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -284,6 +290,10 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+    
+    public void setUniversityGroup(String universityGroup) {
+    	this.universityGroup = universityGroup;
     }
 
     public void setRoles(Set<Role> roles) {

@@ -156,10 +156,6 @@
             <property-name>templateName</property-name>
             <value>accountCreated.vm</value>
         </managed-property>
-        <managed-property>
-            <property-name>userLocationManager</property-name>
-            <value>#{userLocationManager}</value>
-        </managed-property>
     </managed-bean>
 
     <managed-bean>
@@ -185,10 +181,6 @@
         <managed-property>
             <property-name>templateName</property-name>
             <value>accountCreated.vm</value>
-        </managed-property>
-        <managed-property>
-            <property-name>userLocationManager</property-name>
-            <value>#{userLocationManager}</value>
         </managed-property>
     </managed-bean>
 
@@ -244,10 +236,6 @@
         <managed-property>
             <property-name>dayDutyManager</property-name>
             <value>#{dutyManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>userLocationManager</property-name>
-            <value>#{userLocationManager}</value>
         </managed-property>
         <managed-property>
             <property-name>monthManager</property-name>

@@ -19,7 +19,6 @@
 
     <!-- Add new Managers here -->
     <bean id="dutyManager" class="war.webapp.service.impl.DayDutyManagerImpl"/>
-    <bean id="userLocationManager" class="war.webapp.service.impl.UserLocationManagerImpl"/>
     <bean id="monthnManager" class="war.webapp.service.impl.MonthManagerImpl"/>
 
     <tx:annotation-driven/>

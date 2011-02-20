@@ -92,5 +92,15 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
                 "select password from " + table.name() + " where username=?", String.class, username);
 
     }
+
+	public List<User> loadUsersByFloor(int floor) {
+		@SuppressWarnings("rawtypes")
+        List users = getHibernateTemplate().find("from User where address.hostelFloor=?", floor);
+        if (users == null || users.isEmpty()) {
+            throw new UsernameNotFoundException("users on '" + floor + "' floor not found...");
+        } else {
+            return (List<User>)users;
+        }
+	}
     
 }

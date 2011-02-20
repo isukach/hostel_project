@@ -11,10 +11,8 @@ import org.springframework.security.providers.UsernamePasswordAuthenticationToke
 
 import war.webapp.Constants;
 import war.webapp.model.User;
-import war.webapp.model.UserLocation;
 import war.webapp.service.RoleManager;
 import war.webapp.service.UserExistsException;
-import war.webapp.service.UserLocationManager;
 import war.webapp.util.RequestUtil;
 
 /**
@@ -26,8 +24,6 @@ public class SignupForm extends BasePage implements Serializable {
     private static final long serialVersionUID = 3524937486662786265L;
     private User user = new User();
     private RoleManager roleManager;
-    private UserLocationManager userLocationManager;
-    private UserLocation userLocation = new UserLocation();
 
     public String save() throws Exception {
         user.setEnabled(true);
@@ -35,22 +31,8 @@ public class SignupForm extends BasePage implements Serializable {
         // Set the default user role on this new user
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
-        UserLocation oldUserLocation = null;
         try {
             user = userManager.saveUser(user);
-
-            //getting old user location
-            oldUserLocation = userLocationManager.getByUser(user);
-            if (oldUserLocation == null) {
-                oldUserLocation = userLocation;
-            } else {
-                oldUserLocation.setFloor(userLocation.getFloor());
-                oldUserLocation.setUniversityGroup(userLocation.getUniversityGroup());
-                oldUserLocation.setRoom(userLocation.getRoom());
-            }            
-            //updating user location
-            oldUserLocation.setUser(user);
-            userLocation = userLocationManager.save(oldUserLocation);
 
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity 
@@ -110,19 +92,4 @@ public class SignupForm extends BasePage implements Serializable {
         getUser().getAddress().setCountry(country);
     }
 
-    public UserLocationManager getUserLocationManager() {
-        return userLocationManager;
-    }
-
-    public void setUserLocationManager(UserLocationManager userLocationManager) {
-        this.userLocationManager = userLocationManager;
-    }
-
-    public void setUserLocation(UserLocation userLocation) {
-        this.userLocation = userLocation;
-    }
-
-    public UserLocation getUserLocation() {
-        return this.userLocation;
-    }
 }

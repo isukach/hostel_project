@@ -47,7 +47,7 @@
                 <h:outputText value="#{text['duty.group']}"/>
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.firstUserLocation.universityGroup}"/>
+        <t:outputText value="#{duty.firstUser.universityGroup}"/>
     </t:column>
 
     <t:column>
@@ -56,7 +56,7 @@
                 <h:outputText value="#{text['duty.room']}"/>
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.firstUserLocation.room}"/>
+        <t:outputText value="#{duty.firstUser.address.hostelRoom}"/>
     </t:column>
 
     <t:column>
@@ -74,7 +74,7 @@
                 <h:outputText value="#{text['duty.group']}"/>
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.secondUserLocation.universityGroup}"/>
+        <t:outputText value="#{duty.secondUser.universityGroup}"/>
     </t:column>
 
     <t:column>
@@ -83,7 +83,7 @@
                 <h:outputText value="#{text['duty.room']}"/>
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.secondUserLocation.room}"/>
+        <t:outputText value="#{duty.secondUser.address.hostelRoom}"/>
     </t:column>
 </t:dataTable>
 

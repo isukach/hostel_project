@@ -69,4 +69,12 @@ public interface UserManager extends GenericManager<User, Long> {
      *            the user's id
      */
     void removeUser(String userId);
+    
+    /**
+     * Returns user of given floor
+     * 
+     * @param floor 
+     * 			  number of floor
+     */
+    List<User> getUsersByFloor(int floor);
 }

@@ -10,10 +10,8 @@ import org.springframework.security.context.SecurityContextHolder;
 import war.webapp.Constants;
 import war.webapp.model.Role;
 import war.webapp.model.User;
-import war.webapp.model.UserLocation;
 import war.webapp.service.RoleManager;
 import war.webapp.service.UserExistsException;
-import war.webapp.service.UserLocationManager;
 import war.webapp.util.ConvertUtil;
 import war.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
@@ -33,10 +31,8 @@ import java.util.Map;
 public class UserForm extends BasePage implements Serializable {
     private static final long serialVersionUID = -1141119853856863204L;
     private RoleManager roleManager;
-    private UserLocationManager userLocationManager;
     private String id;
     private User user = new User();
-    private UserLocation userLocation = new UserLocation();
     private Map<String, String> availableRoles;
     private String[] userRoles;
 
@@ -54,18 +50,6 @@ public class UserForm extends BasePage implements Serializable {
 
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
-    }
-
-    public void setUserLocationManager(UserLocationManager userLocationManager) {
-        this.userLocationManager = userLocationManager;
-    }
-
-    public void setUserLocation(UserLocation userLocation) {
-        this.userLocation = userLocation;
-    }
-
-    public UserLocation getUserLocation() {
-        return this.userLocation;
     }
 
     public String add() {
@@ -97,8 +81,6 @@ public class UserForm extends BasePage implements Serializable {
         } else {
             user = userManager.getUserByUsername(request.getRemoteUser());
         } 
-        //loading user location
-        userLocation = userLocationManager.getByUser(user);
 
         if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
@@ -149,22 +131,8 @@ public class UserForm extends BasePage implements Serializable {
             user.setVersion(null);
         }*/
 
-        UserLocation oldUserLocation = null;
         try {
             user = userManager.saveUser(user);
-
-            //getting old user location
-            oldUserLocation = userLocationManager.getByUser(user);
-            if (oldUserLocation == null) {
-                oldUserLocation = userLocation;
-            } else {
-                oldUserLocation.setFloor(userLocation.getFloor());
-                oldUserLocation.setUniversityGroup(userLocation.getUniversityGroup());
-                oldUserLocation.setRoom(userLocation.getRoom());
-            }
-            //updating user location
-            oldUserLocation.setUser(user);
-            userLocation = userLocationManager.save(oldUserLocation);
 
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
@@ -207,7 +175,6 @@ public class UserForm extends BasePage implements Serializable {
 
     public String delete() {
         userManager.removeUser(getUser().getId().toString());
-        userLocationManager.remove(userLocation.getId());
         addMessage("user.deleted", getUser().getFullName());
 
         return "list";

@@ -535,7 +535,7 @@
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8</jdbc.url>
         <jdbc.username>root</jdbc.username>
-        <jdbc.password>root</jdbc.password>
+        <jdbc.password>123</jdbc.password>
 
         <skipTests>true</skipTests>
     </properties>

@@ -24,6 +24,8 @@ public class Address extends BaseObject implements Serializable {
     private String province;
     private String country;
     private String postalCode;
+    private Integer hostelFloor;
+    private Integer hostelRoom;
 
     @Column(length=150)
     @SearchableProperty
@@ -54,6 +56,18 @@ public class Address extends BaseObject implements Serializable {
     public String getPostalCode() {
         return postalCode;
     }
+    
+    @Column(name="hostel_room")
+    @SearchableProperty
+    public Integer getHostelRoom() {
+    	return hostelRoom;
+    }
+    
+    @Column(name="hostel_floor")
+    @SearchableProperty
+    public Integer getHostelFloor() {
+    	return hostelFloor;
+    }
 
     public void setAddress(String address) {
         this.address = address;
@@ -73,6 +87,14 @@ public class Address extends BaseObject implements Serializable {
 
     public void setProvince(String province) {
         this.province = province;
+    }
+    
+    public void setHostelFloor(Integer hostelFloor) {
+    	this.hostelFloor = hostelFloor;
+    }
+    
+    public void setHostelRoom(Integer hostelRoom) {
+    	this.hostelRoom = hostelRoom;
     }
 
     /**
@@ -104,6 +126,8 @@ public class Address extends BaseObject implements Serializable {
         result = 29 * result + (province != null ? province.hashCode() : 0);
         result = 29 * result + (country != null ? country.hashCode() : 0);
         result = 29 * result + (postalCode != null ? postalCode.hashCode() : 0);
+        result = 29 * result + (hostelFloor != null ? hostelFloor.hashCode() : 0);
+        result = 29 * result + (hostelRoom != null ? hostelRoom.hashCode() : 0);
         return result;
     }
 
@@ -117,6 +141,9 @@ public class Address extends BaseObject implements Serializable {
                 .append("address", this.address)
                 .append("province", this.province)
                 .append("postalCode", this.postalCode)
-                .append("city", this.city).toString();
+                .append("city", this.city)
+                .append("hostel_floor", this.hostelFloor)
+                .append("hostel_room", this.hostelRoom)
+                .toString();
     }
 }

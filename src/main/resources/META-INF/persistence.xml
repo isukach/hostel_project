@@ -6,7 +6,6 @@
         <class>war.webapp.model.User</class>
         <class>war.webapp.model.Role</class>
         <class>war.webapp.model.DayDuty</class>
-        <class>war.webapp.model.UserLocation</class>
     </persistence-unit>
 
     <!-- WARNING: This file's file original source is at web/common/src/main/resources/META-INF. The

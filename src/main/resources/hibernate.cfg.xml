@@ -9,7 +9,6 @@
   <mapping class="war.webapp.model.User"/>
   <mapping class="war.webapp.model.Role"/>
   <mapping class="war.webapp.model.DayDuty"/>
-  <mapping class="war.webapp.model.UserLocation"/>
   <mapping class="war.webapp.model.DutyMonth"/>
  </session-factory>
 </hibernate-configuration>

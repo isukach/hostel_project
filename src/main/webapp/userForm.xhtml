@@ -115,7 +115,7 @@
         <t:htmlTag value="div">
             <h:outputLabel for="group" value="#{text['user.universityGroup']}" styleClass="desc"/>
             <t:message for="group" styleClass="fieldError"/>
-            <h:inputText value="#{userForm.userLocation.universityGroup}" id="group" required="true" styleClass="text medium">
+            <h:inputText value="#{userForm.user.universityGroup}" id="group" required="true" styleClass="text medium">
                 <v:commonsValidator client="true" type="required" arg="#{text['user.universityGroup']}"/>
             </h:inputText>
         </t:htmlTag>
@@ -153,14 +153,14 @@
         <t:htmlTag value="label" styleClass="desc"><h:outputText value="#{text['user.hostelAddress']}"/></t:htmlTag>
         <t:htmlTag value="div" styleClass="group">
             <t:htmlTag value="div">
-                <h:inputText value="#{userForm.userLocation.floor}" id="floor" required="true" styleClass="text medium">
+                <h:inputText value="#{userForm.user.address.hostelFloor}" id="floor" required="true" styleClass="text medium">
                     <v:commonsValidator client="true" type="required" arg="#{text['user.floor']}"/>
                 </h:inputText>
                 <t:message for="floor" styleClass="fieldError"/>
                 <t:htmlTag value="p"><h:outputLabel for="floor" value="#{text['user.floor']}"/></t:htmlTag>
             </t:htmlTag>
             <t:htmlTag value="div">
-                <h:inputText value="#{userForm.userLocation.room}" id="room" required="true" styleClass="text medium">
+                <h:inputText value="#{userForm.user.address.hostelRoom}" id="room" required="true" styleClass="text medium">
                     <v:commonsValidator client="true" type="required" arg="#{text['user.room']}"/>
                 </h:inputText>
                 <t:message for="room" styleClass="fieldError"/>

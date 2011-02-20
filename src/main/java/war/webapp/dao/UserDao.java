@@ -23,6 +23,13 @@ public interface UserDao extends GenericDao<User, Long> {
      */
     @Transactional
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    
+    /**
+     * Gets list of users by floor number
+     * @param floor floor number
+     */
+    @Transactional
+    List<User> loadUsersByFloor(int floor);
 
     /**
      * Gets a list of users ordered by the uppercase version of their username.

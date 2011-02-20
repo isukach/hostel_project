@@ -16,9 +16,7 @@ public class DayDuty extends BaseObject implements Serializable {
 	private Long id;
 	private Date date;
 	private User firstUser;
-	private UserLocation firstUserLocation;
 	private User secondUser;
-	private UserLocation secondUserLocation;
 	private Integer floor;
 
 	public DayDuty() {
@@ -42,21 +40,9 @@ public class DayDuty extends BaseObject implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "first_user_location")
-	public UserLocation getFirstUserLocation() {
-		return firstUserLocation;
-	}
-
-	@ManyToOne
 	@JoinColumn(name = "second_user")
 	public User getSecondUser() {
 		return secondUser;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "second_user_location")
-	public UserLocation getSecondUserLocation() {
-		return secondUserLocation;
 	}
 
 	@Column
@@ -83,13 +69,12 @@ public class DayDuty extends BaseObject implements Serializable {
 
 	@Transient
 	public Boolean getFirstEmpty() {
-		return firstUserLocation == null || firstUserLocation.getUser() == null;
+		return firstUser == null;
 	}
 
 	@Transient
 	public Boolean getSecondEmpty() {
-		return secondUserLocation == null
-				|| secondUserLocation.getUser() == null;
+		return secondUser == null;
 	}
 
 	public void setId(Long id) {
@@ -104,16 +89,8 @@ public class DayDuty extends BaseObject implements Serializable {
 		this.firstUser = firstUser;
 	}
 
-	public void setFirstUserLocation(UserLocation firstUserLocation) {
-		this.firstUserLocation = firstUserLocation;
-	}
-
 	public void setSecondUser(User secondUser) {
 		this.secondUser = secondUser;
-	}
-
-	public void setSecondUserLocation(UserLocation secondUserLocation) {
-		this.secondUserLocation = secondUserLocation;
 	}
 
 	public void setFloor(Integer floor) {
