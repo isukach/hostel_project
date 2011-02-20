@@ -9,31 +9,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Semaphore;
 
-import javax.faces.component.html.HtmlCommandLink;
-import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-<<<<<<< HEAD
-=======
-import org.appfuse.model.Role;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
->>>>>>> b54b107a77ca36a45fa20d0cad54bafaafd4072b
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 
 import war.webapp.model.DayDuty;
 import war.webapp.model.DutyMonth;
-<<<<<<< HEAD
-import war.webapp.model.User;
-=======
 import war.webapp.model.EmptyUser;
 import war.webapp.model.EmptyUserLocation;
->>>>>>> b54b107a77ca36a45fa20d0cad54bafaafd4072b
+import war.webapp.model.Role;
+import war.webapp.model.User;
 import war.webapp.model.UserDuty;
 import war.webapp.model.UserLocation;
 import war.webapp.service.DayDutyManager;
@@ -87,8 +77,7 @@ public class DutyList extends BasePage implements Serializable {
 			setFloor(userLocationManager.getByUser(user).getFloor());
 		}
 		if (dutyList == null) {
-			List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(month,
-					floor);
+			List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(month, floor);
 			for (DayDuty duty : d) {
 				if (duty.getFirstEmpty()) {
 					duty.setFirstUser(getEmptyUser());
