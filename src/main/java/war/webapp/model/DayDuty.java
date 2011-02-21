@@ -68,12 +68,12 @@ public class DayDuty extends BaseObject implements Serializable {
 	}
 
 	@Transient
-	public Boolean getFirstEmpty() {
+	public Boolean isFirstEmpty() {
 		return firstUser == null;
 	}
 
 	@Transient
-	public Boolean getSecondEmpty() {
+	public Boolean isSecondEmpty() {
 		return secondUser == null;
 	}
 
