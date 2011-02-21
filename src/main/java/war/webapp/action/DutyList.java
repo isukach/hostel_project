@@ -305,8 +305,7 @@ public class DutyList extends BasePage implements Serializable {
 		try {
 			sem.acquire();
 			generator.generate(month, floor, starosta, vosptka);
-			generator.download(filename, new HttpServletResponseWrapper(
-					getResponse()), getSession());
+			generator.download(filename, getResponse(), getSession());
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		} catch (IOException e1) {

@@ -1,6 +1,7 @@
 package war.webapp.util;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -50,13 +52,13 @@ public class GeneratorToExcel{
 	public void download(String fileName, HttpServletResponse response, HttpSession session) throws IOException{
 		BufferedInputStream from = null;
 		try {
-		   File file = new File(fileName); // Р·РґРµСЃСЊ fileName - СѓР¶Рµ СЂРµР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ С‚РёРїР° file:///se3511_pool2/s/home/results/user/12.txt
+		   File file = new File(fileName); // Р В·Р Т‘Р ВµРЎРѓРЎРЉ fileName - РЎС“Р В¶Р Вµ РЎР‚Р ВµР В°Р В»РЎРЉР Р…РЎвЂ№Р в„– Р С—РЎС“РЎвЂљРЎРЉ РЎвЂљР С‘Р С—Р В° file:///se3511_pool2/s/home/results/user/12.txt
 		   if (file.exists()) {
 		         int pz = fileName.lastIndexOf('/');
 		         String shortFileName=fileName.substring(pz+1);
 		         response.setContentLength((int) file.length());
-//		         String mimeType = session.getServletContext().getMimeType(fileName);
-		         response.setContentType("application/vnd.ms-excel;");
+		         String mimeType = session.getServletContext().getMimeType(fileName);
+		         response.setContentType("application/octet-stream");
 		         response.setDateHeader("Expires", System.currentTimeMillis());
 		         response.setHeader("Cache-Control", "must-revalidate");
 		         response.setHeader("Accept-Ranges", "none");
@@ -65,15 +67,20 @@ public class GeneratorToExcel{
 
 		         int bufferSize = 64 * 1024;
 		         from = new BufferedInputStream(new FileInputStream(file), bufferSize * 2);
-		         ServletOutputStream out = response.getOutputStream();
+		         BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
 		         byte[] bufferFile = new byte[bufferSize];
+		         int startPosition = 0;
+		         int endPosition = 0;
 		         for (int i = 0; ; i++)  {
 		                  int len = from.read(bufferFile);
 		                  if (len < 0)
 		                        break;
-                    out.write(bufferFile, 0, len);
+		                endPosition = startPosition + len;  
+                    out.write(bufferFile, startPosition, endPosition);
+                    startPosition = endPosition;
                 }
                 out.flush();
+                FacesContext.getCurrentInstance().responseComplete();
             } else {
                 response.getWriter().println(
                         "requested file " + fileName + " not found");
@@ -104,17 +111,17 @@ public class GeneratorToExcel{
 
 		WritableCellFormat	arial14Format = new WritableCellFormat(arial14pt);
 
-		//РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ С†РµРЅС‚СЂСѓ
+		//Р Р†РЎвЂ№РЎР‚Р В°Р Р†Р Р…Р С‘Р Р†Р В°Р Р…Р С‘Р Вµ Р С—Р С• РЎвЂ Р ВµР Р…РЎвЂљРЎР‚РЎС“
 		arial16Format.setAlignment(Alignment.CENTRE);
-		//РїРµСЂРµРЅРѕСЃ РїРѕ СЃР»РѕРІР°Рј РµСЃР»Рё РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ
+		//Р С—Р ВµРЎР‚Р ВµР Р…Р С•РЎРѓ Р С—Р С• РЎРѓР В»Р С•Р Р†Р В°Р С� Р ВµРЎРѓР В»Р С‘ Р Р…Р Вµ Р С—Р С•Р С�Р ВµРЎвЂ°Р В°Р ВµРЎвЂљРЎРѓРЎРЏ
 
 		arial16Format.setWrap(false);
 
 		arial14Format.setAlignment(Alignment.LEFT);
-		//РїРµСЂРµРЅРѕСЃ РїРѕ СЃР»РѕРІР°Рј РµСЃР»Рё РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ
+		//Р С—Р ВµРЎР‚Р ВµР Р…Р С•РЎРѓ Р С—Р С• РЎРѓР В»Р С•Р Р†Р В°Р С� Р ВµРЎРѓР В»Р С‘ Р Р…Р Вµ Р С—Р С•Р С�Р ВµРЎвЂ°Р В°Р ВµРЎвЂљРЎРѓРЎРЏ
 		arial14Format.setWrap(false);
 
-		//РїРѕРІРѕСЂРѕС‚ С‚РµРєСЃС‚Р°
+		//Р С—Р С•Р Р†Р С•РЎР‚Р С•РЎвЂљ РЎвЂљР ВµР С”РЎРѓРЎвЂљР В°
 		arial16Format.setOrientation(Orientation.HORIZONTAL);
 //		arial18BoldFormat.setIndentation(0);
 
@@ -140,24 +147,24 @@ public class GeneratorToExcel{
 			sheet.setColumnView(distCol + 4, 9);
 			sheet.setColumnView(distCol + 5, 8);
 
-		//РґРѕР±Р°РІР»РµРЅРёРµ СЏС‡РµР№РєРё Р—Р°РіРѕР»РѕРІРєР°
+		//Р Т‘Р С•Р В±Р В°Р Р†Р В»Р ВµР Р…Р С‘Р Вµ РЎРЏРЎвЂЎР ВµР в„–Р С”Р С‘ Р вЂ”Р В°Р С–Р С•Р В»Р С•Р Р†Р С”Р В°
 		 sheet.mergeCells(0, 5, 6, 5);
 		 sheet.mergeCells(0, 6, 6, 6);
 		 sheet.mergeCells(0, 7, 6, 7);
 
 		 sheet.setRowView(9, 50);
 
-		Label label1 = new Label(0, 5, "Р“СЂР°С„РёРє РґРµР¶СѓСЂСЃС‚РІ", arial16Format);
-		Label label2 = new Label(0, 6, "РїРѕ " + floor + " СЌС‚Р°Р¶Сѓ", arial16Format);
-		Label label3 = new Label(0, 7, "РЅР° " + month + " " +
-				Calendar.getInstance().get(Calendar.YEAR) + " РіРѕРґР°", arial16Format);
+		Label label1 = new Label(0, 5, "Р вЂњРЎР‚Р В°РЎвЂћР С‘Р С” Р Т‘Р ВµР В¶РЎС“РЎР‚РЎРѓРЎвЂљР Р†", arial16Format);
+		Label label2 = new Label(0, 6, "Р С—Р С• " + floor + " РЎРЊРЎвЂљР В°Р В¶РЎС“", arial16Format);
+		Label label3 = new Label(0, 7, "Р Р…Р В° " + month + " " +
+				Calendar.getInstance().get(Calendar.YEAR) + " Р С–Р С•Р Т‘Р В°", arial16Format);
 
 		sheet.setRowView(8, 50);
 
-		Label label11 = new Label(4, 0, "         РЈ Рў Р’ Р• Р  Р– Р” Рђ Р®", arial14Format);
-		Label label12 = new Label(4, 1, "     Р—Р°РІРµРґСѓСЋС‰Р°СЏ РѕР±С‰РµР¶РёС‚РёСЏ  в„– 1", arial14Format);
-		Label label13 = new Label(4, 2, "     ____________ РќР°СѓРјРѕРІР° РЎ.Р›.", arial14Format);
-		Label label14 = new Label(4, 3, "     \"_____\" __________ 2010 Рі.", arial14Format);
+		Label label11 = new Label(4, 0, "         Р Р€ Р Сћ Р вЂ™ Р вЂў Р В  Р вЂ“ Р вЂќ Р С’ Р В®", arial14Format);
+		Label label12 = new Label(4, 1, "     Р вЂ”Р В°Р Р†Р ВµР Т‘РЎС“РЎР‹РЎвЂ°Р В°РЎРЏ Р С•Р В±РЎвЂ°Р ВµР В¶Р С‘РЎвЂљР С‘РЎРЏ  РІвЂћвЂ“ 1", arial14Format);
+		Label label13 = new Label(4, 2, "     ____________ Р СњР В°РЎС“Р С�Р С•Р Р†Р В° Р РЋ.Р вЂє.", arial14Format);
+		Label label14 = new Label(4, 3, "     \"_____\" __________ 2010 Р С–.", arial14Format);
 
 		try {
 			sheet.addCell(label1);
@@ -202,18 +209,18 @@ public class GeneratorToExcel{
 
 		sheet.mergeCells(distCol, distRow, distCol,distRow + 1);
 
-		//РґРѕР±Р°РІР»РµРЅРёРµ СЏС‡РµР№РєРё Р—Р°РіРѕР»РѕРІРєР°
+		//Р Т‘Р С•Р В±Р В°Р Р†Р В»Р ВµР Р…Р С‘Р Вµ РЎРЏРЎвЂЎР ВµР в„–Р С”Р С‘ Р вЂ”Р В°Р С–Р С•Р В»Р С•Р Р†Р С”Р В°
 
-		Label hpart03 = new Label(distCol +1 , distRow, "1-СЏ СЃРјРµРЅР° (8.00 - 16.00)", dataFormat);
-		Label hpart04 = new Label(distCol + 4 , distRow, "2-СЏ СЃРјРµРЅР° (16.00 - 24.00)", dataFormat);
-//		Label hpart1 = new Label(distCol , distRow + 1, "Р”РµРЅСЊ", headerFormat);
-		Label hpart2 = new Label(distCol  , distRow , "Р§РёСЃР»Рѕ", headerFormat);
-		Label hpart3 = new Label(distCol + 1 , distRow + 1, "Р¤Р�Рћ", headerFormat);
-		Label hpart4 = new Label(distCol + 2 , distRow + 1, "Р“СЂСѓРїРїР°", headerFormat);
-		Label hpart5 = new Label(distCol + 3 , distRow + 1, "РљРѕРјРЅР°С‚Р°", headerFormat);
-		Label hpart6 = new Label(distCol + 4 , distRow + 1, "Р¤Р�Рћ", headerFormat);
-		Label hpart7 = new Label(distCol + 5 , distRow + 1, "Р“СЂСѓРїРїР°", headerFormat);
-		Label hpart8 = new Label(distCol + 6 , distRow + 1, "РљРѕРјРЅР°С‚Р°", headerFormat);
+		Label hpart03 = new Label(distCol +1 , distRow, "1-РЎРЏ РЎРѓР С�Р ВµР Р…Р В° (8.00 - 16.00)", dataFormat);
+		Label hpart04 = new Label(distCol + 4 , distRow, "2-РЎРЏ РЎРѓР С�Р ВµР Р…Р В° (16.00 - 24.00)", dataFormat);
+//		Label hpart1 = new Label(distCol , distRow + 1, "Р вЂќР ВµР Р…РЎРЉ", headerFormat);
+		Label hpart2 = new Label(distCol  , distRow , "Р В§Р С‘РЎРѓР В»Р С•", headerFormat);
+		Label hpart3 = new Label(distCol + 1 , distRow + 1, "Р В¤Р пїЅР С›", headerFormat);
+		Label hpart4 = new Label(distCol + 2 , distRow + 1, "Р вЂњРЎР‚РЎС“Р С—Р С—Р В°", headerFormat);
+		Label hpart5 = new Label(distCol + 3 , distRow + 1, "Р С™Р С•Р С�Р Р…Р В°РЎвЂљР В°", headerFormat);
+		Label hpart6 = new Label(distCol + 4 , distRow + 1, "Р В¤Р пїЅР С›", headerFormat);
+		Label hpart7 = new Label(distCol + 5 , distRow + 1, "Р вЂњРЎР‚РЎС“Р С—Р С—Р В°", headerFormat);
+		Label hpart8 = new Label(distCol + 6 , distRow + 1, "Р С™Р С•Р С�Р Р…Р В°РЎвЂљР В°", headerFormat);
 
 		int dataRow = distRow + 2;
 
@@ -226,11 +233,11 @@ public class GeneratorToExcel{
 			Label data11 = new Label(distCol + 1 , dataRow, duty.getFirstUser().getLastName() + " "
                     + duty.getFirstUser().getFirstName(), dataFormat);
 			Label data12 = new Label(distCol + 2 , dataRow, duty.getFirstUser().getUniversityGroup(), dataFormat);
-			Label data13 = new Label(distCol + 3 , dataRow, duty.getFirstUser().getAddress().getHostelRoom().toString(), dataFormat);
+			Label data13 = new Label(distCol + 3 , dataRow, duty.getFirstUser().getAddress().getHostelRoom() + "", dataFormat);
 			Label data21 = new Label(distCol + 4 , dataRow,duty.getSecondUser().getLastName() + " "
                     + duty.getSecondUser().getFirstName(), dataFormat);
 			Label data22 = new Label(distCol + 5 , dataRow, duty.getSecondUser().getUniversityGroup(), dataFormat);
-			Label data23 = new Label(distCol + 6 , dataRow, duty.getSecondUser().getAddress().getHostelRoom().toString(), dataFormat);
+			Label data23 = new Label(distCol + 6 , dataRow, duty.getSecondUser().getAddress().getHostelRoom() + "", dataFormat);
 
 //			sheet.addCell(data00);
 			sheet.addCell(data01);
@@ -257,10 +264,10 @@ public class GeneratorToExcel{
 
 		sheet.mergeCells(distCol + 4, dataRow+4, distCol + 6,dataRow+4);
 
-		Label pdata01 = new Label(distCol  , dataRow + 1,"CС‚Р°СЂРѕСЃС‚Р° СЌС‚Р°Р¶Р°", pdataFormat);
+		Label pdata01 = new Label(distCol  , dataRow + 1,"CРЎвЂљР В°РЎР‚Р С•РЎРѓРЎвЂљР В° РЎРЊРЎвЂљР В°Р В¶Р В°", pdataFormat);
 		Label pdata11 = new Label(distCol + 4 , dataRow + 1, "    _________"+starosta, pdataFormat);
-		Label pdata12 = new Label(distCol  , dataRow  + 3, "РЎРѕРіР»Р°СЃРѕРІР°РЅРѕ:", pdataFormat);
-		Label pdata13 = new Label(distCol , dataRow + 4, "Р’РѕСЃРїРёС‚Р°С‚РµР»СЊ РѕР±С‰РµР¶РёС‚РёСЏ в„–1", pdataFormat);
+		Label pdata12 = new Label(distCol  , dataRow  + 3, "Р РЋР С•Р С–Р В»Р В°РЎРѓР С•Р Р†Р В°Р Р…Р С•:", pdataFormat);
+		Label pdata13 = new Label(distCol , dataRow + 4, "Р вЂ™Р С•РЎРѓР С—Р С‘РЎвЂљР В°РЎвЂљР ВµР В»РЎРЉ Р С•Р В±РЎвЂ°Р ВµР В¶Р С‘РЎвЂљР С‘РЎРЏ РІвЂћвЂ“1", pdataFormat);
 		Label pdata21 = new Label(distCol + 4 , dataRow + 4, "    _________" + vosptka, pdataFormat);
 
 		try {
@@ -301,7 +308,7 @@ public class GeneratorToExcel{
 			workbook.write();
 			workbook.close();
 		}catch (FileNotFoundException e){
-			System.err.println("Р—Р°РєСЂРѕР№С‚Рµ С„Р°Р№Р» : " + filename);
+			System.err.println("Р вЂ”Р В°Р С”РЎР‚Р С•Р в„–РЎвЂљР Вµ РЎвЂћР В°Р в„–Р В» : " + filename);
 		}catch (IOException e) {
 			e.printStackTrace();
 		} catch (WriteException e) {
