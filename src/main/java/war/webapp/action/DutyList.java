@@ -315,6 +315,7 @@ public class DutyList extends BasePage implements Serializable {
 		}
 	}
 
+<<<<<<< HEAD
     public void changeMonthAvailability(ActionEvent e) {
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
         DutyMonth dutyMonth = monthManager.loadMonth(year, month, floor);
@@ -330,11 +331,32 @@ public class DutyList extends BasePage implements Serializable {
     private DutyMonth createDutyMonth() {
         DutyMonth dutyMonth = new DutyMonth();
         //TODO user should be able to choose the year
+=======
+	public void changeMonthAvailability(ActionEvent e) {
+		Integer year = Calendar.getInstance().get(Calendar.YEAR);
+		DutyMonth dutyMonth = monthManager.loadMonth(year, month, floor);
+		if (dutyMonth == null) {
+			dutyMonth = createDutyMonth();
+			dutyMonth.setAvailable(false);
+		} else {
+			dutyMonth.setAvailable(!dutyMonth.getAvailable());
+		}
+		monthManager.saveMonth(dutyMonth);
+	}
+	
+	private DutyMonth createDutyMonth() {
+	    DutyMonth dutyMonth = new DutyMonth();
+	    //TODO user should be able to choose the year
+>>>>>>> 33c2d48de8f1f321eefd638c03de0a0183b999df
         dutyMonth.setYear(Calendar.getInstance().get(Calendar.YEAR));
         dutyMonth.setMonth(month);
         dutyMonth.setFloor(floor);
         return dutyMonth;
+<<<<<<< HEAD
     }
+=======
+	}
+>>>>>>> 33c2d48de8f1f321eefd638c03de0a0183b999df
 
 	public boolean isMonthAvailable() {
 		Integer year = Calendar.getInstance().get(Calendar.YEAR);
