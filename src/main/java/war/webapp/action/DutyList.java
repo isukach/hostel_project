@@ -309,26 +309,31 @@ public class DutyList extends BasePage implements Serializable {
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		} catch (IOException e1) {
-			e1.printStackTrace(); // To change body of catch statement use File
-									// | Settings | File Templates.
+			e1.printStackTrace(); 
 		} finally {
 			sem.release();
 		}
 	}
 
-	public void closeOpen(ActionEvent e) {
+	public void changeMonthAvailability(ActionEvent e) {
 		Integer year = Calendar.getInstance().get(Calendar.YEAR);
 		DutyMonth dutyMonth = monthManager.loadMonth(year, month, floor);
 		if (dutyMonth == null) {
-			dutyMonth = new DutyMonth();
-			dutyMonth.setYear(year);
-			dutyMonth.setMonth(month);
-			dutyMonth.setFloor(floor);
+			dutyMonth = createDutyMonth();
 			dutyMonth.setAvailable(false);
 		} else {
 			dutyMonth.setAvailable(!dutyMonth.getAvailable());
 		}
 		monthManager.saveMonth(dutyMonth);
+	}
+	
+	private DutyMonth createDutyMonth() {
+	    DutyMonth dutyMonth = new DutyMonth();
+	    //TODO user should be able to choose the year
+        dutyMonth.setYear(Calendar.getInstance().get(Calendar.YEAR));
+        dutyMonth.setMonth(month);
+        dutyMonth.setFloor(floor);
+        return dutyMonth;
 	}
 
 	public boolean isMonthAvailable() {
