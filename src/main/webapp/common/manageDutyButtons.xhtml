@@ -4,7 +4,7 @@
 
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
 <h:panelGrid columns="3" styleClass="scrollerTable" columnClasses="standardTable_ColumnCentered">
-    <h:commandButton value="open/close" actionListener="#{dutyList.closeOpen}"/>
+    <h:commandButton value="open/close" actionListener="#{dutyList.changeMonthAvailability}"/>
     <h:outputLabel value="#{text['duty.open']}" onclick="submit()"
                    rendered="#{dutyList.monthAvailable}"/>
     <h:outputLabel value="#{text['duty.closed']}" onclick="submit()"
