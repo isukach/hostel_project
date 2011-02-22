@@ -10,6 +10,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableProperty;
 
+import com.sun.istack.NotNull;
+
 /**
  * This class is used to represent an address with address,
  * city, province and postal-code information.
@@ -57,13 +59,13 @@ public class Address extends BaseObject implements Serializable {
         return postalCode;
     }
     
-    @Column(name="hostel_room")
+    @Column(name="hostel_room", nullable=false)
     @SearchableProperty
     public Integer getHostelRoom() {
     	return hostelRoom;
     }
     
-    @Column(name="hostel_floor")
+    @Column(name="hostel_floor", nullable=false)
     @SearchableProperty
     public Integer getHostelFloor() {
     	return hostelFloor;
