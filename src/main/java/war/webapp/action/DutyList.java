@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Semaphore;
@@ -13,7 +12,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
@@ -85,7 +83,7 @@ public class DutyList extends BasePage implements Serializable {
             List<DayDuty> result = getEmptyDutyList();
             if (d != null) {
                 for (DayDuty dayDuty : d) {
-                    result.set(dayDuty.getDate().getDate() - 1, dayDuty);
+                    result.set(dayDuty.getDate().get(Calendar.DAY_OF_MONTH) - 1, dayDuty);
                 }
             }
             dutyList = result;
@@ -133,7 +131,7 @@ public class DutyList extends BasePage implements Serializable {
         String userName = newValue.split(" ")[0];
         User userToWriteOnDuty = userManager.getUserByUsername(userName);
 
-        Date date = getDate(e);
+        Calendar date = getDate(e);
         DayDuty dayDuty = dayDutyManager.loadDayDutyByDateAndFloor(date, floor);
         if (dayDuty == null) {
             dayDuty = new DayDuty();
@@ -181,7 +179,7 @@ public class DutyList extends BasePage implements Serializable {
         if (!isOnOwnFloor() || !isMonthAvailable()) {
             return;
         }
-        Date date = getDate(e);
+        Calendar date = getDate(e);
         DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date,
                 floor);
 
@@ -202,7 +200,7 @@ public class DutyList extends BasePage implements Serializable {
         if (!isOnOwnFloor() || !isMonthAvailable()) {
             return;
         }
-        Date date = getDate(e);
+        Calendar date = getDate(e);
         DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date,
                 floor);
         if (dayDuty == null) {
@@ -235,21 +233,21 @@ public class DutyList extends BasePage implements Serializable {
         }
     }
 
-    private Date getDate(FacesEvent e) {
+    private Calendar getDate(FacesEvent e) {
         String id = e.getComponent().getClientId(getFacesContext());
         int day = Integer.parseInt(id.split(":")[2]) + 1;
         Calendar date = Calendar.getInstance();
         date.set(Calendar.MONTH, month);
         date.set(Calendar.DAY_OF_MONTH, day);
-        return date.getTime();
+        return date;
     }
 
     private List<DayDuty> getEmptyDutyList() {
         List<DayDuty> result = new ArrayList<DayDuty>();
         for (int i = 1; i <= MonthHelper.getDaysNum(month + 1); ++i) {
-            Date date = new Date();
-            date.setMonth(month);
-            date.setDate(i);
+            Calendar date = Calendar.getInstance();
+            date.set(Calendar.MONTH, month);
+            date.set(Calendar.DAY_OF_MONTH, i);
             DayDuty dayDuty = new DayDuty();
             dayDuty.setDate(date);
 

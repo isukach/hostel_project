@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -57,7 +56,6 @@ public class GeneratorToExcel{
 		         int pz = fileName.lastIndexOf('/');
 		         String shortFileName=fileName.substring(pz+1);
 		         response.setContentLength((int) file.length());
-		         String mimeType = session.getServletContext().getMimeType(fileName);
 		         response.setContentType("application/octet-stream");
 		         response.setDateHeader("Expires", System.currentTimeMillis());
 		         response.setHeader("Cache-Control", "must-revalidate");
@@ -226,8 +224,7 @@ public class GeneratorToExcel{
 
 		for(DayDuty duty : duties){
 
-			Calendar dutyDate = Calendar.getInstance();
-			dutyDate.setTime(duty.getDate());
+			Calendar dutyDate = duty.getDate();
 //			Label data00 = new Label(distCol , dataRow, dutyDate.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.ALL_STYLES, locale), headerFormat);
 			Label data01 = new Label(distCol  , dataRow,""+dutyDate.get(Calendar.DAY_OF_MONTH), headerFormat);
 			Label data11 = new Label(distCol + 1 , dataRow, duty.getFirstUser().getLastName() + " "

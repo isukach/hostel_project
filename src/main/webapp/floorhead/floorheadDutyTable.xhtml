@@ -28,7 +28,7 @@
                         <t:outputText value="#{text['duty.day']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{duty.date.date}"/>
+                <h:outputText value="#{duty.dayOfMonth}"/>
             </t:column>
 
             <t:column>
@@ -37,13 +37,13 @@
                         <t:outputText value="#{text['duty.dayOfWeek']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{text['week.day1']}" rendered="#{duty.date.day == 1}"/>
-                <h:outputText value="#{text['week.day2']}" rendered="#{duty.date.day == 2}"/>
-                <h:outputText value="#{text['week.day3']}" rendered="#{duty.date.day == 3}"/>
-                <h:outputText value="#{text['week.day4']}" rendered="#{duty.date.day == 4}"/>
-                <h:outputText value="#{text['week.day5']}" rendered="#{duty.date.day == 5}"/>
-                <h:outputText value="#{text['week.day6']}" rendered="#{duty.date.day == 6}"/>
-                <h:outputText value="#{text['week.day7']}" rendered="#{duty.date.day == 0}"/>
+                <h:outputText value="#{text['week.day1']}" rendered="#{duty.dayOfWeek == 2}"/>
+                <h:outputText value="#{text['week.day2']}" rendered="#{duty.dayOfWeek == 3}"/>
+                <h:outputText value="#{text['week.day3']}" rendered="#{duty.dayOfWeek == 4}"/>
+                <h:outputText value="#{text['week.day4']}" rendered="#{duty.dayOfWeek == 5}"/>
+                <h:outputText value="#{text['week.day5']}" rendered="#{duty.dayOfWeek == 6}"/>
+                <h:outputText value="#{text['week.day6']}" rendered="#{duty.dayOfWeek == 7}"/>
+                <h:outputText value="#{text['week.day7']}" rendered="#{duty.dayOfWeek == 1}"/>
             </t:column>
 
             <t:column>

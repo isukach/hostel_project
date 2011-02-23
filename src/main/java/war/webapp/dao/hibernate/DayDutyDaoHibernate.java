@@ -1,7 +1,7 @@
 package war.webapp.dao.hibernate;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -21,10 +21,11 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         super(DayDuty.class);
     }
 
-    public DayDuty loadDayDutyByDateAndFloor(Date date, Integer floor) {
+    @SuppressWarnings("rawtypes")
+    public DayDuty loadDayDutyByDateAndFloor(Calendar date, Integer floor) {
         clearDate(date);
         List dayDuties = getHibernateTemplate().find("from DayDuty where date=? and floor=?",
-                new Object[]{date, floor});
+                new Object[]{date.getTime(), floor});
         if (dayDuties == null || dayDuties.isEmpty()) {
             return null;
         } else {
@@ -41,7 +42,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         List<DayDuty> allDuties = (List<DayDuty>) dayDuties;
         List<DayDuty> newDuties = new ArrayList<DayDuty>();
         for (DayDuty d : allDuties) {
-            if (d.getDate().getMonth() == month) {
+            if (d.getDate().get(Calendar.MONTH) == month) {
                 newDuties.add(d);
             }
         }
@@ -58,10 +59,10 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         return dayDuty;
     }
 
-    private void clearDate(Date date) {
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
+    private void clearDate(Calendar date) {
+        date.set(Calendar.HOUR, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
     }
 
     public void deleteDayDuty(DayDuty dayDuty) {
