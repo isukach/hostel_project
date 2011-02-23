@@ -25,7 +25,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     public DayDuty loadDayDutyByDateAndFloor(Calendar date, Integer floor) {
         clearDate(date);
         List dayDuties = getHibernateTemplate().find("from DayDuty where date=? and floor=?",
-                new Object[]{date, floor});
+                new Object[]{date.getTime(), floor});
         if (dayDuties == null || dayDuties.isEmpty()) {
             return null;
         } else {
