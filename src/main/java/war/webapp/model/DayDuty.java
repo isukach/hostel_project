@@ -1,9 +1,19 @@
 package war.webapp.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -14,7 +24,7 @@ public class DayDuty extends BaseObject implements Serializable {
 	private static final long serialVersionUID = 1842676162177859911L;
 
 	private Long id;
-	private Date date;
+	private Calendar date;
 	private User firstUser;
 	private User secondUser;
 	private Integer floor;
@@ -29,7 +39,8 @@ public class DayDuty extends BaseObject implements Serializable {
 	}
 
 	@Column(name = "date", nullable = false)
-	public Date getDate() {
+	@Temporal(TemporalType.TIMESTAMP)
+	public Calendar getDate() {
 		return date;
 	}
 
@@ -54,19 +65,29 @@ public class DayDuty extends BaseObject implements Serializable {
 	public Integer getStudyWeek() {
 		int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 		int totalDaysFromFirstSeptember = -1;
-		for (int i = 8; i < date.getMonth(); ++i) {
+		for (int i = 8; i < date.get(Calendar.MONTH); ++i) {
 			totalDaysFromFirstSeptember += daysInMonth[i];
 		}
-		if (date.getMonth() >= 0 && date.getMonth() < 8) {
+		if (date.get(Calendar.MONTH) >= 0 && date.get(Calendar.MONTH) < 8) {
 			totalDaysFromFirstSeptember += 122;
-			for (int i = 0; i < date.getMonth(); ++i) {
+			for (int i = 0; i < date.get(Calendar.MONTH); ++i) {
 				totalDaysFromFirstSeptember += daysInMonth[i];
 			}
 		}
-		totalDaysFromFirstSeptember += date.getDate();
+		totalDaysFromFirstSeptember += date.get(Calendar.DAY_OF_MONTH);
 		return (totalDaysFromFirstSeptember / 7) % 4 + 1;
 	}
-
+	
+	@Transient
+	public int getDayOfMonth() {
+	    return date.get(Calendar.DAY_OF_MONTH);
+	}
+	
+	@Transient
+	public int getDayOfWeek() {
+	    return date.get(Calendar.DAY_OF_WEEK);
+	}
+	
 	@Transient
 	public Boolean isFirstEmpty() {
 		return firstUser == null;
@@ -81,7 +102,7 @@ public class DayDuty extends BaseObject implements Serializable {
 		this.id = id;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 

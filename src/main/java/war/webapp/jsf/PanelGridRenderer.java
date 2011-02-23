@@ -72,6 +72,7 @@ public class PanelGridRenderer extends HtmlRenderer {
         writer.endElement(HTML.UL_ELEM);
     }
 
+    @SuppressWarnings("rawtypes")
     protected void renderChildren(FacesContext context,
                                   ResponseWriter writer,
                                   UIComponent component,

@@ -31,7 +31,7 @@ public class LabelRenderer extends Renderer {
     throws java.io.IOException {
         ResponseWriter writer = context.getResponseWriter();
 
-        Map attrs = component.getAttributes();
+        Map<String, Object> attrs = component.getAttributes();
         String id = (String) attrs.get("for");
 
         UIInput input = null;
@@ -64,7 +64,7 @@ public class LabelRenderer extends Renderer {
     throws java.io.IOException {
         ResponseWriter writer = context.getResponseWriter();
 
-        Map attrs = component.getAttributes();
+        Map<String, Object> attrs = component.getAttributes();
         String id = (String) attrs.get("for");
 
         UIInput input = null;
@@ -81,11 +81,11 @@ public class LabelRenderer extends Renderer {
     }
 
     private boolean hasMessages(FacesContext context, UIComponent component) {
-        Iterator it = context.getClientIdsWithMessages();
+        Iterator<String> it = context.getClientIdsWithMessages();
         boolean found = false;
 
         while (it.hasNext()) {
-            String id = (String) it.next();
+            String id = it.next();
 
             if ((component != null) && id.equals(component.getClientId(context))) {
                 found = true;
