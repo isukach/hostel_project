@@ -13,7 +13,7 @@
 
     <h:form id="editFloorUser">
 
-        <h2><h:outputFormat style="" value="#{text['userList.floorNumber']}">
+        <h2><h:outputFormat value="#{text['userList.floorNumber']}">
             <f:param value="#{userList.currentUserFloor}" />
         </h:outputFormat></h2>
 
@@ -72,7 +72,7 @@
         </ui:include>
 
         <script type="text/javascript">
-    highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
+	highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
 </script>
 
     </h:form>

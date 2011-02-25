@@ -18,8 +18,9 @@
             <Item name="DeleteRecordMenu" title="menu.duty.delete" page="/user/deleteRecord.html"/>
         </Menu>
         <Menu name="DutyAdmin" title="menu.duty.admin" description="Duty Admin" roles="ROLE_STAROSTA" width="120" page="/floorhead/floorheadDutyTable.html">
+            <Item name="ShowDutyTableMenu" title="menu.duty.show" page="/dutyTableView.html"/>
             <Item name="WriteUserOnDuty" title="menu.duty.floorhead.writeuser" page="/floorhead/floorheadDutyTable.html"/>
-            <Item name="FloorheadViewUsers" title="menu.duty.floorhead.users" page="/floorhead/floor_users.html"/>
+            <Item name="FloorheadViewUsers" title="menu.duty.floorhead.users" page="/floorhead/floorUsers.html"/>
         </Menu>       
         <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA"/>
     </Menus>
