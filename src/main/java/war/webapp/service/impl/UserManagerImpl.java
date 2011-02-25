@@ -76,7 +76,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
                 passwordChanged = true;
             } else {
                 // Existing user, check password in DB
-                String currentPassword = userDao.getUserPassword(user.getUsername());
+                String currentPassword = userDao.getUserPasswordById(user.getId());
                 if (currentPassword == null) {
                     passwordChanged = true;
                 } else {
