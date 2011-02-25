@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import org.apache.myfaces.config.impl.digester.elements.FacesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.security.context.HttpSessionContextIntegrationFilter;
+import org.springframework.security.context.SecurityContext;
 import org.springframework.security.providers.encoding.PasswordEncoder;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import war.webapp.model.User;
 import war.webapp.service.UserExistsException;
 import war.webapp.service.UserManager;
 import war.webapp.service.UserService;
+import war.webapp.util.FacesUtils;
 
 
 /**

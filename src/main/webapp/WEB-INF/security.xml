@@ -9,7 +9,7 @@
         <intercept-url pattern="/styles/*" filters="none"/>
         <intercept-url pattern="/scripts/*" filters="none"/-->
         <intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/statosta/*" access="ROLE_ADMIN,ROLE_STAROSTA"/>
+        <intercept-url pattern="/floorhead/*" access="ROLE_ADMIN,ROLE_STAROSTA"/>
         <intercept-url pattern="/passwordHint.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA"/>
         <intercept-url pattern="/signup.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA"/>
         <!-- APF-737, OK to remove line below if you're not using JSF -->
@@ -27,7 +27,7 @@
     <!-- <bean id="passwordEncoder" class="org.springframework.security.providers.encoding.ShaPasswordEncoder"/> -->
 
     <global-method-security>
-        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN"/>
-        <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN"/>
+        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN,ROLE_STAROSTA"/>
+        <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN,ROLE_STAROSTA"/>
     </global-method-security>
 </beans:beans>
