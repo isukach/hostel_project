@@ -19,9 +19,10 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.shared_tomahawk.util.StringUtils;
 
 /**
- * Override HtmlGridRendererBase (http://tinyurl.com/oqbxh) so &lt;h:panelGrid&gt; spits out &lt;ul&gt; and &lt;li&gt;
- * instead of &lt;table> and &lt;tr&gt;&lt;td&gt;.
- *
+ * Override HtmlGridRendererBase (http://tinyurl.com/oqbxh) so
+ * &lt;h:panelGrid&gt; spits out &lt;ul&gt; and &lt;li&gt; instead of &lt;table>
+ * and &lt;tr&gt;&lt;td&gt;.
+ * 
  * @author Matt Raible
  */
 public class PanelGridRenderer extends HtmlRenderer {
@@ -31,31 +32,30 @@ public class PanelGridRenderer extends HtmlRenderer {
         return true;
     }
 
-    public void encodeBegin(FacesContext facesContext, UIComponent component)
-            throws IOException {
+    public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
         // all work done in encodeEnd()
     }
 
-    public void encodeChildren(FacesContext context, UIComponent component)
-            throws IOException {
+    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
         // all work done in encodeEnd()
     }
 
-    public void encodeEnd(FacesContext facesContext, UIComponent component)
-            throws IOException {
+    public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
         RendererUtils.checkParamValidity(facesContext, component, UIPanel.class);
 
         int columns;
         if (component instanceof HtmlPanelGrid) {
             columns = ((HtmlPanelGrid) component).getColumns();
         } else {
-            Integer i = (Integer) component.getAttributes().get(org.apache.myfaces.shared_tomahawk.renderkit.JSFAttr.COLUMNS_ATTR);
+            Integer i = (Integer) component.getAttributes().get(
+                    org.apache.myfaces.shared_tomahawk.renderkit.JSFAttr.COLUMNS_ATTR);
             columns = i != null ? i.intValue() : 0;
         }
 
         if (columns <= 0) {
             if (log.isErrorEnabled()) {
-                log.error("Wrong columns attribute for PanelGrid " + component.getClientId(facesContext) + ": " + columns);
+                log.error("Wrong columns attribute for PanelGrid " + component.getClientId(facesContext) + ": "
+                        + columns);
             }
             columns = 1;
         }
@@ -73,10 +73,7 @@ public class PanelGridRenderer extends HtmlRenderer {
     }
 
     @SuppressWarnings("rawtypes")
-    protected void renderChildren(FacesContext context,
-                                  ResponseWriter writer,
-                                  UIComponent component,
-                                  int columns)
+    protected void renderChildren(FacesContext context, ResponseWriter writer, UIComponent component, int columns)
             throws IOException {
 
         String rowClasses;
@@ -86,8 +83,7 @@ public class PanelGridRenderer extends HtmlRenderer {
             rowClasses = (String) component.getAttributes().get(JSFAttr.ROW_CLASSES_ATTR);
         }
 
-        String[] rowClassesArray = (rowClasses == null)
-                ? org.apache.myfaces.shared_tomahawk.util.ArrayUtils.EMPTY_STRING_ARRAY
+        String[] rowClassesArray = (rowClasses == null) ? org.apache.myfaces.shared_tomahawk.util.ArrayUtils.EMPTY_STRING_ARRAY
                 : StringUtils.trim(StringUtils.splitShortString(rowClasses, ','));
         int rowClassesCount = rowClassesArray.length;
 
@@ -100,9 +96,9 @@ public class PanelGridRenderer extends HtmlRenderer {
                 UIComponent child = (UIComponent) it.next();
                 if (child.isRendered()) {
                     if (columnIndex == 0) {
-                        //start of new/next row
+                        // start of new/next row
                         if (rowStarted) {
-                            //do we have to close the last row?
+                            // do we have to close the last row?
                             writer.endElement(HTML.LI_ELEM);
                             HtmlRendererUtils.writePrettyLineSeparator(context);
                         }

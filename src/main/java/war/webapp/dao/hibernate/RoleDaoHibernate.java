@@ -7,11 +7,10 @@ import org.springframework.stereotype.Repository;
 import war.webapp.dao.RoleDao;
 import war.webapp.model.Role;
 
-
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
  * retrieve Role objects.
- *
+ * 
  */
 @Repository
 public class RoleDaoHibernate extends GenericDaoHibernate<Role, Long> implements RoleDao {

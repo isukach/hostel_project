@@ -25,8 +25,7 @@ public abstract class BaseObject implements Serializable {
      * Compares object equality. When using Hibernate, the primary key should
      * not be a part of this comparison.
      * 
-     * @param o
-     *            object to compare to
+     * @param o object to compare to
      * @return true/false based on equality tests
      */
     public abstract boolean equals(Object o);

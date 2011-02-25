@@ -40,7 +40,7 @@ public class BasePage {
     protected String sortColumn;
     protected boolean ascending;
     protected boolean nullsAreHigh;
-    
+
     public FacesContext getFacesContext() {
         return FacesContext.getCurrentInstance();
     }
@@ -64,7 +64,7 @@ public class BasePage {
     }
 
     public ResourceBundle getBundle() {
-        ClassLoader classLoader =  Thread.currentThread().getContextClassLoader();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         return ResourceBundle.getBundle(getBundleName(), getRequest().getLocale(), classLoader);
     }
 
@@ -119,7 +119,8 @@ public class BasePage {
 
     @SuppressWarnings("unchecked")
     protected void addError(String key, Object arg) {
-        // The "JSF Way" doesn't allow you to put HTML in your error messages, so I don't use it.
+        // The "JSF Way" doesn't allow you to put HTML in your error messages,
+        // so I don't use it.
         // FacesUtils.addErrorMessage(formatMessage(key, arg));
         List<String> errors = (List<String>) getSession().getAttribute("errors");
 
@@ -140,9 +141,10 @@ public class BasePage {
     protected void addError(String key) {
         addError(key, null);
     }
-    
+
     /**
      * Convenience method for unit tests.
+     * 
      * @return boolean indicator of an "errors" attribute in the session
      */
     public boolean hasErrors() {
@@ -151,6 +153,7 @@ public class BasePage {
 
     /**
      * Servlet API Convenience method
+     * 
      * @return HttpServletRequest from the FacesContext
      */
     protected HttpServletRequest getRequest() {
@@ -159,6 +162,7 @@ public class BasePage {
 
     /**
      * Servlet API Convenience method
+     * 
      * @return the current user's session
      */
     protected HttpSession getSession() {
@@ -167,18 +171,20 @@ public class BasePage {
 
     /**
      * Servlet API Convenience method
+     * 
      * @return HttpServletResponse from the FacesContext
      */
     protected HttpServletResponse getResponse() {
         return (HttpServletResponse) getFacesContext().getExternalContext().getResponse();
     }
 
-    protected void setResponse(HttpServletResponse response){
-         getFacesContext().getExternalContext().setResponse(response);
+    protected void setResponse(HttpServletResponse response) {
+        getFacesContext().getExternalContext().setResponse(response);
     }
 
     /**
      * Servlet API Convenience method
+     * 
      * @return the ServletContext form the FacesContext
      */
     protected ServletContext getServletContext() {
@@ -186,9 +192,9 @@ public class BasePage {
     }
 
     /**
-     * Convenience method to get the Configuration HashMap
-     * from the servlet context.
-     *
+     * Convenience method to get the Configuration HashMap from the servlet
+     * context.
+     * 
      * @return the user's populated form from the session
      */
     @SuppressWarnings("rawtypes")
@@ -204,7 +210,9 @@ public class BasePage {
     }
 
     /**
-     * Convenience message to send messages to users, includes app URL as footer.
+     * Convenience message to send messages to users, includes app URL as
+     * footer.
+     * 
      * @param user the user to send the message to
      * @param msg the message to send
      * @param url the application's URL
@@ -220,8 +228,8 @@ public class BasePage {
         model.put("user", user);
 
         // TODO: once you figure out how to get the global resource bundle in
-        // WebWork, then figure it out here too.  In the meantime, the Username
-        // and Password labels are hard-coded into the template. 
+        // WebWork, then figure it out here too. In the meantime, the Username
+        // and Password labels are hard-coded into the template.
         // model.put("bundle", getTexts());
         model.put("message", msg);
         model.put("applicationURL", url);
@@ -259,6 +267,7 @@ public class BasePage {
 
     /**
      * Sort list according to which column has been clicked on.
+     * 
      * @param list the java.util.List to sort
      * @return ordered list
      */

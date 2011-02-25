@@ -24,9 +24,9 @@ import war.webapp.model.Role;
 import war.webapp.model.User;
 
 /**
- * This advice is responsible for enforcing security and only allowing administrators
- * to modify users. Users are allowed to modify themselves.
- *
+ * This advice is responsible for enforcing security and only allowing
+ * administrators to modify users. Users are allowed to modify themselves.
+ * 
  * @author mraible
  */
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
@@ -37,9 +37,9 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
     private final Log log = LogFactory.getLog(UserSecurityAdvice.class);
 
     /**
-     * Method to enforce security and only allow administrators to modify users. Regular
-     * users are allowed to modify themselves.
-     *
+     * Method to enforce security and only allow administrators to modify users.
+     * Regular users are allowed to modify themselves.
+     * 
      * @param method the name of the method executed
      * @param args the arguments to the method
      * @param target the target class
@@ -62,14 +62,16 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             User user = (User) args[0];
 
             AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-            // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
+            // allow new users to signup - this is OK b/c Signup doesn't allow
+            // setting of roles
             boolean signupUser = resolver.isAnonymous(auth);
 
             if (!signupUser) {
                 User currentUser = getCurrentUser(auth);
 
                 if (user.getId() != null && !user.getId().equals(currentUser.getId()) && !administrator) {
-                    log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to modify '" + user.getUsername() + "'!");
+                    log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to modify '"
+                            + user.getUsername() + "'!");
                     throw new AccessDeniedException(ACCESS_DENIED);
                 } else if (user.getId() != null && user.getId().equals(currentUser.getId()) && !administrator) {
                     // get the list of roles the user is trying add
@@ -103,22 +105,24 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
     }
 
     /**
-     * After returning, grab the user, check if they've been modified and reset the SecurityContext if they have.
+     * After returning, grab the user, check if they've been modified and reset
+     * the SecurityContext if they have.
+     * 
      * @param returnValue the user object
      * @param method the name of the method executed
      * @param args the arguments to the method
      * @param target the target class
      * @throws Throwable thrown when args[0] is null or not a User object
      */
-    public void afterReturning(Object returnValue, Method method, Object[] args, Object target)
-    throws Throwable {
+    public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
         User user = (User) args[0];
 
         if (user.getVersion() != null) {
             // reset the authentication object if current user
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-            // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
+            // allow new users to signup - this is OK b/c Signup doesn't allow
+            // setting of roles
             boolean signupUser = resolver.isAnonymous(auth);
             if (auth != null && !signupUser) {
                 User currentUser = getCurrentUser(auth);

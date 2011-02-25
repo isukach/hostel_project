@@ -57,10 +57,8 @@ public class DutyList extends BasePage implements Serializable {
     private List<DayDuty> dutyList;
 
     public DutyList() {
-        user = (User) ((SecurityContext) getSession()
-                .getAttribute(
-                        HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY))
-                .getAuthentication().getPrincipal();
+        user = (User) ((SecurityContext) getSession().getAttribute(
+                HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
         setSortColumn("dayOfWeek");
         setMonth(Calendar.getInstance().get(Calendar.MONTH));
     }
@@ -70,8 +68,7 @@ public class DutyList extends BasePage implements Serializable {
             setFloor(user.getAddress().getHostelFloor());
         }
         if (dutyList == null) {
-            List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(
-                    month, floor);
+            List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(month, floor);
             for (DayDuty duty : d) {
                 if (duty.isFirstEmpty()) {
                     duty.setFirstUser(getEmptyUser());
@@ -103,8 +100,8 @@ public class DutyList extends BasePage implements Serializable {
             List<User> floorUsers = userManager.getUsersByFloor(floor);
             floorUsers.remove(user);
             for (User floorUser : floorUsers) {
-                floorUsersList.add(new SelectItem(floorUser.getUsername() + " "
-                        + user.getFirstName() + " " + user.getLastName()));
+                floorUsersList.add(new SelectItem(floorUser.getUsername() + " " + user.getFirstName() + " "
+                        + user.getLastName()));
             }
         }
         return floorUsersList;
@@ -156,19 +153,16 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public int getTableRowNumber(FacesEvent e) {
-        return Integer.valueOf(e.getComponent().getClientId(getFacesContext())
-                .split(":")[2]);
+        return Integer.valueOf(e.getComponent().getClientId(getFacesContext()).split(":")[2]);
     }
 
     public List<UserDuty> getUserDuties() throws Exception {
         List<UserDuty> userDuties = new ArrayList<UserDuty>();
         for (DayDuty dayDuty : getDutyList()) {
-            if (dayDuty.getFirstUser() != null
-                    && dayDuty.getFirstUser().equals(user)) {
+            if (dayDuty.getFirstUser() != null && dayDuty.getFirstUser().equals(user)) {
                 userDuties.add(new UserDuty(1, dayDuty));
             }
-            if (dayDuty.getSecondUser() != null
-                    && dayDuty.getSecondUser().equals(user)) {
+            if (dayDuty.getSecondUser() != null && dayDuty.getSecondUser().equals(user)) {
                 userDuties.add(new UserDuty(2, dayDuty));
             }
         }
@@ -180,8 +174,7 @@ public class DutyList extends BasePage implements Serializable {
             return;
         }
         Calendar date = getDate(e);
-        DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date,
-                floor);
+        DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date, floor);
 
         if (dayDuty == null) {
             dayDuty = new DayDuty();
@@ -201,8 +194,7 @@ public class DutyList extends BasePage implements Serializable {
             return;
         }
         Calendar date = getDate(e);
-        DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date,
-                floor);
+        DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date, floor);
         if (dayDuty == null) {
             dayDuty = new DayDuty();
             dayDuty.setDate(date);
@@ -298,8 +290,7 @@ public class DutyList extends BasePage implements Serializable {
         String vosptka = "Длинныйолень2";
         Semaphore sem = new Semaphore(1, true);
 
-        GeneratorToExcel generator = new GeneratorToExcel(localeRU,
-                getDutyList(), filename, floor, month);
+        GeneratorToExcel generator = new GeneratorToExcel(localeRU, getDutyList(), filename, floor, month);
         try {
             sem.acquire();
             generator.generate(month, floor, starosta, vosptka);

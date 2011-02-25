@@ -21,14 +21,13 @@ import war.webapp.Constants;
 import war.webapp.service.LookupManager;
 
 /**
- * <p>StartupListener class used to initialize and database settings
- * and populate any application-wide drop-downs.
- * <p/>
- * <p>Keep in mind that this listener is executed outside of OpenSessionInViewFilter,
- * so if you're using Hibernate you'll have to explicitly initialize all loaded data at the
- * GenericDao or service level to avoid LazyInitializationException. Hibernate.initialize() works
- * well for doing this.
- *
+ * <p> StartupListener class used to initialize and database settings and
+ * populate any application-wide drop-downs. <p/> <p> Keep in mind that this
+ * listener is executed outside of OpenSessionInViewFilter, so if you're using
+ * Hibernate you'll have to explicitly initialize all loaded data at the
+ * GenericDao or service level to avoid LazyInitializationException.
+ * Hibernate.initialize() works well for doing this.
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class StartupListener implements ServletContextListener {
@@ -55,13 +54,12 @@ public class StartupListener implements ServletContextListener {
             config.put(Constants.CSS_THEME, context.getInitParameter(Constants.CSS_THEME));
         }
 
-        ApplicationContext ctx =
-                WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+        ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
-        /*String[] beans = ctx.getBeanDefinitionNames();
-        for (String bean : beans) {
-            log.debug(bean);
-        }*/
+        /*
+         * String[] beans = ctx.getBeanDefinitionNames(); for (String bean :
+         * beans) { log.debug(bean); }
+         */
 
         PasswordEncoder passwordEncoder = null;
         try {
@@ -94,8 +92,9 @@ public class StartupListener implements ServletContextListener {
     }
 
     /**
-     * This method uses the LookupManager to lookup available roles from the data layer.
-     *
+     * This method uses the LookupManager to lookup available roles from the
+     * data layer.
+     * 
      * @param context The servlet context
      */
     public static void setupContext(ServletContext context) {
@@ -109,13 +108,16 @@ public class StartupListener implements ServletContextListener {
 
     /**
      * Shutdown servlet context (currently a no-op method).
-     *
+     * 
      * @param servletContextEvent The servlet context event
      */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        //LogFactory.release(Thread.currentThread().getContextClassLoader());
-        //Commented out the above call to avoid warning when SLF4J in classpath.
-        //WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
-        //WARN: Please see http://www.slf4j.org/codes.html for an explanation.
+        // LogFactory.release(Thread.currentThread().getContextClassLoader());
+        // Commented out the above call to avoid warning when SLF4J in
+        // classpath.
+        // WARN: The method class
+        // org.apache.commons.logging.impl.SLF4JLogFactory#release() was
+        // invoked.
+        // WARN: Please see http://www.slf4j.org/codes.html for an explanation.
     }
 }

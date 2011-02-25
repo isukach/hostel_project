@@ -4,12 +4,9 @@ import java.util.List;
 
 import javax.jws.WebService;
 
-import org.apache.myfaces.config.impl.digester.elements.FacesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaSystemException;
-import org.springframework.security.context.HttpSessionContextIntegrationFilter;
-import org.springframework.security.context.SecurityContext;
 import org.springframework.security.providers.encoding.PasswordEncoder;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,12 +16,10 @@ import war.webapp.model.User;
 import war.webapp.service.UserExistsException;
 import war.webapp.service.UserManager;
 import war.webapp.service.UserService;
-import war.webapp.util.FacesUtils;
-
 
 /**
  * Implementation of UserManager interface.
- *
+ * 
  */
 @Service("userManager")
 @WebService(serviceName = "UserService", endpointInterface = "war.webapp.service.UserService")
@@ -97,11 +92,11 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         try {
             return userDao.saveUser(user);
         } catch (DataIntegrityViolationException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             log.warn(e.getMessage());
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         } catch (JpaSystemException e) { // needed for JPA
-            //e.printStackTrace();
+            // e.printStackTrace();
             log.warn(e.getMessage());
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         }
@@ -117,7 +112,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
     /**
      * {@inheritDoc}
-     *
+     * 
      * @param username the login name of the human
      * @return User the populated user object
      * @throws UsernameNotFoundException thrown when username not found
@@ -126,7 +121,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         return (User) userDao.loadUserByUsername(username);
     }
 
-	public List<User> getUsersByFloor(int floor) {
-		return (List<User>) userDao.loadUsersByFloor(floor);
-	}
+    public List<User> getUsersByFloor(int floor) {
+        return (List<User>) userDao.loadUsersByFloor(floor);
+    }
 }

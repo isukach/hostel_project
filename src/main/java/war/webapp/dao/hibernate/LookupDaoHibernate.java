@@ -14,7 +14,7 @@ import war.webapp.model.Role;
 
 /**
  * Hibernate implementation of LookupDao.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Repository

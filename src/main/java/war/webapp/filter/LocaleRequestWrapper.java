@@ -21,6 +21,7 @@ public class LocaleRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * Sets preferred local to user's locale
+     * 
      * @param decorated the current decorated request
      * @param userLocale the user's locale
      */

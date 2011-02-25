@@ -1,13 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+<f:loadBundle var="text" basename="#{basePage.bundleName}" />
 <h:panelGrid columns="3" styleClass="scrollerTable" columnClasses="standardTable_ColumnCentered">
-    <h:commandButton value="open/close" actionListener="#{dutyList.changeMonthAvailability}"/>
-    <h:outputLabel value="#{text['duty.open']}" onclick="submit()"
-                   rendered="#{dutyList.monthAvailable}"/>
-    <h:outputLabel value="#{text['duty.closed']}" onclick="submit()"
-                   rendered="#{!dutyList.monthAvailable}"/>
+    <h:commandButton value="open/close" actionListener="#{dutyList.changeMonthAvailability}" />
+    <h:outputLabel value="#{text['duty.open']}" onclick="submit()" rendered="#{dutyList.monthAvailable}" />
+    <h:outputLabel value="#{text['duty.closed']}" onclick="submit()" rendered="#{!dutyList.monthAvailable}" />
 </h:panelGrid>
 </html>

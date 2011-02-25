@@ -7,7 +7,7 @@ import war.webapp.listener.StartupListener;
 
 /**
  * JSF Page class to handle reloading options in servlet context.
- *
+ * 
  * @author Matt Raible
  */
 public class Reload extends BasePage implements Serializable {
@@ -20,7 +20,7 @@ public class Reload extends BasePage implements Serializable {
         }
 
         StartupListener.setupContext(getServletContext());
-        addMessage("reload.succeeded"); 
+        addMessage("reload.succeeded");
 
         return "mainMenu";
     }

@@ -11,17 +11,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Filter to remove messages form the session and put them in the request
- * - to solve the redirect after post issue.
+ * Filter to remove messages form the session and put them in the request - to
+ * solve the redirect after post issue.
  * 
- * <p><a href="MessageFilter.java.html"><i>View Source</i></a></p>
- *
- * @author  Matt Raible
+ * <p> <a href="MessageFilter.java.html"><i>View Source</i></a> </p>
+ * 
+ * @author Matt Raible
  */
 public class MessageFilter implements Filter {
-    public void doFilter(ServletRequest req, ServletResponse res,
-                         FilterChain chain)
-    throws IOException, ServletException {
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException,
+            ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
 
         // grab messages from the session and put them into request
@@ -32,7 +31,7 @@ public class MessageFilter implements Filter {
             request.setAttribute("messages", messages);
             request.getSession().removeAttribute("messages");
         }
-        
+
         // grab errors from the session and put them into request
         // this is so they're not lost in a redirect
         Object errors = request.getSession().getAttribute("errors");

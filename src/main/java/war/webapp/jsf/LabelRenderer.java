@@ -14,10 +14,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Custom LabelRenderer component that adds asterisks for required
- * fields.  Based off of an example from David Geary on the MyFaces
- * Mailing list.
- *
+ * Custom LabelRenderer component that adds asterisks for required fields. Based
+ * off of an example from David Geary on the MyFaces Mailing list.
+ * 
  * @author Matt Raible
  */
 public class LabelRenderer extends Renderer {
@@ -27,15 +26,14 @@ public class LabelRenderer extends Renderer {
         return false;
     }
 
-    public void encodeBegin(FacesContext context, UIComponent component)
-    throws java.io.IOException {
+    public void encodeBegin(FacesContext context, UIComponent component) throws java.io.IOException {
         ResponseWriter writer = context.getResponseWriter();
 
         Map<String, Object> attrs = component.getAttributes();
         String id = (String) attrs.get("for");
 
         UIInput input = null;
-        
+
         if (!StringUtils.isEmpty(id)) {
             input = (UIInput) component.findComponent(id);
         }
@@ -47,28 +45,26 @@ public class LabelRenderer extends Renderer {
         boolean hasErrors = hasMessages(context, input);
 
         if (styleClass != null) {
-            if (hasErrors) styleClass += " error";
+            if (hasErrors)
+                styleClass += " error";
             writer.writeAttribute("class", styleClass, null);
         } else if (hasErrors) {
             writer.writeAttribute("class", "error", null);
         }
 
-        String renderedId =
-            (input != null) ? input.getClientId(context)
-                            : component.getClientId(context);
+        String renderedId = (input != null) ? input.getClientId(context) : component.getClientId(context);
         writer.writeAttribute("for", renderedId, null);
         writer.write(attrs.get("value").toString());
     }
 
-    public void encodeEnd(FacesContext context, UIComponent component)
-    throws java.io.IOException {
+    public void encodeEnd(FacesContext context, UIComponent component) throws java.io.IOException {
         ResponseWriter writer = context.getResponseWriter();
 
         Map<String, Object> attrs = component.getAttributes();
         String id = (String) attrs.get("for");
 
         UIInput input = null;
-        
+
         if (!StringUtils.isEmpty(id)) {
             input = (UIInput) component.findComponent(id);
         }

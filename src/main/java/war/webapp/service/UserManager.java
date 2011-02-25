@@ -19,16 +19,14 @@ public interface UserManager extends GenericManager<User, Long> {
      * Convenience method for testing - allows you to mock the DAO and set it on
      * an interface.
      * 
-     * @param userDao
-     *            the UserDao implementation to use
+     * @param userDao the UserDao implementation to use
      */
     void setUserDao(UserDao userDao);
 
     /**
      * Retrieves a user by userId. An exception is thrown if user not found
      * 
-     * @param userId
-     *            the identifier for the user
+     * @param userId the identifier for the user
      * @return User
      */
     User getUser(String userId);
@@ -36,8 +34,7 @@ public interface UserManager extends GenericManager<User, Long> {
     /**
      * Finds a user by their username.
      * 
-     * @param username
-     *            the user's username used to login
+     * @param username the user's username used to login
      * @return User a populated user object
      * @throws org.springframework.security.userdetails.UsernameNotFoundException
      *             exception thrown when user not found
@@ -54,10 +51,8 @@ public interface UserManager extends GenericManager<User, Long> {
     /**
      * Saves a user's information.
      * 
-     * @param user
-     *            the user's information
-     * @throws UserExistsException
-     *             thrown when user already exists
+     * @param user the user's information
+     * @throws UserExistsException thrown when user already exists
      * @return user the updated user object
      */
     User saveUser(User user) throws UserExistsException;
@@ -65,16 +60,14 @@ public interface UserManager extends GenericManager<User, Long> {
     /**
      * Removes a user from the database by their userId
      * 
-     * @param userId
-     *            the user's id
+     * @param userId the user's id
      */
     void removeUser(String userId);
-    
+
     /**
      * Returns user of given floor
      * 
-     * @param floor 
-     * 			  number of floor
+     * @param floor number of floor
      */
     List<User> getUsersByFloor(int floor);
 }

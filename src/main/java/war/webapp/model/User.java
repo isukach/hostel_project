@@ -30,9 +30,10 @@ import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
 
 /**
- * This class represents the basic "user" object in Hostel Duty that allows for authentication
- * and user management.  It implements Acegi Security's UserDetails interface.
- *
+ * This class represents the basic "user" object in Hostel Duty that allows for
+ * authentication and user management. It implements Acegi Security's
+ * UserDetails interface.
+ * 
  */
 @Entity
 @Table(name = "app_user")
@@ -41,13 +42,13 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
     private Long id;
-    private String username;                    // required
-    private String password;                    // required
+    private String username; // required
+    private String password; // required
     private String confirmPassword;
     private String passwordHint;
-    private String firstName;                   // required
-    private String lastName;                    // required
-    private String email;                       // required; unique
+    private String firstName; // required
+    private String lastName; // required
+    private String email; // required; unique
     private String phoneNumber;
     private String website;
     private Address address = new Address();
@@ -67,7 +68,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Create a new instance and set the username.
-     *
+     * 
      * @param username login name for user.
      */
     public User(final String username) {
@@ -133,7 +134,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Returns the full name.
-     *
+     * 
      * @return firstName + ' ' + lastName
      */
     @Transient
@@ -145,26 +146,22 @@ public class User extends BaseObject implements Serializable, UserDetails {
     @SearchableComponent
     public Address getAddress() {
         return address;
-    }    
-    
+    }
+
     @Column(name = "university_group")
     public String getUniversityGroup() {
-		return universityGroup;    	
+        return universityGroup;
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
     }
 
     /**
      * Convert user roles to LabelValue objects for convenience.
-     *
+     * 
      * @return a list of LabelValue objects with role information
      */
     @Transient
@@ -183,7 +180,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Adds a role for the user
-     *
+     * 
      * @param role the fully instantiated role
      */
     public void addRole(Role role) {
@@ -291,9 +288,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public void setAddress(Address address) {
         this.address = address;
     }
-    
+
     public void setUniversityGroup(String universityGroup) {
-    	this.universityGroup = universityGroup;
+        this.universityGroup = universityGroup;
     }
 
     public void setRoles(Set<Role> roles) {
@@ -348,12 +345,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * {@inheritDoc}
      */
     public String toString() {
-        ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
-                .append("username", this.username)
-                .append("enabled", this.enabled)
-                .append("accountExpired", this.accountExpired)
-                .append("credentialsExpired", this.credentialsExpired)
-                .append("accountLocked", this.accountLocked);
+        ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("username", this.username)
+                .append("enabled", this.enabled).append("accountExpired", this.accountExpired)
+                .append("credentialsExpired", this.credentialsExpired).append("accountLocked", this.accountLocked);
 
         GrantedAuthority[] auths = this.getAuthorities();
         if (auths != null) {

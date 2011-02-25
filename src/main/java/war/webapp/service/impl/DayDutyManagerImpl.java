@@ -11,7 +11,7 @@ import war.webapp.service.DayDutyManager;
 
 public class DayDutyManagerImpl extends GenericManagerImpl<DayDuty, Long> implements DayDutyManager {
     DayDutyDao dayDutyDao;
-    
+
     public DayDutyManagerImpl() {
     }
 

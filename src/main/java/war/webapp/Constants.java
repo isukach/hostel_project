@@ -25,8 +25,7 @@ public final class Constants {
     /**
      * User home from System properties
      */
-    public static final String USER_HOME = System.getProperty("user.home")
-            + FILE_SEP;
+    public static final String USER_HOME = System.getProperty("user.home") + FILE_SEP;
 
     /**
      * The name of the configuration hashmap stored in application scope.

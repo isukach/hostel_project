@@ -10,9 +10,8 @@ import war.webapp.dao.DayDutyDao;
 import war.webapp.model.DayDuty;
 
 /**
- * This class interacts with Spring's HibernateTemplate to save/delete and retrieve DayDuty objects.
- *
- * @author <a href="mailto:tokefa@tut.by">kefa</a>
+ * This class interacts with Spring's HibernateTemplate to save/delete and
+ * retrieve DayDuty objects.
  */
 @Repository
 public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> implements DayDutyDao {
@@ -25,7 +24,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     public DayDuty loadDayDutyByDateAndFloor(Calendar date, Integer floor) {
         clearDate(date);
         List dayDuties = getHibernateTemplate().find("from DayDuty where date=? and floor=?",
-                new Object[]{date, floor});
+                new Object[] { date, floor });
         if (dayDuties == null || dayDuties.isEmpty()) {
             return null;
         } else {
@@ -54,7 +53,8 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
             log.debug("user's id: " + dayDuty.getId());
         clearDate(dayDuty.getDate());
         getHibernateTemplate().saveOrUpdate(dayDuty);
-        // necessary to throw a DataIntegrityViolation and catch it in UserManager
+        // necessary to throw a DataIntegrityViolation and catch it in
+        // UserManager
         getHibernateTemplate().flush();
         return dayDuty;
     }
