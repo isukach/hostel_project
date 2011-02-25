@@ -38,13 +38,9 @@
                         <t:outputText value="#{text['duty.dayOfWeek']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <t:outputText value="#{text['week.day1']}" rendered="#{duty.dayOfWeek == 2}"/>
-                <t:outputText value="#{text['week.day2']}" rendered="#{duty.dayOfWeek == 3}"/>
-                <t:outputText value="#{text['week.day3']}" rendered="#{duty.dayOfWeek == 4}"/>
-                <t:outputText value="#{text['week.day4']}" rendered="#{duty.dayOfWeek == 5}"/>
-                <t:outputText value="#{text['week.day5']}" rendered="#{duty.dayOfWeek == 6}"/>
-                <t:outputText value="#{text['week.day6']}" rendered="#{duty.dayOfWeek == 7}"/>
-                <t:outputText value="#{text['week.day7']}" rendered="#{duty.dayOfWeek == 1}"/>
+                <ui:include src="/common/dayOfWeek.xhtml">
+                    <ui:param name="duty" value="#{duty}" />
+                </ui:include>
             </t:column>
 
             <t:column>
