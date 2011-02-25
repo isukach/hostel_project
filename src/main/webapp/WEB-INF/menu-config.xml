@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MenuConfig>
     <Displayers>
-        <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
+        <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer" />
     </Displayers>
     <Menus>
-        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA"/>
-        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile.html" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA"/>
-        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users.html">
-            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users.html"/>
-            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers.html"/>
-            <!--<Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/>-->
-            <!--<Item name="FileUpload" title="menu.selectFile" page="/selectFile.html"/>-->
+        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
+        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile.html" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120"
+            page="/admin/users.html">
+            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users.html" />
+            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers.html" />
+            <!--<Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/> -->
+            <!--<Item name="FileUpload" title="menu.selectFile" page="/selectFile.html"/> -->
         </Menu>
-        <Menu name="DutyMenu" title="menu.duty" description="Duty Menu" roles="ROLE_USER" width="120" page="/dutyTableView.html">
-            <Item name="ShowDutyTableMenu" title="menu.duty.show" page="/dutyTableView.html"/>
-            <Item name="WriteOnDutyMenu" title="menu.duty.write" page="/user/writeOnDuty.html"/>
-            <Item name="DeleteRecordMenu" title="menu.duty.delete" page="/user/deleteRecord.html"/>
+        <Menu name="DutyMenu" title="menu.duty" description="Duty Menu" roles="ROLE_USER" width="120"
+            page="/dutyTableView.html">
+            <Item name="ShowDutyTableMenu" title="menu.duty.show" page="/dutyTableView.html" />
+            <Item name="WriteOnDutyMenu" title="menu.duty.write" page="/user/writeOnDuty.html" />
+            <Item name="DeleteRecordMenu" title="menu.duty.delete" page="/user/deleteRecord.html" />
         </Menu>
-        <Menu name="DutyAdmin" title="menu.duty.admin" description="Duty Admin" roles="ROLE_STAROSTA" width="120" page="/floorhead/floorheadDutyTable.html">
-            <Item name="ShowDutyTableMenu" title="menu.duty.show" page="/dutyTableView.html"/>
-            <Item name="WriteUserOnDuty" title="menu.duty.floorhead.writeuser" page="/floorhead/floorheadDutyTable.html"/>
-            <Item name="FloorheadViewUsers" title="menu.duty.floorhead.users" page="/floorhead/floorUsers.html"/>
-        </Menu>       
-        <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA"/>
+        <Menu name="DutyAdmin" title="menu.duty.admin" description="Duty Admin" roles="ROLE_STAROSTA" width="120"
+            page="/floorhead/floorheadDutyTable.html">
+            <Item name="ShowDutyTableMenu" title="menu.duty.show" page="/dutyTableView.html" />
+            <Item name="WriteUserOnDuty" title="menu.duty.floorhead.writeuser" page="/floorhead/floorheadDutyTable.html" />
+            <Item name="FloorheadViewUsers" title="menu.duty.floorhead.users" page="/floorhead/floorUsers.html" />
+        </Menu>
+        <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
     </Menus>
 </MenuConfig>

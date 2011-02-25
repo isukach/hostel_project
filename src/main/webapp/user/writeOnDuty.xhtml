@@ -100,11 +100,8 @@
                         <t:outputText value="#{text['duty.secondShift']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <h:commandButton value="#{text['duty.button.write']}"
-                                 actionListener="#{dutyList.writeSecondOnDuty}"
-                                 rendered="#{duty.secondEmpty}"
-                                 disabled="#{!dutyList.monthAvailable}"
-                                 styleClass="button"/>
+                <h:commandButton value="#{text['duty.button.write']}" actionListener="#{dutyList.writeSecondOnDuty}"
+                    rendered="#{duty.secondEmpty}" disabled="#{!dutyList.monthAvailable}" styleClass="button" />
                 <h:outputText value="#{duty.secondUser.lastName} #{duty.secondUser.firstName}"
                               rendered="#{!duty.secondEmpty}"/>
             </t:column>

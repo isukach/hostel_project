@@ -62,12 +62,11 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * because saveUser flushes the session and saveObject of BaseDaoHibernate
      * does not.
      * 
-<<<<<<< HEAD
-     * @param user the user to save
-=======
-     * @param user
-     *            the user to save
->>>>>>> 244608232be1e4b03e64a8f78178a1a01fdba52c
+     * <<<<<<< HEAD
+     * 
+     * @param user the user to save =======
+     * @param user the user to save >>>>>>>
+     *            244608232be1e4b03e64a8f78178a1a01fdba52c
      * @return the modified user (with a primary key set if they're new)
      */
     @Override
@@ -103,7 +102,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         SimpleJdbcTemplate jdbcTemplate = new SimpleJdbcTemplate(SessionFactoryUtils.getDataSource(getSessionFactory()));
         Table table = AnnotationUtils.findAnnotation(User.class, Table.class);
         return jdbcTemplate.queryForObject("select password from " + table.name() + " where id=?", String.class, id);
-        
+
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
