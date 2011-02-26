@@ -45,7 +45,7 @@ public class MonthHelper {
         return null;
     }
 
-    public static int getDaysNum(int month) {
+    public static int getDaysNumInMonth(int month) {
         switch (month) {
         case 1:
             return 31;

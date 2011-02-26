@@ -236,7 +236,7 @@ public class DutyList extends BasePage implements Serializable {
 
     private List<DayDuty> getEmptyDutyList() {
         List<DayDuty> result = new ArrayList<DayDuty>();
-        for (int i = 1; i <= MonthHelper.getDaysNum(month + 1); ++i) {
+        for (int i = 1; i <= MonthHelper.getDaysNumInMonth(month + 1); ++i) {
             Calendar date = Calendar.getInstance();
             date.set(Calendar.MONTH, month);
             date.set(Calendar.DAY_OF_MONTH, i);

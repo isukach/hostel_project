@@ -18,6 +18,9 @@ import javax.persistence.Transient;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import war.webapp.util.DateUtil;
+import war.webapp.util.MonthHelper;
+
 @Entity
 @Table(name = "day_duty")
 public class DayDuty extends BaseObject implements Serializable {
@@ -62,22 +65,38 @@ public class DayDuty extends BaseObject implements Serializable {
     }
 
     @Transient
-    public Integer getStudyWeek() {
-        int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-        int totalDaysFromFirstSeptember = -1;
-        for (int i = 8; i < date.get(Calendar.MONTH); ++i) {
-            totalDaysFromFirstSeptember += daysInMonth[i];
-        }
-        if (date.get(Calendar.MONTH) >= 0 && date.get(Calendar.MONTH) < 8) {
-            totalDaysFromFirstSeptember += 122;
-            for (int i = 0; i < date.get(Calendar.MONTH); ++i) {
-                totalDaysFromFirstSeptember += daysInMonth[i];
-            }
-        }
-        totalDaysFromFirstSeptember += date.get(Calendar.DAY_OF_MONTH);
+    public int getStudyWeek() {
+        int totalDaysFromFirstSeptember = getDaysCountFromFirstSeptember();
         return (totalDaysFromFirstSeptember / 7) % 4 + 1;
     }
 
+    @Transient
+    private int getDaysCountFromFirstSeptember() {
+        int daysCountFromFirstSeptember = -1;
+        for (int i = Calendar.SEPTEMBER; i < date.get(Calendar.MONTH); ++i) {
+            daysCountFromFirstSeptember += MonthHelper.getDaysNumInMonth(i + 1);
+        }
+        if (date.get(Calendar.MONTH) < Calendar.SEPTEMBER) {
+            daysCountFromFirstSeptember += 122;
+            for (int i = Calendar.JANUARY; i < date.get(Calendar.MONTH); ++i) {
+                daysCountFromFirstSeptember += MonthHelper.getDaysNumInMonth(i + 1);
+            }
+        }
+        int startStudyYear = getStartStudyYear();
+        daysCountFromFirstSeptember += DateUtil.getDayOfWeekForFirstSeptember(startStudyYear) - 1;
+        daysCountFromFirstSeptember += date.get(Calendar.DAY_OF_MONTH);
+        return daysCountFromFirstSeptember;
+    }
+    
+    @Transient
+    private int getStartStudyYear() {
+        int startStudyYear = date.get(Calendar.YEAR);
+        if (date.get(Calendar.MONTH) < Calendar.SEPTEMBER) {
+            startStudyYear--;
+        }
+        return startStudyYear;
+    }
+    
     @Transient
     public int getDayOfMonth() {
         return date.get(Calendar.DAY_OF_MONTH);

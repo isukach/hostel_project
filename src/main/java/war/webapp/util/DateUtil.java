@@ -28,6 +28,35 @@ public final class DateUtil {
      */
     private DateUtil() {
     }
+    
+    public static int getDayOfWeekForFirstSeptember(int year) {
+        switch (year) {
+        case 2010:
+            return 3;
+        case 2011:
+            return 4;
+        case 2012:
+            return 1; //saturday
+        case 2013:
+            return 1; //sunday
+        case 2014:
+            return 1;
+        }
+        Calendar c = getDate(year, Calendar.SEPTEMBER, 1);
+        if (c.get(Calendar.DAY_OF_WEEK) == 1 || c.get(Calendar.DAY_OF_WEEK) == 7) {
+            return 1;
+        }
+        return c.get(Calendar.DAY_OF_WEEK) - 1;
+    }
+    
+    private static Calendar getDate(int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        return c;
+    }
+    
 
     /**
      * Return default datePattern (MM/dd/yyyy)
