@@ -1,13 +1,13 @@
 package war.webapp.dao;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import war.webapp.model.DayDuty;
 
 public interface DayDutyDao extends GenericDao<DayDuty, Long> {
 
-    public DayDuty loadDayDutyByDateAndFloor(Date date, Integer floor);
+    public DayDuty loadDayDutyByDateAndFloor(Calendar date, Integer floor);
 
     public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, Integer floor);
 

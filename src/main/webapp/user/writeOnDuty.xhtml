@@ -56,7 +56,7 @@
                         <t:outputText value="#{text['duty.day']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{duty.date.date}"/>
+                <h:outputText value="#{duty.dayOfMonth}"/>
             </t:column>
 
             <t:column>
@@ -65,13 +65,9 @@
                         <t:outputText value="#{text['duty.dayOfWeek']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{text['week.day1']}" rendered="#{duty.date.day == 1}"/>
-                <h:outputText value="#{text['week.day2']}" rendered="#{duty.date.day == 2}"/>
-                <h:outputText value="#{text['week.day3']}" rendered="#{duty.date.day == 3}"/>
-                <h:outputText value="#{text['week.day4']}" rendered="#{duty.date.day == 4}"/>
-                <h:outputText value="#{text['week.day5']}" rendered="#{duty.date.day == 5}"/>
-                <h:outputText value="#{text['week.day6']}" rendered="#{duty.date.day == 6}"/>
-                <h:outputText value="#{text['week.day7']}" rendered="#{duty.date.day == 0}"/>
+                <ui:include src="/common/dayOfWeek.xhtml">
+                    <ui:param name="duty" value="#{duty}" />
+                </ui:include>
             </t:column>
 
             <t:column>
@@ -104,11 +100,8 @@
                         <t:outputText value="#{text['duty.secondShift']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <h:commandButton value="#{text['duty.button.write']}"
-                                 actionListener="#{dutyList.writeSecondOnDuty}"
-                                 rendered="#{duty.secondEmpty}"
-                                 disabled="#{!dutyList.monthAvailable}"
-                                 styleClass="button"/>
+                <h:commandButton value="#{text['duty.button.write']}" actionListener="#{dutyList.writeSecondOnDuty}"
+                    rendered="#{duty.secondEmpty}" disabled="#{!dutyList.monthAvailable}" styleClass="button" />
                 <h:outputText value="#{duty.secondUser.lastName} #{duty.secondUser.firstName}"
                               rendered="#{!duty.secondEmpty}"/>
             </t:column>

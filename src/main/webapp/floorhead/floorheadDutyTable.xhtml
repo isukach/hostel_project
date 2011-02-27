@@ -1,72 +1,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf" xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <f:view>
-    <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+    <f:loadBundle var="text" basename="#{basePage.bundleName}" />
     <head>
-        <title>#{text['mainMenu.title']}</title>
-        <meta name="heading" content="#{text['showTable.heading']}"/>
-        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/hostel.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/jscal2.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/border-radius.css"/>
+    <title>#{text['mainMenu.title']}</title>
+    <meta name="menu" content="WriteUserOnDuty" />
+    <meta name="heading" content="#{text['showTable.heading']}" />
+    <link rel="stylesheet" type="text/css" href="/styles/myfaces.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/hostel.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/jscal2.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/border-radius.css" />
     </head>
-    <h:form>
-        <ui:include src="/common/month.xhtml"/>
-        <ui:include src="/common/manageDutyButtons.xhtml"/>
-        <t:dataTable id="duties" var="duty" style="margin-top: 10px"
-                     value="#{dutyList.dutyList}" rows="31"
-                     styleClass="scrollerTable table"
-                     headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
-                     columnClasses="standardTable_Column, standardTable_Column, standardTable_ColumnCentered, standardTable_ColumnCentered">
+    <a4j:form>
+        <table>
+            <tr>
+                <th style="vertical-align: top;"><ui:include src="/common/manageDutyButtons.xhtml" /></th>
+                <th style="vertical-align: top;"><ui:include src="/common/month.xhtml" /></th>
+            </tr>
+        </table>
+        <t:dataTable id="dutiesTable" var="duty" style="margin-top: 10px" value="#{dutyList.dutyList}" rows="31"
+            styleClass="scrollerTable table" headerClass="standardTable_Header"
+            rowClasses="standardTable_Row1,standardTable_Row2"
+            columnClasses="standardTable_Column, standardTable_Column, standardTable_ColumnCentered, standardTable_ColumnCentered">
 
             <t:column>
                 <f:facet name="header">
                     <t:commandSortHeader columnName="day" arrow="false">
-                        <t:outputText value="#{text['duty.day']}"/>
+                        <t:outputText value="#{text['duty.day']}" />
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{duty.date.date}"/>
+                <h:outputText value="#{duty.dayOfMonth}" />
             </t:column>
 
             <t:column>
                 <f:facet name="header">
                     <t:commandSortHeader columnName="weekDay" arrow="false">
-                        <t:outputText value="#{text['duty.dayOfWeek']}"/>
+                        <t:outputText value="#{text['duty.dayOfWeek']}" />
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{text['week.day1']}" rendered="#{duty.date.day == 1}"/>
-                <h:outputText value="#{text['week.day2']}" rendered="#{duty.date.day == 2}"/>
-                <h:outputText value="#{text['week.day3']}" rendered="#{duty.date.day == 3}"/>
-                <h:outputText value="#{text['week.day4']}" rendered="#{duty.date.day == 4}"/>
-                <h:outputText value="#{text['week.day5']}" rendered="#{duty.date.day == 5}"/>
-                <h:outputText value="#{text['week.day6']}" rendered="#{duty.date.day == 6}"/>
-                <h:outputText value="#{text['week.day7']}" rendered="#{duty.date.day == 0}"/>
+                <ui:include src="/common/dayOfWeek.xhtml">
+                    <ui:param name="duty" value="#{duty}" />
+                </ui:include>
             </t:column>
 
             <t:column>
                 <f:facet name="header">
                     <t:commandSortHeader columnName="studyWeek" arrow="false">
-                        <t:outputText value="#{text['duty.studyWeek']}"/>
+                        <t:outputText value="#{text['duty.studyWeek']}" />
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{duty.studyWeek}"/>
+                <h:outputText value="#{duty.studyWeek}" />
             </t:column>
 
             <t:column>
                 <f:facet name="header">
                     <t:commandSortHeader columnName="firstShift" arrow="false">
-                        <t:outputText value="#{text['duty.firstShift']}"/>
+                        <t:outputText value="#{text['duty.firstShift']}" />
                     </t:commandSortHeader>
                 </f:facet>
                 <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
-                    <h:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}" actionListener="#{dutyList.deleteUser}"
-                        value="#{duty.firstUser.firstName} #{duty.firstUser.lastName}"/>
-                    <h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}" onchange="submit();"
+                    <a4j:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}"
+                        actionListener="#{dutyList.deleteUser}" reRender="dutiesTable"
+                        value="#{duty.firstUser.firstName} #{duty.firstUser.lastName}" />
+                    <h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}"
                         valueChangeListener="#{dutyList.floorUserChanged}">
-                        <f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
+                        <f:selectItems value="#{dutyList.usersByStarostaFloor}" />
+                        <a4j:support event="onchange" reRender="dutiesTable" />
                     </h:selectOneMenu>
                 </h:panelGroup>
             </t:column>
@@ -74,20 +76,23 @@
             <t:column>
                 <f:facet name="header">
                     <t:commandSortHeader columnName="secondShift" arrow="false">
-                        <t:outputText value="#{text['duty.secondShift']}"/>
+                        <t:outputText value="#{text['duty.secondShift']}" />
                     </t:commandSortHeader>
                 </f:facet>
                 <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
-                    <h:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}" actionListener="#{dutyList.deleteUser}"
-                        value="#{duty.secondUser.firstName} #{duty.secondUser.lastName}"/>
-                    <h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}" onchange="submit();"
+                    <a4j:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}"
+                        actionListener="#{dutyList.deleteUser}" reRender="dutiesTable"
+                        value="#{duty.secondUser.firstName} #{duty.secondUser.lastName}" />
+                    <h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}"
                         valueChangeListener="#{dutyList.floorUserChanged}">
-                        <f:selectItems value="#{dutyList.usersByStarostaFloor}"/>
+                        <f:selectItems value="#{dutyList.usersByStarostaFloor}" />
+                        <a4j:support event="onchange" reRender="dutiesTable" />
                     </h:selectOneMenu>
                 </h:panelGroup>
             </t:column>
         </t:dataTable>
-       
-    </h:form>
+
+    </a4j:form>
+
 </f:view>
 </html>

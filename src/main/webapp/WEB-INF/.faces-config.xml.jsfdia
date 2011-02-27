@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#mainMenu.xhtml" PATH="/mainMenu.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#mainMenu.xhtml:0" NAME="item"
+   PATH="/mainMenu.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="ajax4jsf::#ajax4jsf.xhtml" NAME="output"
+    PATH="/ajax4jsf.xhtml" TARGET="rules:#ajax4jsf.xhtml"
+    TITLE="ajax4jsf" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#mainMenu.xhtml:1" NAME="item1"
+   PATH="/mainMenu.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="selectFile::#selectFile.xhtml" NAME="output"
+    PATH="/selectFile.xhtml" TARGET="rules:#selectFile.xhtml"
+    TITLE="selectFile" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="mainMenu::#mainMenu.xhtml" NAME="output"
+    PATH="/mainMenu.xhtml" TARGET="rules:#mainMenu.xhtml"
+    TITLE="mainMenu" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#dutyTable.xhtml" PATH="/dutyTable.xhtml"
+  SHAPE="240,177,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#dutyTable.xhtml:0" NAME="item"
+   PATH="/dutyTable.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="ajax4jsf::#ajax4jsf.xhtml" NAME="output"
+    PATH="/ajax4jsf.xhtml" TARGET="rules:#ajax4jsf.xhtml"
+    TITLE="ajax4jsf" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#dutyTable.xhtml:1" NAME="item1"
+   PATH="/dutyTable.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="selectFile::#selectFile.xhtml" NAME="output"
+    PATH="/selectFile.xhtml" TARGET="rules:#selectFile.xhtml"
+    TITLE="selectFile" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#*:1" PATH="/*" SHAPE="32,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:1" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="dutyTable::#dutyTable.xhtml" NAME="output"
+    PATH="/dutyTable.xhtml" TARGET="rules:#dutyTable.xhtml"
+    TITLE="dutyTable" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#*:2" PATH="/*" SHAPE="32,305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:2" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="editProfile::#userForm.xhtml" NAME="output"
+    PATH="/userForm.xhtml" TARGET="rules:#userForm.xhtml"
+    TITLE="editProfile" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#userForm.xhtml" PATH="/userForm.xhtml"
+  SHAPE="240,321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#userForm.xhtml:0" NAME="item"
+   PATH="/userForm.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="cancel::#admin#users.xhtml" NAME="output"
+    PATH="/admin/users.xhtml" TARGET="rules:#admin#users.xhtml"
+    TITLE="cancel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="list::#admin#users.xhtml" NAME="output1"
+    PATH="/admin/users.xhtml" TARGET="rules:#admin#users.xhtml"
+    TITLE="list" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#selectFile.xhtml" PATH="/selectFile.xhtml"
+  SHAPE="464,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#selectFile.xhtml:0" NAME="item"
+   PATH="/selectFile.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#showFile.xhtml" NAME="output"
+    PATH="/showFile.xhtml" TARGET="rules:#showFile.xhtml"
+    TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#signup.xhtml" PATH="/signup.xhtml"
+  SHAPE="32,449,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#signup.xhtml:0" NAME="item"
+   PATH="/signup.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="cancel::#login.jsp" NAME="output"
+    PATH="/login.jsp" TARGET="rules:#login.jsp" TITLE="cancel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#passwordHint.xhtml"
+  PATH="/passwordHint.xhtml" SHAPE="32,561,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#passwordHint.xhtml:0" NAME="item"
+   PATH="/passwordHint.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#login.jsp" NAME="output"
+    PATH="/login.jsp" TARGET="rules:#login.jsp" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#writeOnDuty.xhtml"
+  PATH="/user/writeOnDuty.xhtml" SHAPE="32,673,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#writeOnDuty.xhtml:0" NAME="item"
+   PATH="/user/writeOnDuty.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="write::#user#WriteOnDuty.xhtml"
+    NAME="output" PATH="/user/WriteOnDuty.xhtml"
+    TARGET="rules:#user#WriteOnDuty.xhtml" TITLE="write" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#showFile.xhtml" PATH="/showFile.xhtml"
+  SHAPE="672,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#ajax4jsf.xhtml" PATH="/ajax4jsf.xhtml"
+  SHAPE="464,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#user#WriteOnDuty.xhtml"
+  PATH="/user/WriteOnDuty.xhtml" SHAPE="240,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#login.jsp" PATH="/login.jsp"
+  SHAPE="256,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#users.xhtml" PATH="/admin/users.xhtml"
+  SHAPE="464,305,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

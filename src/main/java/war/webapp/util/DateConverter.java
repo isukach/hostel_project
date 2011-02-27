@@ -10,16 +10,16 @@ import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
- * This class is converts a java.util.Date to a String
- * and a String to a java.util.Date.
+ * This class is converts a java.util.Date to a String and a String to a
+ * java.util.Date.
  * 
  */
 public class DateConverter implements Converter {
 
     /**
      * Convert a date to a String and a String to a Date
+     * 
      * @param type String, Date or Timestamp
      * @param value value to convert
      * @return Converted value for property population
@@ -36,12 +36,12 @@ public class DateConverter implements Converter {
             return convertToString(type, value);
         }
 
-        throw new ConversionException(
-                "Could not convert " + value.getClass().getName() + " to " + type.getName());
+        throw new ConversionException("Could not convert " + value.getClass().getName() + " to " + type.getName());
     }
 
     /**
      * Convert a String to a Date with the specified pattern.
+     * 
      * @param type String
      * @param value value of String
      * @param pattern date pattern to parse with
@@ -67,12 +67,12 @@ public class DateConverter implements Converter {
             }
         }
 
-        throw new ConversionException(
-                "Could not convert " + value.getClass().getName() + " to " + type.getName());
+        throw new ConversionException("Could not convert " + value.getClass().getName() + " to " + type.getName());
     }
 
     /**
      * Convert a java.util.Date to a String
+     * 
      * @param type Date or Timestamp
      * @param value value to convert
      * @return Converted value for property population
@@ -84,7 +84,7 @@ public class DateConverter implements Converter {
             DateFormat df = new SimpleDateFormat(DateUtil.getDatePattern());
             if (value instanceof Timestamp) {
                 df = new SimpleDateFormat(DateUtil.getDateTimePattern());
-            } 
+            }
 
             try {
                 return df.format(value);

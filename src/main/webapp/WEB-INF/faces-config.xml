@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
     version="1.2">
 
@@ -32,10 +31,10 @@
         <navigation-case>
             <from-outcome>mainMenu</from-outcome>
             <to-view-id>/mainMenu.xhtml</to-view-id>
-            <redirect/>
+            <redirect />
         </navigation-case>
     </navigation-rule>
-    
+
     <navigation-rule>
         <from-view-id>/dutyTable.xhtml</from-view-id>
         <navigation-case>
@@ -55,10 +54,10 @@
         <navigation-case>
             <from-outcome>dutyTable</from-outcome>
             <to-view-id>/dutyTable.xhtml</to-view-id>
-            <redirect/>
+            <redirect />
         </navigation-case>
     </navigation-rule>
-    
+
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
@@ -71,12 +70,12 @@
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/admin/users.xhtml</to-view-id>
-            <redirect/>
+            <redirect />
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
             <to-view-id>/admin/users.xhtml</to-view-id>
-            <redirect/>
+            <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -91,7 +90,7 @@
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
-            <redirect/>
+            <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -99,7 +98,7 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
-            <redirect/>
+            <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -107,7 +106,7 @@
         <navigation-case>
             <from-outcome>write</from-outcome>
             <to-view-id>/user/WriteOnDuty.xhtml</to-view-id>
-            <redirect/>
+            <redirect />
         </navigation-case>
     </navigation-rule>
     <!-- Add additional rules here -->
@@ -268,9 +267,7 @@
         <validator-class>org.apache.shale.validator.CommonsValidator</validator-class>
     </validator>
 
-    <!--<converter>
-        <converter-id>userConverter</converter-id>
-        <converter-class>war.webapp.converter.UserConverter</converter-class>
-    </converter>-->
+    <!--<converter> <converter-id>userConverter</converter-id> <converter-class>war.webapp.converter.UserConverter</converter-class> 
+        </converter> -->
 
 </faces-config>

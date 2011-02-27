@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * JSF Page class to handle editing a user with a form.
- *
+ * 
  * @author mraible
  */
 public class UserForm extends BasePage implements Serializable {
@@ -73,19 +73,20 @@ public class UserForm extends BasePage implements Serializable {
 
     public String edit() {
         HttpServletRequest request = getRequest();
-        
+
         // if a user's id is passed in
         if (id != null) {
             // lookup the user using that id
             user = userManager.getUser(id);
         } else {
             user = userManager.getUserByUsername(request.getRemoteUser());
-        } 
+        }
 
         if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
             if (isRememberMe()) {
-                // if user logged in with remember me, display a warning that they can't change passwords
+                // if user logged in with remember me, display a warning that
+                // they can't change passwords
                 log.debug("checking for remember me login...");
                 log.trace("User '" + user.getUsername() + "' logged in with cookie");
                 addMessage("userProfile.cookieLogin");
@@ -96,12 +97,15 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     /**
-     * Convenience method for view templates to check if the user is logged in with RememberMe (cookies).
+     * Convenience method for view templates to check if the user is logged in
+     * with RememberMe (cookies).
+     * 
      * @return true/false - false if user interactively logged in.
      */
     public boolean isRememberMe() {
-        if (user != null && user.getId() == null) return false; // check for add()
-        
+        if (user != null && user.getId() == null)
+            return false; // check for add()
+
         AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
         SecurityContext ctx = SecurityContextHolder.getContext();
 
@@ -122,20 +126,22 @@ public class UserForm extends BasePage implements Serializable {
             String roleName = userRoles[i];
             user.addRole(roleManager.getRole(roleName));
         }
-        
+
         Integer originalVersion = user.getVersion();
 
-        // For some reason, Canoo WebTest causes version to be 0. Set it to null so test will pass.
-        /*if (user.getVersion() != null && user.getVersion() == 0) {
-            user.setId(null);
-            user.setVersion(null);
-        }*/
+        // For some reason, Canoo WebTest causes version to be 0. Set it to null
+        // so test will pass.
+        /*
+         * if (user.getVersion() != null && user.getVersion() == 0) {
+         * user.setId(null); user.setVersion(null); }
+         */
 
         try {
             user = userManager.saveUser(user);
 
         } catch (AccessDeniedException ade) {
-            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
+            // thrown by UserSecurityAdvice configured in aop:advisor
+            // userManagerSecurity
             log.warn(ade.getMessage());
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
@@ -159,8 +165,8 @@ public class UserForm extends BasePage implements Serializable {
                 addMessage("user.added", user.getFullName());
 
                 try {
-                    sendUserMessage(user, getText("newuser.email.message",
-                                    user.getFullName()), RequestUtil.getAppURL(getRequest()));
+                    sendUserMessage(user, getText("newuser.email.message", user.getFullName()),
+                            RequestUtil.getAppURL(getRequest()));
                 } catch (MailException me) {
                     addError(me.getCause().getLocalizedMessage());
                 }
@@ -182,11 +188,11 @@ public class UserForm extends BasePage implements Serializable {
 
     /**
      * Convenience method to determine if the user came from the list screen
+     * 
      * @return String
      */
     public String getFrom() {
-        if ((id != null) || (getParameter("editUser:add") != null) ||
-                ("list".equals(getParameter("from")))) {
+        if ((id != null) || (getParameter("editUser:add") != null) || ("list".equals(getParameter("from")))) {
             return "list";
         }
 
@@ -222,12 +228,12 @@ public class UserForm extends BasePage implements Serializable {
     public void setUserRoles(String[] userRoles) {
         this.userRoles = userRoles;
     }
-    
+
     public String getCountry() {
         return getUser().getAddress().getCountry();
     }
-    
-    // for some reason, the country drop-down won't do 
+
+    // for some reason, the country drop-down won't do
     // getUser().getAddress().setCountry(value)
     public void setCountry(String country) {
         getUser().getAddress().setCountry(country);

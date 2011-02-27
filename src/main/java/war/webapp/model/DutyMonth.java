@@ -71,11 +71,8 @@ public class DutyMonth extends BaseObject implements Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("floor", floor)
-                .append("year", year)
-                .append("floor", floor)
-                .append("available", available).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("floor", floor).append("year", year)
+                .append("floor", floor).append("available", available).toString();
     }
 
     @Override
@@ -92,7 +89,7 @@ public class DutyMonth extends BaseObject implements Serializable {
 
     @Override
     public int hashCode() {
-        return month != null && floor != null && year != null ? month.hashCode() - year.hashCode()
-                + floor.hashCode() : 0;
+        return month != null && floor != null && year != null ? month.hashCode() - year.hashCode() + floor.hashCode()
+                : 0;
     }
 }

@@ -9,12 +9,12 @@ import war.webapp.model.User;
 import war.webapp.service.UserManager;
 import war.webapp.service.impl.UserManagerImpl;
 
-public class UserConverter implements Converter{
+public class UserConverter implements Converter {
 
     private UserManager userManager = new UserManagerImpl();
 
     public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
-        User user = (User)value;
+        User user = (User) value;
         StringBuilder userInfo = new StringBuilder();
         userInfo.append(user.getUsername() + " ").append(user.getFirstName() + " ").append(user.getLastName());
         return userInfo.toString();

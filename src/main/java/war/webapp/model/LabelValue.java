@@ -9,8 +9,7 @@ import java.util.Comparator;
  * to the user, and a corresponding value to be returned to the server. One
  * example is the <code>&lt;html:options&gt;</code> tag.
  * 
- * <p>
- * Note: this class has a natural ordering that is inconsistent with equals.
+ * <p> Note: this class has a natural ordering that is inconsistent with equals.
  * 
  * @see org.apache.struts.util.LabelValueBean
  */
@@ -37,10 +36,8 @@ public class LabelValue implements Comparable<Object>, Serializable {
     /**
      * Construct an instance with the supplied property values.
      * 
-     * @param label
-     *            The label to be displayed to the user.
-     * @param value
-     *            The value to be returned to the server.
+     * @param label The label to be displayed to the user.
+     * @param value The value to be returned to the server.
      */
     public LabelValue(final String label, final String value) {
         this.label = label;
@@ -80,8 +77,7 @@ public class LabelValue implements Comparable<Object>, Serializable {
      * viewable part of the object.
      * 
      * @see Comparable
-     * @param o
-     *            LabelValue object to compare to
+     * @param o LabelValue object to compare to
      * @return 0 if labels match for compared objects
      */
     public int compareTo(Object o) {
@@ -110,8 +106,7 @@ public class LabelValue implements Comparable<Object>, Serializable {
      * LabelValueBeans are equal if their values are both null or equal.
      * 
      * @see java.lang.Object#equals(java.lang.Object)
-     * @param obj
-     *            object to compare to
+     * @param obj object to compare to
      * @return true/false based on whether values match or not
      */
     public boolean equals(Object obj) {

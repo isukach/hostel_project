@@ -1,13 +1,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
-<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+<f:loadBundle var="text" basename="#{basePage.bundleName}" />
 <h:panelGrid columns="1" styleClass="scrollerTable" columnClasses="standardTable_ColumnCentered">
     <script language="javascript" type="text/javascript">
         function print() {
             alert("saved to: C:\duty.xls");
         }
     </script>
-    <h:commandButton value="#{text['duty.print']}" actionListener="#{dutyList.print}" onclick="print();"/>
+    <h:commandButton value="#{text['duty.print']}" actionListener="#{dutyList.print}" onclick="print();" />
 </h:panelGrid>
 </html>

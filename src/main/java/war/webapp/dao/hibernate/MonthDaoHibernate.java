@@ -16,7 +16,7 @@ public class MonthDaoHibernate extends GenericDaoHibernate<DutyMonth, Long> impl
     @SuppressWarnings("rawtypes")
     public DutyMonth loadMonth(Integer year, Integer month, Integer floor) {
         List months = getHibernateTemplate().find("from DutyMonth where year=? and month=? and floor=?",
-                new Object[]{year, month, floor});
+                new Object[] { year, month, floor });
         if (months == null || months.isEmpty()) {
             return null;
         }

@@ -22,8 +22,8 @@ import war.webapp.Constants;
 public class LocaleFilter extends OncePerRequestFilter {
 
     /**
-     * This method looks for a "locale" request parameter. If it finds one, it sets it as the preferred locale
-     * and also configures it to work with JSTL.
+     * This method looks for a "locale" request parameter. If it finds one, it
+     * sets it as the preferred locale and also configures it to work with JSTL.
      * 
      * @param request the current request
      * @param response the current response
@@ -32,8 +32,7 @@ public class LocaleFilter extends OncePerRequestFilter {
      * @throws ServletException when a communication failure happens
      */
     @SuppressWarnings("unchecked")
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                 FilterChain chain)
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         String locale = request.getParameter("locale");

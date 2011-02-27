@@ -36,7 +36,7 @@ public class FileUpload extends BasePage implements Serializable {
 
     public String upload() throws IOException {
         HttpServletRequest request = getRequest();
-        
+
         // write the file to the filesystem
         // the directory to upload to
         String uploadDir = getServletContext().getRealPath("/resources") + "/" + request.getRemoteUser() + "/";
@@ -48,11 +48,12 @@ public class FileUpload extends BasePage implements Serializable {
             dirPath.mkdirs();
         }
 
-        //retrieve the file data
+        // retrieve the file data
         InputStream stream = file.getInputStream();
         String filename = file.getName();
 
-        // APF-946: Canoo Web Tests R_1702 sets full path as name instead of only file name
+        // APF-946: Canoo Web Tests R_1702 sets full path as name instead of
+        // only file name
         if (filename.indexOf("/") > -1) {
             filename = filename.substring(filename.lastIndexOf("/") + 1);
         }
@@ -75,7 +76,7 @@ public class FileUpload extends BasePage implements Serializable {
             }
         }
 
-        //write the file to the file specified
+        // write the file to the file specified
         OutputStream bos = new FileOutputStream(uploadDir + filename);
         int bytesRead;
         byte[] buffer = new byte[8192];
@@ -86,7 +87,7 @@ public class FileUpload extends BasePage implements Serializable {
 
         bos.close();
 
-        //close the stream
+        // close the stream
         stream.close();
 
         // place the data into the request for retrieval on next page
@@ -98,7 +99,7 @@ public class FileUpload extends BasePage implements Serializable {
 
         String link = request.getContextPath() + "/resources" + "/" + request.getRemoteUser() + "/";
         request.setAttribute("link", link + filename);
-        
+
         return "success";
     }
 }

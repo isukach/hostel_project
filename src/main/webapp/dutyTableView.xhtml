@@ -1,25 +1,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
 
 <f:view>
-    <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+    <f:loadBundle var="text" basename="#{basePage.bundleName}" />
     <head>
-        <title>#{text['mainMenu.title']}</title>
-        <meta name="menu" content="ShowDutyTableMenu"/>
-        <meta name="heading" content="#{text['showTable.heading']}"/>
-        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/hostel.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/jscal2.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/border-radius.css"/>
+    <title>#{text['mainMenu.title']}</title>
+    <meta name="menu" content="ShowDutyTableMenu" />
+    <meta name="heading" content="#{text['showTable.heading']}" />
+    <link rel="stylesheet" type="text/css" href="/styles/myfaces.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/hostel.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/jscal2.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/border-radius.css" />
     </head>
     <h:form>
-        <ui:include src="/common/month.xhtml"/>
-        <br/>
-        <h:commandButton value="Export to .xls file" actionListener="#{dutyList.print}"/>
-        <br/>
-        <ui:include src="/common/dutyTable.xhtml"/>
+        <ui:include src="/common/month.xhtml" />
+        <br />
+        <h:commandButton value="Export to .xls file" actionListener="#{dutyList.print}" />
+        <br />
+        <ui:include src="/common/dutyTable.xhtml" />
     </h:form>
 </f:view>
 </html>

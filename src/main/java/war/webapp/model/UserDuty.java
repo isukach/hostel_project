@@ -1,6 +1,5 @@
 package war.webapp.model;
 
-
 public class UserDuty {
     private int shift;
     private DayDuty dayDuty;

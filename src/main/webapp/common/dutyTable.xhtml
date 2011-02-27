@@ -1,89 +1,84 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<t:dataTable id="duties" var="duty" style="margin-top: 10px"
-             value="#{dutyList.dutyList}" rows="31" sortColumn="#{dutyList.sortColumn}"
-             sortAscending="#{dutyList.ascending}" styleClass="scrollerTable table"
-             headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
-             columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column">
+<t:dataTable id="duties" var="duty" style="margin-top: 10px" value="#{dutyList.dutyList}" rows="31"
+    sortColumn="#{dutyList.sortColumn}" sortAscending="#{dutyList.ascending}" styleClass="scrollerTable table"
+    headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
+    columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column">
 
     <t:column width="10%">
         <f:facet name="header">
             <t:commandSortHeader columnName="day" arrow="true">
-                <h:outputText value="#{text['duty.day']}"/>
+                <h:outputText value="#{text['duty.day']}" />
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.date.date}"/>
+        <t:outputText value="#{duty.dayOfMonth}" />
     </t:column>
 
     <t:column>
         <f:facet name="header">
             <t:commandSortHeader columnName="dayOfWeek" arrow="true">
-                <h:outputText value="#{text['duty.dayOfWeek']}"/>
+                <h:outputText value="#{text['duty.dayOfWeek']}" />
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{text['week.day1']}" rendered="#{duty.date.day == 1}"/>
-        <t:outputText value="#{text['week.day2']}" rendered="#{duty.date.day == 2}"/>
-        <t:outputText value="#{text['week.day3']}" rendered="#{duty.date.day == 3}"/>
-        <t:outputText value="#{text['week.day4']}" rendered="#{duty.date.day == 4}"/>
-        <t:outputText value="#{text['week.day5']}" rendered="#{duty.date.day == 5}"/>
-        <t:outputText value="#{text['week.day6']}" rendered="#{duty.date.day == 6}"/>
-        <t:outputText value="#{text['week.day7']}" rendered="#{duty.date.day == 0}"/>
+        <ui:include src="/common/dayOfWeek.xhtml">
+            <ui:param name="duty" value="#{duty}" />
+        </ui:include>
     </t:column>
 
     <t:column>
         <f:facet name="header">
             <t:commandSortHeader columnName="firstUserName" arrow="true">
-                <h:outputText value="#{text['duty.fio']}"/>
+                <h:outputText value="#{text['duty.fio']}" />
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.firstUser.fullName}"/>
+        <t:outputText value="#{duty.firstUser.fullName}" />
     </t:column>
 
     <t:column>
         <f:facet name="header">
             <t:commandSortHeader columnName="firstGroup" arrow="true">
-                <h:outputText value="#{text['duty.group']}"/>
+                <h:outputText value="#{text['duty.group']}" />
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.firstUser.universityGroup}"/>
+        <t:outputText value="#{duty.firstUser.universityGroup}" />
     </t:column>
 
     <t:column>
         <f:facet name="header">
             <t:commandSortHeader columnName="firstRoom" arrow="true">
-                <h:outputText value="#{text['duty.room']}"/>
+                <h:outputText value="#{text['duty.room']}" />
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.firstUser.address.hostelRoom}"/>
+        <t:outputText value="#{duty.firstUser.address.hostelRoom}" />
     </t:column>
 
     <t:column>
         <f:facet name="header">
             <t:commandSortHeader columnName="secondUserName" arrow="true">
-                <h:outputText value="#{text['duty.fio']}"/>
+                <h:outputText value="#{text['duty.fio']}" />
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.secondUser.fullName}"/>
+        <t:outputText value="#{duty.secondUser.fullName}" />
     </t:column>
 
     <t:column>
         <f:facet name="header">
             <t:commandSortHeader columnName="secondGroup" arrow="true">
-                <h:outputText value="#{text['duty.group']}"/>
+                <h:outputText value="#{text['duty.group']}" />
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.secondUser.universityGroup}"/>
+        <t:outputText value="#{duty.secondUser.universityGroup}" />
     </t:column>
 
     <t:column>
         <f:facet name="header">
             <t:commandSortHeader columnName="secondRoom" arrow="true">
-                <h:outputText value="#{text['duty.room']}"/>
+                <h:outputText value="#{text['duty.room']}" />
             </t:commandSortHeader>
         </f:facet>
-        <t:outputText value="#{duty.secondUser.address.hostelRoom}"/>
+        <t:outputText value="#{duty.secondUser.address.hostelRoom}" />
     </t:column>
 </t:dataTable>
 

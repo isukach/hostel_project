@@ -1,9 +1,50 @@
 .hostel_button {
-    display: block;
-    background: #b4cdff;
-    border: 1px solid #999999;
-    /*width: 100px;*/
-    height: 20px;
+    font-size: 13px;
+    padding: 3px 25px 5px;
+    color: white;
+    border: 0;
+    font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    margin: 0;
+}
+
+label.uiButton {
+    color: #1D2A5B;
+    vertical-align: middle;
+    border-color: #3B6E22 #3B6E22 #2C5115;
+    background-color: #69A74E;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px;
+    line-height: normal !important;
+    padding: 2px 6px;
     text-align: center;
     text-decoration: none;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+}
+
+label input {
+    font-size: 13px;
+    padding: 3px 25px 5px;
+    color: #FFFFFF;
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
+    font-weight: bold;
+    margin: 0;
+    outline: medium none;
+}
+
+label input select {
+    font-size: 13px;
+    height: 30px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
 }

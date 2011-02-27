@@ -15,11 +15,13 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * A simple filter that allows the application to continue using the .html prefix for actions but also allows
- * static files to be served up with the same extension. Dojo to serve up its HTML template code. The filter works
- * on an include/exclude basis where all requests for active pages are redirected by the filter to the dispatch
- * servlet. All Dojo related .html requests are allowed to pass straight through to be processed by the servlet
- * container as per normal.
+ * A simple filter that allows the application to continue using the .html
+ * prefix for actions but also allows static files to be served up with the same
+ * extension. Dojo to serve up its HTML template code. The filter works on an
+ * include/exclude basis where all requests for active pages are redirected by
+ * the filter to the dispatch servlet. All Dojo related .html requests are
+ * allowed to pass straight through to be processed by the servlet container as
+ * per normal.
  */
 public class StaticFilter extends OncePerRequestFilter {
     private static final String DEFAULT_INCLUDES = "*.html";
@@ -52,13 +54,14 @@ public class StaticFilter extends OncePerRequestFilter {
         servletName = getFilterConfig().getInitParameter(SERVLETNAME_PARAMETER);
     }
 
+    @SuppressWarnings("rawtypes")
     private String[] parsePatterns(String delimitedPatterns) {
-        //make sure no patterns are repeated.
+        // make sure no patterns are repeated.
         Set patternSet = org.springframework.util.StringUtils.commaDelimitedListToSet(delimitedPatterns);
         String[] patterns = new String[patternSet.size()];
         int i = 0;
         for (Iterator iterator = patternSet.iterator(); iterator.hasNext(); i++) {
-            //no trailing/leading white space.
+            // no trailing/leading white space.
             String pattern = (String) iterator.next();
             patterns[i] = pattern.trim();
         }
@@ -66,18 +69,19 @@ public class StaticFilter extends OncePerRequestFilter {
     }
 
     /**
-     * This method checks to see if the current path matches includes or excludes. If it matches includes and
-     * not excludes, it forwards to the static resource and ends the filter chain. Otherwise, it forwards to the
+     * This method checks to see if the current path matches includes or
+     * excludes. If it matches includes and not excludes, it forwards to the
+     * static resource and ends the filter chain. Otherwise, it forwards to the
      * next filter in the chain.
-     *
+     * 
      * @param request the current request
      * @param response the current response
      * @param chain the filter chain
      * @throws ServletException when something goes wrong
      * @throws IOException when something goes terribly wrong
      */
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                 FilterChain chain) throws IOException, ServletException {
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
         UrlPathHelper urlPathHelper = new UrlPathHelper();
         String path = urlPathHelper.getPathWithinApplication(request);

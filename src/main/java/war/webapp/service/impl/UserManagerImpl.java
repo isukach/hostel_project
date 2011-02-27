@@ -17,10 +17,9 @@ import war.webapp.service.UserExistsException;
 import war.webapp.service.UserManager;
 import war.webapp.service.UserService;
 
-
 /**
  * Implementation of UserManager interface.
- *
+ * 
  */
 @Service("userManager")
 @WebService(serviceName = "UserService", endpointInterface = "war.webapp.service.UserService")
@@ -72,7 +71,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
                 passwordChanged = true;
             } else {
                 // Existing user, check password in DB
-                String currentPassword = userDao.getUserPassword(user.getUsername());
+                String currentPassword = userDao.getUserPasswordById(user.getId());
                 if (currentPassword == null) {
                     passwordChanged = true;
                 } else {
@@ -93,11 +92,11 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         try {
             return userDao.saveUser(user);
         } catch (DataIntegrityViolationException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             log.warn(e.getMessage());
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         } catch (JpaSystemException e) { // needed for JPA
-            //e.printStackTrace();
+            // e.printStackTrace();
             log.warn(e.getMessage());
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         }
@@ -113,7 +112,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
     /**
      * {@inheritDoc}
-     *
+     * 
      * @param username the login name of the human
      * @return User the populated user object
      * @throws UsernameNotFoundException thrown when username not found
@@ -122,7 +121,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         return (User) userDao.loadUserByUsername(username);
     }
 
-	public List<User> getUsersByFloor(int floor) {
-		return (List<User>) userDao.loadUsersByFloor(floor);
-	}
+    public List<User> getUsersByFloor(int floor) {
+        return (List<User>) userDao.loadUsersByFloor(floor);
+    }
 }

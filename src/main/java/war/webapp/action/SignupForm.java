@@ -17,7 +17,7 @@ import war.webapp.util.RequestUtil;
 
 /**
  * JSF Page class to handle signing up a new user.
- *
+ * 
  * @author mraible
  */
 public class SignupForm extends BasePage implements Serializable {
@@ -35,12 +35,13 @@ public class SignupForm extends BasePage implements Serializable {
             user = userManager.saveUser(user);
 
         } catch (AccessDeniedException ade) {
-            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity 
+            // thrown by UserSecurityAdvice configured in aop:advisor
+            // userManagerSecurity
             log.warn(ade.getMessage());
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-            return null; 
+            return null;
         } catch (UserExistsException e) {
-            addMessage("errors.existing.user", new Object[]{user.getUsername(), user.getEmail()});
+            addMessage("errors.existing.user", new Object[] { user.getUsername(), user.getEmail() });
 
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
@@ -51,8 +52,8 @@ public class SignupForm extends BasePage implements Serializable {
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // log user in automatically
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                user.getUsername(), user.getConfirmPassword(), user.getAuthorities());
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user.getUsername(),
+                user.getConfirmPassword(), user.getAuthorities());
         auth.setDetails(user);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -60,8 +61,7 @@ public class SignupForm extends BasePage implements Serializable {
         message.setSubject(getText("signup.email.subject"));
 
         try {
-            sendUserMessage(user, getText("signup.email.message"),
-                    RequestUtil.getAppURL(getRequest()));
+            sendUserMessage(user, getText("signup.email.message"), RequestUtil.getAppURL(getRequest()));
         } catch (MailException me) {
             addError(me.getMostSpecificCause().getMessage());
             return null;
@@ -86,7 +86,7 @@ public class SignupForm extends BasePage implements Serializable {
         return getUser().getAddress().getCountry();
     }
 
-    // for some reason, the country drop-down won't do 
+    // for some reason, the country drop-down won't do
     // getUser().getAddress().setCountry(value)
     public void setCountry(String country) {
         getUser().getAddress().setCountry(country);

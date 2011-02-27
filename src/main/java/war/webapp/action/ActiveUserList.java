@@ -14,7 +14,7 @@ public class ActiveUserList extends BasePage implements Serializable {
     public ActiveUserList() {
         setSortColumn("username");
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
         Set<User> users = (Set<User>) getServletContext().getAttribute(UserCounterListener.USERS_KEY);

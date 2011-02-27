@@ -15,12 +15,12 @@ public class CountryModel {
     private Map<String, String> availableCountries;
 
     /**
-     * Build a List of LabelValues for all the available countries. Uses
-     * the two letter uppercase ISO name of the country as the value and the
-     * localized country name as the label.
-     *
+     * Build a List of LabelValues for all the available countries. Uses the two
+     * letter uppercase ISO name of the country as the value and the localized
+     * country name as the label.
+     * 
      * @param locale The Locale used to localize the country names.
-     *
+     * 
      * @return List of LabelValues for all available countries.
      */
     @SuppressWarnings("unchecked")
@@ -28,9 +28,9 @@ public class CountryModel {
         if (availableCountries == null) {
             final String EMPTY = "";
             final Locale[] available = Locale.getAvailableLocales();
-    
+
             List<LabelValue> countries = new ArrayList<LabelValue>();
-            countries.add(new LabelValue("",""));
+            countries.add(new LabelValue("", ""));
 
             for (Locale anAvailable : available) {
                 final String iso = anAvailable.getCountry();
@@ -46,9 +46,10 @@ public class CountryModel {
             }
 
             Collections.sort(countries, new LabelValueComparator(locale));
-            
+
             Map<String, String> options = new LinkedHashMap<String, String>();
-            // loop through and convert list to a JSF-Friendly Map for a <select>
+            // loop through and convert list to a JSF-Friendly Map for a
+            // <select>
             for (Object country : countries) {
                 LabelValue option = (LabelValue) country;
                 if (!options.containsValue(option.getValue())) {
@@ -62,8 +63,8 @@ public class CountryModel {
     }
 
     /**
-     * Class to compare LabelValues using their labels with
-     * locale-sensitive behaviour.
+     * Class to compare LabelValues using their labels with locale-sensitive
+     * behaviour.
      */
     @SuppressWarnings("rawtypes")
     public class LabelValueComparator implements Comparator {
@@ -71,7 +72,7 @@ public class CountryModel {
 
         /**
          * Creates a new LabelValueComparator object.
-         *
+         * 
          * @param locale The Locale used for localized String comparison.
          */
         public LabelValueComparator(Locale locale) {
@@ -80,10 +81,10 @@ public class CountryModel {
 
         /**
          * Compares the localized labels of two LabelValues.
-         *
+         * 
          * @param o1 The first LabelValue to compare.
          * @param o2 The second LabelValue to compare.
-         *
+         * 
          * @return The value returned by comparing the localized labels.
          */
         public final int compare(Object o1, Object o2) {

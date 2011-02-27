@@ -11,9 +11,9 @@ import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableProperty;
 
 /**
- * This class is used to represent an address with address,
- * city, province and postal-code information.
- *
+ * This class is used to represent an address with address, city, province and
+ * postal-code information.
+ * 
  */
 @Embeddable
 @Searchable(root = false)
@@ -27,46 +27,46 @@ public class Address extends BaseObject implements Serializable {
     private Integer hostelFloor;
     private Integer hostelRoom;
 
-    @Column(length=150)
+    @Column(length = 150)
     @SearchableProperty
     public String getAddress() {
         return address;
     }
 
-    @Column(length=50)
+    @Column(length = 50)
     @SearchableProperty
     public String getCity() {
         return city;
     }
 
-    @Column(length=100)
+    @Column(length = 100)
     @SearchableProperty
     public String getProvince() {
         return province;
     }
 
-    @Column(length=100)
+    @Column(length = 100)
     @SearchableProperty
     public String getCountry() {
         return country;
     }
 
-    @Column(name="postal_code",length=15)
+    @Column(name = "postal_code", length = 15)
     @SearchableProperty
     public String getPostalCode() {
         return postalCode;
     }
-    
-    @Column(name="hostel_room")
+
+    @Column(name = "hostel_room", nullable = false)
     @SearchableProperty
     public Integer getHostelRoom() {
-    	return hostelRoom;
+        return hostelRoom;
     }
-    
-    @Column(name="hostel_floor")
+
+    @Column(name = "hostel_floor", nullable = false)
     @SearchableProperty
     public Integer getHostelFloor() {
-    	return hostelFloor;
+        return hostelFloor;
     }
 
     public void setAddress(String address) {
@@ -88,17 +88,19 @@ public class Address extends BaseObject implements Serializable {
     public void setProvince(String province) {
         this.province = province;
     }
-    
+
     public void setHostelFloor(Integer hostelFloor) {
-    	this.hostelFloor = hostelFloor;
+        this.hostelFloor = hostelFloor;
     }
-    
+
     public void setHostelRoom(Integer hostelRoom) {
-    	this.hostelRoom = hostelRoom;
+        this.hostelRoom = hostelRoom;
     }
 
     /**
-     * Overridden equals method for object comparison. Compares based on hashCode.
+     * Overridden equals method for object comparison. Compares based on
+     * hashCode.
+     * 
      * @param o Object to compare
      * @return true/false based on hashCode
      */
@@ -116,7 +118,9 @@ public class Address extends BaseObject implements Serializable {
     }
 
     /**
-     * Overridden hashCode method - compares on address, city, province, country and postal code.
+     * Overridden hashCode method - compares on address, city, province, country
+     * and postal code.
+     * 
      * @return hashCode
      */
     public int hashCode() {
@@ -133,17 +137,13 @@ public class Address extends BaseObject implements Serializable {
 
     /**
      * Returns a multi-line String with key=value pairs.
+     * 
      * @return a String representation of this class.
      */
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("country", this.country)
-                .append("address", this.address)
-                .append("province", this.province)
-                .append("postalCode", this.postalCode)
-                .append("city", this.city)
-                .append("hostel_floor", this.hostelFloor)
-                .append("hostel_room", this.hostelRoom)
-                .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("country", this.country)
+                .append("address", this.address).append("province", this.province)
+                .append("postalCode", this.postalCode).append("city", this.city)
+                .append("hostel_floor", this.hostelFloor).append("hostel_room", this.hostelRoom).toString();
     }
 }
