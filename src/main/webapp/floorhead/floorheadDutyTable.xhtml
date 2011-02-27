@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-    xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
+    xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf" xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <f:view>
     <f:loadBundle var="text" basename="#{basePage.bundleName}" />
@@ -14,14 +14,14 @@
     <link rel="stylesheet" type="text/css" href="/styles/jscal2.css" />
     <link rel="stylesheet" type="text/css" href="/styles/border-radius.css" />
     </head>
-    <h:form>
+    <a4j:form>
         <table>
             <tr>
-                <th style="vertical-align:top;"><ui:include src="/common/manageDutyButtons.xhtml" /></th>
-                <th style="vertical-align:top;"><ui:include src="/common/month.xhtml" /></th>
+                <th style="vertical-align: top;"><ui:include src="/common/manageDutyButtons.xhtml" /></th>
+                <th style="vertical-align: top;"><ui:include src="/common/month.xhtml" /></th>
             </tr>
         </table>
-        <t:dataTable id="duties" var="duty" style="margin-top: 10px" value="#{dutyList.dutyList}" rows="31"
+        <t:dataTable id="dutiesTable" var="duty" style="margin-top: 10px" value="#{dutyList.dutyList}" rows="31"
             styleClass="scrollerTable table" headerClass="standardTable_Header"
             rowClasses="standardTable_Row1,standardTable_Row2"
             columnClasses="standardTable_Column, standardTable_Column, standardTable_ColumnCentered, standardTable_ColumnCentered">
@@ -62,12 +62,13 @@
                     </t:commandSortHeader>
                 </f:facet>
                 <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
-                    <h:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}"
-                        actionListener="#{dutyList.deleteUser}"
+                    <a4j:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}"
+                        actionListener="#{dutyList.deleteUser}" reRender="dutiesTable"
                         value="#{duty.firstUser.firstName} #{duty.firstUser.lastName}" />
-                    <h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}" onchange="submit();"
+                    <h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}"
                         valueChangeListener="#{dutyList.floorUserChanged}">
                         <f:selectItems value="#{dutyList.usersByStarostaFloor}" />
+                        <a4j:support event="onchange" reRender="dutiesTable" />
                     </h:selectOneMenu>
                 </h:panelGroup>
             </t:column>
@@ -79,17 +80,19 @@
                     </t:commandSortHeader>
                 </f:facet>
                 <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
-                    <h:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}"
-                        actionListener="#{dutyList.deleteUser}"
+                    <a4j:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}"
+                        actionListener="#{dutyList.deleteUser}" reRender="dutiesTable"
                         value="#{duty.secondUser.firstName} #{duty.secondUser.lastName}" />
-                    <h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}" onchange="submit();"
+                    <h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}"
                         valueChangeListener="#{dutyList.floorUserChanged}">
                         <f:selectItems value="#{dutyList.usersByStarostaFloor}" />
+                        <a4j:support event="onchange" reRender="dutiesTable" />
                     </h:selectOneMenu>
                 </h:panelGroup>
             </t:column>
         </t:dataTable>
 
-    </h:form>
+    </a4j:form>
+
 </f:view>
 </html>

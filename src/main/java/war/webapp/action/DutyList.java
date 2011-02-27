@@ -39,7 +39,7 @@ public class DutyList extends BasePage implements Serializable {
     public static final String SECOND_SHIFT = "secondShift";
     public static final String FIRST_SHIFT_USER = "firstShiftUser";
     public static final String SECOND_SHIFT_USER = "secondShiftUser";
-    public static final String SELECT_USER_STRING = "Select User";
+    public static final String SELECT_USER_STRING = "-";
 
     private DayDutyManager dayDutyManager;
     private MonthManager monthManager;
