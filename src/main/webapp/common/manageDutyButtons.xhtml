@@ -10,8 +10,8 @@
         <h:commandButton value="#{text['month.close']}" actionListener="#{dutyList.changeMonthAvailability}"
             rendered="#{dutyList.monthAvailable}" />
     </label>
-    <h:outputLabel value="#{text['duty.opened']}" rendered="#{dutyList.monthAvailable}" />
-    <h:outputLabel value="#{text['duty.closed']}" rendered="#{!dutyList.monthAvailable}" />
+    <h:outputLabel value="#{text['duty.opened']}" onclick="submit()" rendered="#{dutyList.monthAvailable}" />
+    <h:outputLabel value="#{text['duty.closed']}" onclick="submit()" rendered="#{!dutyList.monthAvailable}" />
 </h:panelGrid>
 </html>
 
