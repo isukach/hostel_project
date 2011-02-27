@@ -15,8 +15,12 @@
     <link rel="stylesheet" type="text/css" href="/styles/border-radius.css" />
     </head>
     <h:form>
-        <ui:include src="/common/month.xhtml" />
-        <ui:include src="/common/manageDutyButtons.xhtml" />
+        <table>
+            <tr>
+                <th style="vertical-align:top;"><ui:include src="/common/manageDutyButtons.xhtml" /></th>
+                <th style="vertical-align:top;"><ui:include src="/common/month.xhtml" /></th>
+            </tr>
+        </table>
         <t:dataTable id="duties" var="duty" style="margin-top: 10px" value="#{dutyList.dutyList}" rows="31"
             styleClass="scrollerTable table" headerClass="standardTable_Header"
             rowClasses="standardTable_Row1,standardTable_Row2"
