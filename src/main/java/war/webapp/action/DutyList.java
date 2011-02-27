@@ -15,9 +15,12 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 
+import war.webapp.Constants;
 import war.webapp.model.DayDuty;
 import war.webapp.model.DutyMonth;
 import war.webapp.model.EmptyUser;
@@ -25,9 +28,9 @@ import war.webapp.model.Role;
 import war.webapp.model.User;
 import war.webapp.model.UserDuty;
 import war.webapp.service.DayDutyManager;
+import war.webapp.service.DutyListLoadService;
 import war.webapp.service.MonthManager;
 import war.webapp.service.UserManager;
-import war.webapp.util.GeneratorToExcel;
 import war.webapp.util.MonthHelper;
 
 public class DutyList extends BasePage implements Serializable {
@@ -42,7 +45,7 @@ public class DutyList extends BasePage implements Serializable {
 	public static final String FIRST_SHIFT_USER = "firstShiftUser";
 	public static final String SECOND_SHIFT_USER = "secondShiftUser";
 	public static final String SELECT_USER_STRING = "Select User";
-
+	private static final transient Log logger = LogFactory.getLog(DutyList.class);
 	private DayDutyManager dayDutyManager;
 	private MonthManager monthManager;
 	private UserManager userManager;
@@ -291,29 +294,24 @@ public class DutyList extends BasePage implements Serializable {
 	}
 
 	public void print(ActionEvent e) {
-		Locale localeRU = new Locale("ru");
-		String filename = "c:/My-tmp.xls";
-		String floor = "9";
-		String month = "ноябрь";
-
-		String starosta = "длинныйолень";
-		String vosptka = "Длинныйолень2";
-		Semaphore sem = new Semaphore(1, true);
-
-		GeneratorToExcel generator = new GeneratorToExcel(localeRU,
-				getDutyList(), filename, floor, month);
-		try {
-			sem.acquire();
-			generator.generate(month, floor, starosta, vosptka);
-			generator.download(filename, getResponse(), getSession());
-		} catch (InterruptedException ex) {
-			ex.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace(); // To change body of catch statement use File
-									// | Settings | File Templates.
-		} finally {
-			sem.release();
-		}
+	    Semaphore sem = new Semaphore(1, true);
+	    try {
+            sem.acquire();
+            //forth param must be name of vospetka
+            Object[] params = new Object[]{getFloor(), getMonthString(), "Starosta", null, getDutyList()};
+            DutyListLoadService.getService(Constants.HTTP_DOWNLOADER).download(params);
+        } catch (InterruptedException ex) {
+            logger.error("Current thread was interrupted!");
+        } catch (IOException ex) {
+            logger.error("IO error:"+ex.getMessage());
+        } catch (NullPointerException exc){
+            //no critic, it's joke! :)
+            logger.error("Something wrong.."+exc.getMessage());
+        }
+        finally {
+            sem.release();
+        }
+	    
 	}
 
 	public void closeOpen(ActionEvent e) {

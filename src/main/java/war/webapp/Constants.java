@@ -81,4 +81,9 @@ public final class Constants {
      * The name of the CSS Theme setting.
      */
     public static final String CSS_THEME = "csstheme";
+    /**
+     * The name of the Duty Load Service type.
+     */
+    public static final int HTTP_DOWNLOADER = 1;
+    
 }
