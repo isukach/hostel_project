@@ -15,4 +15,10 @@ public interface DayDutyDao extends GenericDao<DayDuty, Long> {
 
     public void deleteDayDuty(DayDuty dayDuty);
 
+    public void deleteFirstDutyUser(DayDuty dayDuty);
+
+    public void deleteSecondDutyUser(DayDuty dayDuty);
+    
+    public DayDuty loadSingleDayDutyByExample(DayDuty exampleDayDuty);
+
 }

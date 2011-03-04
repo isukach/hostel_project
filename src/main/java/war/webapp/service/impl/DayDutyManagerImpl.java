@@ -44,4 +44,12 @@ public class DayDutyManagerImpl extends GenericManagerImpl<DayDuty, Long> implem
     public void setDayDutyDao(DayDutyDao dayDutyDao) {
         this.dayDutyDao = dayDutyDao;
     }
+
+    public void deleteFirstDutyUser(DayDuty dayDuty) {
+        dayDutyDao.deleteFirstDutyUser(dayDuty);
+    }
+
+    public void deleteSecondDutyUser(DayDuty dayDuty) {
+        dayDutyDao.deleteSecondDutyUser(dayDuty);        
+    }
 }
