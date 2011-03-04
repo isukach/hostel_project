@@ -156,7 +156,8 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder{
             for(DayDuty duty : duties){
 
                 Calendar dutyDate = Calendar.getInstance();
-                dutyDate.setTime(duty.getDate());
+                //something wrong with time after recommit(reset)
+                dutyDate.setTime(duty.getDate().getTime());
                 Label data01 = new Label(distCol  , dataRow,""+dutyDate.get(Calendar.DAY_OF_MONTH), headerFormat);
                 Label data11 = new Label(distCol + 1 , dataRow, duty.getFirstUser().getLastName() + " "
                         + duty.getFirstUser().getFirstName(), dataFormat);
