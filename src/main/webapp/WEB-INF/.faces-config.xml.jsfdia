@@ -92,17 +92,15 @@
   PATH="/user/writeOnDuty.xhtml" SHAPE="32,673,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#user#writeOnDuty.xhtml:0" NAME="item"
    PATH="/user/writeOnDuty.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="write::#user#WriteOnDuty.xhtml"
-    NAME="output" PATH="/user/WriteOnDuty.xhtml"
-    TARGET="rules:#user#WriteOnDuty.xhtml" TITLE="write" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="write::#user#writeOnDuty.xhtml"
+    NAME="output" PATH="/user/writeOnDuty.xhtml"
+    TARGET="rules:#user#writeOnDuty.xhtml" TITLE="write" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#showFile.xhtml" PATH="/showFile.xhtml"
   SHAPE="672,177,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#ajax4jsf.xhtml" PATH="/ajax4jsf.xhtml"
   SHAPE="464,17,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#user#WriteOnDuty.xhtml"
-  PATH="/user/WriteOnDuty.xhtml" SHAPE="240,689,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#login.jsp" PATH="/login.jsp"
   SHAPE="256,465,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#admin#users.xhtml" PATH="/admin/users.xhtml"
