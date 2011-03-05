@@ -1,12 +1,8 @@
 package war.webapp.service.impl;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +14,11 @@ import war.webapp.service.impl.builder.ExcelDutyListTemplateBuilder;
 public class HttpDutyListLoadService extends DutyListLoadService {
 
     @Override
-    public void download(Object...params) throws IOException {
+    public void download(Object... params) throws IOException {
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
                 .getResponse();
         byte[] dataForDownload = getDutyListTemplateBuilder().build(params);
-        
+
         String fileName = generateDataDescription(params);
         int pz = fileName.lastIndexOf('/');
         String shortFileName = fileName.substring(pz + 1);
@@ -42,21 +38,21 @@ public class HttpDutyListLoadService extends DutyListLoadService {
         FacesContext.getCurrentInstance().responseComplete();
     }
 
-    private void setResponseContentType(HttpServletResponse response){
-        if(getDutyListTemplateBuilder() instanceof ExcelDutyListTemplateBuilder){
+    private void setResponseContentType(HttpServletResponse response) {
+        if (getDutyListTemplateBuilder() instanceof ExcelDutyListTemplateBuilder) {
             response.setContentType("application/excel");
-        }else{
+        } else {
             response.setContentType("application/ostet-stream");
         }
     }
-    
+
     @Override
     public BaseDutyListTemplateBuilder getDutyListTemplateBuilder() {
         return new ExcelDutyListTemplateBuilder();
     }
 
     @Override
-    public String generateDataDescription(Object...params) {
+    public String generateDataDescription(Object... params) {
         StringBuffer buff = new StringBuffer("report_");
         buff.append(params[0]);
         buff.append("_");

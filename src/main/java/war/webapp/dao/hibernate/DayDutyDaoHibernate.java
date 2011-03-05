@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
@@ -71,7 +69,8 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     public void deleteDayDuty(DayDuty dayDuty) {
         remove(dayDuty.getId());
     }
-    
+
+    @SuppressWarnings("rawtypes")
     public DayDuty loadSingleDayDutyByExample(DayDuty exampleDayDuty) {
         List result = getHibernateTemplate().findByExample(exampleDayDuty);
         if (result.size() == 0 || result.size() > 1)
