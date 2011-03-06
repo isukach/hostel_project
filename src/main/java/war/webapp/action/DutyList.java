@@ -313,7 +313,7 @@ public class DutyList extends BasePage implements Serializable {
         DutyMonth dutyMonth = monthManager.loadMonth(year, month, floor);
         if (dutyMonth == null) {
             dutyMonth = createDutyMonth();
-            dutyMonth.setAvailable(false);
+            dutyMonth.setAvailable(true);
         } else {
             dutyMonth.setAvailable(!dutyMonth.getAvailable());
         }
