@@ -62,11 +62,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * because saveUser flushes the session and saveObject of BaseDaoHibernate
      * does not.
      * 
-     * <<<<<<< HEAD
-     * 
-     * @param user the user to save =======
-     * @param user the user to save >>>>>>>
-     *            244608232be1e4b03e64a8f78178a1a01fdba52c
+     * @param user the user to save
      * @return the modified user (with a primary key set if they're new)
      */
     @Override
