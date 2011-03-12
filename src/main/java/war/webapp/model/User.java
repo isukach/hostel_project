@@ -44,21 +44,17 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private Long id;
     private String username; // required
     private String password; // required
-    private String confirmPassword;
-    private String passwordHint;
     private String firstName; // required
     private String lastName; // required
-    private String email; // required; unique
-    private String phoneNumber;
-    private String website;
+    private String middleName; // required
     private Address address = new Address();
     private String universityGroup;
     private Integer version;
     private Set<Role> roles = new HashSet<Role>();
     private boolean enabled;
-    private boolean accountExpired;
+    private boolean accountExpired = false;
     private boolean accountLocked;
-    private boolean credentialsExpired;
+    private boolean credentialsExpired = false;
 
     /**
      * Default constructor - creates a new instance with no values set.
@@ -93,16 +89,6 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return password;
     }
 
-    @Transient
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    @Column(name = "password_hint")
-    public String getPasswordHint() {
-        return passwordHint;
-    }
-
     @Column(name = "first_name", nullable = false, length = 50)
     @SearchableProperty
     public String getFirstName() {
@@ -115,21 +101,10 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return lastName;
     }
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "middle_name", length = 50)
     @SearchableProperty
-    public String getEmail() {
-        return email;
-    }
-
-    @Column(name = "phone_number")
-    @SearchableProperty
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    @SearchableProperty
-    public String getWebsite() {
-        return website;
+    public String getMiddleName() {
+        return middleName;
     }
 
     /**
@@ -139,7 +114,12 @@ public class User extends BaseObject implements Serializable, UserDetails {
      */
     @Transient
     public String getFullName() {
-        return firstName + ' ' + lastName;
+//        String fullName = lastName + " " + firstName.charAt(0) + ".";
+//        if (middleName != null) {
+//            fullName += " " + middleName.charAt(0) + ".";
+//        }
+//        return fullName;
+        return lastName;
     }
 
     @Embedded
@@ -257,14 +237,6 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.password = password;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public void setPasswordHint(String passwordHint) {
-        this.passwordHint = passwordHint;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -273,16 +245,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.lastName = lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public void setAddress(Address address) {

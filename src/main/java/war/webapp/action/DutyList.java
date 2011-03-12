@@ -105,8 +105,7 @@ public class DutyList extends BasePage implements Serializable {
             List<User> floorUsers = userManager.getUsersByFloor(floor);
             floorUsers.remove(user);
             for (User floorUser : floorUsers) {
-                floorUsersList.add(new SelectItem(floorUser.getUsername() + " " + user.getFirstName() + " "
-                        + user.getLastName()));
+                floorUsersList.add(new SelectItem(floorUser.getUsername()));
             }
         }
         return floorUsersList;

@@ -46,56 +46,6 @@
         </managed-property>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>signupForm</managed-bean-name>
-        <managed-bean-class>war.webapp.action.SignupForm</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>roleManager</property-name>
-            <value>#{roleManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>mailEngine</property-name>
-            <value>#{mailEngine}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>message</property-name>
-            <value>#{mailMessage}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>templateName</property-name>
-            <value>accountCreated.vm</value>
-        </managed-property>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>passwordHint</managed-bean-name>
-        <managed-bean-class>war.webapp.action.PasswordHint</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>username</property-name>
-            <value>#{param.username}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>mailEngine</property-name>
-            <value>#{mailEngine}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>message</property-name>
-            <value>#{mailMessage}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>templateName</property-name>
-            <value>accountCreated.vm</value>
-        </managed-property>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>fileUpload</managed-bean-name>
         <managed-bean-class>war.webapp.action.FileUpload</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -203,14 +153,6 @@
         <from-view-id>/signup.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/login.jsp</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/passwordHint.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
             <redirect />
         </navigation-case>

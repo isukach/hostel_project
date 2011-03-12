@@ -45,13 +45,11 @@
             </t:column>
             <t:column width="25%">
                 <f:facet name="header">
-                    <t:commandSortHeader columnName="email" arrow="true">
-                        <h:outputText value="#{text['user.email']}" />
+                    <t:commandSortHeader columnName="room" arrow="true">
+                        <h:outputText value="#{text['user.room']}" />
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputLink value="mailto:#{user.email}">
-                    <h:outputText value="#{user.email}" />
-                </h:outputLink>
+                <h:outputText value="#{user.address.hostelRoom}" />
             </t:column>
             <t:column width="16%">
                 <f:facet name="header">
@@ -68,7 +66,7 @@
         </ui:include>
 
         <script type="text/javascript">
-    highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
+	highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
 </script>
 
     </h:form>
