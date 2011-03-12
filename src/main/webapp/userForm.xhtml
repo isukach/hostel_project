@@ -105,21 +105,40 @@
             <h:outputText />
             <h:outputText />
 
-            <c:if test="${param.from != 'list' and param['editUser:add'] != addText}">
-                <h:panelGroup>
-                    <t:htmlTag value="strong">#{text['user.roles']}:</t:htmlTag>
-                    <c:forEach var="role" items="#{userForm.userRoles}" varStatus="status">
+            <c:choose>
+                <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
+                    <h:panelGroup>
+                        <t:htmlTag value="fieldset">
+                            <t:htmlTag value="legend">
+                                <h:outputText value="#{text['userProfile.accountSettings']}" />
+                            </t:htmlTag>
+                            <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled" styleClass="checkbox" />
+                            <h:outputLabel for="enabled" styleClass="choice" value="#{text['user.enabled']}" />
+
+                            <h:selectBooleanCheckbox value="#{userForm.user.accountLocked}" id="accountLocked"
+                                styleClass="checkbox" />
+                            <h:outputLabel for="accountLocked" styleClass="choice" value="#{text['user.accountLocked']}" />
+                        </t:htmlTag>
+                    </h:panelGroup>
+                    <h:outputText />
+                    <h:outputText />
+                </c:when>
+                <c:otherwise>
+                    <h:panelGroup>
+                        <t:htmlTag value="strong">#{text['user.roles']}:</t:htmlTag>
+                        <c:forEach var="role" items="#{userForm.userRoles}" varStatus="status">
                ${role}<c:if test="${!status.last}">,</c:if>
-                        <input type="hidden" name="userForm:userRoles" value="${role}" />
-                    </c:forEach>
-                    <h:inputHidden value="#{userForm.user.enabled}" />
-                    <h:inputHidden value="#{userForm.user.accountExpired}" />
-                    <h:inputHidden value="#{userForm.user.accountLocked}" />
-                    <h:inputHidden value="#{userForm.user.credentialsExpired}" />
-                </h:panelGroup>
-                <h:outputText />
-                <h:outputText />
-            </c:if>
+                            <input type="hidden" name="userForm:userRoles" value="${role}" />
+                        </c:forEach>
+                        <h:inputHidden value="#{userForm.user.enabled}" />
+                        <h:inputHidden value="#{userForm.user.accountExpired}" />
+                        <h:inputHidden value="#{userForm.user.accountLocked}" />
+                        <h:inputHidden value="#{userForm.user.credentialsExpired}" />
+                    </h:panelGroup>
+                    <h:outputText />
+                    <h:outputText />
+                </c:otherwise>
+            </c:choose>
 
             <h:panelGroup styleClass="buttonBar bottom">
                 <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button" />

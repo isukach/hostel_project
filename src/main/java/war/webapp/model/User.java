@@ -101,7 +101,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return lastName;
     }
 
-    @Column(name = "middle_name", length = 50)
+    @Column(name = "middle_name", nullable = false, length = 50)
     @SearchableProperty
     public String getMiddleName() {
         return middleName;
