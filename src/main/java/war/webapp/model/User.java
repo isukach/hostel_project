@@ -224,6 +224,11 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public boolean isCredentialsNonExpired() {
         return !credentialsExpired;
     }
+    
+    @Transient
+    public boolean isEmptyUser() {
+        return false;
+    }
 
     public void setId(Long id) {
         this.id = id;

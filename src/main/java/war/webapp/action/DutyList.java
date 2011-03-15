@@ -54,7 +54,6 @@ public class DutyList extends BasePage implements Serializable {
     private Integer month;
     private String monthString;
     private Integer floor;
-    private boolean firstBoot = true;
 
     private String selectedUser;
     private List<SelectItem> floorUsersList;
@@ -72,24 +71,22 @@ public class DutyList extends BasePage implements Serializable {
         if (getFloor() == null) {
             setFloor(user.getAddress().getHostelFloor());
         }
-        if (dutyList == null) {
-            List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(month, floor);
-            for (DayDuty duty : d) {
-                if (duty.isFirstEmpty()) {
-                    duty.setFirstUser(getEmptyUser());
-                }
-                if (duty.isSecondEmpty()) {
-                    duty.setSecondUser(getEmptyUser());
-                }
+        List<DayDuty> d = dayDutyManager.loadAllDayDutyByDateAndFloor(month, floor);
+        for (DayDuty duty : d) {
+            if (duty.isFirstEmpty()) {
+                duty.setFirstUser(getEmptyUser());
             }
-            List<DayDuty> result = getEmptyDutyList();
-            if (d != null) {
-                for (DayDuty dayDuty : d) {
-                    result.set(dayDuty.getDate().get(Calendar.DAY_OF_MONTH) - 1, dayDuty);
-                }
+            if (duty.isSecondEmpty()) {
+                duty.setSecondUser(getEmptyUser());
             }
-            dutyList = result;
         }
+        List<DayDuty> result = getEmptyDutyList();
+        if (d != null) {
+            for (DayDuty dayDuty : d) {
+                result.set(dayDuty.getDate().get(Calendar.DAY_OF_MONTH) - 1, dayDuty);
+            }
+        }
+        dutyList = result;
         return dutyList;
     }
 
@@ -135,11 +132,11 @@ public class DutyList extends BasePage implements Serializable {
         User userToWriteOnDuty = userManager.getUserByUsername(userName);
 
         Calendar date = getDate(e);
-        DayDuty dayDuty = dayDutyManager.loadDayDutyByDateAndFloor(date, floor);
+        DayDuty dayDuty = dayDutyManager.loadDayDutyByDateAndFloor(date, getFloor());
         if (dayDuty == null) {
             dayDuty = new DayDuty();
             dayDuty.setDate(date);
-            dayDuty.setFloor(floor);
+            dayDuty.setFloor(getFloor());
         }
 
         String shift = e.getComponent().getId();
@@ -180,12 +177,12 @@ public class DutyList extends BasePage implements Serializable {
             return;
         }
         Calendar date = getDate(e);
-        DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date, floor);
+        DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date, getFloor());
 
         if (dayDuty == null) {
             dayDuty = new DayDuty();
             dayDuty.setDate(date);
-            dayDuty.setFloor(floor);
+            dayDuty.setFloor(getFloor());
         }
         if (dayDuty.getFirstUser() != null) {
             return;
@@ -200,11 +197,11 @@ public class DutyList extends BasePage implements Serializable {
             return;
         }
         Calendar date = getDate(e);
-        DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date, floor);
+        DayDuty dayDuty = getDayDutyManager().loadDayDutyByDateAndFloor(date, getFloor());
         if (dayDuty == null) {
             dayDuty = new DayDuty();
             dayDuty.setDate(date);
-            dayDuty.setFloor(floor);
+            dayDuty.setFloor(getFloor());
         }
         if (dayDuty.getSecondUser() != null) {
             return;
@@ -309,7 +306,7 @@ public class DutyList extends BasePage implements Serializable {
 
     public void changeMonthAvailability(ActionEvent e) {
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
-        DutyMonth dutyMonth = monthManager.loadMonth(year, month, floor);
+        DutyMonth dutyMonth = monthManager.loadMonth(year, month, getFloor());
         if (dutyMonth == null) {
             dutyMonth = createDutyMonth();
             dutyMonth.setAvailable(true);
@@ -324,13 +321,13 @@ public class DutyList extends BasePage implements Serializable {
         // TODO user should be able to choose the year
         dutyMonth.setYear(Calendar.getInstance().get(Calendar.YEAR));
         dutyMonth.setMonth(month);
-        dutyMonth.setFloor(floor);
+        dutyMonth.setFloor(getFloor());
         return dutyMonth;
     }
 
     public boolean isMonthAvailable() {
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
-        DutyMonth dutyMonth = monthManager.loadMonth(year, month, floor);
+        DutyMonth dutyMonth = monthManager.loadMonth(year, month, getFloor());
         if (dutyMonth == null) {
             return false;
         }
@@ -351,9 +348,8 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public Integer getFloor() {
-        if (firstBoot) {
+        if (floor == null) {
             setFloor(user.getAddress().getHostelFloor());
-            firstBoot = false;
         }
         return floor;
     }
