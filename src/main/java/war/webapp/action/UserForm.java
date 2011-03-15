@@ -114,8 +114,7 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String save() throws IOException {
-        String[] roles = getRoles(); 
-        setUserRoles(roles);
+        setUserRoles(getRoles());
         generateFloor();
         generateUsername();
         generatePassword();
