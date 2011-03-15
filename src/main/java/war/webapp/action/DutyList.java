@@ -161,17 +161,19 @@ public class DutyList extends BasePage implements Serializable {
 
     public List<UserDuty> getUserDuties() throws Exception {
         List<UserDuty> userDuties = new ArrayList<UserDuty>();
-        for (DayDuty dayDuty : getDutyList()) {
-            if (dayDuty.getFirstUser() != null && dayDuty.getFirstUser().equals(user)) {
-                userDuties.add(new UserDuty(1, dayDuty));
-            }
-            if (dayDuty.getSecondUser() != null && dayDuty.getSecondUser().equals(user)) {
-                userDuties.add(new UserDuty(2, dayDuty));
+        if (isMonthAvailable()) {
+            for (DayDuty dayDuty : getDutyList()) {
+                if (dayDuty.getFirstUser() != null && dayDuty.getFirstUser().equals(user)) {
+                    userDuties.add(new UserDuty(1, dayDuty));
+                }
+                if (dayDuty.getSecondUser() != null && dayDuty.getSecondUser().equals(user)) {
+                    userDuties.add(new UserDuty(2, dayDuty));
+                }
             }
         }
         return userDuties;
     }
-
+    
     public void writeFirstOnDuty(ActionEvent e) {
         if (!isOnOwnFloor() || !isMonthAvailable()) {
             return;
