@@ -66,8 +66,7 @@
                         <t:outputText value="#{text['duty.action']}" />
                     </t:commandSortHeader>
                 </f:facet>
-                <h:commandButton value="#{text['duty.button.delete']}" styleClass="hostel_button"
-                    actionListener="#{dutyList.deleteDuty}" />
+                <h:commandButton value="#{text['duty.button.delete']}" actionListener="#{dutyList.deleteDuty}" />
             </t:column>
         </t:dataTable>
     </h:form>
