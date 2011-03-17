@@ -146,14 +146,16 @@ public class UserForm extends BasePage implements Serializable {
             addMessage("user.saved");
             return "mainMenu"; // return to main Menu
         } else {
-            // add success messages
-            if ("".equals(getParameter("userForm:version"))) {
-                addMessage("user.added", user.getFullName());
-                return "list"; // return to list screen
-            } else {
-                addMessage("user.updated.byAdmin", user.getFullName());
-                return "editProfile"; // return to current page
-            }
+            addMessage("user.added", user.getFullName());
+            return "list"; // return to list screen
+//            // add success messages
+//            if ("".equals(getParameter("userForm:version"))) {
+//                addMessage("user.added", user.getFullName());
+//                
+//            } else {
+//                addMessage("user.updated.byAdmin", user.getFullName());
+//                return "editProfile"; // return to current page
+//            }
         }
     }
     
