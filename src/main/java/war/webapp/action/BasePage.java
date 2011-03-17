@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -63,6 +64,11 @@ public class BasePage {
         return ResourceBundle.getBundle(getBundleName(), getRequest().getLocale(), classLoader);
     }
 
+    public ResourceBundle getBundle(Locale locale) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        return ResourceBundle.getBundle(getBundleName(), locale, classLoader);
+    }
+    
     public String getText(String key) {
         String message;
 

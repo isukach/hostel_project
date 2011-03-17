@@ -6,14 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import jxl.SheetSettings;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.Alignment;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
 import jxl.format.Orientation;
 import jxl.format.VerticalAlignment;
 import jxl.write.Label;
@@ -22,10 +26,30 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import jxl.write.WritableFont.FontName;
+import jxl.write.biff.RowsExceededException;
 import war.webapp.model.DayDuty;
 import war.webapp.service.builder.BaseDutyListTemplateBuilder;
 
 public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
+
+    private Map<String, FontName> fontNames;
+    private Map<String, Object> boldStyles;
+
+    @SuppressWarnings("unused")
+    private void initialCellFormats() {
+
+    }
+
+    @SuppressWarnings("unused")
+    private void initialsFontNamesAndStyles() {
+        fontNames = new HashMap<String, WritableFont.FontName>();
+        boldStyles = new HashMap<String, Object>();
+        fontNames.put(FONT_NAME_TIMES, WritableFont.TIMES);
+        fontNames.put(FONT_NAME_ARIAL, WritableFont.ARIAL);
+        boldStyles.put(FONT_STYLE_BOLD, WritableFont.BOLD);
+        boldStyles.put(FONT_STYLE_NO_BOLD, WritableFont.NO_BOLD);
+    }
 
     private String filename = "temp.xsl";
 
@@ -33,25 +57,37 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
     public void createHeader(Object... params) {
 
         WritableSheet sheet = (WritableSheet) params[0];
+
         String month = (String) params[1];
         Integer floor = (Integer) params[2];
 
-        WritableFont arial16ptBold = new WritableFont(WritableFont.TIMES, 16, WritableFont.NO_BOLD);
+        WritableFont times_16ptBold = new WritableFont(WritableFont.TIMES, 16, WritableFont.BOLD);
 
-        WritableFont arial14pt = new WritableFont(WritableFont.TIMES, 14, WritableFont.NO_BOLD);
+        WritableFont times_16ptNoBold = new WritableFont(WritableFont.TIMES, 16, WritableFont.NO_BOLD);
 
-        WritableCellFormat arial16Format = new WritableCellFormat(arial16ptBold);
+        WritableFont times_14ptNoBold = new WritableFont(WritableFont.TIMES, 14, WritableFont.NO_BOLD);
 
-        WritableCellFormat arial14Format = new WritableCellFormat(arial14pt);
+        WritableFont times_14ptBold = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
 
+        WritableCellFormat times_16FormatBold = new WritableCellFormat(times_16ptBold);
+        WritableCellFormat times_16FormatNoBold = new WritableCellFormat(times_16ptNoBold);
+
+        WritableCellFormat times_14FormatNoBold = new WritableCellFormat(times_14ptNoBold);
+        WritableCellFormat times_14FormatBold = new WritableCellFormat(times_14ptBold);
         try {
-            arial16Format.setAlignment(Alignment.CENTRE);
-            arial16Format.setWrap(false);
+            times_16FormatBold.setAlignment(Alignment.CENTRE);
+            times_16FormatBold.setWrap(false);
 
-            arial14Format.setAlignment(Alignment.LEFT);
-            arial14Format.setWrap(false);
+            times_16FormatNoBold.setAlignment(Alignment.CENTRE);
+            times_16FormatNoBold.setWrap(false);
 
-            arial16Format.setOrientation(Orientation.HORIZONTAL);
+            times_14FormatNoBold.setAlignment(Alignment.LEFT);
+            times_14FormatNoBold.setWrap(false);
+
+            times_14FormatBold.setAlignment(Alignment.LEFT);
+            times_14FormatBold.setWrap(false);
+
+            times_16FormatBold.setOrientation(Orientation.HORIZONTAL);
 
             int headerRow = 0;
             int headerColumn = 4;
@@ -61,44 +97,36 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
             sheet.mergeCells(headerColumn, headerRow + 2, 6, headerRow + 2);
             sheet.mergeCells(headerColumn, headerRow + 3, 6, headerRow + 3);
 
-            sheet.setRowView(4, 50);
+            sheet.setRowView(0, 800);
+            sheet.setRowView(4, 0);
 
             int distCol = 1;
             //
-            sheet.setColumnView(distCol - 1, 10);
-            sheet.setColumnView(distCol, 20);
-            sheet.setColumnView(distCol + 1, 10);
-            sheet.setColumnView(distCol + 2, 8);
-            sheet.setColumnView(distCol + 3, 22);
-            sheet.setColumnView(distCol + 4, 9);
-            sheet.setColumnView(distCol + 5, 8);
+            sheet.setColumnView(distCol - 1, 9);// 10
+            sheet.setColumnView(distCol, 20);// 20
+            sheet.setColumnView(distCol + 1, 10);// 10
+            sheet.setColumnView(distCol + 2, 9);// 8
+            sheet.setColumnView(distCol + 3, 20);// 22
+            sheet.setColumnView(distCol + 4, 10);// 9
+            sheet.setColumnView(distCol + 5, 9);// 8
 
             sheet.mergeCells(0, 5, 6, 5);
             sheet.mergeCells(0, 6, 6, 6);
             sheet.mergeCells(0, 7, 6, 7);
 
-            sheet.setRowView(9, 50);
+            sheet.setRowView(9, 250);
 
-            Label label1 = new Label(0, 5, "бла бла бла", arial16Format);
-            Label label2 = new Label(0, 6, "этаж " + floor + " хз что 1", arial16Format);
-            Label label3 = new Label(0, 7, "хз что 2 " + month + " " + Calendar.getInstance().get(Calendar.YEAR)
-                    + " хз что 3 ", arial16Format);
+            addLabelToSheet(sheet, 0, 5, "График дежурств", times_16FormatBold);
+            addLabelToSheet(sheet, 0, 6, "по " + floor + " этажу", times_16FormatNoBold);
+            addLabelToSheet(sheet, 0, 7, "на " + month + " " + Calendar.getInstance().get(Calendar.YEAR) + " года",
+                    times_16FormatNoBold);
 
-            sheet.setRowView(8, 50);
-
-            Label label11 = new Label(4, 0, "         заголовок1", arial14Format);
-            Label label12 = new Label(4, 1, "     заголовок2", arial14Format);
-            Label label13 = new Label(4, 2, "     заголовок3", arial14Format);
-            Label label14 = new Label(4, 3, "     \"_____\" __________ 2010 год", arial14Format);
-
-            sheet.addCell(label1);
-            sheet.addCell(label2);
-            sheet.addCell(label3);
-
-            sheet.addCell(label11);
-            sheet.addCell(label12);
-            sheet.addCell(label13);
-            sheet.addCell(label14);
+            sheet.setRowView(8, 0);
+            
+            addLabelToSheet(sheet, 4, 0, "У Т В Е Р Ж Д А Ю", times_14FormatNoBold);
+            addLabelToSheet(sheet, 4, 1, "Заведущая общежития № 1", times_14FormatNoBold);
+            addLabelToSheet(sheet, 4, 2, "____________Наумова С.Л.", times_14FormatNoBold);
+            addLabelToSheet(sheet, 4, 3, "\"_____\"__________ 2011 год", times_14FormatNoBold);
 
         } catch (WriteException ex) {
             ex.printStackTrace();
@@ -106,13 +134,13 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void createContent(Object... params) {
         WritableSheet sheet = (WritableSheet) params[0];
+        @SuppressWarnings("unchecked")
         List<DayDuty> duties = (List<DayDuty>) params[5];
         String starosta = (String) params[3];
-        String vosptka = (String) params[4];
-        WritableFont fontHeader = new WritableFont(WritableFont.TIMES, 7, WritableFont.NO_BOLD);
+        String vosptatel = (String) params[4];
+        WritableFont fontHeader = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
         WritableCellFormat headerFormat = new WritableCellFormat(fontHeader);
         try {
             headerFormat.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
@@ -120,99 +148,112 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
             headerFormat.setAlignment(Alignment.CENTRE);
             headerFormat.setWrap(true);
 
-            WritableFont fontData = new WritableFont(WritableFont.TIMES, 11, WritableFont.NO_BOLD);
-            WritableCellFormat dataFormat = new WritableCellFormat(fontData);
-            dataFormat.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
-            dataFormat.setAlignment(Alignment.CENTRE);
-            dataFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
-            dataFormat.setWrap(true);
+            WritableCellFormat headerFormatGrey = new WritableCellFormat(fontHeader);
+            headerFormatGrey.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
+            headerFormatGrey.setVerticalAlignment(VerticalAlignment.CENTRE);
+            headerFormatGrey.setAlignment(Alignment.CENTRE);
+            headerFormatGrey.setWrap(true);
+            headerFormatGrey.setBackground(Colour.GREY_25_PERCENT);
+
+            WritableFont fontData = new WritableFont(WritableFont.TIMES, 14, WritableFont.NO_BOLD);
+            WritableFont fontDataBold = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
+
+            WritableCellFormat dataFormatBorderAll = new WritableCellFormat(fontData);
+            dataFormatBorderAll.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
+            dataFormatBorderAll.setAlignment(Alignment.CENTRE);
+            dataFormatBorderAll.setVerticalAlignment(VerticalAlignment.CENTRE);
+            dataFormatBorderAll.setWrap(true);
+
+            WritableCellFormat dataFormatBorderAllGrey = new WritableCellFormat(fontData);
+            dataFormatBorderAllGrey.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
+            dataFormatBorderAllGrey.setAlignment(Alignment.CENTRE);
+            dataFormatBorderAllGrey.setVerticalAlignment(VerticalAlignment.CENTRE);
+            dataFormatBorderAllGrey.setWrap(true);
+            dataFormatBorderAllGrey.setBackground(Colour.GREY_25_PERCENT);
+
+            WritableCellFormat dataFormatBorderAllBold = new WritableCellFormat(fontDataBold);
+            dataFormatBorderAllBold.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
+            dataFormatBorderAllBold.setAlignment(Alignment.CENTRE);
+            dataFormatBorderAllBold.setVerticalAlignment(VerticalAlignment.CENTRE);
+            dataFormatBorderAllBold.setWrap(true);
+            
+            WritableCellFormat dataFormatBorderAllBoldGrey = new WritableCellFormat(fontDataBold);
+            dataFormatBorderAllBoldGrey.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
+            dataFormatBorderAllBoldGrey.setAlignment(Alignment.CENTRE);
+            dataFormatBorderAllBoldGrey.setVerticalAlignment(VerticalAlignment.CENTRE);
+            dataFormatBorderAllBoldGrey.setWrap(true);
+            dataFormatBorderAllBoldGrey.setBackground(Colour.GREY_25_PERCENT);
 
             WritableFont fontPData = new WritableFont(WritableFont.TIMES, 14, WritableFont.NO_BOLD);
             WritableCellFormat pdataFormat = new WritableCellFormat(fontPData);
-
+            WritableCellFormat pdataFormatBold = new WritableCellFormat(fontHeader);
+            
             int distCol = 0;
             int distRow = 10;
-
             sheet.mergeCells(distCol + 1, distRow, distCol + 3, distRow);
             sheet.mergeCells(distCol + 4, distRow, distCol + 6, distRow);
-
             sheet.mergeCells(distCol, distRow, distCol, distRow + 1);
 
-            Label hpart03 = new Label(distCol + 1, distRow, "1-смена (8.00 - 16.00)", dataFormat);
-            Label hpart04 = new Label(distCol + 4, distRow, "2-смена (16.00 - 24.00)", dataFormat);
-            Label hpart2 = new Label(distCol, distRow, "хз что 21", headerFormat);
-            Label hpart3 = new Label(distCol + 1, distRow + 1, "мд...", headerFormat);
-            Label hpart4 = new Label(distCol + 2, distRow + 1, "111111", headerFormat);
-            Label hpart5 = new Label(distCol + 3, distRow + 1, "222222222", headerFormat);
-            Label hpart6 = new Label(distCol + 4, distRow + 1, "3333333333", headerFormat);
-            Label hpart7 = new Label(distCol + 5, distRow + 1, "4444444444", headerFormat);
-            Label hpart8 = new Label(distCol + 6, distRow + 1, "55555555555555", headerFormat);
+            addLabelToSheet(sheet, distCol + 1, distRow, "I смена (8:00 - 16:00)", headerFormat);
+            addLabelToSheet(sheet, distCol + 4, distRow, "II смена (16:00 - 24:00)", headerFormat);
+            addLabelToSheet(sheet, distCol, distRow, "Число", headerFormat);
+            addLabelToSheet(sheet, distCol + 1, distRow + 1, "ФИО", headerFormat);
+            addLabelToSheet(sheet, distCol + 2, distRow + 1, "Группа", headerFormat);
+            addLabelToSheet(sheet, distCol + 3, distRow + 1, "Комн.", headerFormat);
+            addLabelToSheet(sheet, distCol + 4, distRow + 1, "ФИО", headerFormat);
+            addLabelToSheet(sheet,distCol + 5, distRow + 1, "Группа", headerFormat);
+            addLabelToSheet(sheet, distCol + 6, distRow + 1, "Комн.", headerFormat);
 
+            sheet.setRowView(distRow+1, 350);
             int dataRow = distRow + 2;
-
+            WritableCellFormat currentFormat = null;
+            WritableCellFormat currentFormatDay = null;
+            WritableCellFormat currentFormatGroup = null;
             for (DayDuty duty : duties) {
 
-                Calendar dutyDate = Calendar.getInstance();
-                // something wrong with time after recommit(reset)
-                dutyDate.setTime(duty.getDate().getTime());
-                Label data01 = new Label(distCol, dataRow, "" + dutyDate.get(Calendar.DAY_OF_MONTH), headerFormat);
-                Label data11 = new Label(distCol + 1, dataRow, duty.getFirstUser().getLastName() + " "
-                        + duty.getFirstUser().getFirstName(), dataFormat);
-                Label data12 = new Label(distCol + 2, dataRow, duty.getFirstUser().getUniversityGroup(), dataFormat);
-                Label data13 = new Label(distCol + 3, dataRow, duty.getFirstUser().getAddress().getHostelRoom() + "",
-                        dataFormat);
-                Label data21 = new Label(distCol + 4, dataRow, duty.getSecondUser().getLastName() + " "
-                        + duty.getSecondUser().getFirstName(), dataFormat);
-                Label data22 = new Label(distCol + 5, dataRow, duty.getSecondUser().getUniversityGroup(), dataFormat);
-                Label data23 = new Label(distCol + 6, dataRow, duty.getSecondUser().getAddress().getHostelRoom() + "",
-                        dataFormat);
-
-                sheet.addCell(data01);
-                sheet.addCell(data11);
-                sheet.addCell(data12);
-                sheet.addCell(data13);
-                sheet.addCell(data21);
-                sheet.addCell(data22);
-                sheet.addCell(data23);
-
+                Calendar dutyDate = duty.getDate();
+                int dayOfWeek = duty.getDayOfWeek();
+                if ((dayOfWeek == Calendar.SATURDAY) || (dayOfWeek == Calendar.SUNDAY)) {
+                    currentFormat = dataFormatBorderAllBoldGrey;
+                    currentFormatGroup = dataFormatBorderAllBoldGrey;
+                    currentFormatDay = dataFormatBorderAllBoldGrey;
+                } else {
+                    currentFormat = dataFormatBorderAllBold;
+                    currentFormatGroup = dataFormatBorderAllBold;
+                    currentFormatDay = dataFormatBorderAllBold;
+                }
+                addLabelToSheet(sheet,distCol, dataRow, "" + dutyDate.get(Calendar.DAY_OF_MONTH), currentFormatDay);
+                addLabelToSheet(sheet, distCol + 1, dataRow, duty.getFirstUser().getLastName() + " "
+                        + duty.getFirstUser().getFirstName(), currentFormat);
+                String firstUSerGroup = duty.getFirstUser().getUniversityGroup();
+                addLabelToSheet(sheet, distCol + 2, dataRow, firstUSerGroup == null ? "" : firstUSerGroup, currentFormatGroup);
+                Integer firstUserRoom = duty.getFirstUser().getAddress().getHostelRoom();
+                addLabelToSheet(sheet, distCol + 3, dataRow,  firstUserRoom == null ? "" : firstUserRoom.toString(), currentFormat);
+                addLabelToSheet(sheet, distCol+4, dataRow, duty.getSecondUser().getLastName() + " "
+                        + duty.getSecondUser().getFirstName(), currentFormat);
+                String secondUserGroup = duty.getSecondUser().getUniversityGroup();
+                addLabelToSheet(sheet,distCol + 5, dataRow, secondUserGroup == null ? "" : secondUserGroup,
+                        currentFormatGroup);
+                Integer secondUserRoom = duty.getSecondUser().getAddress().getHostelRoom();
+                addLabelToSheet(sheet, distCol + 6, dataRow, secondUserRoom == null ? "" : secondUserRoom.toString(),
+                        currentFormat);
                 dataRow++;
             }
 
-            sheet.setRowView(dataRow, 220);
-
+            sheet.setRowView(dataRow, 150);
             sheet.mergeCells(distCol, dataRow + 1, distCol + 2, dataRow + 1);
-
             sheet.mergeCells(distCol + 4, dataRow + 1, distCol + 6, dataRow + 1);
-
-            sheet.setRowView(dataRow + 2, 50);
+            sheet.setRowView(dataRow + 2, 140);
 
             sheet.mergeCells(distCol, dataRow + 3, distCol + 2, dataRow + 3);
             sheet.mergeCells(distCol, dataRow + 4, distCol + 2, dataRow + 4);
-
             sheet.mergeCells(distCol + 4, dataRow + 4, distCol + 6, dataRow + 4);
 
-            Label pdata01 = new Label(distCol, dataRow + 1, "Какая та херня бла бла бла", pdataFormat);
-            Label pdata11 = new Label(distCol + 4, dataRow + 1, "    _________" + starosta, pdataFormat);
-            Label pdata12 = new Label(distCol, dataRow + 3, "Еще одно поле для заполнения:", pdataFormat);
-            Label pdata13 = new Label(distCol, dataRow + 4, "Последнее уж строчка этой всей канители", pdataFormat);
-            Label pdata21 = new Label(distCol + 4, dataRow + 4, "    _________" + vosptka, pdataFormat);
-
-            sheet.addCell(hpart03);
-            sheet.addCell(hpart04);
-            // sheet.addCell(hpart1);
-            sheet.addCell(hpart2);
-            sheet.addCell(hpart3);
-            sheet.addCell(hpart4);
-            sheet.addCell(hpart5);
-            sheet.addCell(hpart6);
-            sheet.addCell(hpart7);
-            sheet.addCell(hpart8);
-
-            sheet.addCell(pdata01);
-            sheet.addCell(pdata11);
-            sheet.addCell(pdata12);
-            sheet.addCell(pdata13);
-            sheet.addCell(pdata21);
+            addLabelToSheet(sheet, distCol, dataRow + 1, "Староста этажа", pdataFormat);
+            addLabelToSheet(sheet, distCol + 4, dataRow + 1, "_____________" + starosta, pdataFormat);
+            addLabelToSheet(sheet, distCol, dataRow + 3, "Согласовано:", pdataFormatBold);
+            addLabelToSheet(sheet, distCol, dataRow + 4, "Воспитатель общежития №1", pdataFormat);
+            addLabelToSheet(sheet, distCol + 4, dataRow + 4, "_____________" + vosptatel, pdataFormat);
 
         } catch (WriteException ex) {
             ex.printStackTrace();
@@ -220,6 +261,11 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
 
     }
 
+    private void addLabelToSheet(WritableSheet sheet, int col, int row, String text, WritableCellFormat format ) throws RowsExceededException, WriteException{
+        Label content = new Label(col, row, text, format);
+        sheet.addCell(content);
+    }
+    
     @Override
     public void createFooter(Object... params) {
 
@@ -230,14 +276,20 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
         Integer floor = (Integer) params[0];
         String month = (String) params[1];
         String starosta = (String) params[2];
-        String vosptka = "Фамилия_воспетки";
+        String vosptka = (String)params[3];
+        
         WorkbookSettings ws = new WorkbookSettings();
-        ws.setLocale(new Locale("ru"));
+        ws.setIgnoreBlanks(true);
+        ws.setSuppressWarnings(true);
+        ws.setRefreshAll(true);
         try {
             File file = new File(filename);
             WritableWorkbook workbook = Workbook.createWorkbook(file, ws);
             WritableSheet sheet = workbook.createSheet("Duty", 0);
-
+            SheetSettings settings = sheet.getSettings();
+            settings.setTopMargin(0);
+            settings.setBottomMargin(0);
+            
             createTemplate(sheet, month, floor, starosta, vosptka, params[4]);
 
             workbook.write();
@@ -276,5 +328,161 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
         is.close();
         return bytes;
     }
+
+    @SuppressWarnings("unused")
+    private class CellFormatKey {
+        
+        private String fontName;
+        private String boldStyle;
+        private int fontSize;
+        private String vAllighment;
+        private boolean isWrap = false;
+        private String allighment;
+        private String color;
+        
+        public CellFormatKey(String fontName, String boldStyle, int fontSize) {
+            this.fontName = fontName;
+            this.boldStyle = boldStyle;
+            this.fontSize = fontSize;
+        }
+
+        public String getvAllighment() {
+            return vAllighment;
+        }
+
+        public void setvAllighment(String vAllighment) {
+            this.vAllighment = vAllighment;
+        }
+
+        public boolean isWrap() {
+            return isWrap;
+        }
+
+        public void setWrap(boolean isWrap) {
+            this.isWrap = isWrap;
+        }
+
+        public String getAllighment() {
+            return allighment;
+        }
+
+        public void setAllighment(String allighment) {
+            this.allighment = allighment;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+
+        public CellFormatKey() {
+        }
+
+        public String getFontName() {
+            return fontName;
+        }
+
+        public void setFontName(String fontName) {
+            this.fontName = fontName;
+        }
+
+        public String getBoldStyle() {
+            return boldStyle;
+        }
+
+        public void setBoldStyle(String boldStyle) {
+            this.boldStyle = boldStyle;
+        }
+
+        public int getFontSize() {
+            return fontSize;
+        }
+
+        public void setFontSize(int fontSize) {
+            this.fontSize = fontSize;
+        }
+
+        public CellFormatKey(String fontName, String boldStyle, int fontSize, String vAllighment, boolean isWrap,
+                String allighment, String color) {
+            super();
+            this.fontName = fontName;
+            this.boldStyle = boldStyle;
+            this.fontSize = fontSize;
+            this.vAllighment = vAllighment;
+            this.isWrap = isWrap;
+            this.allighment = allighment;
+            this.color = color;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((allighment == null) ? 0 : allighment.hashCode());
+            result = prime * result + ((boldStyle == null) ? 0 : boldStyle.hashCode());
+            result = prime * result + ((color == null) ? 0 : color.hashCode());
+            result = prime * result + ((fontName == null) ? 0 : fontName.hashCode());
+            result = prime * result + fontSize;
+            result = prime * result + (isWrap ? 1231 : 1237);
+            result = prime * result + ((vAllighment == null) ? 0 : vAllighment.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            CellFormatKey other = (CellFormatKey) obj;
+            if (allighment == null) {
+                if (other.allighment != null)
+                    return false;
+            } else if (!allighment.equals(other.allighment))
+                return false;
+            if (boldStyle == null) {
+                if (other.boldStyle != null)
+                    return false;
+            } else if (!boldStyle.equals(other.boldStyle))
+                return false;
+            if (color == null) {
+                if (other.color != null)
+                    return false;
+            } else if (!color.equals(other.color))
+                return false;
+            if (fontName == null) {
+                if (other.fontName != null)
+                    return false;
+            } else if (!fontName.equals(other.fontName))
+                return false;
+            if (fontSize != other.fontSize)
+                return false;
+            if (isWrap != other.isWrap)
+                return false;
+            if (vAllighment == null) {
+                if (other.vAllighment != null)
+                    return false;
+            } else if (!vAllighment.equals(other.vAllighment))
+                return false;
+            return true;
+        }
+
+
+    }
+    
+        private final static String FONT_STYLE_BOLD = "bold";
+        @SuppressWarnings("unused")    
+        private final static String ALLIGHMENT_CENTER = "center";
+        @SuppressWarnings("unused")
+        private final static String ALLIGHMENT_LEFT = "left";
+        private final static String FONT_STYLE_NO_BOLD = "nobold";
+        private final static String FONT_NAME_TIMES = "times";
+        private final static String FONT_NAME_ARIAL = "arial";
+        
 
 }

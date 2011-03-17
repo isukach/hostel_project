@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Semaphore;
 
 import javax.faces.event.ActionEvent;
@@ -289,8 +290,9 @@ public class DutyList extends BasePage implements Serializable {
         Semaphore sem = new Semaphore(1, true);
         try {
             sem.acquire();
-            //forth param must be name of vospetka
-            Object[] params = new Object[]{getFloor(), getMonthString(), "Starosta", null, getDutyList()};
+            //TODO forth param must be name of vospetka and starosta
+            String monthForExcelReport = MonthHelper.getMonthString(month, getBundle(new Locale("ru")));
+            Object[] params = new Object[]{getFloor(), monthForExcelReport, "Федоров В.В", "Иванова А.А.", getDutyList()};
             DutyListLoadService.getService(Constants.HTTP_DOWNLOADER).download(params);
         } catch (InterruptedException ex) {
             logger.error("Current thread was interrupted!");
