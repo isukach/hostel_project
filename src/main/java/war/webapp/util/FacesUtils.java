@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
  * http://www.javaworld.com/javaworld/jw-07-2004/jw-0719-jsf.html
  * 
  */
+@SuppressWarnings("deprecation")
 public class FacesUtils {
     /**
      * Get servlet context.
@@ -54,7 +55,6 @@ public class FacesUtils {
      * @param beanName the name of the managed bean to be stored
      * @param managedBean the managed bean to be stored
      */
-    @SuppressWarnings("unchecked")
     public static void setManagedBeanInSession(String beanName, Object managedBean) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(beanName, managedBean);
     }

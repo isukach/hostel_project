@@ -9,8 +9,6 @@
             pattern="/scripts/*" filters="none"/ -->
         <intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
         <intercept-url pattern="/floorhead/*" access="ROLE_ADMIN,ROLE_STAROSTA" />
-        <intercept-url pattern="/passwordHint.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
-        <intercept-url pattern="/signup.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
         <!-- APF-737, OK to remove line below if you're not using JSF -->
         <intercept-url pattern="/a4j.res/*.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
         <intercept-url pattern="/**/*.html*" access="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />

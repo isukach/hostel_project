@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.DayDutyDao;
@@ -67,6 +68,27 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
 
     public void deleteDayDuty(DayDuty dayDuty) {
         remove(dayDuty.getId());
+    }
+
+    @SuppressWarnings("rawtypes")
+    public DayDuty loadSingleDayDutyByExample(DayDuty exampleDayDuty) {
+        List result = getHibernateTemplate().findByExample(exampleDayDuty);
+        if (result.size() == 0 || result.size() > 1)
+            throw new HibernateException("Zero or more than one result from the query. Expected single result");
+        return (DayDuty)result.get(0);
+    }
+
+    public void deleteFirstDutyUser(DayDuty dayDuty) {
+        DayDuty loadedDayDuty = loadSingleDayDutyByExample(dayDuty);
+        loadedDayDuty.setFirstUser(null);
+        getHibernateTemplate().update(loadedDayDuty);
+        
+    }
+
+    public void deleteSecondDutyUser(DayDuty dayDuty) {
+        DayDuty loadedDayDuty = loadSingleDayDutyByExample(dayDuty);
+        loadedDayDuty.setSecondUser(null);
+        getHibernateTemplate().update(loadedDayDuty);
     }
 
 }

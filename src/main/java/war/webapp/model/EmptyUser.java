@@ -10,6 +10,7 @@ public class EmptyUser extends User {
         setUsername("");
     }
 
+    @Override
     public boolean isEmptyUser() {
         return true;
     }

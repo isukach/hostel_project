@@ -27,4 +27,8 @@ public class UserDuty {
     public void setDayDuty(DayDuty dayDuty) {
         this.dayDuty = dayDuty;
     }
+    
+    public int getDayOfWeek() {
+        return dayDuty.getDayOfWeek();
+    }
 }

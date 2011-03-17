@@ -1,17 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
-    version="1.2">
-
-    <application>
-        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-        <locale-config>
-            <default-locale>en</default-locale>
-            <supported-locale>ru</supported-locale>
-        </locale-config>
-        <message-bundle>ApplicationResources</message-bundle>
-    </application>
-
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+    <!-- Add additional rules here -->
+    <managed-bean>
+        <managed-bean-name>basePage</managed-bean-name>
+        <managed-bean-class>war.webapp.action.BasePage</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>userList</managed-bean-name>
+        <managed-bean-class>war.webapp.action.UserList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>userForm</managed-bean-name>
+        <managed-bean-class>war.webapp.action.UserForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>id</property-name>
+            <value>#{param.id}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>roleManager</property-name>
+            <value>#{roleManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>mailEngine</property-name>
+            <value>#{mailEngine}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>message</property-name>
+            <value>#{mailMessage}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>templateName</property-name>
+            <value>accountCreated.vm</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>fileUpload</managed-bean-name>
+        <managed-bean-class>war.webapp.action.FileUpload</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>reload</managed-bean-name>
+        <managed-bean-class>war.webapp.action.Reload</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>activeUserList</managed-bean-name>
+        <managed-bean-class>war.webapp.action.ActiveUserList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <!-- Add additional beans here -->
+    <managed-bean>
+        <managed-bean-name>dutyList</managed-bean-name>
+        <managed-bean-class>war.webapp.action.DutyList</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>dayDutyManager</property-name>
+            <value>#{dutyManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>monthManager</property-name>
+            <value>#{monthManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
     <navigation-rule>
         <from-view-id>/mainMenu.xhtml</from-view-id>
         <navigation-case>
@@ -34,7 +100,6 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-
     <navigation-rule>
         <from-view-id>/dutyTable.xhtml</from-view-id>
         <navigation-case>
@@ -57,7 +122,6 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
@@ -94,158 +158,13 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/passwordHint.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/login.jsp</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <from-view-id>/user/writeOnDuty.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>write</from-outcome>
-            <to-view-id>/user/WriteOnDuty.xhtml</to-view-id>
+            <to-view-id>/user/writeOnDuty.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
-    <!-- Add additional rules here -->
-
-    <managed-bean>
-        <managed-bean-name>basePage</managed-bean-name>
-        <managed-bean-class>war.webapp.action.BasePage</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>userList</managed-bean-name>
-        <managed-bean-class>war.webapp.action.UserList</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
-        </managed-property>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>userForm</managed-bean-name>
-        <managed-bean-class>war.webapp.action.UserForm</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>id</property-name>
-            <value>#{param.id}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>roleManager</property-name>
-            <value>#{roleManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>mailEngine</property-name>
-            <value>#{mailEngine}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>message</property-name>
-            <value>#{mailMessage}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>templateName</property-name>
-            <value>accountCreated.vm</value>
-        </managed-property>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>signupForm</managed-bean-name>
-        <managed-bean-class>war.webapp.action.SignupForm</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>roleManager</property-name>
-            <value>#{roleManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>mailEngine</property-name>
-            <value>#{mailEngine}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>message</property-name>
-            <value>#{mailMessage}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>templateName</property-name>
-            <value>accountCreated.vm</value>
-        </managed-property>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>passwordHint</managed-bean-name>
-        <managed-bean-class>war.webapp.action.PasswordHint</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>username</property-name>
-            <value>#{param.username}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>mailEngine</property-name>
-            <value>#{mailEngine}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>message</property-name>
-            <value>#{mailMessage}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>templateName</property-name>
-            <value>accountCreated.vm</value>
-        </managed-property>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>fileUpload</managed-bean-name>
-        <managed-bean-class>war.webapp.action.FileUpload</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>reload</managed-bean-name>
-        <managed-bean-class>war.webapp.action.Reload</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>activeUserList</managed-bean-name>
-        <managed-bean-class>war.webapp.action.ActiveUserList</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <!-- Add additional beans here -->
-    <managed-bean>
-        <managed-bean-name>dutyList</managed-bean-name>
-        <managed-bean-class>war.webapp.action.DutyList</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>dayDutyManager</property-name>
-            <value>#{dutyManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>monthManager</property-name>
-            <value>#{monthManager}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
-        </managed-property>
-    </managed-bean>
-
     <render-kit>
         <description>Some replacements for the standard renderers</description>
         <renderer>
@@ -261,13 +180,18 @@
             <renderer-class>war.webapp.jsf.PanelGridRenderer</renderer-class>
         </renderer>
     </render-kit>
-
     <validator>
         <validator-id>org.apache.shale.validator.CommonsValidator</validator-id>
         <validator-class>org.apache.shale.validator.CommonsValidator</validator-class>
     </validator>
-
+    <application>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>ru</supported-locale>
+        </locale-config>
+        <message-bundle>ApplicationResources</message-bundle>
+    </application>
     <!--<converter> <converter-id>userConverter</converter-id> <converter-class>war.webapp.converter.UserConverter</converter-class> 
         </converter> -->
-
 </faces-config>

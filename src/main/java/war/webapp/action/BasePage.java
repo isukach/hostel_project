@@ -1,8 +1,6 @@
 package war.webapp.action;
 
-import java.io.Serializable;
 import java.text.MessageFormat;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,7 +11,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,11 +21,9 @@ import org.apache.commons.collections.comparators.NullComparator;
 import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.mail.SimpleMailMessage;
 
 import war.webapp.Constants;
-import war.webapp.model.User;
 import war.webapp.service.MailEngine;
 import war.webapp.service.UserManager;
 
@@ -213,33 +208,6 @@ public class BasePage {
         }
 
         return config;
-    }
-
-    /**
-     * Convenience message to send messages to users, includes app URL as
-     * footer.
-     * 
-     * @param user the user to send the message to
-     * @param msg the message to send
-     * @param url the application's URL
-     */
-    protected void sendUserMessage(User user, String msg, String url) {
-        if (log.isDebugEnabled()) {
-            log.debug("sending e-mail to user [" + user.getEmail() + "]...");
-        }
-
-        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
-
-        Map<String, Serializable> model = new HashMap<String, Serializable>();
-        model.put("user", user);
-
-        // TODO: once you figure out how to get the global resource bundle in
-        // WebWork, then figure it out here too. In the meantime, the Username
-        // and Password labels are hard-coded into the template.
-        // model.put("bundle", getTexts());
-        model.put("message", msg);
-        model.put("applicationURL", url);
-        mailEngine.sendMessage(message, templateName, model);
     }
 
     public void setMailEngine(MailEngine mailEngine) {

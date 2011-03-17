@@ -1,9 +1,18 @@
 package war.webapp.action;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.cxf.common.util.StringUtils;
+import org.springframework.security.AccessDeniedException;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationTrustResolver;
 import org.springframework.security.AuthenticationTrustResolverImpl;
-import org.springframework.security.AccessDeniedException;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 
@@ -13,15 +22,6 @@ import war.webapp.model.User;
 import war.webapp.service.RoleManager;
 import war.webapp.service.UserExistsException;
 import war.webapp.util.ConvertUtil;
-import war.webapp.util.RequestUtil;
-import org.springframework.mail.MailException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * JSF Page class to handle editing a user with a form.
@@ -82,15 +82,12 @@ public class UserForm extends BasePage implements Serializable {
             user = userManager.getUserByUsername(request.getRemoteUser());
         }
 
-        if (user.getUsername() != null) {
-            user.setConfirmPassword(user.getPassword());
-            if (isRememberMe()) {
-                // if user logged in with remember me, display a warning that
-                // they can't change passwords
-                log.debug("checking for remember me login...");
-                log.trace("User '" + user.getUsername() + "' logged in with cookie");
-                addMessage("userProfile.cookieLogin");
-            }
+        if (user.getUsername() != null && isRememberMe()) {
+            // if user logged in with remember me, display a warning that
+            // they can't change passwords
+            log.debug("checking for remember me login...");
+            log.trace("User '" + user.getUsername() + "' logged in with cookie");
+            addMessage("userProfile.cookieLogin");
         }
 
         return "editProfile";
@@ -117,28 +114,20 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String save() throws IOException {
-
-        // workaround for plain ol' HTML input tags that don't seem to set
-        // properties on the managed bean
-        setUserRoles(getRequest().getParameterValues("userForm:userRoles"));
-
+        setUserRoles(getRoles());
+        generateFloor();
+        generateUsername();
+        generatePassword();
+        
         for (int i = 0; (userRoles != null) && (i < userRoles.length); i++) {
             String roleName = userRoles[i];
             user.addRole(roleManager.getRole(roleName));
         }
-
+        
         Integer originalVersion = user.getVersion();
-
-        // For some reason, Canoo WebTest causes version to be 0. Set it to null
-        // so test will pass.
-        /*
-         * if (user.getVersion() != null && user.getVersion() == 0) {
-         * user.setId(null); user.setVersion(null); }
-         */
 
         try {
             user = userManager.saveUser(user);
-
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor
             // userManagerSecurity
@@ -146,7 +135,7 @@ public class UserForm extends BasePage implements Serializable {
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {
-            addError("errors.existing.user", new Object[] { user.getUsername(), user.getEmail() });
+            addError("errors.existing.user", new Object[] { user.getUsername() });
 
             // reset the version # to what was passed in
             user.setVersion(originalVersion);
@@ -154,28 +143,48 @@ public class UserForm extends BasePage implements Serializable {
         }
 
         if (!"list".equals(getParameter("from"))) {
-            // add success messages
             addMessage("user.saved");
-
-            // return to main Menu
-            return "mainMenu";
+            return "mainMenu"; // return to main Menu
         } else {
             // add success messages
             if ("".equals(getParameter("userForm:version"))) {
                 addMessage("user.added", user.getFullName());
-
-                try {
-                    sendUserMessage(user, getText("newuser.email.message", user.getFullName()),
-                            RequestUtil.getAppURL(getRequest()));
-                } catch (MailException me) {
-                    addError(me.getCause().getLocalizedMessage());
-                }
-
                 return "list"; // return to list screen
             } else {
                 addMessage("user.updated.byAdmin", user.getFullName());
                 return "editProfile"; // return to current page
             }
+        }
+    }
+    
+    private String[] getRoles() {
+        if (getRequest().getParameterValues("userForm:userRoles") == null) {
+            return new String[] { Constants.USER_ROLE };
+        }
+        return getRequest().getParameterValues("userForm:userRoles");
+    }
+
+    private void generateFloor() {
+        int hostelFloor = getFloorFromRoom(user.getAddress().getHostelRoom());
+        user.getAddress().setHostelFloor(hostelFloor);
+    }
+
+    private int getFloorFromRoom(Integer hostelRoom) {
+        return hostelRoom / 100;
+    }
+
+    private void generateUsername() {
+        if (StringUtils.isEmpty(user.getUsername())) {
+            StringBuilder username = new StringBuilder();
+            username.append(user.getAddress().getHostelRoom()).append(user.getLastName())
+                    .append(user.getFirstName().charAt(0)).append(user.getMiddleName().charAt(0));
+            user.setUsername(username.toString());
+        }
+    }
+    
+    private void generatePassword() {
+        if (StringUtils.isEmpty(user.getPassword())) {
+            user.setPassword("pass");
         }
     }
 
@@ -227,16 +236,6 @@ public class UserForm extends BasePage implements Serializable {
 
     public void setUserRoles(String[] userRoles) {
         this.userRoles = userRoles;
-    }
-
-    public String getCountry() {
-        return getUser().getAddress().getCountry();
-    }
-
-    // for some reason, the country drop-down won't do
-    // getUser().getAddress().setCountry(value)
-    public void setCountry(String country) {
-        getUser().getAddress().setCountry(country);
     }
 
 }

@@ -62,10 +62,7 @@
                         </t:commandSortHeader>
                     </f:facet>
                     <h:outputText value="#{user.fullName}" />
-                    <h:outputLink value="mailto:#{user.email}" rendered="#{not empty user.email}">
-                        <h:graphicImage style="padding-left: 10px;" alt="#{text['icon.email']}"
-                            url="/images/iconEmail.gif" />
-                    </h:outputLink>
+                    <h:outputText value="#{user.address.hostelRoom}" />
                 </t:column>
             </t:dataTable>
         </t:buffer>

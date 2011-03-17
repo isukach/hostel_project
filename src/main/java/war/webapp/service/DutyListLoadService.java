@@ -1,6 +1,6 @@
 package war.webapp.service;
 
-import static war.webapp.Constants.*;
+import static war.webapp.Constants.HTTP_DOWNLOADER;
 
 import java.io.IOException;
 
@@ -9,7 +9,6 @@ import org.apache.commons.logging.LogFactory;
 
 import war.webapp.service.builder.BaseDutyListTemplateBuilder;
 import war.webapp.service.impl.HttpDutyListLoadService;
-import war.webapp.service.impl.builder.ExcelDutyListTemplateBuilder;
 /**
  *  DutyListLoadService response for loading dutyList data
  *  by some protocol(i.e. http) 

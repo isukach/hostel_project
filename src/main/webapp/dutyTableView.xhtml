@@ -17,7 +17,7 @@
     <h:form>
         <ui:include src="/common/month.xhtml" />
         <br />
-        <h:commandButton value="Export to .xls file" actionListener="#{dutyList.print}" />
+        <h:commandButton value="#{text['duty.print']}" actionListener="#{dutyList.print}" rendered="#{dutyList.userStarosta}" />
         <br />
         <ui:include src="/common/dutyTable.xhtml" />
     </h:form>
