@@ -17,8 +17,6 @@
         <h:inputHidden value="#{userForm.user.id}" id="id" />
         <h:inputHidden value="#{userForm.user.version}" id="version" />
 
-        <h:inputHidden value="#{userForm.user.username}" id="username" />
-        <h:inputHidden value="#{userForm.user.password}" id="originalPassword" />
         <input type="hidden" name="from" value="#{userForm.from}" />
 
         <c:if test="${userForm.rememberMe}">
@@ -46,6 +44,31 @@
             </h:panelGroup>
             <h:outputText />
             <h:outputText />
+
+            <c:if test="${param.from != 'list' and !empty userForm.user.id}">
+                <h:panelGroup>
+                    <t:htmlTag value="div">
+                        <t:htmlTag value="div" styleClass="left">
+                            <h:outputLabel for="username" styleClass="desc" value="#{text['user.username']}" />
+                            <t:message for="username" styleClass="fieldError" />
+                            <h:inputText value="#{userForm.user.username}" id="username" required="true"
+                                styleClass="text medium">
+                                <v:commonsValidator client="true" type="required" arg="#{text['user.username']}" />
+                            </h:inputText>
+                        </t:htmlTag>
+                        <t:htmlTag value="div">
+                            <h:outputLabel for="password" value="#{text['user.password']}" styleClass="desc" />
+                            <t:message for="password" styleClass="fieldError" />
+                            <h:inputSecret value="#{userForm.user.password}" id="password" redisplay="true"
+                                required="true" styleClass="text medium">
+                                <v:commonsValidator client="true" type="required" arg="#{text['user.password']}" />
+                            </h:inputSecret>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </h:panelGroup>
+                <h:outputText />
+                <h:outputText />
+            </c:if>
 
             <h:panelGroup>
                 <t:htmlTag value="div">
