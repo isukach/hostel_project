@@ -60,12 +60,28 @@ public class DutyList extends BasePage implements Serializable {
     private List<SelectItem> floorUsersList;
 
     private List<DayDuty> dutyList;
+    private static User emptyUser = new EmptyUser();
+    private List<DayDuty> emptyDayDutyList;
 
     public DutyList() {
         user = (User) ((SecurityContext) getSession().getAttribute(
                 HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
         setSortColumn("dayOfWeek");
         setMonth(Calendar.getInstance().get(Calendar.MONTH));
+        //28 - minimum count of days in any month in year(this month is February)
+        initializeEmptyDayDutyList(28);
+    }
+    
+    private void initializeEmptyDayDutyList(int size){
+        emptyDayDutyList = new ArrayList<DayDuty>();
+        while(size!=0){
+            DayDuty dayDuty = new DayDuty();
+            Calendar date = Calendar.getInstance();
+            dayDuty.setFirstUser(emptyUser);
+            dayDuty.setSecondUser(emptyUser);
+            dayDuty.setDate(date);
+            size--;
+        }
     }
 
     public List<DayDuty> getDutyList() {
@@ -92,7 +108,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     private User getEmptyUser() {
-        return new EmptyUser();
+        return emptyUser;
     }
 
     public List<SelectItem> getUsersByStarostaFloor() {
@@ -240,22 +256,38 @@ public class DutyList extends BasePage implements Serializable {
         return date;
     }
 
-    private List<DayDuty> getEmptyDutyList() {
-        List<DayDuty> result = new ArrayList<DayDuty>();
-        for (int i = 1; i <= MonthHelper.getDaysNumInMonth(month + 1); ++i) {
-            Calendar date = Calendar.getInstance();
-            date.set(Calendar.MONTH, month);
-            date.set(Calendar.DAY_OF_MONTH, i);
-            DayDuty dayDuty = new DayDuty();
-            dayDuty.setDate(date);
-
-            User user = getEmptyUser();
-            dayDuty.setFirstUser(user);
-            dayDuty.setSecondUser(user);
-
-            result.add(dayDuty);
+    private void correctEmptyDayDutyList(int countOfDays){
+        int currentEmptyListSize = emptyDayDutyList.size();
+        if (currentEmptyListSize == countOfDays) {
+            return;
         }
-        return result;
+        int delta = currentEmptyListSize - countOfDays;
+        if (delta > 0) {
+            while (delta!=0) {
+                emptyDayDutyList.remove(0);
+                delta--;
+            }
+        } else {
+            for ( int i = 0 ; i < Math.abs(delta); i++) {
+                DayDuty dd = new DayDuty();
+                Calendar date = Calendar.getInstance();
+                dd.setFirstUser(emptyUser);
+                dd.setSecondUser(emptyUser);
+                dd.setDate(date);
+                emptyDayDutyList.add(dd);
+            }
+        }
+    }
+    
+    private List<DayDuty> getEmptyDutyList() {
+        correctEmptyDayDutyList(MonthHelper.getDaysNumInMonth(month + 1));
+        int counter = 1;
+        for (DayDuty dd: emptyDayDutyList) {
+            dd.getDate().set(Calendar.MONTH, month);
+            dd.getDate().set(Calendar.DAY_OF_MONTH, counter);
+            counter++;
+        }
+        return emptyDayDutyList;
     }
 
     public List<SelectItem> getMonthItems() {
