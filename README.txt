@@ -1,11 +1,11 @@
 ﻿добавить в .git/info/exclude:
-.log
+*.log
 .settings
 .project
 .classpath
 target
-.cmd
-.bat
+*.cmd
+*.bat
 
 и другие расширения файлов,не относящиеся к исходникам напрямую
 
