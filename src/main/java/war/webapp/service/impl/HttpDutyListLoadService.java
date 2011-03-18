@@ -57,8 +57,6 @@ public class HttpDutyListLoadService extends DutyListLoadService {
         buff.append(params[0]);
         buff.append("_");
         buff.append(params[1]);
-        buff.append("_");
-        buff.append(Calendar.getInstance().get(Calendar.YEAR));
         buff.append(".xls");
         return buff.toString();
     }
