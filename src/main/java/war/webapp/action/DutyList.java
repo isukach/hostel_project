@@ -1,5 +1,7 @@
 package war.webapp.action;
 
+import static war.webapp.Constants.STAROSTA_ROLE;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,7 +42,6 @@ public class DutyList extends BasePage implements Serializable {
     public static final int MIN_FLOOR = 2;
     public static final int MAX_FLOOR = 12;
 
-    public static final String ROLE_STAROSTA = "ROLE_STAROSTA";
     public static final String FIRST_SHIFT = "firstShift";
     public static final String SECOND_SHIFT = "secondShift";
     public static final String FIRST_SHIFT_USER = "firstShiftUser";
@@ -169,7 +170,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public boolean isUserStarosta() {
-        return user.getRoles().contains(new Role(ROLE_STAROSTA));
+        return user.getRoles().contains(new Role(STAROSTA_ROLE));
     }
 
     public int getTableRowNumber(FacesEvent e) {
