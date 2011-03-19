@@ -19,10 +19,6 @@
 
         <input type="hidden" name="from" value="#{userForm.from}" />
 
-        <c:if test="${userForm.rememberMe}">
-            <h:inputHidden value="#{userForm.user.password}" id="password" />
-        </c:if>
-
         <c:if test="${empty userForm.user.version}">
             <input type="hidden" name="encryptPass" value="true" />
         </c:if>
