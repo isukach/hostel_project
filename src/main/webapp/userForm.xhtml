@@ -21,7 +21,6 @@
 
         <c:if test="${userForm.rememberMe}">
             <h:inputHidden value="#{userForm.user.password}" id="password" />
-            <h:inputHidden value="#{userForm.user.confirmPassword}" id="confirmPassword" />
         </c:if>
 
         <c:if test="${empty userForm.user.version}">
