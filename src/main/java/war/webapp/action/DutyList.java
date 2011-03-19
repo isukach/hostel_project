@@ -63,6 +63,7 @@ public class DutyList extends BasePage implements Serializable {
     private List<DayDuty> dutyList;
     private static User emptyUser = new EmptyUser();
     private List<DayDuty> emptyDayDutyList;
+    private boolean monthAvailable = false;
 
     public DutyList() {
         user = (User) ((SecurityContext) getSession().getAttribute(
@@ -351,6 +352,7 @@ public class DutyList extends BasePage implements Serializable {
             dutyMonth.setAvailable(!dutyMonth.getAvailable());
         }
         monthManager.saveMonth(dutyMonth);
+        monthAvailable = !monthAvailable;
     }
 
     private DutyMonth createDutyMonth() {
@@ -363,12 +365,20 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public boolean isMonthAvailable() {
+        return monthAvailable;
+    }
+    
+    private void refreshMonthAvailability() {
+        if (monthManager == null) {
+            return;
+        }
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
         DutyMonth dutyMonth = monthManager.loadMonth(year, month, getFloor());
         if (dutyMonth == null) {
-            return false;
+            monthAvailable = false;
+        } else {
+            monthAvailable = dutyMonth.getAvailable();
         }
-        return dutyMonth.getAvailable();
     }
 
     public DayDutyManager getDayDutyManager() {
@@ -382,6 +392,7 @@ public class DutyList extends BasePage implements Serializable {
     public void setMonth(Integer month) {
         this.month = month;
         monthString = MonthHelper.getMonthString(month, getBundle());
+        refreshMonthAvailability();
     }
 
     public Integer getFloor() {
@@ -397,6 +408,7 @@ public class DutyList extends BasePage implements Serializable {
 
     public void setFloor(Integer floor) {
         this.floor = floor;
+        refreshMonthAvailability();
     }
 
     public void setDayDutyManager(DayDutyManager dayDutyManager) {
@@ -409,6 +421,7 @@ public class DutyList extends BasePage implements Serializable {
 
     public void setMonthManager(MonthManager monthManager) {
         this.monthManager = monthManager;
+        refreshMonthAvailability();
     }
 
     public String getMonthString() {
