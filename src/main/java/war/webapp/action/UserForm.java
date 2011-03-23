@@ -2,8 +2,14 @@ package war.webapp.action;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +19,12 @@ import org.springframework.security.AccessDeniedException;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationTrustResolver;
 import org.springframework.security.AuthenticationTrustResolverImpl;
+import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 
 import war.webapp.Constants;
+import war.webapp.model.LabelValue;
 import war.webapp.model.Role;
 import war.webapp.model.User;
 import war.webapp.service.RoleManager;
@@ -174,9 +182,6 @@ public class UserForm extends BasePage implements Serializable {
             username.append(user.getAddress().getHostelRoom()).append(user.getLastName())
                     .append(user.getFirstName().charAt(0)).append(user.getMiddleName().charAt(0));
             user.setUsername(username.toString());
-            //TODO find out why tomcat set to this fields Integer(0) and Long(0)
-            //user.setVersion(null);
-            //user.setId(null);
         }
     }
     
@@ -210,11 +215,31 @@ public class UserForm extends BasePage implements Serializable {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public Map<String, String> getAvailableRoles() {
         if (availableRoles == null) {
-            List roles = (List) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);
+            List<LabelValue> roles = (List<LabelValue>) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);
+            
             availableRoles = ConvertUtil.convertListToMap(roles);
+            if (!isCurrentUserAdmin()) {
+                availableRoles.remove(Constants.ADMIN_ROLE);
+                availableRoles.remove(Constants.STAROSTA_ROLE);
+            }
         }
 
         return availableRoles;
+    }
+    
+    public boolean isCurrentUserAdmin() {
+        User currentUser = (User) ((SecurityContext) getSession().getAttribute(
+                HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
+        
+        boolean isAdmin = false;
+        List<LabelValue> userRoles = currentUser.getRoleList();
+        for (LabelValue role: userRoles) {
+            if (role.getValue().equals(Constants.ADMIN_ROLE)) {
+                isAdmin = true;
+            }
+        }
+        
+        return isAdmin;
     }
 
     public String[] getUserRoles() {
