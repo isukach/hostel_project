@@ -30,9 +30,9 @@ Version: 1.0
         div#header {
             color: black;
             clear: both;
-            margin: 10px 0 10px 0;
+            margin: 0 0 0 0;
             padding: 0;
-            height: 225px;
+            height: 271px;
             width: 100%;
             background: #fff url(images/front.jpg) bottom center no-repeat;
         }

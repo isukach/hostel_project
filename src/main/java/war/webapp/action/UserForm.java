@@ -54,6 +54,7 @@ public class UserForm extends BasePage implements Serializable {
 
     public String add() {
         user = new User();
+        user.setVersion(null);
         user.setEnabled(true);
         user.addRole(new Role(Constants.USER_ROLE));
         return "editProfile";
@@ -173,6 +174,9 @@ public class UserForm extends BasePage implements Serializable {
             username.append(user.getAddress().getHostelRoom()).append(user.getLastName())
                     .append(user.getFirstName().charAt(0)).append(user.getMiddleName().charAt(0));
             user.setUsername(username.toString());
+            //TODO find out why tomcat set to this fields Integer(0) and Long(0)
+            //user.setVersion(null);
+            //user.setId(null);
         }
     }
     
