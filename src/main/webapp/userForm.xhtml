@@ -143,6 +143,12 @@
                             <h:outputLabel for="accountLocked" styleClass="choice" value="#{text['user.accountLocked']}" />
                         </t:htmlTag>
                     </h:panelGroup>
+                    <h:panelGroup>
+                        <fieldset><legend>#{text['userProfile.assignRoles']}</legend> 
+                        <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
+                            <f:selectItems value="#{userForm.availableRoles}" />
+                        </h:selectManyCheckbox></fieldset>
+                    </h:panelGroup>
                     <h:outputText />
                     <h:outputText />
                 </c:when>
