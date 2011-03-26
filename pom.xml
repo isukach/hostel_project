@@ -95,7 +95,7 @@
                 <configuration>
                     <stopPort>4000</stopPort>
                     <contextPath>/</contextPath>
-                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <scanIntervalSeconds>0</scanIntervalSeconds>
                     <scanTargetPatterns>
                         <scanTargetPattern>
                             <directory>src/main/webapp/WEB-INF</directory>
