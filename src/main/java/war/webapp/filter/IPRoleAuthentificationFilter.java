@@ -23,23 +23,11 @@ public class IPRoleAuthentificationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && targetRole != null) {
-            boolean shouldCheck = false;
-            for (GrantedAuthority authority : authentication.getAuthorities()) {
-                if (authority.getAuthority().equals(targetRole)) {
-                    shouldCheck = true;
-                    break;
-                }
-            }
-            if (shouldCheck && allowedIPAddresses != null) {
-                boolean shouldAllow = false;
-                for (String ipAddress : allowedIPAddresses)
-                    if (request.getRemoteAddr().equals(ipAddress)) {
-                        shouldAllow = true;
-                        break;
-                    }
-                if (!shouldAllow) {
+            if (shouldCheck(authentication) && allowedIPAddresses != null) {
+                if (!shouldAllow(request)) {
                     throw new AccessDeniedException("Access has been denied for your IP address: " + request.getRemoteAddr());
                 }
             }
@@ -47,6 +35,27 @@ public class IPRoleAuthentificationFilter extends OncePerRequestFilter {
             log.warn("The IPRoleAuthentificationFilter should be placed after the user has been authentificated in filter chain");
         }
         filterChain.doFilter(request, response);
+    }
+
+    private boolean shouldCheck(Authentication authentication) {
+        boolean shouldCheck = false;
+        for (GrantedAuthority authority : authentication.getAuthorities()) {
+            if (authority.getAuthority().equals(targetRole)) {
+                shouldCheck = true;
+                break;
+            }
+        }
+        return shouldCheck;
+    }
+
+    private boolean shouldAllow(HttpServletRequest request) {
+        boolean shouldAllow = false;
+        for (String ipAddress : allowedIPAddresses)
+            if (request.getRemoteAddr().equals(ipAddress)) {
+                shouldAllow = true;
+                break;
+            }
+        return shouldAllow;
     }
 
     public void setTargetRole(String targetRole) {
