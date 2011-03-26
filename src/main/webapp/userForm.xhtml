@@ -23,7 +23,7 @@
             <input type="hidden" name="encryptPass" value="true" />
         </c:if>
 
-        <c:set var="addText" value="#{text['button.add']}" />
+        <c:set var="addText" value="${text['button.add']}" />
 
         <h:panelGrid columns="3">
 
@@ -94,12 +94,22 @@
 
             <h:panelGroup>
                 <t:htmlTag value="div">
-                    <h:outputLabel for="middleName" value="#{text['user.middleName']}" styleClass="desc" />
-                    <t:message for="middleName" styleClass="fieldError" />
-                    <h:inputText value="#{userForm.user.middleName}" id="middleName" required="true"
-                        styleClass="text medium">
-                        <v:commonsValidator client="true" type="required" arg="#{text['user.middleName']}" />
-                    </h:inputText>
+                    <t:htmlTag value="div" styleClass="left">
+                        <h:outputLabel for="middleName" value="#{text['user.middleName']}" styleClass="desc"/>
+                        <t:message for="middleName" styleClass="fieldError"/>
+                        <h:inputText value="#{userForm.user.middleName}" id="middleName" required="true"
+                                     styleClass="text medium">
+                            <v:commonsValidator client="true" type="required" arg="#{text['user.middleName']}"/>
+                        </h:inputText>
+                    </t:htmlTag>
+                    <t:htmlTag value="div">
+                        <h:outputLabel for="email" value="#{text['user.email']}" styleClass="desc" />
+                        <t:message for="email" styleClass="fieldError" />
+                        <h:inputText id="email" value="#{userForm.user.email}" maxlength="50" required="false"
+                            styleClass="text medium">
+                            <v:commonsValidator client="true" type="required" arg="#{text['user.email']}" />
+                        </h:inputText>
+                    </t:htmlTag>
                 </t:htmlTag>
             </h:panelGroup>
             <h:outputText />
@@ -144,10 +154,14 @@
                         </t:htmlTag>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <fieldset><legend>#{text['userProfile.assignRoles']}</legend> 
-                        <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
-                            <f:selectItems value="#{userForm.availableRoles}" />
-                        </h:selectManyCheckbox></fieldset>
+                        <c:if test="#{userForm.currentUserAdmin}">
+                            <fieldset>
+                                <legend>#{text['userProfile.assignRoles']}</legend>
+                                <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
+                                    <f:selectItems value="#{userForm.availableRoles}"/>
+                                </h:selectManyCheckbox>
+                            </fieldset>
+                        </c:if>
                     </h:panelGroup>
                     <h:outputText />
                     <h:outputText />
@@ -156,16 +170,16 @@
                     <h:panelGroup>
                         <t:htmlTag value="strong">#{text['user.roles']}:</t:htmlTag>
                         <c:forEach var="role" items="#{userForm.userRoles}" varStatus="status">
-               ${role}<c:if test="${!status.last}">,</c:if>
-                            <input type="hidden" name="userForm:userRoles" value="${role}" />
+                            ${role}<c:if test="${!status.last}">,</c:if>
+                            <input type="hidden" name="userForm:userRoles" value="${role}"/>
                         </c:forEach>
-                        <h:inputHidden value="#{userForm.user.enabled}" />
-                        <h:inputHidden value="#{userForm.user.accountExpired}" />
-                        <h:inputHidden value="#{userForm.user.accountLocked}" />
-                        <h:inputHidden value="#{userForm.user.credentialsExpired}" />
+                        <h:inputHidden value="#{userForm.user.enabled}"/>
+                        <h:inputHidden value="#{userForm.user.accountExpired}"/>
+                        <h:inputHidden value="#{userForm.user.accountLocked}"/>
+                        <h:inputHidden value="#{userForm.user.credentialsExpired}"/>
                     </h:panelGroup>
-                    <h:outputText />
-                    <h:outputText />
+                    <h:outputText/>
+                    <h:outputText/>
                 </c:otherwise>
             </c:choose>
 

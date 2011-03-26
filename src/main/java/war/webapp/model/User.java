@@ -1,25 +1,5 @@
 package war.webapp.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.Version;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.compass.annotations.Searchable;
@@ -29,11 +9,17 @@ import org.compass.annotations.SearchableProperty;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * This class represents the basic "user" object in Hostel Duty that allows for
  * authentication and user management. It implements Acegi Security's
  * UserDetails interface.
- * 
  */
 @Entity
 @Table(name = "app_user")
@@ -50,6 +36,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private Address address = new Address();
     private String universityGroup;
     private Integer version;
+
+    private String email;
     private Set<Role> roles = new HashSet<Role>();
     private boolean enabled;
     private boolean accountExpired = false;
@@ -64,7 +52,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Create a new instance and set the username.
-     * 
+     *
      * @param username login name for user.
      */
     public User(final String username) {
@@ -82,6 +70,11 @@ public class User extends BaseObject implements Serializable, UserDetails {
     @SearchableProperty
     public String getUsername() {
         return username;
+    }
+
+    @Column(length = 50, unique = true)
+    public String getEmail() {
+        return email;
     }
 
     @Column(nullable = false)
@@ -109,7 +102,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Returns the full name.
-     * 
+     *
      * @return firstName + ' ' + lastName
      */
     @Transient
@@ -134,14 +127,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
     }
 
     /**
      * Convert user roles to LabelValue objects for convenience.
-     * 
+     *
      * @return a list of LabelValue objects with role information
      */
     @Transient
@@ -160,7 +153,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Adds a role for the user
-     * 
+     *
      * @param role the fully instantiated role
      */
     public void addRole(Role role) {
@@ -224,7 +217,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public boolean isCredentialsNonExpired() {
         return !credentialsExpired;
     }
-    
+
     @Transient
     public boolean isEmptyUser() {
         return false;
@@ -264,6 +257,10 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setVersion(Integer version) {

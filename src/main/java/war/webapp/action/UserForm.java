@@ -1,19 +1,5 @@
 package war.webapp.action;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.security.AccessDeniedException;
 import org.springframework.security.Authentication;
@@ -22,7 +8,6 @@ import org.springframework.security.AuthenticationTrustResolverImpl;
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
-
 import war.webapp.Constants;
 import war.webapp.model.LabelValue;
 import war.webapp.model.Role;
@@ -31,9 +16,18 @@ import war.webapp.service.RoleManager;
 import war.webapp.service.UserExistsException;
 import war.webapp.util.ConvertUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * JSF Page class to handle editing a user with a form.
- * 
+ *
  * @author mraible
  */
 public class UserForm extends BasePage implements Serializable {
@@ -105,7 +99,7 @@ public class UserForm extends BasePage implements Serializable {
     /**
      * Convenience method for view templates to check if the user is logged in
      * with RememberMe (cookies).
-     * 
+     *
      * @return true/false - false if user interactively logged in.
      */
     public boolean isRememberMe() {
@@ -127,12 +121,17 @@ public class UserForm extends BasePage implements Serializable {
         generateFloor();
         generateUsername();
         generatePassword();
-        
+
+        if (!validateEmail()) {
+            addError("errors.email", new Object[]{user.getEmail()});
+            return "editProfile";
+        }
+
         for (int i = 0; (userRoles != null) && (i < userRoles.length); i++) {
             String roleName = userRoles[i];
             user.addRole(roleManager.getRole(roleName));
         }
-        
+
         Integer originalVersion = user.getVersion();
 
         try {
@@ -159,7 +158,7 @@ public class UserForm extends BasePage implements Serializable {
             return "list"; // return to list screen
         }
     }
-    
+
     private String[] getRoles() {
         if (getRequest().getParameterValues("userForm:userRoles") == null) {
             return new String[] { Constants.USER_ROLE };
@@ -184,12 +183,25 @@ public class UserForm extends BasePage implements Serializable {
             user.setUsername(username.toString());
         }
     }
-    
+
     private void generatePassword() {
         if (StringUtils.isEmpty(user.getPassword())) {
             user.setPassword("pass");
         }
     }
+
+    private boolean validateEmail() {
+        if (StringUtils.isEmpty(user.getEmail())) {
+            return true;
+        }
+        Pattern p = Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher m = p.matcher(user.getEmail());
+        if (m.matches()) {
+            return true;
+        }
+        return false;
+    }
+
 
     public String delete() {
         userManager.removeUser(getUser().getId().toString());
@@ -200,7 +212,7 @@ public class UserForm extends BasePage implements Serializable {
 
     /**
      * Convenience method to determine if the user came from the list screen
-     * 
+     *
      * @return String
      */
     public String getFrom() {
@@ -216,7 +228,7 @@ public class UserForm extends BasePage implements Serializable {
     public Map<String, String> getAvailableRoles() {
         if (availableRoles == null) {
             List<LabelValue> roles = (List<LabelValue>) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);
-            
+
             availableRoles = ConvertUtil.convertListToMap(roles);
             if (!isCurrentUserAdmin()) {
                 availableRoles.remove(Constants.ADMIN_ROLE);
@@ -226,11 +238,11 @@ public class UserForm extends BasePage implements Serializable {
 
         return availableRoles;
     }
-    
+
     public boolean isCurrentUserAdmin() {
         User currentUser = (User) ((SecurityContext) getSession().getAttribute(
                 HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
-        
+
         boolean isAdmin = false;
         List<LabelValue> userRoles = currentUser.getRoleList();
         for (LabelValue role: userRoles) {
@@ -238,7 +250,7 @@ public class UserForm extends BasePage implements Serializable {
                 isAdmin = true;
             }
         }
-        
+
         return isAdmin;
     }
 
