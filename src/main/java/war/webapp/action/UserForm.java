@@ -15,6 +15,8 @@ import war.webapp.model.User;
 import war.webapp.service.RoleManager;
 import war.webapp.service.UserExistsException;
 import war.webapp.util.ConvertUtil;
+import war.webapp.util.FacesUtils;
+import war.webapp.util.UserHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -240,18 +242,8 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public boolean isCurrentUserAdmin() {
-        User currentUser = (User) ((SecurityContext) getSession().getAttribute(
-                HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
-
-        boolean isAdmin = false;
-        List<LabelValue> userRoles = currentUser.getRoleList();
-        for (LabelValue role: userRoles) {
-            if (role.getValue().equals(Constants.ADMIN_ROLE)) {
-                isAdmin = true;
-            }
-        }
-
-        return isAdmin;
+        UserHelper userHelperBean = (UserHelper)FacesUtils.getManagedBean("userHelper");
+        return userHelperBean.ifCurrentUserHasRole(Constants.ADMIN_ROLE);
     }
 
     public String[] getUserRoles() {

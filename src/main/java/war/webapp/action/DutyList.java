@@ -31,7 +31,9 @@ import war.webapp.service.DayDutyManager;
 import war.webapp.service.DutyListLoadService;
 import war.webapp.service.MonthManager;
 import war.webapp.service.UserManager;
+import war.webapp.util.FacesUtils;
 import war.webapp.util.MonthHelper;
+import war.webapp.util.UserHelper;
 
 public class DutyList extends BasePage implements Serializable {
     private static final transient Log logger = LogFactory.getLog(DutyList.class);
@@ -171,7 +173,8 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public boolean isUserStarosta() {
-        return user.getRoles().contains(new Role(STAROSTA_ROLE));
+        UserHelper userHelperBean = (UserHelper)FacesUtils.getManagedBean("userHelper");
+        return userHelperBean.ifCurrentUserHasRole(Constants.STAROSTA_ROLE);
     }
 
     public int getTableRowNumber(FacesEvent e) {
