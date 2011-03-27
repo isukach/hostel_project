@@ -83,6 +83,11 @@
         <managed-bean-class>war.webapp.util.DateUtil</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>userHelper</managed-bean-name>
+        <managed-bean-class>war.webapp.util.UserHelper</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
     <navigation-rule>
         <from-view-id>/mainMenu.xhtml</from-view-id>
         <navigation-case>
