@@ -70,12 +70,12 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return username;
     }
 
-    @Column(length = 50, unique = true)
+    @Column(name = "email", length = 50, unique = true)
     public String getEmail() {
         return email;
     }
 
-    @Column(length = 50, unique = false)
+    @Column(name = "phone_number", length = 50, unique = false)
     public String getPhoneNumber() {
         return phoneNumber;
     }
