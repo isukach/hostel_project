@@ -115,6 +115,36 @@
             <h:outputText />
             <h:outputText />
 
+            <c:if test="#{userForm.currentUserAdmin or dutyList.userStarosta}">
+                <h:panelGroup>
+                    <t:htmlTag value="div">
+                        <t:htmlTag value="div" styleClass="left">
+                            <h:outputLabel for="birthdayDayOfMonth" value="#{text['user.dateOfBirth']}"
+                                           styleClass="desc"/>
+                            <h:selectOneMenu id="birthdayDayOfMonth" value="#{userForm.user.birthdayDayOfMonth}">
+                                <f:selectItems value="#{dateUtils.daysOfMonth}"/>
+                            </h:selectOneMenu>
+                            <h:selectOneMenu id="birthdayMonth" value="#{userForm.user.birthdayMonth}">
+                                <f:selectItems value="#{dateUtils.months}"/>
+                            </h:selectOneMenu>
+                            <h:selectOneMenu id="birthdayYear" value="#{userForm.user.birthdayYear}">
+                                <f:selectItems value="#{dateUtils.years}"/>
+                            </h:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="div">
+                            <h:outputLabel for="phoneNumber" value="#{text['user.phoneNumber']}" styleClass="desc"/>
+                            <t:message for="email" styleClass="fieldError" />
+                            <h:inputText id="phoneNumber" value="#{userForm.user.phoneNumber}" maxlength="50" required="false"
+                                styleClass="text medium">
+                                <v:commonsValidator client="true" type="required" arg="#{text['user.phoneNumber']}" />
+                            </h:inputText>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </h:panelGroup>
+                <h:outputText />
+                <h:outputText />
+            </c:if>
+
             <h:panelGroup>
                 <t:htmlTag value="div">
                     <t:htmlTag value="div" styleClass="left">

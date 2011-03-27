@@ -11,10 +11,7 @@ import org.springframework.security.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class represents the basic "user" object in Hostel Duty that allows for
@@ -36,8 +33,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private Address address = new Address();
     private String universityGroup;
     private Integer version;
-
     private String email;
+    private String phoneNumber;
+    private Calendar dateOfBirth = Calendar.getInstance();
     private Set<Role> roles = new HashSet<Role>();
     private boolean enabled;
     private boolean accountExpired = false;
@@ -77,6 +75,17 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return email;
     }
 
+    @Column(length = 50, unique = false)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @Column(name = "date_of_birth", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    public Calendar getDateOfBirth() {
+        return dateOfBirth;
+    }
+
     @Column(nullable = false)
     public String getPassword() {
         return password;
@@ -98,6 +107,30 @@ public class User extends BaseObject implements Serializable, UserDetails {
     @SearchableProperty
     public String getMiddleName() {
         return middleName;
+    }
+
+    @Transient
+    public int getBirthdayDayOfMonth() {
+        if (dateOfBirth == null) {
+            return 11;
+        }
+        return dateOfBirth.get(Calendar.DAY_OF_MONTH);
+    }
+
+    @Transient
+    public int getBirthdayMonth() {
+        if (dateOfBirth == null) {
+            return 7;
+        }
+        return dateOfBirth.get(Calendar.MONTH);
+    }
+
+    @Transient
+    public int getBirthdayYear() {
+        if (dateOfBirth == null) {
+            return 1989;
+        }
+        return dateOfBirth.get(Calendar.YEAR);
     }
 
     /**
@@ -261,6 +294,26 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setDateOfBirth(Calendar dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setBirthdayDayOfMonth(int day) {
+        dateOfBirth.set(Calendar.DAY_OF_MONTH, day);
+    }
+
+    public void setBirthdayMonth(int month) {
+        dateOfBirth.set(Calendar.MONTH, month);
+    }
+
+    public void setBirthdayYear(int year) {
+        dateOfBirth.set(Calendar.YEAR, year);
     }
 
     public void setVersion(Integer version) {

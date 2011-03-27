@@ -78,6 +78,11 @@
             <value>#{userManager}</value>
         </managed-property>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>dateUtils</managed-bean-name>
+        <managed-bean-class>war.webapp.util.DateUtil</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
     <navigation-rule>
         <from-view-id>/mainMenu.xhtml</from-view-id>
         <navigation-case>
