@@ -222,14 +222,23 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
                     currentFormatDay = dataFormatBorderAllBold;
                 }
                 addLabelToSheet(sheet,distCol, dataRow, "" + dutyDate.get(Calendar.DAY_OF_MONTH), currentFormatDay);
+                String correctFirstName = duty.getFirstUser().getFirstName();
+                if(!isBlank(correctFirstName)){
+                    correctFirstName = correctFirstName.substring(0,1).toUpperCase() + ".";
+                }
+                
                 addLabelToSheet(sheet, distCol + 1, dataRow, duty.getFirstUser().getLastName() + " "
-                        + duty.getFirstUser().getFirstName(), currentFormat);
+                        + correctFirstName, currentFormat);
                 String firstUSerGroup = duty.getFirstUser().getUniversityGroup();
                 addLabelToSheet(sheet, distCol + 2, dataRow, firstUSerGroup == null ? "" : firstUSerGroup, currentFormatGroup);
                 Integer firstUserRoom = duty.getFirstUser().getAddress().getHostelRoom();
                 addLabelToSheet(sheet, distCol + 3, dataRow,  firstUserRoom == null ? "" : firstUserRoom.toString(), currentFormat);
+                correctFirstName = duty.getSecondUser().getFirstName();
+                if(!isBlank(correctFirstName)){
+                    correctFirstName = correctFirstName.substring(0,1).toUpperCase() + ".";
+                }
                 addLabelToSheet(sheet, distCol+4, dataRow, duty.getSecondUser().getLastName() + " "
-                        + duty.getSecondUser().getFirstName(), currentFormat);
+                        + correctFirstName, currentFormat);
                 String secondUserGroup = duty.getSecondUser().getUniversityGroup();
                 addLabelToSheet(sheet,distCol + 5, dataRow, secondUserGroup == null ? "" : secondUserGroup,
                         currentFormatGroup);
@@ -260,6 +269,10 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
 
     }
 
+    private boolean isBlank(String s){
+        return (s == null) || (s.length() == 0);
+    }
+    
     private void addLabelToSheet(WritableSheet sheet, int col, int row, String text, WritableCellFormat format ) throws RowsExceededException, WriteException{
         Label content = new Label(col, row, text, format);
         sheet.addCell(content);
