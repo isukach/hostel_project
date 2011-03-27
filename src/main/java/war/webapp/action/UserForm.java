@@ -5,7 +5,6 @@ import org.springframework.security.AccessDeniedException;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationTrustResolver;
 import org.springframework.security.AuthenticationTrustResolverImpl;
-import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import war.webapp.Constants;
@@ -173,8 +172,11 @@ public class UserForm extends BasePage implements Serializable {
         user.getAddress().setHostelFloor(hostelFloor);
     }
 
-    private int getFloorFromRoom(Integer hostelRoom) {
-        return hostelRoom / 100;
+    private int getFloorFromRoom(String hostelRoom) {
+        if (hostelRoom.length() >= 4 && hostelRoom.charAt(3) >= '0' && hostelRoom.charAt(3) <= '9') {
+            return Integer.valueOf(hostelRoom.substring(0, 2));
+        }
+        return Integer.valueOf(hostelRoom.substring(0, 1));
     }
 
     private void generateUsername() {
