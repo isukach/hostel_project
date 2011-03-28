@@ -1,14 +1,13 @@
 package war.webapp.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * This class is used to represent an address with address, city, province and
@@ -20,11 +19,11 @@ import org.compass.annotations.SearchableProperty;
 public class Address extends BaseObject implements Serializable {
     private static final long serialVersionUID = 3617859655330969141L;
     private Integer hostelFloor;
-    private Integer hostelRoom;
+    private String hostelRoom;
 
     @Column(name = "hostel_room", nullable = false)
     @SearchableProperty
-    public Integer getHostelRoom() {
+    public String getHostelRoom() {
         return hostelRoom;
     }
 
@@ -38,7 +37,7 @@ public class Address extends BaseObject implements Serializable {
         this.hostelFloor = hostelFloor;
     }
 
-    public void setHostelRoom(Integer hostelRoom) {
+    public void setHostelRoom(String hostelRoom) {
         this.hostelRoom = hostelRoom;
     }
 

@@ -1,19 +1,14 @@
 package war.webapp.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.i18n.LocaleContextHolder;
-
 import war.webapp.Constants;
+
+import javax.faces.model.SelectItem;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Date Utility Class used to convert Strings to Dates and Timestamps
@@ -22,12 +17,43 @@ import war.webapp.Constants;
 public final class DateUtil {
     private static Log log = LogFactory.getLog(DateUtil.class);
     private static final String TIME_PATTERN = "HH:mm";
+    private  List<SelectItem> daysOfMonth;
+    private  List<SelectItem> months;
+    private  List<SelectItem> years;
 
-    /**
-     * Checkstyle rule: utility classes should not have public constructor
-     */
-    private DateUtil() {
+    public List<SelectItem> getDaysOfMonth() {
+        if (daysOfMonth != null) {
+            return daysOfMonth;
+        }
+        daysOfMonth = new ArrayList<SelectItem>();
+        for (int i = 1; i <= 31; ++i) {
+            daysOfMonth.add(new SelectItem(i));
+        }
+        return daysOfMonth;
     }
+
+    public List<SelectItem> getMonths() {
+        if (months != null) {
+            return months;
+        }
+        months = new ArrayList<SelectItem>();
+        for (int i = 1; i <= 12; ++i) {
+            months.add(new SelectItem(i));
+        }
+        return months;
+    }
+
+    public List<SelectItem> getYears() {
+        if (years != null) {
+            return years;
+        }
+        years = new ArrayList<SelectItem>();
+        for (int i = 1980; i <= 2009; ++i) {
+            years.add(new SelectItem(i));
+        }
+        return years;
+    }
+
     
     public static int getDayOfWeekForFirstSeptember(int year) {
         switch (year) {

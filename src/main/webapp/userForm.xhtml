@@ -75,7 +75,7 @@
                         <h:outputLabel for="lastName" value="#{text['user.lastName']}" styleClass="desc" />
                         <t:message for="lastName" styleClass="fieldError" />
                         <h:inputText value="#{userForm.user.lastName}" id="lastName" maxlength="50" required="true"
-                            disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                            styleClass="text medium">
                             <v:commonsValidator client="true" type="required" arg="#{text['user.lastName']}" />
                         </h:inputText>
                     </t:htmlTag>
@@ -83,7 +83,7 @@
                         <h:outputLabel for="firstName" value="#{text['user.firstName']}" styleClass="desc" />
                         <t:message for="firstName" styleClass="fieldError" />
                         <h:inputText id="firstName" value="#{userForm.user.firstName}" maxlength="50" required="true"
-                            disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                            styleClass="text medium">
                             <v:commonsValidator client="true" type="required" arg="#{text['user.firstName']}" />
                         </h:inputText>
                     </t:htmlTag>
@@ -98,7 +98,7 @@
                         <h:outputLabel for="middleName" value="#{text['user.middleName']}" styleClass="desc"/>
                         <t:message for="middleName" styleClass="fieldError"/>
                         <h:inputText value="#{userForm.user.middleName}" id="middleName" required="true"
-                                     disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                                     styleClass="text medium">
                             <v:commonsValidator client="true" type="required" arg="#{text['user.middleName']}"/>
                         </h:inputText>
                     </t:htmlTag>
@@ -115,13 +115,43 @@
             <h:outputText />
             <h:outputText />
 
+            <c:if test="#{userForm.currentUserAdmin or dutyList.userStarosta}">
+                <h:panelGroup>
+                    <t:htmlTag value="div">
+                        <t:htmlTag value="div" styleClass="left">
+                            <h:outputLabel for="birthdayDayOfMonth" value="#{text['user.dateOfBirth']}"
+                                           styleClass="desc"/>
+                            <h:selectOneMenu id="birthdayDayOfMonth" value="#{userForm.user.birthdayDayOfMonth}">
+                                <f:selectItems value="#{dateUtils.daysOfMonth}"/>
+                            </h:selectOneMenu>
+                            <h:selectOneMenu id="birthdayMonth" value="#{userForm.user.birthdayMonth}">
+                                <f:selectItems value="#{dateUtils.months}"/>
+                            </h:selectOneMenu>
+                            <h:selectOneMenu id="birthdayYear" value="#{userForm.user.birthdayYear}">
+                                <f:selectItems value="#{dateUtils.years}"/>
+                            </h:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="div">
+                            <h:outputLabel for="phoneNumber" value="#{text['user.phoneNumber']}" styleClass="desc"/>
+                            <t:message for="email" styleClass="fieldError" />
+                            <h:inputText id="phoneNumber" value="#{userForm.user.phoneNumber}" maxlength="50" required="false"
+                                styleClass="text medium">
+                                <v:commonsValidator client="true" type="required" arg="#{text['user.phoneNumber']}" />
+                            </h:inputText>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </h:panelGroup>
+                <h:outputText />
+                <h:outputText />
+            </c:if>
+
             <h:panelGroup>
                 <t:htmlTag value="div">
                     <t:htmlTag value="div" styleClass="left">
                         <h:outputLabel for="room" value="#{text['user.room']}" styleClass="desc" />
                         <t:message for="room" styleClass="fieldError" />
                         <h:inputText value="#{userForm.user.address.hostelRoom}" id="room" required="true"
-                            disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                            styleClass="text medium">
                             <v:commonsValidator client="true" type="required" arg="#{text['user.room']}" />
                         </h:inputText>
                     </t:htmlTag>
@@ -129,7 +159,7 @@
                         <h:outputLabel for="group" value="#{text['user.universityGroup']}" styleClass="desc" />
                         <t:message for="group" styleClass="fieldError" />
                         <h:inputText value="#{userForm.user.universityGroup}" id="group" required="true"
-                            disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                            styleClass="text medium">
                             <v:commonsValidator client="true" type="required" arg="#{text['user.universityGroup']}" />
                         </h:inputText>
                     </t:htmlTag>
