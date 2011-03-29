@@ -1,5 +1,6 @@
 package war.webapp.action;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.security.AccessDeniedException;
 import org.springframework.security.Authentication;
@@ -173,8 +174,11 @@ public class UserForm extends BasePage implements Serializable {
         user.getAddress().setHostelFloor(hostelFloor);
     }
 
-    private int getFloorFromRoom(Integer hostelRoom) {
-        return hostelRoom / 100;
+    private int getFloorFromRoom(String hostelRoom) {
+        if (hostelRoom.length() >= 4 && hostelRoom.charAt(3) >= '0' && hostelRoom.charAt(3) <= '9') {
+            return Integer.valueOf(hostelRoom.substring(0, 2));
+        }
+        return Integer.valueOf(hostelRoom.substring(0, 1));
     }
 
     private void generateUsername() {
@@ -239,6 +243,19 @@ public class UserForm extends BasePage implements Serializable {
         }
 
         return availableRoles;
+    }
+    
+    public boolean isInputFieldShouldBeDisabled() {
+        boolean isInputToDisable = false;
+        String from = getFrom();
+        User currentUser = (User) ((SecurityContext) getSession().getAttribute(
+                HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
+        if (user.getUsername() != null) {
+            if (currentUser.getUsername().equals(user.getUsername()) &&  !"list".equals(from) && !isCurrentUserAdmin()) {
+                isInputToDisable = true;
+            }
+        }
+        return isInputToDisable;
     }
 
     public boolean isCurrentUserAdmin() {

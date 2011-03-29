@@ -1,15 +1,5 @@
 package war.webapp.service.impl.builder;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import jxl.SheetSettings;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -17,18 +7,19 @@ import jxl.format.Alignment;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
 import jxl.format.Colour;
-import jxl.format.Orientation;
+import jxl.format.*;
 import jxl.format.VerticalAlignment;
-import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
+import jxl.write.*;
 import jxl.write.WritableFont.FontName;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import war.webapp.model.DayDuty;
 import war.webapp.service.builder.BaseDutyListTemplateBuilder;
+
+import java.io.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
 
@@ -231,8 +222,8 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
                         + correctFirstName, currentFormat);
                 String firstUSerGroup = duty.getFirstUser().getUniversityGroup();
                 addLabelToSheet(sheet, distCol + 2, dataRow, firstUSerGroup == null ? "" : firstUSerGroup, currentFormatGroup);
-                Integer firstUserRoom = duty.getFirstUser().getAddress().getHostelRoom();
-                addLabelToSheet(sheet, distCol + 3, dataRow,  firstUserRoom == null ? "" : firstUserRoom.toString(), currentFormat);
+                String firstUserRoom = duty.getFirstUser().getAddress().getHostelRoom();
+                addLabelToSheet(sheet, distCol + 3, dataRow,  firstUserRoom == null ? "" : firstUserRoom, currentFormat);
                 correctFirstName = duty.getSecondUser().getFirstName();
                 if(!isBlank(correctFirstName)){
                     correctFirstName = correctFirstName.substring(0,1).toUpperCase() + ".";
@@ -242,8 +233,8 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
                 String secondUserGroup = duty.getSecondUser().getUniversityGroup();
                 addLabelToSheet(sheet,distCol + 5, dataRow, secondUserGroup == null ? "" : secondUserGroup,
                         currentFormatGroup);
-                Integer secondUserRoom = duty.getSecondUser().getAddress().getHostelRoom();
-                addLabelToSheet(sheet, distCol + 6, dataRow, secondUserRoom == null ? "" : secondUserRoom.toString(),
+                String secondUserRoom = duty.getSecondUser().getAddress().getHostelRoom();
+                addLabelToSheet(sheet, distCol + 6, dataRow, secondUserRoom == null ? "" : secondUserRoom,
                         currentFormat);
                 dataRow++;
             }
