@@ -38,7 +38,6 @@ import war.webapp.util.UserHelper;
 public class DutyList extends BasePage implements Serializable {
     private static final transient Log logger = LogFactory.getLog(DutyList.class);
 
-
     private static final long serialVersionUID = 911159310602744018L;
 
     public static final int MIN_FLOOR = 2;
