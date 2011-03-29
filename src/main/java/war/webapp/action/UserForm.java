@@ -1,10 +1,12 @@
 package war.webapp.action;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.security.AccessDeniedException;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationTrustResolver;
 import org.springframework.security.AuthenticationTrustResolverImpl;
+import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import war.webapp.Constants;
@@ -241,6 +243,19 @@ public class UserForm extends BasePage implements Serializable {
         }
 
         return availableRoles;
+    }
+    
+    public boolean isInputFieldShouldBeDisabled() {
+        boolean isInputToDisable = false;
+        String from = getFrom();
+        User currentUser = (User) ((SecurityContext) getSession().getAttribute(
+                HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
+        if (user.getUsername() != null) {
+            if (currentUser.getUsername().equals(user.getUsername()) &&  !"list".equals(from) && !isCurrentUserAdmin()) {
+                isInputToDisable = true;
+            }
+        }
+        return isInputToDisable;
     }
 
     public boolean isCurrentUserAdmin() {

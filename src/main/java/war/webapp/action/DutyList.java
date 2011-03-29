@@ -29,7 +29,6 @@ import java.util.concurrent.Semaphore;
 public class DutyList extends BasePage implements Serializable {
     private static final transient Log logger = LogFactory.getLog(DutyList.class);
 
-
     private static final long serialVersionUID = 911159310602744018L;
 
     public static final int MIN_FLOOR = 2;
@@ -332,6 +331,12 @@ public class DutyList extends BasePage implements Serializable {
 
     public void changeMonthAvailability(ActionEvent e) {
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
+        Integer currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        //11 - DECEMBER
+        if(currentMonth == 11 && month == 0){
+            year++;
+        }
+        
         DutyMonth dutyMonth = monthManager.loadMonth(year, month, getFloor());
         if (dutyMonth == null) {
             dutyMonth = createDutyMonth();
