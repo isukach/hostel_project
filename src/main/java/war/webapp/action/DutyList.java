@@ -20,10 +20,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class DutyList extends BasePage implements Serializable {
@@ -31,14 +28,14 @@ public class DutyList extends BasePage implements Serializable {
 
     private static final long serialVersionUID = 911159310602744018L;
 
-    public static final int MIN_FLOOR = 2;
-    public static final int MAX_FLOOR = 12;
+    private static final int MIN_FLOOR = 2;
+    private static final int MAX_FLOOR = 12;
 
-    public static final String FIRST_SHIFT = "firstShift";
-    public static final String SECOND_SHIFT = "secondShift";
-    public static final String FIRST_SHIFT_USER = "firstShiftUser";
-    public static final String SECOND_SHIFT_USER = "secondShiftUser";
-    public static final String SELECT_USER_STRING = "-";
+    private static final String FIRST_SHIFT = "firstShift";
+    private static final String SECOND_SHIFT = "secondShift";
+    private static final String FIRST_SHIFT_USER = "firstShiftUser";
+    private static final String SECOND_SHIFT_USER = "secondShiftUser";
+    private static final String SELECT_USER_STRING = "-";
 
     private DayDutyManager dayDutyManager;
     private MonthManager monthManager;
@@ -53,7 +50,7 @@ public class DutyList extends BasePage implements Serializable {
     private List<SelectItem> floorUsersList;
 
     private List<DayDuty> dutyList;
-    private static User emptyUser = new EmptyUser();
+    private static final User emptyUser = new EmptyUser();
     private List<DayDuty> emptyDayDutyList;
     private boolean monthAvailable = false;
 
@@ -62,12 +59,13 @@ public class DutyList extends BasePage implements Serializable {
                 HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
         setSortColumn("dayOfWeek");
         setMonth(Calendar.getInstance().get(Calendar.MONTH));
-        //28 - minimum count of days in any month in year(this month is February)
-        initializeEmptyDayDutyList(28);
+        initializeEmptyDayDutyList();
     }
 
-    private void initializeEmptyDayDutyList(int size) {
-        emptyDayDutyList = new ArrayList<DayDuty>();
+    private void initializeEmptyDayDutyList() {
+        emptyDayDutyList = new LinkedList<DayDuty>();
+        //28 - minimum days num in any month
+        int size = 28;
         while (size != 0) {
             DayDuty dayDuty = new DayDuty();
             Calendar date = Calendar.getInstance();
