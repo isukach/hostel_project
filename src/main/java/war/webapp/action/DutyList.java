@@ -332,8 +332,8 @@ public class DutyList extends BasePage implements Serializable {
     public void changeMonthAvailability(ActionEvent e) {
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
         Integer currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-        //12 - DECEMBER
-        if(currentMonth == 12 && month == 1){
+        //11 - DECEMBER
+        if(currentMonth == 11 && month == 0){
             year++;
         }
         
