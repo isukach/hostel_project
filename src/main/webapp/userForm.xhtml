@@ -132,10 +132,10 @@
                             </h:selectOneMenu>
                         </t:htmlTag>
                         <t:htmlTag value="div">
-                            <h:outputLabel for="phoneNumber" value="#{text['user.phoneNumber']}" styleClass="desc"/>
+                            <h:outputLabel id="phone" for="phoneNumber" value="#{text['user.phoneNumber']}   " styleClass="desc"/>
                             <t:message for="email" styleClass="fieldError" />
                             <h:inputText id="phoneNumber" value="#{userForm.user.phoneNumber}" maxlength="50" required="false"
-                                styleClass="text medium">
+                                styleClass="text medium" style="margin-left:42px;">
                                 <v:commonsValidator client="true" type="required" arg="#{text['user.phoneNumber']}" />
                             </h:inputText>
                         </t:htmlTag>
