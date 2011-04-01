@@ -1,6 +1,5 @@
 package war.webapp.action;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.security.AccessDeniedException;
 import org.springframework.security.Authentication;
@@ -202,10 +201,7 @@ public class UserForm extends BasePage implements Serializable {
         }
         Pattern p = Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher m = p.matcher(user.getEmail());
-        if (m.matches()) {
-            return true;
-        }
-        return false;
+        return m.matches();
     }
 
 
