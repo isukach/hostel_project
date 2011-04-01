@@ -266,7 +266,7 @@ public class UserForm extends BasePage implements Serializable {
 
         if (userRoles.length > 0) {
             for (Role role : user.getRoles()) {
-                userRoles[i] = role.getName();
+                userRoles[i] = role.getName().split("_")[1].toLowerCase();
                 i++;
             }
         }
