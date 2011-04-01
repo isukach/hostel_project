@@ -143,7 +143,7 @@
         <from-view-id>/userForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/admin/users.xhtml</to-view-id>
+            <to-view-id>/floorhead/floorUsers.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>
