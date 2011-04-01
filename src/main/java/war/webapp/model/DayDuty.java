@@ -30,7 +30,7 @@ public class DayDuty extends BaseObject implements Serializable {
     private Calendar date;
     private User firstUser;
     private User secondUser;
-    private Integer floor;
+    private String floor;
 
     public DayDuty() {
     }
@@ -60,7 +60,7 @@ public class DayDuty extends BaseObject implements Serializable {
     }
 
     @Column
-    public Integer getFloor() {
+    public String getFloor() {
         return floor;
     }
 
@@ -133,7 +133,7 @@ public class DayDuty extends BaseObject implements Serializable {
         this.secondUser = secondUser;
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
     }
 

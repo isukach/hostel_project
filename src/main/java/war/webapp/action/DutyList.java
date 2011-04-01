@@ -44,7 +44,7 @@ public class DutyList extends BasePage implements Serializable {
     private User user;
     private Integer month;
     private String monthString;
-    private Integer floor;
+    private String floor;
 
     private String selectedUser;
     private List<SelectItem> floorUsersList;
@@ -302,7 +302,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public void floorChanged(ValueChangeEvent e) {
-        setFloor((Integer) e.getNewValue());
+        setFloor((String) e.getNewValue());
         dutyList = null;
     }
 
@@ -382,7 +382,7 @@ public class DutyList extends BasePage implements Serializable {
         refreshMonthAvailability();
     }
 
-    public Integer getFloor() {
+    public String getFloor() {
         if (floor == null) {
             setFloor(user.getAddress().getHostelFloor());
         }
@@ -393,7 +393,7 @@ public class DutyList extends BasePage implements Serializable {
         return user.getAddress().getHostelFloor().equals(getFloor());
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
         refreshMonthAvailability();
     }

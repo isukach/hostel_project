@@ -1,13 +1,12 @@
 package war.webapp.action;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
-
 import war.webapp.model.User;
 import war.webapp.util.FacesUtils;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class UserList extends BasePage implements Serializable {
     private static final long serialVersionUID = 972359310602744018L;
@@ -24,16 +23,15 @@ public class UserList extends BasePage implements Serializable {
     public List<User> getUsersByStarostaFloor() {
         User user = (User) ((SecurityContext) FacesUtils.getSession().getAttribute(
                 HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
-        int floor = user.getAddress().getHostelFloor();
+        String floor = user.getAddress().getHostelFloor();
         List<User> floorUsers = userManager.getUsersByFloor(floor);
         floorUsers.remove(user);
         return (List<User>) sort(floorUsers);
     }
 
-    public int getCurrentUserFloor() {
+    public String getCurrentUserFloor() {
         User user = (User) ((SecurityContext) FacesUtils.getSession().getAttribute(
                 HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
-        int floor = user.getAddress().getHostelFloor();
-        return floor;
+        return user.getAddress().getHostelFloor();
     }
 }

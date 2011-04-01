@@ -20,7 +20,7 @@ public class MonthManagerImpl extends GenericManagerImpl<DutyMonth, Long> implem
         this.monthDao = monthDao;
     }
 
-    public DutyMonth loadMonth(Integer year, Integer month, Integer floor) {
+    public DutyMonth loadMonth(Integer year, Integer month, String floor) {
         return monthDao.loadMonth(year, month, floor);
     }
 

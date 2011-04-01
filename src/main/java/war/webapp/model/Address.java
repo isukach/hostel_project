@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Searchable(root = false)
 public class Address extends BaseObject implements Serializable {
     private static final long serialVersionUID = 3617859655330969141L;
-    private Integer hostelFloor;
+    private String hostelFloor;
     private String hostelRoom;
 
     @Column(name = "hostel_room", nullable = false)
@@ -29,11 +29,11 @@ public class Address extends BaseObject implements Serializable {
 
     @Column(name = "hostel_floor", nullable = false)
     @SearchableProperty
-    public Integer getHostelFloor() {
+    public String getHostelFloor() {
         return hostelFloor;
     }
 
-    public void setHostelFloor(Integer hostelFloor) {
+    public void setHostelFloor(String hostelFloor) {
         this.hostelFloor = hostelFloor;
     }
 

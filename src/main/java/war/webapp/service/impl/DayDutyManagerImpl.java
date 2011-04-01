@@ -21,11 +21,11 @@ public class DayDutyManagerImpl extends GenericManagerImpl<DayDuty, Long> implem
         this.dayDutyDao = dayDutyDao;
     }
 
-    public DayDuty loadDayDutyByDateAndFloor(Calendar date, Integer floor) {
+    public DayDuty loadDayDutyByDateAndFloor(Calendar date, String floor) {
         return dayDutyDao.loadDayDutyByDateAndFloor(date, floor);
     }
 
-    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, Integer floor) {
+    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, String floor) {
         return dayDutyDao.loadAllDayDutyByDateAndFloor(month, floor);
     }
 

@@ -32,7 +32,7 @@ public interface UserDao extends GenericDao<User, Long> {
      * @param floor floor number
      */
     @Transactional
-    List<User> loadUsersByFloor(int floor);
+    List<User> loadUsersByFloor(String floor);
 
     /**
      * Gets a list of users ordered by the uppercase version of their username.

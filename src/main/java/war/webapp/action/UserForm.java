@@ -7,7 +7,6 @@ import org.springframework.security.AuthenticationTrustResolver;
 import org.springframework.security.AuthenticationTrustResolverImpl;
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
 import war.webapp.Constants;
 import war.webapp.model.LabelValue;
 import war.webapp.model.Role;
@@ -26,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.springframework.security.context.SecurityContextHolder.getContext;
 
 /**
  * JSF Page class to handle editing a user with a form.
@@ -109,7 +110,7 @@ public class UserForm extends BasePage implements Serializable {
             return false; // check for add()
 
         AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-        SecurityContext ctx = SecurityContextHolder.getContext();
+        SecurityContext ctx = getContext();
 
         if (ctx != null) {
             Authentication auth = ctx.getAuthentication();
@@ -169,15 +170,11 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     private void generateFloor() {
-        int hostelFloor = getFloorFromRoom(user.getAddress().getHostelRoom());
-        user.getAddress().setHostelFloor(hostelFloor);
-    }
-
-    private int getFloorFromRoom(String hostelRoom) {
-        if (hostelRoom.length() >= 4 && hostelRoom.charAt(3) >= '0' && hostelRoom.charAt(3) <= '9') {
-            return Integer.valueOf(hostelRoom.substring(0, 2));
+        String floor = user.getAddress().getHostelFloor();
+        if (floor == null) {
+            floor = ((User) getContext().getAuthentication().getPrincipal()).getAddress().getHostelFloor();
         }
-        return Integer.valueOf(hostelRoom.substring(0, 1));
+        user.getAddress().setHostelFloor(floor);
     }
 
     private void generateUsername() {

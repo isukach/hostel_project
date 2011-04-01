@@ -121,7 +121,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         return (User) userDao.loadUserByUsername(username);
     }
 
-    public List<User> getUsersByFloor(int floor) {
+    public List<User> getUsersByFloor(String floor) {
         return (List<User>) userDao.loadUsersByFloor(floor);
     }
 }

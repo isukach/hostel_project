@@ -1,14 +1,14 @@
 package war.webapp.dao.hibernate;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
-
 import war.webapp.dao.DayDutyDao;
 import war.webapp.model.DayDuty;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -22,7 +22,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     }
 
     @SuppressWarnings("rawtypes")
-    public DayDuty loadDayDutyByDateAndFloor(Calendar date, Integer floor) {
+    public DayDuty loadDayDutyByDateAndFloor(Calendar date, String floor) {
         clearDate(date);
         List dayDuties = getHibernateTemplate().find("from DayDuty where date=? and floor=?",
                 new Object[] { date, floor });
@@ -34,10 +34,10 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, Integer floor) {
+    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, String floor) {
         List dayDuties = getHibernateTemplate().find("from DayDuty where floor=?", floor);
         if (dayDuties == null || dayDuties.isEmpty()) {
-            return new ArrayList<DayDuty>();
+            return new LinkedList<DayDuty>();
         }
         List<DayDuty> allDuties = (List<DayDuty>) dayDuties;
         List<DayDuty> newDuties = new ArrayList<DayDuty>();
@@ -82,7 +82,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         DayDuty loadedDayDuty = loadSingleDayDutyByExample(dayDuty);
         loadedDayDuty.setFirstUser(null);
         getHibernateTemplate().update(loadedDayDuty);
-        
+
     }
 
     public void deleteSecondDutyUser(DayDuty dayDuty) {

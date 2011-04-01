@@ -1,11 +1,10 @@
 package war.webapp.service;
 
-import java.util.List;
-
 import org.springframework.security.userdetails.UsernameNotFoundException;
-
 import war.webapp.dao.UserDao;
 import war.webapp.model.User;
+
+import java.util.List;
 
 /**
  * Business Service Interface to handle communication between web and
@@ -69,5 +68,5 @@ public interface UserManager extends GenericManager<User, Long> {
      * 
      * @param floor number of floor
      */
-    List<User> getUsersByFloor(int floor);
+    List<User> getUsersByFloor(String floor);
 }

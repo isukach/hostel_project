@@ -102,7 +102,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public List<User> loadUsersByFloor(int floor) {
+    public List<User> loadUsersByFloor(String floor) {
         List users = getHibernateTemplate().find("from User where address.hostelFloor=?", floor);
         if (users == null || users.isEmpty()) {
             throw new UsernameNotFoundException("users on '" + floor + "' floor not found...");

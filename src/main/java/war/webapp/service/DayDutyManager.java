@@ -1,15 +1,15 @@
 package war.webapp.service;
 
+import war.webapp.model.DayDuty;
+
 import java.util.Calendar;
 import java.util.List;
 
-import war.webapp.model.DayDuty;
-
 public interface DayDutyManager extends GenericManager<DayDuty, Long> {
 
-    public DayDuty loadDayDutyByDateAndFloor(Calendar date, Integer floor);
+    public DayDuty loadDayDutyByDateAndFloor(Calendar date, String floor);
 
-    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, Integer floor);
+    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, String floor);
 
     public DayDuty saveDayDuty(DayDuty dayDuty);
 

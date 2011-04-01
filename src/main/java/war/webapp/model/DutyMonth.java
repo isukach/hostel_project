@@ -20,7 +20,7 @@ public class DutyMonth extends BaseObject implements Serializable {
     private Long id;
     private Integer month;
     private Integer year;
-    private Integer floor;
+    private String floor;
     private Boolean available;
 
     @Id
@@ -52,11 +52,11 @@ public class DutyMonth extends BaseObject implements Serializable {
     }
 
     @Column(name = "floor")
-    public Integer getFloor() {
+    public String getFloor() {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
     }
 

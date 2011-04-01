@@ -156,17 +156,41 @@
                         </h:inputText>
                     </t:htmlTag>
                     <t:htmlTag value="div">
-                        <h:outputLabel for="group" value="#{text['user.universityGroup']}" styleClass="desc" />
-                        <t:message for="group" styleClass="fieldError" />
-                        <h:inputText value="#{userForm.user.universityGroup}" id="group" required="true"
-                            disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
-                            <v:commonsValidator client="true" type="required" arg="#{text['user.universityGroup']}" />
-                        </h:inputText>
+                        <c:choose>
+                            <c:when test="#{userForm.currentUserAdmin}">
+                                <h:outputLabel for="floor" value="#{text['user.floor']}" styleClass="desc"/>
+                                <t:message for="group" styleClass="fieldError"/>
+                                <h:inputText value="#{userForm.user.address.hostelFloor}" id="floor" required="true"
+                                             styleClass="text medium">
+                                    <v:commonsValidator client="true" type="required" arg="#{text['user.floor']}"/>
+                                </h:inputText>
+                            </c:when>
+                            <c:otherwise>
+                                <t:htmlTag value="div">
+                                    <h:outputLabel for="group" value="#{text['user.universityGroup']}"
+                                                   styleClass="desc"/>
+                                    <t:message for="group" styleClass="fieldError"/>
+                                    <h:inputText value="#{userForm.user.universityGroup}" id="group" required="true"
+                                                 disabled="${userForm.inputFieldShouldBeDisabled}"
+                                                 styleClass="text medium">
+                                        <v:commonsValidator client="true" type="required"
+                                                            arg="#{text['user.universityGroup']}"/>
+                                    </h:inputText>
+                                </t:htmlTag>
+                            </c:otherwise>
+                        </c:choose>
                     </t:htmlTag>
                 </t:htmlTag>
             </h:panelGroup>
+            <h:outputText/>
+            <h:outputText/>
+
+            <h:panelGroup>
+
+            </h:panelGroup>
             <h:outputText />
             <h:outputText />
+
 
             <c:choose>
                 <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
