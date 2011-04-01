@@ -37,7 +37,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private String phoneNumber;
     private Calendar dateOfBirth = Calendar.getInstance();
     private Set<Role> roles = new HashSet<Role>();
-    private boolean enabled;
+    private boolean enabled = true;
     private boolean accountExpired = false;
     private boolean accountLocked;
     private boolean credentialsExpired = false;
