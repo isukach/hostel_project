@@ -3,10 +3,11 @@
 
 <f:loadBundle var="text" basename="#{basePage.bundleName}" />
 <h:panelGrid columns="3" styleClass="scrollerTable" columnClasses="standardTable_ColumnCentered">
+    <c:if test="#{dutyList.onOwnFloor}">
     <c:choose>
         <c:when test="${dutyList.monthAvailable}">
             <label class="uiButton">
-                <h:commandButton value="#{text['month.close']}" actionListener="#{dutyList.changeMonthAvailability}" /> 
+                <h:commandButton value="#{text['month.close']}" actionListener="#{dutyList.changeMonthAvailability}" />
             </label>
             <h:outputLabel value="#{text['duty.opened']}" onclick="submit()" />
         </c:when>
@@ -17,6 +18,7 @@
             <h:outputLabel value="#{text['duty.closed']}" onclick="submit()" />
         </c:otherwise>
     </c:choose>
+    </c:if>
 </h:panelGrid>
 </html>
 
