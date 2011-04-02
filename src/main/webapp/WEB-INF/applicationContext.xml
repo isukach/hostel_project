@@ -18,7 +18,25 @@
 
     <!-- Add new Managers here -->
     <bean id="dutyManager" class="war.webapp.service.impl.DayDutyManagerImpl" />
-    <bean id="monthnManager" class="war.webapp.service.impl.MonthManagerImpl" />
+    <bean id="monthManager" class="war.webapp.service.impl.MonthManagerImpl" />
+    <bean id="floorManager" class="war.webapp.service.impl.FloorManagerImpl">
+        <property name="floorsNames">
+            <list>
+                <value>пристройка</value>
+                <value>2</value>
+                <value>3</value>
+                <value>4</value>
+                <value>5</value>
+                <value>6</value>
+                <value>7</value>
+                <value>8</value>
+                <value>9</value>
+                <value>10</value>
+                <value>11</value>
+                <value>12</value>
+            </list>
+        </property>
+    </bean>
 
     <tx:annotation-driven />
 

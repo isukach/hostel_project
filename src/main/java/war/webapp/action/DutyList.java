@@ -8,6 +8,7 @@ import war.webapp.Constants;
 import war.webapp.model.*;
 import war.webapp.service.DayDutyManager;
 import war.webapp.service.DutyListLoadService;
+import war.webapp.service.FloorManager;
 import war.webapp.service.MonthManager;
 import war.webapp.service.UserManager;
 import war.webapp.util.FacesUtils;
@@ -28,9 +29,6 @@ public class DutyList extends BasePage implements Serializable {
 
     private static final long serialVersionUID = 911159310602744018L;
 
-    private static final int MIN_FLOOR = 2;
-    private static final int MAX_FLOOR = 12;
-
     private static final String FIRST_SHIFT = "firstShift";
     private static final String SECOND_SHIFT = "secondShift";
     private static final String FIRST_SHIFT_USER = "firstShiftUser";
@@ -40,6 +38,7 @@ public class DutyList extends BasePage implements Serializable {
     private DayDutyManager dayDutyManager;
     private MonthManager monthManager;
     private UserManager userManager;
+    private FloorManager floorManager;
 
     private User user;
     private Integer month;
@@ -293,10 +292,12 @@ public class DutyList extends BasePage implements Serializable {
         dutyList = null;
     }
 
-    public List<SelectItem> getFloors() {
-        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
-        for (int i = MIN_FLOOR; i <= MAX_FLOOR; ++i) {
-            items.add(new SelectItem(i));
+    public List<SelectItem> getFloors() {       
+        List<String> names = floorManager.getFloorsNames();
+        
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (String name: names) {
+            items.add(new SelectItem(name));
         }
         return items;
     }
@@ -418,4 +419,13 @@ public class DutyList extends BasePage implements Serializable {
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
     }
+
+    public FloorManager getFloorManager() {
+        return floorManager;
+    }
+
+    public void setFloorManager(FloorManager floorManager) {
+        this.floorManager = floorManager;
+    }
+    
 }
