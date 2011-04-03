@@ -9,7 +9,7 @@ public interface DayDutyManager extends GenericManager<DayDuty, Long> {
 
     public DayDuty loadDayDutyByDateAndFloor(Calendar date, String floor);
 
-    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, String floor);
+    public List<DayDuty> loadAllDayDutyByMonthAndFloor(Integer month, String floor);
 
     public DayDuty saveDayDuty(DayDuty dayDuty);
 

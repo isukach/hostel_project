@@ -34,7 +34,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, String floor) {
+    public List<DayDuty> loadAllDayDutyByMonthAndFloor(Integer month, String floor) {
         List dayDuties = getHibernateTemplate().find("from DayDuty where floor=?", floor);
         if (dayDuties == null || dayDuties.isEmpty()) {
             return new LinkedList<DayDuty>();

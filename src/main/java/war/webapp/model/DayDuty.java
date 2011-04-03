@@ -74,12 +74,12 @@ public class DayDuty extends BaseObject implements Serializable {
     private int getDaysCountFromFirstSeptember() {
         int daysCountFromFirstSeptember = -1;
         for (int i = Calendar.SEPTEMBER; i < date.get(Calendar.MONTH); ++i) {
-            daysCountFromFirstSeptember += MonthHelper.getDaysNumInMonth(i + 1);
+            daysCountFromFirstSeptember += MonthHelper.getDaysNumInMonth(i);
         }
         if (date.get(Calendar.MONTH) < Calendar.SEPTEMBER) {
             daysCountFromFirstSeptember += 122;
             for (int i = Calendar.JANUARY; i < date.get(Calendar.MONTH); ++i) {
-                daysCountFromFirstSeptember += MonthHelper.getDaysNumInMonth(i + 1);
+                daysCountFromFirstSeptember += MonthHelper.getDaysNumInMonth(i);
             }
         }
         int startStudyYear = getStartStudyYear();

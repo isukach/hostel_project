@@ -1,13 +1,12 @@
 package war.webapp.service.impl;
 
-import java.util.Calendar;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import war.webapp.dao.DayDutyDao;
 import war.webapp.model.DayDuty;
 import war.webapp.service.DayDutyManager;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class DayDutyManagerImpl extends GenericManagerImpl<DayDuty, Long> implements DayDutyManager {
     DayDutyDao dayDutyDao;
@@ -25,8 +24,8 @@ public class DayDutyManagerImpl extends GenericManagerImpl<DayDuty, Long> implem
         return dayDutyDao.loadDayDutyByDateAndFloor(date, floor);
     }
 
-    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer month, String floor) {
-        return dayDutyDao.loadAllDayDutyByDateAndFloor(month, floor);
+    public List<DayDuty> loadAllDayDutyByMonthAndFloor(Integer month, String floor) {
+        return dayDutyDao.loadAllDayDutyByMonthAndFloor(month, floor);
     }
 
     public DayDuty saveDayDuty(DayDuty dayDuty) {
