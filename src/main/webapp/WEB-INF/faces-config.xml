@@ -77,6 +77,10 @@
             <property-name>userManager</property-name>
             <value>#{userManager}</value>
         </managed-property>
+        <managed-property>
+            <property-name>floorManager</property-name>
+            <value>#{floorManager}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>dateUtils</managed-bean-name>
