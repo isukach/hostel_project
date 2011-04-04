@@ -53,7 +53,8 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     private void initializeEmptyDayDutyList() {
-        emptyDayDutyList = new LinkedList<DayDuty>();
+//        emptyDayDutyList = new LinkedList<DayDuty>();
+        emptyDayDutyList = new ArrayList<DayDuty>();
         //28 - minimum days num in any month
         int size = 28;
         while (size != 0) {
@@ -240,6 +241,10 @@ public class DutyList extends BasePage implements Serializable {
         for (DayDuty dd : emptyDayDutyList) {
             dd.getDate().set(Calendar.MONTH, getMonth());
             dd.getDate().set(Calendar.DAY_OF_MONTH, counter);
+            dd.setFirstUser(emptyUser);
+            dd.setSecondUser(emptyUser);
+            dd.setFloor(null);
+            dd.setId(null);
             counter++;
         }
         return emptyDayDutyList;
