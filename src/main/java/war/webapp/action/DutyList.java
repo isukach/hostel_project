@@ -53,8 +53,8 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     private void initializeEmptyDayDutyList() {
-//        emptyDayDutyList = new LinkedList<DayDuty>();
-        emptyDayDutyList = new ArrayList<DayDuty>();
+        emptyDayDutyList = new LinkedList<DayDuty>();
+//        emptyDayDutyList = new ArrayList<DayDuty>();
         //28 - minimum days num in any month
         int size = 28;
         while (size != 0) {
