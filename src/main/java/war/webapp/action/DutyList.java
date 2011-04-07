@@ -412,6 +412,9 @@ public class DutyList extends BasePage implements Serializable {
         return MonthHelper.getMonthString(getMonth(), getBundle());
     }
 
+    public void setMonthString() {
+    }
+
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
     }
