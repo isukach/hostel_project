@@ -272,6 +272,9 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public void setUserRoles(String[] userRoles) {
+        for (int i = 0; i < userRoles.length; i++) {            
+            userRoles[i] = new String("ROLE_" + userRoles[i]).toUpperCase();
+        }
         this.userRoles = userRoles;
     }
 
