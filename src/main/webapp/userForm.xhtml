@@ -95,11 +95,11 @@
             <h:panelGroup>
                 <t:htmlTag value="div">
                     <t:htmlTag value="div" styleClass="left">
-                        <h:outputLabel for="middleName" value="#{text['user.middleName']}" styleClass="desc"/>
-                        <t:message for="middleName" styleClass="fieldError"/>
+                        <h:outputLabel for="middleName" value="#{text['user.middleName']}" styleClass="desc" />
+                        <t:message for="middleName" styleClass="fieldError" />
                         <h:inputText value="#{userForm.user.middleName}" id="middleName" required="true"
-                                     disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
-                            <v:commonsValidator client="true" type="required" arg="#{text['user.middleName']}"/>
+                            disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                            <v:commonsValidator client="true" type="required" arg="#{text['user.middleName']}" />
                         </h:inputText>
                     </t:htmlTag>
                     <t:htmlTag value="div">
@@ -118,24 +118,33 @@
             <c:if test="#{userForm.currentUserAdmin or dutyList.userStarosta}">
                 <h:panelGroup>
                     <t:htmlTag value="div">
-                        <t:htmlTag value="div" styleClass="left">
-                            <h:outputLabel for="birthdayDayOfMonth" value="#{text['user.dateOfBirth']}"
-                                           styleClass="desc"/>
+                        <t:htmlTag value="div">
+                            <h:outputLabel for="birthdayYear" value="#{text['user.dateOfBirth']}" styleClass="desc" />
                             <h:selectOneMenu id="birthdayDayOfMonth" value="#{userForm.user.birthdayDayOfMonth}">
-                                <f:selectItems value="#{dateUtils.daysOfMonth}"/>
+                                <f:selectItems value="#{dateUtils.daysOfMonth}" />
                             </h:selectOneMenu>
                             <h:selectOneMenu id="birthdayMonth" value="#{userForm.user.birthdayMonth}">
-                                <f:selectItems value="#{dateUtils.months}"/>
+                                <f:selectItems value="#{dateUtils.months}" />
                             </h:selectOneMenu>
                             <h:selectOneMenu id="birthdayYear" value="#{userForm.user.birthdayYear}">
-                                <f:selectItems value="#{dateUtils.years}"/>
+                                <f:selectItems value="#{dateUtils.years}" />
                             </h:selectOneMenu>
                         </t:htmlTag>
+                    </t:htmlTag>
+                </h:panelGroup>
+                <h:outputText />
+                <h:outputText />
+            </c:if>
+
+            <c:if test="#{userForm.currentUserAdmin or dutyList.userStarosta}">
+                <h:panelGroup>
+                    <t:htmlTag value="div">
                         <t:htmlTag value="div">
-                            <h:outputLabel id="phone" for="phoneNumber" value="#{text['user.phoneNumber']}   " styleClass="desc"/>
+                            <h:outputLabel id="phone" for="phoneNumber" value="#{text['user.phoneNumber']}   "
+                                styleClass="desc" />
                             <t:message for="email" styleClass="fieldError" />
-                            <h:inputText id="phoneNumber" value="#{userForm.user.phoneNumber}" maxlength="50" required="false"
-                                styleClass="text medium" style="margin-left:42px;">
+                            <h:inputText id="phoneNumber" value="#{userForm.user.phoneNumber}" maxlength="50"
+                                required="false" styleClass="text medium">
                                 <v:commonsValidator client="true" type="required" arg="#{text['user.phoneNumber']}" />
                             </h:inputText>
                         </t:htmlTag>
@@ -158,39 +167,33 @@
                     <t:htmlTag value="div">
                         <c:choose>
                             <c:when test="#{userForm.currentUserAdmin}">
-                                <h:outputLabel for="floor" value="#{text['user.floor']}" styleClass="desc"/>
-                                <t:message for="group" styleClass="fieldError"/>
+                                <h:outputLabel for="floor" value="#{text['user.floor']}" styleClass="desc" />
+                                <t:message for="group" styleClass="fieldError" />
                                 <h:inputText value="#{userForm.user.address.hostelFloor}" id="floor" required="true"
-                                             styleClass="text medium">
-                                    <v:commonsValidator client="true" type="required" arg="#{text['user.floor']}"/>
+                                    styleClass="text medium">
+                                    <v:commonsValidator client="true" type="required" arg="#{text['user.floor']}" />
                                 </h:inputText>
                             </c:when>
                             <c:otherwise>
-                                <t:htmlTag value="div">
-                                    <h:outputLabel for="group" value="#{text['user.universityGroup']}"
-                                                   styleClass="desc"/>
-                                    <t:message for="group" styleClass="fieldError"/>
-                                    <h:inputText value="#{userForm.user.universityGroup}" id="group" required="true"
-                                                 disabled="${userForm.inputFieldShouldBeDisabled}"
-                                                 styleClass="text medium">
-                                        <v:commonsValidator client="true" type="required"
-                                                            arg="#{text['user.universityGroup']}"/>
-                                    </h:inputText>
-                                </t:htmlTag>
+                                <h:outputLabel for="group" value="#{text['user.universityGroup']}" styleClass="desc" />
+                                <t:message for="group" styleClass="fieldError" />
+                                <h:inputText value="#{userForm.user.universityGroup}" id="group" required="true"
+                                    disabled="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                                    <v:commonsValidator client="true" type="required"
+                                        arg="#{text['user.universityGroup']}" />
+                                </h:inputText>
                             </c:otherwise>
                         </c:choose>
                     </t:htmlTag>
                 </t:htmlTag>
             </h:panelGroup>
-            <h:outputText/>
-            <h:outputText/>
+            <h:outputText />
+            <h:outputText />
 
             <h:panelGroup>
-
             </h:panelGroup>
             <h:outputText />
             <h:outputText />
-
 
             <c:choose>
                 <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
@@ -206,12 +209,10 @@
                     </h:panelGroup>
                     <h:panelGroup>
                         <c:if test="#{userForm.currentUserAdmin}">
-                            <fieldset>
-                                <legend>#{text['userProfile.assignRoles']}</legend>
-                                <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
-                                    <f:selectItems value="#{userForm.availableRoles}"/>
-                                </h:selectManyCheckbox>
-                            </fieldset>
+                            <fieldset><legend>#{text['userProfile.assignRoles']}</legend> <h:selectManyCheckbox
+                                value="#{userForm.userRoles}" id="userRoles">
+                                <f:selectItems value="#{userForm.availableRoles}" />
+                            </h:selectManyCheckbox></fieldset>
                         </c:if>
                     </h:panelGroup>
                     <h:outputText />
@@ -222,15 +223,15 @@
                         <t:htmlTag value="strong">#{text['user.roles']}:</t:htmlTag>
                         <c:forEach var="role" items="#{userForm.userRoles}" varStatus="status">
                             ${role}<c:if test="${!status.last}">,</c:if>
-                            <input type="hidden" name="userForm:userRoles" value="${role}"/>
+                            <input type="hidden" name="userForm:userRoles" value="${role}" />
                         </c:forEach>
-                        <h:inputHidden value="#{userForm.user.enabled}"/>
-                        <h:inputHidden value="#{userForm.user.accountExpired}"/>
-                        <h:inputHidden value="#{userForm.user.accountLocked}"/>
-                        <h:inputHidden value="#{userForm.user.credentialsExpired}"/>
+                        <h:inputHidden value="#{userForm.user.enabled}" />
+                        <h:inputHidden value="#{userForm.user.accountExpired}" />
+                        <h:inputHidden value="#{userForm.user.accountLocked}" />
+                        <h:inputHidden value="#{userForm.user.credentialsExpired}" />
                     </h:panelGroup>
-                    <h:outputText/>
-                    <h:outputText/>
+                    <h:outputText />
+                    <h:outputText />
                 </c:otherwise>
             </c:choose>
 
