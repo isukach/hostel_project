@@ -263,7 +263,7 @@ public class UserForm extends BasePage implements Serializable {
 
         if (userRoles.length > 0) {
             for (Role role : user.getRoles()) {
-                userRoles[i] = role.getName().split("_")[1].toLowerCase();
+                userRoles[i] = role.getName();
                 i++;
             }
         }
@@ -272,9 +272,6 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public void setUserRoles(String[] userRoles) {
-        for (int i = 0; i < userRoles.length; i++) {            
-            userRoles[i] = new String("ROLE_" + userRoles[i]).toUpperCase();
-        }
         this.userRoles = userRoles;
     }
 
