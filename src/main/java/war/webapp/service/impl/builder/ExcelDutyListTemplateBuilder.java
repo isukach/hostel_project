@@ -49,7 +49,7 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
         WritableSheet sheet = (WritableSheet) params[0];
 
         String month = (String) params[1];
-        Integer floor = (Integer) params[2];
+        String floor = (String) params[2];
 
         WritableFont times_16ptBold = new WritableFont(WritableFont.TIMES, 16, WritableFont.BOLD);
 
@@ -276,7 +276,7 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
 
     @Override
     public byte[] build(Object... params) {
-        Integer floor = (Integer) params[0];
+        String floor = (String) params[0];
         String month = (String) params[1];
         String starosta = (String) params[2];
         String vosptka = (String)params[3];

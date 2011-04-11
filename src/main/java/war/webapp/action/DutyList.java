@@ -30,7 +30,7 @@ public class DutyList extends BasePage implements Serializable {
     private static final String FIRST_SHIFT_USER = "firstShiftUser";
     private static final String SECOND_SHIFT_USER = "secondShiftUser";
     private static final String SELECT_USER_STRING = "-";
-
+    private String[] responsibleFloors = new String[]{"2_3_4_12", "5_6_7_8", "9_10_11"};
     private DayDutyManager dayDutyManager;
     private MonthManager monthManager;
     private UserManager userManager;
@@ -319,7 +319,7 @@ public class DutyList extends BasePage implements Serializable {
             sem.acquire();
             //TODO forth param must be name of vospetka and starosta
             String monthForExcelReport = MonthHelper.getMonthString(getMonth(), getBundle(new Locale("ru")));
-            Object[] params = new Object[]{getFloor(), monthForExcelReport, "Федоров В.В", "Иванова А.А.", getDutyList()};
+            Object[] params = new Object[]{getFloor(), monthForExcelReport, "Федоров В.В", getNameOfVospetka(getFloor()), getDutyList()};
             DutyListLoadService.getService(Constants.HTTP_DOWNLOADER).download(params);
         } catch (InterruptedException ex) {
             logger.error("Current thread was interrupted!");
@@ -415,6 +415,28 @@ public class DutyList extends BasePage implements Serializable {
     public void setMonthString(String monthString){
         //stub
     }
+    
+    private String getNameOfVospetka(String floor){
+        StringBuffer buf = new StringBuffer("vospetka_");
+        for(String floors : responsibleFloors){
+            if(isResponseForFloor(floors, floor)){
+                buf.append(floors);
+                break;
+            }
+        }
+        return getBundle().getString(buf.toString());
+    }
+    
+    private boolean isResponseForFloor(String floors, String floor){
+        String[] existingFloors = floors.split("_");
+        for(String fl : existingFloors){
+            if(fl.equals(floor)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
 
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
