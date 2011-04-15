@@ -23,7 +23,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.mail.SimpleMailMessage;
 
+import org.springframework.security.context.SecurityContextHolder;
 import war.webapp.Constants;
+import war.webapp.model.User;
 import war.webapp.service.MailEngine;
 import war.webapp.service.UserManager;
 
@@ -190,6 +192,11 @@ public class BasePage {
      */
     protected ServletContext getServletContext() {
         return (ServletContext) getFacesContext().getExternalContext().getContext();
+    }
+
+    public String getCurrentUserName() {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return currentUser.getFirstName();
     }
 
     /**
