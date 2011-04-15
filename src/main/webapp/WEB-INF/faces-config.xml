@@ -95,15 +95,12 @@
     <navigation-rule>
         <from-view-id>/mainMenu.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>ajax4jsf</from-outcome>
-            <to-view-id>/ajax4jsf.xhtml</to-view-id>
+            <from-outcome>writeOnDuty</from-outcome>
+            <to-view-id>/user/writeOnDuty.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/mainMenu.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>selectFile</from-outcome>
-            <to-view-id>/selectFile.xhtml</to-view-id>
+            <from-outcome>dutyTable</from-outcome>
+            <to-view-id>/dutyTableView.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

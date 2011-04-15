@@ -256,6 +256,11 @@ public class UserForm extends BasePage implements Serializable {
         return userHelperBean.ifCurrentUserHasRole(Constants.ADMIN_ROLE);
     }
 
+    public boolean isCurrentUserJustUser() {
+        UserHelper userHelperBean = (UserHelper)FacesUtils.getManagedBean("userHelper");
+        return userHelperBean.ifCurrentUserHasRole(Constants.USER_ROLE);
+    }
+
     public String[] getUserRoles() {
         userRoles = new String[user.getRoles().size()];
 
