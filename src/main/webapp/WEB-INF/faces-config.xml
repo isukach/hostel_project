@@ -44,6 +44,10 @@
             <property-name>templateName</property-name>
             <value>accountCreated.vm</value>
         </managed-property>
+        <managed-property>
+            <property-name>floorManager</property-name>
+            <value>#{floorManager}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>fileUpload</managed-bean-name>

@@ -11,16 +11,19 @@ import war.webapp.Constants;
 import war.webapp.model.LabelValue;
 import war.webapp.model.Role;
 import war.webapp.model.User;
+import war.webapp.service.FloorManager;
 import war.webapp.service.RoleManager;
 import war.webapp.service.UserExistsException;
 import war.webapp.util.ConvertUtil;
 import war.webapp.util.FacesUtils;
 import war.webapp.util.UserHelper;
 
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -36,6 +39,7 @@ import static org.springframework.security.context.SecurityContextHolder.getCont
 public class UserForm extends BasePage implements Serializable {
     private static final long serialVersionUID = -1141119853856863204L;
     private RoleManager roleManager;
+    private FloorManager floorManager;
     private String id;
     private User user = new User();
     private Map<String, String> availableRoles;
@@ -260,6 +264,16 @@ public class UserForm extends BasePage implements Serializable {
         UserHelper userHelperBean = (UserHelper)FacesUtils.getManagedBean("userHelper");
         return userHelperBean.ifCurrentUserHasRole(Constants.USER_ROLE);
     }
+    
+    public List<SelectItem> getFloors() {
+        List<String> names = floorManager.getFloorsNames();
+
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (String name : names) {
+            items.add(new SelectItem(name));
+        }
+        return items;
+    }
 
     public String[] getUserRoles() {
         userRoles = new String[user.getRoles().size()];
@@ -280,4 +294,12 @@ public class UserForm extends BasePage implements Serializable {
         this.userRoles = userRoles;
     }
 
+    public FloorManager getFloorManager() {
+        return floorManager;
+    }
+
+    public void setFloorManager(FloorManager floorManager) {
+        this.floorManager = floorManager;
+    }
+    
 }

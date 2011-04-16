@@ -168,10 +168,9 @@
                             <c:when test="#{userForm.currentUserAdmin}">
                                 <h:outputLabel for="floor" value="#{text['user.floor']}" styleClass="desc" />
                                 <t:message for="group" styleClass="fieldError" />
-                                <h:inputText value="#{userForm.user.address.hostelFloor}" id="floor" required="true"
-                                    styleClass="text medium">
-                                    <v:commonsValidator client="true" type="required" arg="#{text['user.floor']}" />
-                                </h:inputText>
+                                <h:selectOneMenu value="#{userForm.user.address.hostelFloor}" id="floor">
+                                    <f:selectItems value="#{dutyList.floors}" />
+                                </h:selectOneMenu>
                             </c:when>
                             <c:otherwise>
                                 <h:outputLabel for="group" value="#{text['user.universityGroup']}" styleClass="desc" />
