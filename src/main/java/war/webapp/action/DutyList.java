@@ -214,13 +214,11 @@ public class DutyList extends BasePage implements Serializable {
         try {
             UserDuty userDuty = getUserDuties().get(index);
             if (userDuty.getShift() == 1) {
-                userDuty.getDayDuty().setFirstUser(null);
+                dayDutyManager.deleteFirstDutyUser(userDuty.getDayDuty());
             }
             if (userDuty.getShift() == 2) {
-                userDuty.getDayDuty().setSecondUser(null);
+                dayDutyManager.deleteSecondDutyUser(userDuty.getDayDuty());
             }
-
-            dayDutyManager.deleteDayDuty(userDuty.getDayDuty());
         } catch (Exception ex) {
             throw new Exception(ex);
         }
