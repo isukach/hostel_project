@@ -6,6 +6,7 @@
         <property name="show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.id.new_generator_mappings">true</property>
+        <property name="hibernate.connection.datasource">java:comp/env/jdbc/hostel_project</property>
         <mapping class="war.webapp.model.User" />
         <mapping class="war.webapp.model.Role" />
         <mapping class="war.webapp.model.DayDuty" />
