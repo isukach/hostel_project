@@ -23,7 +23,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
 
     @SuppressWarnings("rawtypes")
     public DayDuty loadDayDutyByDateAndFloor(Calendar date, String floor) {
-        clearDate(date);
+        clearTime(date);
         List dayDuties = getHibernateTemplate().find("from DayDuty where date=? and floor=?",
                 new Object[] { date, floor });
         if (dayDuties == null || dayDuties.isEmpty()) {
@@ -52,7 +52,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     public DayDuty saveDayDuty(DayDuty dayDuty) {
         if (log.isDebugEnabled())
             log.debug("user's id: " + dayDuty.getId());
-        clearDate(dayDuty.getDate());
+        clearTime(dayDuty.getDate());
         getHibernateTemplate().saveOrUpdate(dayDuty);
         // necessary to throw a DataIntegrityViolation and catch it in
         // UserManager
@@ -60,8 +60,8 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         return dayDuty;
     }
 
-    private void clearDate(Calendar date) {
-        date.set(Calendar.HOUR, 0);
+    private void clearTime(Calendar date) {
+        date.set(Calendar.HOUR_OF_DAY, 0);
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
     }
