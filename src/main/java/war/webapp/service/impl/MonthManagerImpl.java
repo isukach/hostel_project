@@ -7,7 +7,6 @@ import war.webapp.dao.MonthDao;
 import war.webapp.model.DutyMonth;
 import war.webapp.service.MonthManager;
 
-@Service("monthManager")
 public class MonthManagerImpl extends GenericManagerImpl<DutyMonth, Long> implements MonthManager {
     MonthDao monthDao;
 

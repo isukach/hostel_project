@@ -15,21 +15,22 @@
         </property>
     </bean>
 
-    <!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-        <property name="maxActive" value="100" />
-        <property name="maxWait" value="1000" />
-        <property name="poolPreparedStatements" value="true" />
-        <property name="defaultAutoCommit" value="true" />
-    </bean> -->
-    
-    <bean id="dataSource"
-      class="org.springframework.jndi.JndiObjectFactoryBean">
-      <property name="jndiName" value="java:comp/env/jdbc/hostelbase"/>   
-      <property name="resourceRef" value="true" />
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="100"/>
+        <property name="maxWait" value="1000"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="defaultAutoCommit" value="true"/>
     </bean>
+
+    <!--этот dataSource используется для томката на общажном сервере-->
+   <!-- <bean id="dataSource"
+      class="org.springframework.jndi.JndiObjectFactoryBean">
+      <property name="jndiName" value="java:comp/env/jdbc/hostelbase"/>
+      <property name="resourceRef" value="true" />
+    </bean>-->
 
 </beans>

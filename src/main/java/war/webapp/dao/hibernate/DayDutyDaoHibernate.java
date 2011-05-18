@@ -50,8 +50,9 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     }
 
     public DayDuty saveDayDuty(DayDuty dayDuty) {
-        if (log.isDebugEnabled())
+        if (log.isDebugEnabled()) {
             log.debug("user's id: " + dayDuty.getId());
+        }
         clearTime(dayDuty.getDate());
         getHibernateTemplate().saveOrUpdate(dayDuty);
         // necessary to throw a DataIntegrityViolation and catch it in
@@ -73,8 +74,9 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     @SuppressWarnings("rawtypes")
     public DayDuty loadSingleDayDutyByExample(DayDuty exampleDayDuty) {
         List result = getHibernateTemplate().findByExample(exampleDayDuty);
-        if (result.size() == 0 || result.size() > 1)
+        if (result.size() == 0 || result.size() > 1) {
             throw new HibernateException("Zero or more than one result from the query. Expected single result");
+        }
         return (DayDuty)result.get(0);
     }
 
