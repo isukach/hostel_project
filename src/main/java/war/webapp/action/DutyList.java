@@ -92,8 +92,8 @@ public class DutyList extends BasePage implements Serializable {
         return emptyUser;
     }
 
-    public List<SelectItem> getUsersByStarostaFloor() {
-        if (isOnOwnFloor() && isUserStarosta() && floorUsersList == null) {
+    public List<SelectItem> getUsersForFloorhead() {
+        if (isOnOwnFloor() && isUserStarosta()) {
             floorUsersList = new ArrayList<SelectItem>();
             floorUsersList.add(new SelectItem(SELECT_USER_STRING));
 

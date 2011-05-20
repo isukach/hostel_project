@@ -25,13 +25,13 @@
             styleClass="button" style="margin-left: 5px" />
 
         <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
-        <t:dataTable id="users" var="user" style="margin-top: 10px" value="#{userList.usersByStarostaFloor}" rows="25"
+        <t:dataTable id="users" var="user" style="margin-top: 10px" value="#{dutyList.usersForFloorhead}" rows="25"
             sortColumn="#{userList.sortColumn}" sortAscending="#{userList.ascending}" styleClass="scrollerTable table"
             headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
             columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
-            <t:column width="25%">
+            <t:column>
                 <f:facet name="header">
-                    <t:commandSortHeader columnName="username" arrow="true">
+                    <t:commandSortHeader columnName="username" arrow="false">
                         <h:outputText value="#{text['user.username']}" />
                     </t:commandSortHeader>
                 </f:facet>
@@ -40,29 +40,21 @@
                     <f:param name="from" value="list" />
                 </h:commandLink>
             </t:column>
-            <t:column width="34%">
+            <t:column>
                 <f:facet name="header">
-                    <t:commandSortHeader columnName="fullName" arrow="true">
+                    <t:commandSortHeader columnName="fullName" arrow="false">
                         <h:outputText value="#{text['activeUsers.fullName']}" />
                     </t:commandSortHeader>
                 </f:facet>
                 <h:outputText value="#{user.fullName}" />
             </t:column>
-            <t:column width="25%">
+            <t:column>
                 <f:facet name="header">
-                    <t:commandSortHeader columnName="room" arrow="true">
+                    <t:commandSortHeader columnName="room" arrow="false">
                         <h:outputText value="#{text['user.room']}" />
                     </t:commandSortHeader>
                 </f:facet>
                 <h:outputText value="#{user.address.hostelRoom}" />
-            </t:column>
-            <t:column width="16%">
-                <f:facet name="header">
-                    <t:commandSortHeader columnName="enabled" arrow="true">
-                        <h:outputText value="#{text['user.enabled']}" />
-                    </t:commandSortHeader>
-                </f:facet>
-                <h:selectBooleanCheckbox value="#{user.enabled}" disabled="true" />
             </t:column>
         </t:dataTable>
 
