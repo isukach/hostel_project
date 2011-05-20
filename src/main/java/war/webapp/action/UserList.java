@@ -20,6 +20,15 @@ public class UserList extends BasePage implements Serializable {
         return (List<User>) sort(userManager.getUsers());
     }
 
+    public List<User> getUsersByFloorheadFloor() {
+        User user = (User) ((SecurityContext) FacesUtils.getSession().getAttribute(
+                HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
+        String floor = user.getAddress().getHostelFloor();
+        List<User> floorUsers = userManager.getUsersByFloor(floor);
+        floorUsers.remove(user);
+        return (List<User>) sort(floorUsers);
+    }
+
     public String getCurrentUserFloor() {
         User user = (User) ((SecurityContext) FacesUtils.getSession().getAttribute(
                 HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();

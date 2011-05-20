@@ -25,7 +25,7 @@
             styleClass="button" style="margin-left: 5px" />
 
         <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
-        <t:dataTable id="users" var="user" style="margin-top: 10px" value="#{dutyList.usersForFloorhead}" rows="25"
+        <t:dataTable id="users" var="user" style="margin-top: 10px" value="#{userList.usersByFloorheadFloor}" rows="25"
             sortColumn="#{userList.sortColumn}" sortAscending="#{userList.ascending}" styleClass="scrollerTable table"
             headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
             columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
