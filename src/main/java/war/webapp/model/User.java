@@ -140,12 +140,15 @@ public class User extends BaseObject implements Serializable, UserDetails {
      */
     @Transient
     public String getFullName() {
-//        String fullName = lastName + " " + firstName.charAt(0) + ".";
-//        if (middleName != null) {
-//            fullName += " " + middleName.charAt(0) + ".";
-//        }
-//        return fullName;
-        return lastName;
+        StringBuilder result = new StringBuilder();
+        result.append(lastName);
+        if (firstName != null && firstName.length() > 0) {
+            result.append(" ").append(firstName.substring(0, 1).toUpperCase()).append(".");
+            if (middleName != null && middleName.length() > 0) {
+                result.append(" ").append(middleName.substring(0, 1).toUpperCase()).append(".");
+            }
+        }
+        return result.toString();
     }
 
     @Embedded
