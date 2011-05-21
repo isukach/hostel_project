@@ -65,7 +65,7 @@
                 </f:facet>
                 <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
                     <a4j:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}"
-                        actionListener="#{dutyList.deleteUser}" reRender="dutiesTable"
+                        actionListener="#{dutyList.deleteUserFromDuty}" reRender="dutiesTable"
                         value="#{duty.firstUser.fullName}" />
                     <h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}"
                         valueChangeListener="#{dutyList.floorUserChanged}">
@@ -83,7 +83,7 @@
                 </f:facet>
                 <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
                     <a4j:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}"
-                        actionListener="#{dutyList.deleteUser}" reRender="dutiesTable"
+                        actionListener="#{dutyList.deleteUserFromDuty}" reRender="dutiesTable"
                         value="#{duty.secondUser.fullName}" />
                     <h:selectOneMenu id="secondShift" rendered="#{empty duty.secondUser.firstName}"
                         valueChangeListener="#{dutyList.floorUserChanged}">

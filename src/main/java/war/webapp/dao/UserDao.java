@@ -60,4 +60,6 @@ public interface UserDao extends GenericDao<User, Long> {
 
     String getUserPasswordById(Long id);
 
+    User loadUserByRoomAndFullName(String room, String fullName);
+
 }

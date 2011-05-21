@@ -69,4 +69,7 @@ public interface UserManager extends GenericManager<User, Long> {
      * @param floor number of floor
      */
     List<User> getUsersByFloor(String floor);
+
+
+    User getUserByRoomAndFullName(String room, String fullName);
 }

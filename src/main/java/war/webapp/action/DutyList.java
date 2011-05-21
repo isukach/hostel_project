@@ -53,8 +53,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     private void initializeEmptyDayDutyList() {
-//        emptyDayDutyList = new LinkedList<DayDuty>();
-        emptyDayDutyList = new ArrayList<DayDuty>();
+        emptyDayDutyList = new LinkedList<DayDuty>();
         //28 - minimum days num in any month
         int size = 28;
         while (size != 0) {
@@ -68,8 +67,8 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public List<DayDuty> getDutyList() {
-        if (getFloor() == null) {
-            setFloor(getUser().getAddress().getHostelFloor());
+        if (dutyList != null) {
+            return dutyList;
         }
         List<DayDuty> d = dayDutyManager.loadAllDayDutyByMonthAndFloor(getMonth(), getFloor());
         for (DayDuty duty : d) {
@@ -93,20 +92,20 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public List<SelectItem> getUsersForFloorhead() {
-        if (isOnOwnFloor() && isUserStarosta()) {
-            floorUsersList = new ArrayList<SelectItem>();
+        if (isOnOwnFloor() && isUserStarosta() && floorUsersList == null) {
+            floorUsersList = new LinkedList<SelectItem>();
             floorUsersList.add(new SelectItem(SELECT_USER_STRING));
 
             List<User> floorUsers = userManager.getUsersByFloor(getFloor());
             floorUsers.remove(getUser());
-            for (User floorUser : floorUsers) {
-                floorUsersList.add(new SelectItem(floorUser.getUsername()));
+            for (User user : floorUsers) {
+                floorUsersList.add(new SelectItem(user.getAddress().getHostelRoom() + " " + user.getFullName()));
             }
         }
         return floorUsersList;
     }
 
-    public void deleteUser(ActionEvent e) {
+    public void deleteUserFromDuty(ActionEvent e) {
         int index = getTableRowNumber(e);
         User emptyUser = getEmptyUser();
         DayDuty dayDuty = dutyList.get(index);
@@ -121,12 +120,11 @@ public class DutyList extends BasePage implements Serializable {
 
     public void floorUserChanged(ValueChangeEvent e) {
         String newValue = (String) e.getNewValue();
-
-        if (newValue.equals(SELECT_USER_STRING))
+        if (newValue.equals(SELECT_USER_STRING)) {
             return;
+        }
 
-        String userName = newValue.split(" ")[0];
-        User userToWriteOnDuty = userManager.getUserByUsername(userName);
+        User userToWriteOnDuty = getUserToWriteOnDuty(newValue);
 
         Calendar date = getDate(e);
         DayDuty dayDuty = dayDutyManager.loadDayDutyByDateAndFloor(date, getFloor());
@@ -145,7 +143,13 @@ public class DutyList extends BasePage implements Serializable {
 
         dayDutyManager.saveDayDuty(dayDuty);
         dutyList = null;
+    }
 
+    private User getUserToWriteOnDuty(String roomPlusFullName) {
+        int n = roomPlusFullName.indexOf(' ');
+        String userRoom = roomPlusFullName.substring(0, n);
+        String userFullName = roomPlusFullName.substring(n + 1, roomPlusFullName.length());
+        return userManager.getUserByRoomAndFullName(userRoom, userFullName);
     }
 
     public boolean isUserStarosta() {
@@ -250,16 +254,6 @@ public class DutyList extends BasePage implements Serializable {
 
     private void correctEmptyDayDutyList(int countOfDays) {
         int currentEmptyListSize = emptyDayDutyList.size();
-//        int d = currentEmptyListSize - countOfDays;
-//        if (d > 0) {
-//            for (int i = 0; i < d; ++i) {
-//                emptyDayDutyList.remove(0);
-//            }
-//        } else {
-//
-//        }
-
-
         if (currentEmptyListSize == countOfDays) {
             return;
         }

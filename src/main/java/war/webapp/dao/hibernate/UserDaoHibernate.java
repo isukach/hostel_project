@@ -111,4 +111,18 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         }
     }
 
+    public User loadUserByRoomAndFullName(String room, String fullName) {
+        int n = fullName.indexOf(' ');
+        String lastName = fullName.substring(0, n);
+        String firstLetterOfFirstName = fullName.substring(n + 1, n + 2);
+        String firstLetterOfSecondName = fullName.substring(n + 4, n + 5);
+
+        List users = getHibernateTemplate().find("from User where lastName=? and firstName like ? and middleName like ? and address.hostelRoom=?",
+                new String[]{lastName, firstLetterOfFirstName + "%", firstLetterOfSecondName + "%", room});
+        if (users == null || users.isEmpty()) {
+            throw new UsernameNotFoundException("user '" + fullName + "' not found...");
+        } else {
+            return (User) users.get(0);
+        }
+    }
 }
