@@ -81,7 +81,6 @@ Version: 1.0
         /* MAIN */
             div#main {
                 border-left: 1px solid #f0f0f0;
-                border-right: 1px solid #f0f0f0;
                 padding: 0px 10px;
                 width: 600px;
             }
