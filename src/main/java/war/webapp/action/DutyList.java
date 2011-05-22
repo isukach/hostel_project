@@ -67,9 +67,6 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public List<DayDuty> getDutyList() {
-        if (dutyList != null) {
-            return dutyList;
-        }
         List<DayDuty> d = dayDutyManager.loadAllDayDutyByMonthAndFloor(getMonth(), getFloor());
         for (DayDuty duty : d) {
             if (duty.isFirstEmpty()) {

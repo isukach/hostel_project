@@ -68,7 +68,7 @@
     <managed-bean>
         <managed-bean-name>dutyList</managed-bean-name>
         <managed-bean-class>war.webapp.action.DutyList</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>dayDutyManager</property-name>
             <value>#{dutyManager}</value>
