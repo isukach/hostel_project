@@ -55,7 +55,7 @@
                             <h:outputLabel for="password" value="#{text['user.password']}" styleClass="desc" />
                             <t:message for="password" styleClass="fieldError" />
                             <h:inputSecret value="#{userForm.user.password}" id="password" redisplay="true"
-                                required="true" styleClass="text medium">
+                                readonly="true" required="true" styleClass="text medium">
                                 <v:commonsValidator client="true" type="required" arg="#{text['user.password']}" />
                             </h:inputSecret>
                         </t:htmlTag>
@@ -114,7 +114,7 @@
             <h:outputText />
             <h:outputText />
 
-            <c:if test="#{userForm.currentUserAdmin or dutyList.userStarosta}">
+            <c:if test="#{userForm.currentUserAdmin or dutyList.userFloorhead}">
                 <h:panelGroup>
                     <t:htmlTag value="div">
                         <t:htmlTag value="div">
@@ -135,7 +135,7 @@
                 <h:outputText />
             </c:if>
 
-            <c:if test="#{userForm.currentUserAdmin or dutyList.userStarosta}">
+            <c:if test="#{userForm.currentUserAdmin or dutyList.userFloorhead}">
                 <h:panelGroup>
                     <t:htmlTag value="div">
                         <t:htmlTag value="div">

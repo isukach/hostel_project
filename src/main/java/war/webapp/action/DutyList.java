@@ -89,7 +89,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public List<SelectItem> getUsersForFloorhead() {
-        if (isOnOwnFloor() && isUserStarosta() && floorUsersList == null) {
+        if (isOnOwnFloor() && isUserFloorhead() && floorUsersList == null) {
             floorUsersList = new LinkedList<SelectItem>();
             floorUsersList.add(new SelectItem(SELECT_USER_STRING));
 
@@ -149,7 +149,7 @@ public class DutyList extends BasePage implements Serializable {
         return userManager.getUserByRoomAndFullName(userRoom, userFullName);
     }
 
-    public boolean isUserStarosta() {
+    public boolean isUserFloorhead() {
         UserHelper userHelperBean = (UserHelper) FacesUtils.getManagedBean("userHelper");
         return userHelperBean.ifCurrentUserHasRole(Constants.STAROSTA_ROLE);
     }

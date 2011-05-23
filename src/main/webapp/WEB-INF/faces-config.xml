@@ -7,6 +7,7 @@
         <managed-bean-class>war.webapp.action.BasePage</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>userList</managed-bean-name>
         <managed-bean-class>war.webapp.action.UserList</managed-bean-class>
@@ -16,6 +17,7 @@
             <value>#{userManager}</value>
         </managed-property>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>userForm</managed-bean-name>
         <managed-bean-class>war.webapp.action.UserForm</managed-bean-class>
@@ -49,21 +51,35 @@
             <value>#{floorManager}</value>
         </managed-property>
     </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>changePasswordForm</managed-bean-name>
+        <managed-bean-class>war.webapp.action.ChangePasswordForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>fileUpload</managed-bean-name>
         <managed-bean-class>war.webapp.action.FileUpload</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>reload</managed-bean-name>
         <managed-bean-class>war.webapp.action.Reload</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>activeUserList</managed-bean-name>
         <managed-bean-class>war.webapp.action.ActiveUserList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+
     <!-- Add additional beans here -->
     <managed-bean>
         <managed-bean-name>dutyList</managed-bean-name>
@@ -86,16 +102,19 @@
             <value>#{floorManager}</value>
         </managed-property>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>dateUtils</managed-bean-name>
         <managed-bean-class>war.webapp.util.DateUtil</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>userHelper</managed-bean-name>
         <managed-bean-class>war.webapp.util.UserHelper</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
+
     <navigation-rule>
         <from-view-id>/mainMenu.xhtml</from-view-id>
         <navigation-case>
@@ -180,6 +199,14 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/changePassword.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/changePassword.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
     <render-kit>
         <description>Some replacements for the standard renderers</description>
         <renderer>
@@ -195,10 +222,12 @@
             <renderer-class>war.webapp.jsf.PanelGridRenderer</renderer-class>
         </renderer>
     </render-kit>
+
     <validator>
         <validator-id>org.apache.shale.validator.CommonsValidator</validator-id>
         <validator-class>org.apache.shale.validator.CommonsValidator</validator-class>
     </validator>
+
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
         <locale-config>
