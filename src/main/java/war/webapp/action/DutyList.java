@@ -89,7 +89,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public List<SelectItem> getUsersForFloorhead() {
-        if (isOnOwnFloor() && isUserFloorhead() && floorUsersList == null) {
+        if (isOnOwnFloor() && isUserFloorhead() && userListAmountChanged()) {
             floorUsersList = new LinkedList<SelectItem>();
             floorUsersList.add(new SelectItem(SELECT_USER_STRING));
 
@@ -105,6 +105,10 @@ public class DutyList extends BasePage implements Serializable {
             }
         }
         return floorUsersList;
+    }
+
+    private boolean userListAmountChanged() {
+        return floorUsersList == null || floorUsersList.size() - 1 != userManager.getUsersByFloor(getFloor()).size();
     }
 
     public void deleteUserFromDuty(ActionEvent e) {
@@ -411,7 +415,7 @@ public class DutyList extends BasePage implements Serializable {
     }
     
     private String getNameOfVospetka(String floor){
-        StringBuffer buf = new StringBuffer("vospetka_");
+        StringBuilder buf = new StringBuilder("vospetka_");
         for(String floors : responsibleFloors){
             if(isResponseForFloor(floors, floor)){
                 buf.append(floors);

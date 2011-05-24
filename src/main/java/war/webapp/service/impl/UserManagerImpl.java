@@ -1,6 +1,8 @@
 package war.webapp.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.jws.WebService;
 
@@ -26,6 +28,7 @@ import war.webapp.service.UserService;
 public class UserManagerImpl extends GenericManagerImpl<User, Long> implements UserManager, UserService {
     private PasswordEncoder passwordEncoder;
     private UserDao userDao;
+    private Map<String, List<User>> usersByFloor = new HashMap<String, List<User>>();
 
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
@@ -90,6 +93,10 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         }
 
         try {
+            String floor = user.getAddress().getHostelFloor();
+            if (usersByFloor.containsKey(floor)) {
+                usersByFloor.remove(floor);
+            }
             return userDao.saveUser(user);
         } catch (DataIntegrityViolationException e) {
             // e.printStackTrace();
@@ -122,7 +129,12 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     }
 
     public List<User> getUsersByFloor(String floor) {
-        return (List<User>) userDao.loadUsersByFloor(floor);
+        if (usersByFloor.containsKey(floor)) {
+            return usersByFloor.get(floor);
+        }
+        List<User> result = userDao.loadUsersByFloor(floor);
+        usersByFloor.put(floor, result);
+        return result;
     }
 
     public User getUserByRoomAndFullName(String room, String fullName) {
