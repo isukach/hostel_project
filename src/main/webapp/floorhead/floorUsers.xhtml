@@ -31,22 +31,14 @@
             columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
             <t:column>
                 <f:facet name="header">
-                    <t:commandSortHeader columnName="username" arrow="false">
-                        <h:outputText value="#{text['user.username']}" />
-                    </t:commandSortHeader>
-                </f:facet>
-                <h:commandLink action="#{userForm.edit}" value="#{user.username}">
-                    <f:param name="id" value="#{user.id}" />
-                    <f:param name="from" value="list" />
-                </h:commandLink>
-            </t:column>
-            <t:column>
-                <f:facet name="header">
                     <t:commandSortHeader columnName="fullName" arrow="false">
                         <h:outputText value="#{text['activeUsers.fullName']}" />
                     </t:commandSortHeader>
                 </f:facet>
-                <h:outputText value="#{user.fullName}" />
+                <h:commandLink action="#{userForm.edit}" value="#{user.fullName}">
+                    <f:param name="id" value="#{user.id}" />
+                    <f:param name="from" value="list" />
+                </h:commandLink>
             </t:column>
             <t:column>
                 <f:facet name="header">
