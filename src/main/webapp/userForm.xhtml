@@ -43,21 +43,13 @@
             <c:if test="${param.from != 'list'}">
                 <h:panelGroup>
                     <t:htmlTag value="div">
-                        <t:htmlTag value="div" styleClass="left">
+                        <t:htmlTag value="div">
                             <h:outputLabel for="username" styleClass="desc" value="#{text['user.username']}" />
                             <t:message for="username" styleClass="fieldError" />
                             <h:inputText value="#{userForm.user.username}" id="username" required="true"
                                 styleClass="text medium">
                                 <v:commonsValidator client="true" type="required" arg="#{text['user.username']}" />
                             </h:inputText>
-                        </t:htmlTag>
-                        <t:htmlTag value="div">
-                            <h:outputLabel for="password" value="#{text['user.password']}" styleClass="desc" />
-                            <t:message for="password" styleClass="fieldError" />
-                            <h:inputSecret value="#{userForm.user.password}" id="password" redisplay="true"
-                                readonly="true" required="true" styleClass="text medium">
-                                <v:commonsValidator client="true" type="required" arg="#{text['user.password']}" />
-                            </h:inputSecret>
                         </t:htmlTag>
                     </t:htmlTag>
                 </h:panelGroup>
