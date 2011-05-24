@@ -213,23 +213,14 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
                     currentFormatDay = dataFormatBorderAllBold;
                 }
                 addLabelToSheet(sheet,distCol, dataRow, "" + dutyDate.get(Calendar.DAY_OF_MONTH), currentFormatDay);
-                String correctFirstName = duty.getFirstUser().getFirstName();
-                if(!isBlank(correctFirstName)){
-                    correctFirstName = correctFirstName.substring(0,1).toUpperCase() + ".";
-                }
-                
-                addLabelToSheet(sheet, distCol + 1, dataRow, duty.getFirstUser().getLastName() + " "
-                        + correctFirstName, currentFormat);
+
+                addLabelToSheet(sheet, distCol + 1, dataRow, duty.getFirstUser().getFullName(), currentFormat);
                 String firstUSerGroup = duty.getFirstUser().getUniversityGroup();
                 addLabelToSheet(sheet, distCol + 2, dataRow, firstUSerGroup == null ? "" : firstUSerGroup, currentFormatGroup);
                 String firstUserRoom = duty.getFirstUser().getAddress().getHostelRoom();
                 addLabelToSheet(sheet, distCol + 3, dataRow,  firstUserRoom == null ? "" : firstUserRoom, currentFormat);
-                correctFirstName = duty.getSecondUser().getFirstName();
-                if(!isBlank(correctFirstName)){
-                    correctFirstName = correctFirstName.substring(0,1).toUpperCase() + ".";
-                }
-                addLabelToSheet(sheet, distCol+4, dataRow, duty.getSecondUser().getLastName() + " "
-                        + correctFirstName, currentFormat);
+
+                addLabelToSheet(sheet, distCol+4, dataRow, duty.getSecondUser().getFullName(), currentFormat);
                 String secondUserGroup = duty.getSecondUser().getUniversityGroup();
                 addLabelToSheet(sheet,distCol + 5, dataRow, secondUserGroup == null ? "" : secondUserGroup,
                         currentFormatGroup);
