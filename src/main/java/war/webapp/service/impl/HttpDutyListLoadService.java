@@ -55,8 +55,10 @@ public class HttpDutyListLoadService extends DutyListLoadService {
     public String generateDataDescription(Object... params) {
         StringBuffer buff = new StringBuffer("report_");
         buff.append(params[0]);
-        buff.append("_");
-        buff.append(params[1]);
+        //TODO make correct encoding or mapping of monthes
+//        buff.append("_");
+//        buff.append(params[1]);
+        buff.append("-floor");
         buff.append(".xls");
         return buff.toString();
     }

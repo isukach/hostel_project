@@ -131,7 +131,9 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
         String starosta = (String) params[3];
         String vosptatel = (String) params[4];
         WritableFont fontHeader = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
-        WritableCellFormat headerFormat = new WritableCellFormat(fontHeader);
+        WritableFont fontData = new WritableFont(WritableFont.TIMES, 11, WritableFont.NO_BOLD);
+        WritableFont fontDataBold = new WritableFont(WritableFont.TIMES, 11, WritableFont.BOLD);
+        WritableCellFormat headerFormat = new WritableCellFormat(fontDataBold);
         try {
             headerFormat.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
             headerFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
@@ -144,9 +146,6 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
             headerFormatGrey.setAlignment(Alignment.CENTRE);
             headerFormatGrey.setWrap(true);
             headerFormatGrey.setBackground(Colour.GREY_25_PERCENT);
-
-            WritableFont fontData = new WritableFont(WritableFont.TIMES, 14, WritableFont.NO_BOLD);
-            WritableFont fontDataBold = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
 
             WritableCellFormat dataFormatBorderAll = new WritableCellFormat(fontData);
             dataFormatBorderAll.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
@@ -204,13 +203,13 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
                 Calendar dutyDate = duty.getDate();
                 int dayOfWeek = duty.getDayOfWeek();
                 if ((dayOfWeek == Calendar.SATURDAY) || (dayOfWeek == Calendar.SUNDAY)) {
-                    currentFormat = dataFormatBorderAllBoldGrey;
-                    currentFormatGroup = dataFormatBorderAllBoldGrey;
-                    currentFormatDay = dataFormatBorderAllBoldGrey;
+                    currentFormat = dataFormatBorderAllGrey;
+                    currentFormatGroup = dataFormatBorderAllGrey;
+                    currentFormatDay = dataFormatBorderAllGrey;
                 } else {
-                    currentFormat = dataFormatBorderAllBold;
-                    currentFormatGroup = dataFormatBorderAllBold;
-                    currentFormatDay = dataFormatBorderAllBold;
+                    currentFormat = dataFormatBorderAll;
+                    currentFormatGroup = dataFormatBorderAll;
+                    currentFormatDay = dataFormatBorderAll;
                 }
                 addLabelToSheet(sheet,distCol, dataRow, "" + dutyDate.get(Calendar.DAY_OF_MONTH), currentFormatDay);
 
