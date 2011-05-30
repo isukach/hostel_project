@@ -30,6 +30,7 @@ public class DutyList extends BasePage implements Serializable {
     private static final String FIRST_SHIFT_USER = "firstShiftUser";
     private static final String SECOND_SHIFT_USER = "secondShiftUser";
     private static final String SELECT_USER_STRING = "-";
+    private static final int MAX_COUNT_OF_DUTIES_FOR_ONE_USER = 2;
     private String[] responsibleFloors = new String[]{"2_3_4_12", "5_6_7_8", "9_10_11"};
     private DayDutyManager dayDutyManager;
     private MonthManager monthManager;
@@ -183,7 +184,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public void writeFirstOnDuty(ActionEvent e) {
-        if (!isOnOwnFloor() || !isMonthAvailable()) {
+        if (!validateWriteOnDutyByUser()) {
             return;
         }
         Calendar date = getDate(e);
@@ -202,7 +203,7 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public void writeSecondOnDuty(ActionEvent e) {
-        if (!isOnOwnFloor() || !isMonthAvailable()) {
+        if (!validateWriteOnDutyByUser()) {
             return;
         }
         Calendar date = getDate(e);
@@ -217,6 +218,21 @@ public class DutyList extends BasePage implements Serializable {
         }
         dayDuty.setSecondUser(getUser());
         getDayDutyManager().saveDayDuty(dayDuty);
+    }
+
+    private boolean validateWriteOnDutyByUser() {
+        if (!isOnOwnFloor() || !isMonthAvailable()) {
+            return false;
+        }
+        if (userIsRegisteredMoreTimesThanHeCan()) {
+            addError("errors.maxDuties", new Object[]{MAX_COUNT_OF_DUTIES_FOR_ONE_USER});
+            return false;
+        }
+        return true;
+    }
+
+    private boolean userIsRegisteredMoreTimesThanHeCan() {
+        return getDutiesCountForCurrentUser() >= MAX_COUNT_OF_DUTIES_FOR_ONE_USER;
     }
 
     public void deleteDuty(ActionEvent e) throws Exception {
@@ -469,5 +485,18 @@ public class DutyList extends BasePage implements Serializable {
 
     public void setFloorManager(FloorManager floorManager) {
         this.floorManager = floorManager;
+    }
+
+    public int getDutiesCountForCurrentUser() {
+        int count = 0;
+        for (DayDuty d : dutyList) {
+            if (d.getFirstUser().equals(getUser())) {
+                ++count;
+            }
+            if (d.getSecondUser().equals(getUser())) {
+                ++count;
+            }
+        }
+        return count;
     }
 }
