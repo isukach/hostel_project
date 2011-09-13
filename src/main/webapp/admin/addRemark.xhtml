@@ -14,6 +14,12 @@
         <link rel="stylesheet" type="text/css" href="/styles/jscal2.css"/>
         <link rel="stylesheet" type="text/css" href="/styles/border-radius.css"/>
     </head>
+    <script type="text/javascript">
+        function openRemarkPopUp() {
+            window.open("http://www.google.com/", "myWindow", "status = 1, height = 300, width = 300, resizable = 0");
+        }
+
+    </script>
     <h:form>
         <ui:include src="/common/month.xhtml"/>
         <br/>
@@ -79,8 +85,7 @@
                         <h:outputText value="#{text['duty.fio']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <a onclick="alert('kefa');">#{duty.secondUser.fullName}</a>
-                <!--<t:outputText value="#{duty.secondUser.fullName}"/>-->
+                <a onclick="openRemarkPopUp();">#{duty.secondUser.fullName}</a>
             </t:column>
 
             <t:column>
