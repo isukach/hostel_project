@@ -13,6 +13,7 @@
             page="/admin/users.html">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users.html" />
             <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers.html" />
+            <Item name="AddRemarkMenu" title="menu.admin.addRemark" page="/admin/addRemark.html" />
             <!--<Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/> -->
             <!--<Item name="FileUpload" title="menu.selectFile" page="/selectFile.html"/> -->
         </Menu>
