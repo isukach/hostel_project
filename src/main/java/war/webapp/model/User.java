@@ -386,4 +386,11 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
         return sb.toString();
     }
+    
+    @Transient
+    public String getShortFio()
+    {
+        return this.getFirstName() + " " + this.getLastName().substring(0, 1)
+        + "." + this.getMiddleName().substring(0, 1) + ".";
+    }
 }

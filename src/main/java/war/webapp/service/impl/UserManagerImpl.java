@@ -140,4 +140,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     public User getUserByRoomAndFullName(String room, String fullName) {
         return userDao.loadUserByRoomAndFullName(room, fullName);
     }
+
+    public List<User> getUsersByRoom(String room) {
+        return userDao.loadUsersByRoom(room);
+    }
 }

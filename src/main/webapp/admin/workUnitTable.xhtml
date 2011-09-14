@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+<f:view>    
+    <f:loadBundle var="text" basename="#{userList.bundleName}" />
+    <head>
+    <title>#{text['workUnitTable.title']}</title>
+    <meta name="heading" content="#{text['workUnitTable.heading']}" />
+    <meta name="menu" content="AllWorkUnits" />
+    <link rel="stylesheet" type="text/css" href="/styles/forms.css" />
+    </head>
+
+    <ui:include src="/admin/addWorkUnitForm.xhtml"/>
+    
+    <h:form id="allWorkUnits">      
+
+        <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
+        <t:dataTable id="workunits" var="unit" style="margin-top: 10px" value="#{workUnitList.allWorkUnits}" rows="25"
+            styleClass="scrollerTable table"
+            headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
+            columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
+            <t:column width="10%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="date" arrow="true">
+                        <h:outputText value="#{text['workunit.date']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                <h:outputText value="#{unit.fullDate}" >
+                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                </h:outputText>
+            </t:column>
+            <t:column width="5%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="hoursAmount" arrow="true">
+                        <h:outputText value="#{text['workunit.hoursAmount']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                 <h:outputText value="#{unit.hoursAmount}" />
+            </t:column>
+            <t:column width="20%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="employee" arrow="true">
+                        <h:outputText value="#{text['workunit.employee']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                 <h:outputText value="#{unit.employee.shortFio}" />
+            </t:column>
+            <t:column width="20%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="employer" arrow="true">
+                        <h:outputText value="#{text['workunit.employer']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                 <h:outputText value="#{unit.employer.shortFio}" />
+            </t:column>
+            <t:column width="25%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="workDescription" arrow="true">
+                        <h:outputText value="#{text['workunit.description']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                 <h:outputText value="#{unit.workDescription}" />
+            </t:column>
+            <t:column width="15%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="state" arrow="true">                    
+                        <h:outputText value="#{text['workunit.state']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+               
+                <h:selectOneMenu valueChangeListener="#{workUnitList.stateChanged}" onchange="submit();">
+                        <f:selectItems value="#{workUnitList.statesList}" />
+                </h:selectOneMenu>
+                <h:outputText value="#{rowId}" />
+            </t:column>        
+        </t:dataTable>
+
+
+        <script type="text/javascript">
+            //highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
+        </script>
+
+    </h:form>
+</f:view>
+</html>
