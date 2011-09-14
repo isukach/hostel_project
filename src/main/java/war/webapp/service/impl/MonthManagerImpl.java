@@ -1,8 +1,6 @@
 package war.webapp.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import war.webapp.dao.MonthDao;
 import war.webapp.model.DutyMonth;
 import war.webapp.service.MonthManager;

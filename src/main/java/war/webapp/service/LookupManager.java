@@ -1,8 +1,8 @@
 package war.webapp.service;
 
-import java.util.List;
-
 import war.webapp.model.LabelValue;
+
+import java.util.List;
 
 /**
  * Business Service Interface to talk to persistence layer and retrieve values

@@ -1,11 +1,10 @@
 package war.webapp.dao.hibernate;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import war.webapp.dao.MonthDao;
 import war.webapp.model.DutyMonth;
+
+import java.util.List;
 
 @Repository
 public class MonthDaoHibernate extends GenericDaoHibernate<DutyMonth, Long> implements MonthDao {

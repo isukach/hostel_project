@@ -1,12 +1,10 @@
 package war.webapp.service;
 
-import java.util.List;
+import org.springframework.security.userdetails.UsernameNotFoundException;
+import war.webapp.model.User;
 
 import javax.jws.WebService;
-
-import org.springframework.security.userdetails.UsernameNotFoundException;
-
-import war.webapp.model.User;
+import java.util.List;
 
 /**
  * Web Service interface so hierarchy of Generic Manager isn't carried through.

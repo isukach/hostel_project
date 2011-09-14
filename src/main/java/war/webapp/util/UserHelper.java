@@ -4,10 +4,12 @@ import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.context.SecurityContextHolder;
 
-import war.webapp.Constants;
+import javax.faces.model.SelectItem;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class UserHelper {
-    
+
     public boolean ifCurrentUserHasRole(String roleName) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean hasAskedRole = false;
@@ -19,4 +21,6 @@ public class UserHelper {
         }
         return hasAskedRole;
     }
+
+
 }
