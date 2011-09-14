@@ -324,9 +324,7 @@ public class UserForm extends BasePage implements Serializable {
     public void setFloorManager(FloorManager floorManager) {
         this.floorManager = floorManager;
     }
-<<<<<<< HEAD
-    
-=======
+
 
     public boolean isProfileImageExist(){
         String filename = user.getImagePath();
@@ -338,5 +336,4 @@ public class UserForm extends BasePage implements Serializable {
         this.profileImageExist = profileImageExist;
     }
 
->>>>>>> profileUpdate
 }

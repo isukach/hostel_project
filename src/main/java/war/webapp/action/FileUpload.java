@@ -1,20 +1,5 @@
 package war.webapp.action;
 
-<<<<<<< HEAD
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.myfaces.custom.fileupload.UploadedFile;
-
-import war.webapp.Constants;
-
-=======
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import war.webapp.Constants;
 
@@ -22,7 +7,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
->>>>>>> profileUpdate
 public class FileUpload extends BasePage implements Serializable {
     private static final long serialVersionUID = 6932775516007291334L;
     private UploadedFile file;
@@ -50,10 +34,6 @@ public class FileUpload extends BasePage implements Serializable {
         // write the file to the filesystem
         // the directory to upload to
         String uploadDir = getServletContext().getRealPath("/resources") + "/" + request.getRemoteUser() + "/";
-<<<<<<< HEAD
-
-=======
->>>>>>> profileUpdate
         // Create the directory if it doesn't exist
         File dirPath = new File(uploadDir);
 
@@ -63,12 +43,8 @@ public class FileUpload extends BasePage implements Serializable {
 
         // retrieve the file data
         InputStream stream = file.getInputStream();
-<<<<<<< HEAD
-        String filename = file.getName();
-=======
         //specific for downloading ava files and giving them correct names
         String filename = request.getParameter("firstname") + "_ava";
->>>>>>> profileUpdate
 
         // APF-946: Canoo Web Tests R_1702 sets full path as name instead of
         // only file name
@@ -117,11 +93,7 @@ public class FileUpload extends BasePage implements Serializable {
 
         String link = request.getContextPath() + "/resources" + "/" + request.getRemoteUser() + "/";
         request.setAttribute("link", link + filename);
-<<<<<<< HEAD
-
-=======
-         FacesContext.getCurrentInstance().renderResponse();
->>>>>>> profileUpdate
+//         FacesContext.getCurrentInstance().renderResponse();
         return "success";
     }
 }
