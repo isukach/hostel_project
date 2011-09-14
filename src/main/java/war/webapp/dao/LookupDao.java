@@ -1,8 +1,8 @@
 package war.webapp.dao;
 
-import java.util.List;
-
 import war.webapp.model.Role;
+
+import java.util.List;
 
 /**
  * Lookup Data Access Object (GenericDao) interface. This is used to lookup
