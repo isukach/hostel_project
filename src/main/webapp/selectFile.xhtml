@@ -41,7 +41,10 @@
 
             <h:panelGroup styleClass="buttonBar bottom">
                 <h:commandButton value="#{text['button.upload']}" action="#{fileUpload.upload}" id="upload"
-                    styleClass="button" />
+                    styleClass="button" >
+                    <f:param name="username" value="#{param['username']}" />
+                    <f:param name="firstname" value="#{param['firstname']}" />
+                </h:commandButton>
                 <h:commandButton value="#{text['button.cancel']}" action="mainMenu" immediate="true" id="cancel"
                     styleClass="button" onclick="bCancel=true" />
             </h:panelGroup>

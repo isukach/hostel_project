@@ -14,7 +14,7 @@ public class CountryModel {
      * country name as the label.
      *
      * @param locale The Locale used to localize the country names.
-     *
+     * 
      * @return List of LabelValues for all available countries.
      */
     @SuppressWarnings("unchecked")
@@ -78,7 +78,7 @@ public class CountryModel {
          *
          * @param o1 The first LabelValue to compare.
          * @param o2 The second LabelValue to compare.
-         *
+         * 
          * @return The value returned by comparing the localized labels.
          */
         public final int compare(Object o1, Object o2) {

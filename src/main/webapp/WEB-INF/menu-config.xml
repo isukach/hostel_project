@@ -28,6 +28,8 @@
             <Item name="WriteUserOnDuty" title="menu.duty.floorhead.writeuser" page="/floorhead/floorheadDutyTable.html" />
             <Item name="FloorheadViewUsers" title="menu.duty.floorhead.users" page="/floorhead/floorUsers.html" />
         </Menu>
+        <Menu name="HostelProfile" title="menu.profile" description="Hostel Profile" roles="ROLE_ADMIN,ROLE_STAROSTA,ROLE_USER" width="120"
+              page="/user/profile.html"/>
         <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
     </Menus>
 </MenuConfig>
