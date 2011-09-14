@@ -21,9 +21,11 @@ import war.webapp.util.UserHelper;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -44,6 +46,24 @@ public class UserForm extends BasePage implements Serializable {
     private User user = new User();
     private Map<String, String> availableRoles;
     private String[] userRoles;
+    private Map<String, Boolean> payModeToValue;
+
+    private boolean profileImageExist;
+
+
+    {
+       payModeToValue = new LinkedHashMap<String, Boolean>();
+       payModeToValue.put(getBundle().getString("user.studyPaymentFree"), true);
+       payModeToValue.put(getBundle().getString("user.studyPaymentNonFree"), false);
+    }
+
+    public Map<String, Boolean> getPayModeToValue() {
+        return payModeToValue;
+    }
+
+    public void setPayModeToValue(Map<String, Boolean> payModeToValue) {
+        this.payModeToValue = payModeToValue;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -301,5 +321,15 @@ public class UserForm extends BasePage implements Serializable {
     public void setFloorManager(FloorManager floorManager) {
         this.floorManager = floorManager;
     }
-    
+
+    public boolean isProfileImageExist(){
+        String filename = user.getImagePath();
+        File file = new File(getServletContext().getRealPath("") + filename);
+        return file.exists();
+    }
+
+    public void setProfileImageExist(boolean profileImageExist) {
+        this.profileImageExist = profileImageExist;
+    }
+
 }

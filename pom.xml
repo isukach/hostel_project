@@ -95,7 +95,7 @@
                 <configuration>
                     <stopPort>4000</stopPort>
                     <contextPath>/</contextPath>
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                    <scanIntervalSeconds>1</scanIntervalSeconds>
                     <scanTargetPatterns>
                         <scanTargetPattern>
                             <directory>src/main/webapp/WEB-INF</directory>
@@ -109,6 +109,7 @@
                             </includes>
                         </scanTargetPattern>
                     </scanTargetPatterns>
+                    <webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
                 </configuration>
             </plugin>
         </plugins>
@@ -457,7 +458,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
     </dependencies>
 
     <properties>
@@ -471,7 +471,8 @@
         <aspectj.version>1.6.6</aspectj.version>
         <commons.io.version>1.4</commons.io.version>
         <facelets.version>1.1.14</facelets.version>
-        <myfaces.version>2.0.0</myfaces.version>
+        <metawidget.version>1.25</metawidget.version>
+        <myfaces.version>2.0.3</myfaces.version>
         <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
 
         <commons.lang.version>2.4</commons.lang.version>
