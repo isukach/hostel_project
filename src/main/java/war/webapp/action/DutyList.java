@@ -352,10 +352,10 @@ public class DutyList extends BasePage implements Serializable {
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
         Integer currentMonth = Calendar.getInstance().get(Calendar.MONTH);
         //11 - DECEMBER
-        if(currentMonth == 11 && getMonth() == 0){
+        if (currentMonth == 11 && getMonth() == 0) {
             year++;
         }
-        
+
         DutyMonth dutyMonth = monthManager.loadMonth(year, getMonth(), getFloor());
         if (dutyMonth == null) {
             dutyMonth = createDutyMonth();
@@ -425,32 +425,32 @@ public class DutyList extends BasePage implements Serializable {
     public String getMonthString() {
         return MonthHelper.getMonthString(getMonth(), getBundle());
     }
-    
-    public void setMonthString(String monthString){
+
+    public void setMonthString(String monthString) {
         //stub
     }
-    
-    private String getNameOfVospetka(String floor){
+
+    private String getNameOfVospetka(String floor) {
         StringBuilder buf = new StringBuilder("vospetka_");
-        for(String floors : responsibleFloors){
-            if(isResponseForFloor(floors, floor)){
+        for (String floors : responsibleFloors) {
+            if (isResponseForFloor(floors, floor)) {
                 buf.append(floors);
                 break;
             }
         }
         return getBundle().getString(buf.toString());
     }
-    
-    private boolean isResponseForFloor(String floors, String floor){
+
+    private boolean isResponseForFloor(String floors, String floor) {
         String[] existingFloors = floors.split("_");
-        for(String fl : existingFloors){
-            if(fl.equals(floor)){
+        for (String fl : existingFloors) {
+            if (fl.equals(floor)) {
                 return true;
             }
         }
         return false;
     }
-    
+
 
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
