@@ -51,6 +51,16 @@
             <value>#{floorManager}</value>
         </managed-property>
     </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>userProfile</managed-bean-name>
+        <managed-bean-class>war.webapp.action.UserProfile</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>changePasswordForm</managed-bean-name>

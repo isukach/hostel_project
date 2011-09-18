@@ -1,16 +1,15 @@
 package war.webapp.dao.hibernate;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-
 import war.webapp.dao.LookupDao;
 import war.webapp.model.Role;
+
+import java.util.List;
 
 /**
  * Hibernate implementation of LookupDao.

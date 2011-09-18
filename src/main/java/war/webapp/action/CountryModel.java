@@ -1,15 +1,9 @@
 package war.webapp.action;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import war.webapp.model.LabelValue;
+
+import java.text.Collator;
+import java.util.*;
 
 public class CountryModel {
     private Map<String, String> availableCountries;
@@ -18,7 +12,7 @@ public class CountryModel {
      * Build a List of LabelValues for all the available countries. Uses the two
      * letter uppercase ISO name of the country as the value and the localized
      * country name as the label.
-     * 
+     *
      * @param locale The Locale used to localize the country names.
      * 
      * @return List of LabelValues for all available countries.
@@ -72,7 +66,7 @@ public class CountryModel {
 
         /**
          * Creates a new LabelValueComparator object.
-         * 
+         *
          * @param locale The Locale used for localized String comparison.
          */
         public LabelValueComparator(Locale locale) {
@@ -81,7 +75,7 @@ public class CountryModel {
 
         /**
          * Compares the localized labels of two LabelValues.
-         * 
+         *
          * @param o1 The first LabelValue to compare.
          * @param o2 The second LabelValue to compare.
          * 

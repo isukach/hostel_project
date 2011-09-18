@@ -1,9 +1,9 @@
 package war.webapp.action;
 
+import war.webapp.listener.StartupListener;
+
 import java.io.IOException;
 import java.io.Serializable;
-
-import war.webapp.listener.StartupListener;
 
 /**
  * JSF Page class to handle reloading options in servlet context.
