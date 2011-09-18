@@ -51,7 +51,6 @@ public class UserForm extends BasePage implements Serializable {
 
     private Map<String, Boolean> payModeToValue;
 
-    private boolean profileImageExist;
 
 
     {
@@ -326,14 +325,6 @@ public class UserForm extends BasePage implements Serializable {
     }
 
 
-    public boolean isProfileImageExist(){
-        String filename = user.getImagePath();
-        File file = new File(getServletContext().getRealPath("") + filename);
-        return file.exists();
-    }
 
-    public void setProfileImageExist(boolean profileImageExist) {
-        this.profileImageExist = profileImageExist;
-    }
 
 }

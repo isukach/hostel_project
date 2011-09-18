@@ -49,8 +49,8 @@
                     <t:htmlTag value="div">
                         <t:htmlTag value="div" styleClass="left" >
                             <h:outputLabel styleClass="desc" value="Фото" />
-                            <h:graphicImage value="/images/profile/addressbook.gif" rendered="#{!userForm.profileImageExist}" width="120" height="120"/>
-                            <h:graphicImage value="#{userForm.user.imagePath}" rendered="#{userForm.profileImageExist}" width="120" height="120"/>
+                            <h:graphicImage value="/images/profile/addressbook.gif" rendered="#{!userForm.user.profileImageExist}" width="120" height="120"/>
+                            <h:graphicImage value="#{userForm.user.imagePath}" rendered="#{userForm.user.profileImageExist}" width="120" height="120"/>
                         </t:htmlTag>
 
                         <t:htmlTag value="div">

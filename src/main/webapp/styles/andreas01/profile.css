@@ -1,8 +1,7 @@
 
 /*.profileContainer {width: 600px;background: #FFF; margin: 0 auto; *//* the auto value on the sides, coupled with the width, centers the layout *//*}*/
 
-
-.profileContainer #mainPhoto{
+.profileContainer .mainPhoto{
 	float: left;
     border: 1px solid #C0CAD5;
     cursor: default;
