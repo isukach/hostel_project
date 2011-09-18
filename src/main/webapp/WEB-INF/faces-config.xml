@@ -73,6 +73,16 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>addRemarkForm</managed-bean-name>
+        <managed-bean-class>war.webapp.action.RemarkPage</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>fileUpload</managed-bean-name>
         <managed-bean-class>war.webapp.action.FileUpload</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
