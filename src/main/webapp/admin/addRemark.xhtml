@@ -20,9 +20,10 @@
         $(function() {
             $("#student").live('click', function(event) {
                 $(this).addClass("selected").parent().append($("#remarkPopup"));
-                $("#email").val($(this).parent().children("#userId").html());
+                $("#remarkDayDutyId").val($(this).parent().children("#dayDutyId").html());
+                $("#remarkShift").val($(this).parent().children("#shift").html());
                 $(".pop").slideFadeToggle(function() {
-                    $("#email").focus();
+                    $("#remark").focus();
                 });
                 return false;
             });
@@ -42,11 +43,14 @@
     </script>
     <div id="remarkPopup" class="messagepop pop">
         <a4j:region>
-            <h:inputTextarea value="${}"/>
-            <a4j:commandButton actionListener=""
+            <h:inputTextarea id="remark" rows="6" cols="35" value="#{addRemarkForm.remark}"/>
+            <h:inputHidden id="remarkDayDutyId" value="#{addRemarkForm.dayDutyId}"/>
+            <h:inputHidden id="remarkShift" value="#{addRemarkForm.shift}"/>
         </a4j:region>
-        <h:inputTextarea binding=""
-        <form method="post" id="new_message" action="/messages"><p><label for="email">Your email or name</label><input
+        <a4j:commandButton actionListener="#{addRemarkForm.addRemarkToUser}" value="#{text['menu.admin.addRemark']}"/>
+        <a class="close" href="/">#{text['button.cancel']}</a>
+
+<!--        <form method="post" id="new_message" action="/messages"><p><label for="email">Your email or name</label><input
                 type="text" size="30" name="email" id="email"/></p>
 
             <p><label for="body">Message</label><textarea rows="6" name="body" id="body" cols="35"></textarea></p>
@@ -54,7 +58,7 @@
             <p><input type="submit" value="Send Message" name="commit" id="message_submit"/> or <a class="close"
                                                                                                    href="/">Cancel</a>
             </p>
-        </form>
+        </form>-->
     </div>
 
     <h:form>
@@ -123,7 +127,8 @@
                     </t:commandSortHeader>
                 </f:facet>
                 <a id="student" href=".">#{duty.secondUser.fullName}</a>
-                <span id="userId" style="display: none;">#{duty.secondUser.id}</span>
+                <span id="dayDutyId" style="display: none;">#{duty.id}</span>
+                <span id="shift" style="display: none;">2</span>
             </t:column>
 
             <t:column>
