@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
+      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf" xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <f:view>
     <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
@@ -13,13 +13,54 @@
         <link rel="stylesheet" type="text/css" href="/styles/hostel.css"/>
         <link rel="stylesheet" type="text/css" href="/styles/jscal2.css"/>
         <link rel="stylesheet" type="text/css" href="/styles/border-radius.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/remark-popup.css"/>
+
     </head>
     <script type="text/javascript">
-        function openRemarkPopUp() {
-            window.open("http://www.google.com/", "myWindow", "status = 1, height = 300, width = 300, resizable = 0");
-        }
+        $(function() {
+            $("#student").live('click', function(event) {
+                $(this).addClass("selected").parent().append($("#remarkPopup"));
+                $("#remarkDayDutyId").val($(this).parent().children("#dayDutyId").html());
+                $("#remarkShift").val($(this).parent().children("#shift").html());
+                $(".pop").slideFadeToggle(function() {
+                    $("#remark").focus();
+                });
+                return false;
+            });
+
+            $(".close").live('click', function() {
+                $(".pop").slideFadeToggle(function() {
+                    $("#student").removeClass("selected");
+                });
+                return false;
+            });
+        });
+
+        $.fn.slideFadeToggle = function(easing, callback) {
+            return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
+        };
 
     </script>
+    <div id="remarkPopup" class="messagepop pop">
+        <a4j:region>
+            <h:inputTextarea id="remark" rows="6" cols="35" value="#{addRemarkForm.remark}"/>
+            <h:inputHidden id="remarkDayDutyId" value="#{addRemarkForm.dayDutyId}"/>
+            <h:inputHidden id="remarkShift" value="#{addRemarkForm.shift}"/>
+        </a4j:region>
+        <a4j:commandButton actionListener="#{addRemarkForm.addRemarkToUser}" value="#{text['menu.admin.addRemark']}"/>
+        <a class="close" href="/">#{text['button.cancel']}</a>
+
+<!--        <form method="post" id="new_message" action="/messages"><p><label for="email">Your email or name</label><input
+                type="text" size="30" name="email" id="email"/></p>
+
+            <p><label for="body">Message</label><textarea rows="6" name="body" id="body" cols="35"></textarea></p>
+
+            <p><input type="submit" value="Send Message" name="commit" id="message_submit"/> or <a class="close"
+                                                                                                   href="/">Cancel</a>
+            </p>
+        </form>-->
+    </div>
+
     <h:form>
         <ui:include src="/common/month.xhtml"/>
         <br/>
@@ -85,7 +126,9 @@
                         <h:outputText value="#{text['duty.fio']}"/>
                     </t:commandSortHeader>
                 </f:facet>
-                <a onclick="openRemarkPopUp();">#{duty.secondUser.fullName}</a>
+                <a id="student" href=".">#{duty.secondUser.fullName}</a>
+                <span id="dayDutyId" style="display: none;">#{duty.id}</span>
+                <span id="shift" style="display: none;">2</span>
             </t:column>
 
             <t:column>

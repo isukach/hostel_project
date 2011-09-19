@@ -11,11 +11,6 @@ import war.webapp.service.UserExistsException;
 
 import static org.springframework.security.context.SecurityContextHolder.getContext;
 
-/**
- * User: Aliaksei_Sinkevich
- * Date: 5/23/11
- * Time: 11:52 AM
- */
 public class ChangePasswordForm extends BasePage {
     private String oldPassword;
     private String newPassword;
