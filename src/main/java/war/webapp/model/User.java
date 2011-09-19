@@ -9,7 +9,11 @@ import org.compass.annotations.SearchableProperty;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
 
+import javax.faces.context.FacesContext;
 import javax.persistence.*;
+import javax.servlet.ServletContext;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
@@ -48,6 +52,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private String department;
     private boolean isFreePayStudy;
 
+    private boolean profileImageExist;
     /*end new fields*/
 
     /**
@@ -440,4 +445,18 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return this.getFirstName() + " " + this.getLastName().substring(0, 1)
         + "." + this.getMiddleName().substring(0, 1) + ".";
     }
+    
+    
+    @Transient
+    public boolean isProfileImageExist(){
+        String filename = getImagePath();
+        ServletContext sc = (ServletContext)  FacesContext.getCurrentInstance().getExternalContext().getContext();
+        File file = new File(sc.getRealPath("") + filename);
+        return file.exists();
+    }
+
+    public void setProfileImageExist(boolean profileImageExist) {
+        this.profileImageExist = profileImageExist;
+    }
 }
+

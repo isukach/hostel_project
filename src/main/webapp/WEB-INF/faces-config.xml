@@ -60,6 +60,10 @@
             <property-name>userManager</property-name>
             <value>#{userManager}</value>
         </managed-property>
+        <managed-property>
+            <property-name>workUnitManager</property-name>
+            <value>#{workUnitManager}</value>
+        </managed-property>
     </managed-bean>
 
     <managed-bean>
@@ -71,7 +75,7 @@
             <value>#{userManager}</value>
         </managed-property>
     </managed-bean>
-
+    
     <managed-bean>
         <managed-bean-name>addRemarkForm</managed-bean-name>
         <managed-bean-class>war.webapp.action.RemarkPage</managed-bean-class>
@@ -103,7 +107,7 @@
     <managed-bean>
         <managed-bean-name>workUnitList</managed-bean-name>
         <managed-bean-class>war.webapp.action.WorkUnitList</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>workUnitManager</property-name>
             <value>#{workUnitManager}</value>

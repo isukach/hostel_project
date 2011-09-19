@@ -14,13 +14,23 @@
 
     <ui:include src="/admin/addWorkUnitForm.xhtml"/>
     
-    <h:form id="allWorkUnits">      
-
+    <!-- <h:form id="allWorkUnits"> -->      
+        <h:form>
+        <t:buffer into="#{table}">
         <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
-        <t:dataTable id="workunits" var="unit" style="margin-top: 10px" value="#{workUnitList.allWorkUnits}" rows="25"
+        <t:dataTable id="workunits" var="unit" style="margin-top: 10px" value="#{workUnitList.allWorkUnits}" rows="5"
+            sortColumn="#{workUnitList.sortColumn}" sortAscending="#{workUnitList.ascending}" 
             styleClass="scrollerTable table"
             headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
             columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
+            <t:column width="2%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="select" arrow="true">
+                        <h:outputText value="Selected" />
+                    </t:commandSortHeader>
+                </f:facet>
+                <h:selectBooleanCheckbox value="#{unit.selected}" />
+            </t:column>
             <t:column width="10%">
                 <f:facet name="header">
                     <t:commandSortHeader columnName="date" arrow="true">
@@ -31,7 +41,7 @@
                     <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
                 </h:outputText>
             </t:column>
-            <t:column width="5%">
+            <t:column width="3%">
                 <f:facet name="header">
                     <t:commandSortHeader columnName="hoursAmount" arrow="true">
                         <h:outputText value="#{text['workunit.hoursAmount']}" />
@@ -69,19 +79,53 @@
                         <h:outputText value="#{text['workunit.state']}" />
                     </t:commandSortHeader>
                 </f:facet>
-               
-                <h:selectOneMenu valueChangeListener="#{workUnitList.stateChanged}" onchange="submit();">
+                    <h:selectOneMenu value="#{unit.state}">
                         <f:selectItems value="#{workUnitList.statesList}" />
-                </h:selectOneMenu>
-                <h:outputText value="#{rowId}" />
-            </t:column>        
+                        <f:param name="unitId" value="unit.id"/>
+                    </h:selectOneMenu>
+            </t:column>
+            <f:facet name="footer">
+                <h:panelGroup>
+                    <h:commandButton value="Delete Selected" action="#{workUnitList.deleteSelected}" />
+                    <h:commandButton value="Update Selected" action="#{workUnitList.updateSelected}" />
+                </h:panelGroup>
+            </f:facet>    
         </t:dataTable>
+        </t:buffer>
+        
+        <t:buffer into="#{scroller}">
+            <ui:include src="/common/tableFooter.xhtml">
+                <ui:param name="tableName" value="workunits" />
+            </ui:include>
+        </t:buffer>
+
+        <t:buffer into="#{summary}">
+            <h:panelGrid columns="1" styleClass="summary" columnClasses="standardTable_ColumnCentered">
+                <t:dataScroller id="summary" for="workunits" rowsCountVar="rowsCount"
+                    displayedRowsCountVar="displayedRowsCountVar" firstRowIndexVar="firstRowIndex"
+                    lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" pageIndexVar="pageIndex">
+                    <h:outputFormat value="Itogo">
+                        <f:param value="#{rowsCount}" />
+                        <f:param value="#{displayedRowsCountVar}" />
+                        <f:param value="#{firstRowIndex}" />
+                        <f:param value="#{lastRowIndex}" />
+                        <f:param value="#{pageIndex}" />
+                        <f:param value="#{pageCount}" />
+                    </h:outputFormat>
+                </t:dataScroller>
+            </h:panelGrid>
+        </t:buffer>
+        
+        <h:outputText value="#{table}" escape="false" />
+        <h:outputText value="#{scroller}" escape="false" />
+        
+        </h:form>
 
 
         <script type="text/javascript">
             //highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
         </script>
 
-    </h:form>
+    <!--  </h:form> -->
 </f:view>
 </html>
