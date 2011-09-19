@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
@@ -151,4 +152,155 @@
         </t:dataTable>
     </h:form>
 </f:view>
+=======
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf" xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+<f:view>
+    <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+    <head>
+        <title>#{text['menu.admin.addRemark']}</title>
+        <meta name="menu" content="AddRemarkMenu"/>
+        <meta name="heading" content="#{text['menu.admin.addRemark']}"/>
+        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/hostel.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/jscal2.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/border-radius.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/remark-popup.css"/>
+
+    </head>
+    <script type="text/javascript">
+        $(function() {
+            $(".student").live('click', function(event) {
+                $(this).addClass("selected").parent().append($("#remarkPopup"));
+                $("#remarkDayDutyId").val($(this).parent().children(".dayDutyId").html());
+                $("#remarkShift").val($(this).parent().children(".shift").html());
+                $(".pop").slideFadeToggle(function() {
+                    $("#remark").focus();
+                });
+                return false;
+            });
+
+            $(".close,.commit").live('click', function() {
+                $(".pop").slideFadeToggle(function() {
+                    $(".student").removeClass("selected");
+                    $("#remark").val("");
+                });
+                return false;
+            });
+        });
+
+        $.fn.slideFadeToggle = function(easing, callback) {
+            return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
+        };
+
+    </script>
+    <div id="remarkPopup" class="messagepop pop">
+        <a4j:region>
+            <h:inputTextarea id="remark" rows="6" cols="35" value="#{addRemarkForm.remark}"/>
+            <h:inputHidden id="remarkDayDutyId" value="#{addRemarkForm.dayDutyId}"/>
+            <h:inputHidden id="remarkShift" value="#{addRemarkForm.shift}"/>
+
+            <a4j:commandLink styleClass="commit" actionListener="#{addRemarkForm.addRemarkToUser}"
+                               value="#{text['menu.admin.addRemark']}"/>
+            <a class="close" href="/">#{text['button.cancel']}</a>
+        </a4j:region>
+    </div>
+
+    <h:form>
+        <ui:include src="/common/month.xhtml"/>
+        <br/>
+        <h:commandButton value="#{text['duty.print']}" actionListener="#{dutyList.print}"
+                         rendered="#{dutyList.userFloorhead}"/>
+        <br/>
+        <t:dataTable id="duties" var="duty" style="margin-top: 10px" value="#{dutyList.dutyList}" rows="31"
+                     sortColumn="#{dutyList.sortColumn}" sortAscending="#{dutyList.ascending}"
+                     styleClass="scrollerTable table"
+                     headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
+                     columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column">
+
+            <t:column width="10%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="day" arrow="false">
+                        <h:outputText value="#{text['duty.day']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{duty.dayOfMonth}"/>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="dayOfWeek" arrow="false">
+                        <h:outputText value="#{text['duty.dayOfWeek']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <ui:include src="/common/dayOfWeek.xhtml">
+                    <ui:param name="duty" value="#{duty}"/>
+                </ui:include>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="firstUserName" arrow="false">
+                        <h:outputText value="#{text['duty.fio']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <a class="student" href="/">#{duty.firstUser.fullName}</a>
+                <span class="dayDutyId" style="display: none;">#{duty.id}</span>
+                <span class="shift" style="display: none;">1</span>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="firstGroup" arrow="false">
+                        <h:outputText value="#{text['duty.group']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{duty.firstUser.universityGroup}"/>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="firstRoom" arrow="false">
+                        <h:outputText value="#{text['duty.room']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{duty.firstUser.address.hostelRoom}"/>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="secondUserName" arrow="false">
+                        <h:outputText value="#{text['duty.fio']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <a class="student" href="/">#{duty.secondUser.fullName}</a>
+                <span class="dayDutyId" style="display: none;">#{duty.id}</span>
+                <span class="shift" style="display: none;">2</span>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="secondGroup" arrow="false">
+                        <h:outputText value="#{text['duty.group']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{duty.secondUser.universityGroup}"/>
+            </t:column>
+
+            <t:column>
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="secondRoom" arrow="false">
+                        <h:outputText value="#{text['duty.room']}"/>
+                    </t:commandSortHeader>
+                </f:facet>
+                <t:outputText value="#{duty.secondUser.address.hostelRoom}"/>
+            </t:column>
+        </t:dataTable>
+
+    </h:form>
+</f:view>
+>>>>>>> Stashed changes
 </html>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <!-- Add additional rules here -->
     <managed-bean>
         <managed-bean-name>basePage</managed-bean-name>
@@ -51,7 +52,7 @@
             <value>#{floorManager}</value>
         </managed-property>
     </managed-bean>
-    
+
     <managed-bean>
         <managed-bean-name>userProfile</managed-bean-name>
         <managed-bean-class>war.webapp.action.UserProfile</managed-bean-class>
@@ -78,11 +79,15 @@
     
     <managed-bean>
         <managed-bean-name>addRemarkForm</managed-bean-name>
-        <managed-bean-class>war.webapp.action.RemarkPage</managed-bean-class>
+        <managed-bean-class>war.webapp.action.RemarkForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
+            <property-name>remarkManager</property-name>
+            <value>#{remarkManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>dayDutyManager</property-name>
+            <value>#{dutyManager}</value>
         </managed-property>
     </managed-bean>
 
@@ -103,7 +108,7 @@
         <managed-bean-class>war.webapp.action.ActiveUserList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    
+
     <managed-bean>
         <managed-bean-name>workUnitList</managed-bean-name>
         <managed-bean-class>war.webapp.action.WorkUnitList</managed-bean-class>
@@ -113,7 +118,7 @@
             <value>#{workUnitManager}</value>
         </managed-property>
     </managed-bean>
-    
+
     <managed-bean>
         <managed-bean-name>addWorkUnit</managed-bean-name>
         <managed-bean-class>war.webapp.action.AddWorkUnit</managed-bean-class>
@@ -179,7 +184,7 @@
         <navigation-case>
             <from-outcome>mainMenu</from-outcome>
             <to-view-id>/mainMenu.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -201,7 +206,7 @@
         <navigation-case>
             <from-outcome>dutyTable</from-outcome>
             <to-view-id>/dutyTable.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -216,12 +221,12 @@
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/floorhead/floorUsers.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
             <to-view-id>/floorhead/floorUsers.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -236,7 +241,7 @@
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -244,7 +249,7 @@
         <navigation-case>
             <from-outcome>write</from-outcome>
             <to-view-id>/user/writeOnDuty.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -275,12 +280,12 @@
         <validator-id>org.apache.shale.validator.CommonsValidator</validator-id>
         <validator-class>org.apache.shale.validator.CommonsValidator</validator-class>
     </validator>
-    
+
     <validator>
         <validator-id>war.webapp.validator.RoomValidator</validator-id>
         <validator-class>war.webapp.validator.RoomValidator</validator-class>
     </validator>
-    
+
     <validator>
         <validator-id>employeeValidator</validator-id>
         <validator-class>war.webapp.validator.EmployeeValidator</validator-class>
