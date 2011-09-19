@@ -1,0 +1,553 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title></title>
+	
+	<link rel="stylesheet" type="text/css" href="../css/print.css">
+	<link rel="stylesheet" type="text/css" href="../css/theme.css">
+	<script type="text/javascript" src="../js/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="../js/app.js"></script>
+	
+	<link rel="stylesheet" href="../css/payment.css" />
+<style type="text/css">
+<!--
+
+
+
+.container {
+	width: 600px;
+	background: #FFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+
+
+#profil h2 {
+    background-color: #cddfeb;
+    border-bottom: 1px solid #b3cad8;
+    color: #334859;
+    display: block;
+    font-weight: bold;
+    height: 13px;
+    padding: 6px 10px 7px;
+    text-align: left;
+}
+
+#mainPhoto{
+	float: left;
+    border: 1px solid #C0CAD5;
+    cursor: default;
+    height: 140px;
+    overflow: hidden;
+    width: 140px;
+	margin-right: 20px;
+}
+
+
+ul.mainNav {
+	border-bottom: 2px solid #506BB1;
+	float: left;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.mainNav li {
+	list-style: none;
+	float: left;
+	background: #FFF url(images/right_side.png) no-repeat right top;
+	margin-right:  5px;
+}
+
+.mainNav a {
+	display: block;
+	padding: 7px 15px 4px 15px;
+	background-image: url(images/left_side.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	text-align: center;
+	text-decoration: none;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 1.2em;
+	text-transform: uppercase;
+}
+
+.mainNav a:hover {
+	color:#F90;
+}
+
+.container{
+	font-size: 1.2em;}
+
+tr.badDuty{background-color: red;}
+
+span.mainLabel{
+	color: #444444;
+	font-size: 1em;
+	font-weight: bold;
+	line-height: 1.3em;
+	margin: 4px 0 3px;
+	}
+-->
+
+</style>
+	
+</head>
+<body>
+	<div class="container">
+		<img src="../images/top_bg.jpg" />
+	  	<h1 style="font-size: 1.5em;">Libida</h1>
+
+	    <img id="mainPhoto" src="../images/1.jpg"> 
+	    <div id="fullName">
+	        <span class="mainLabel">ФИО:</span>
+	        <span class="mainValue">Рудько Мария Сергеевна</span>   
+	    </div>
+	    <div id="mainBirthday">
+	    	<span class="mainLabel">Дата рождения:</span>
+	        <span class="mainValue">22.07.1990</span>
+	    </div>
+	    <div id="room">
+	    	<span class="mainLabel">Комната:</span>
+	        <span class="mainValue"><a href="rooms_page.html"><span class="number">703</span></a><span class="letter">а</span></span>
+	    </div>
+	    <div id="telephoneNumber">
+	    	<span class="mainLabel">Номер телефона:</span>
+	        <span class="mainValue"><span class="dialingCode">+37529</span>7463281 </span>
+	    </div>
+	    <div id="faculty">
+	    <span class="mainLabel">Факультет:</span>
+	        <span class="mainValue"><a href="http://www.bsuir.by/online/showpage.jsp?PageID=88704&resID=100229&lang=ru&menuItemID=102730">ФИТУ</a></span>
+	    </div>   
+	    <div id="mainBirthday">
+	    	<span class="mainLabel">Группа:</span>
+	        <span class="mainValue">721702</span>
+	    </div>       
+	    <div id="mainBirthday">
+	    	<span class="mainLabel">Оплата обучения:</span>
+	        <span class="mainValue">бесплатно</span>
+	    </div>    
+		<form>			
+			<div class="tabContent">
+				<ul class="tabList">
+					<li><a href="#first">Дежурства</a></li>
+					<li class="current"><a href="#second" >Отработки</a></li>
+					<li class="lastTab"><a href="#third">Сеть</a></li>
+				</ul>
+				<div class="tabText">
+					<div class="box" id="first">
+						<table style="margin-top: 10px" class="scrollerTable table">
+							<thead>
+								<tr>
+
+									<th class="standardTable_Header" width="10%">
+										<a>Число</a>
+									</th>
+									<th class="standardTable_Header">
+										<a>Время</a>
+									</th>
+									<th class="standardTable_Header">
+										<a>Замечания</a>
+									</th>
+									<th class="standardTable_Header">
+										<a>Наказание</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody id="j_id2:duties:tbody_element">
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column">
+										<span>22.07.2011</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>16.00-24.00</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column">
+										<span>26.08.2011</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>8.00-16.00</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>Дежурный отсутствовал на месте, грязные плиты, не вынесен мусор.</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>Дополнительное дежурство.</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+
+									<td class="standardTable_Column">
+										<span>1.11.2011</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>8.00-16.00</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>Дежурный отсутствовал на месте.</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>5 часов отработок.</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p>Итого:</p>
+						<p>Отработанных дежурств: 3.</p>
+						<p>Дополнительных дежурств: <span style="color: red;">1</span>.</p>
+						<p>Дополнительных отработок: <span style="color: red;">5</span>.</p>						
+					</div>
+					<div class="box current" id="second">
+						<table style="margin-top: 10px" class="scrollerTable table">
+							<thead>
+								<tr>
+									<th class="standardTable_Header" width="20%">
+										<a>Месяц</a>
+									</th>	
+									<th class="standardTable_Header" >
+										<a>Отработано(часы)</a>
+									</th>
+									<th class="standardTable_Header" >
+										<a>Задолженность(часы)</a>
+									</th>
+									
+								</tr>
+							</thead>
+							<tbody id="j_id2:duties:tbody_element">
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>сентябрь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>4</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>0</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1 badDuty">
+									<td class="standardTable_Column" width="5%">
+										<span>октябрь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>2</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>2</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1 badDuty">
+									<td class="standardTable_Column" width="5%">
+										<span>ноябрь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>0</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>6</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1 badDuty">
+									<td class="standardTable_Column" width="5%">
+										<span>декабрь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>4</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>6</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>январь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>10</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>0</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>февраль</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>4</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>0</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1 badDuty">
+									<td class="standardTable_Column" width="5%">
+										<span>март</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>2</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>2</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>апрель</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>4</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>2</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>май</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>июнь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th  class="standardTable_Header" width="20%">
+										<span>ИТОГО:</span>
+									</th>
+									<th  class="standardTable_Header">
+										<span>30</span>
+									</th>
+									<th  class="standardTable_Header">
+										<span>2</span>
+									</th>
+								</tr>
+							</thead>
+						</table>
+						
+					</div>
+					<div class="box" id="third">
+						<table style="margin-top: 10px" class="scrollerTable table">
+							<thead>
+								<tr>
+									<th class="standardTable_Header" width="15%">
+										<a>Месяц</a>
+									</th>	
+									<th class="standardTable_Header" >
+										<a>Оплата</a>
+									</th>
+									<th class="standardTable_Header" >
+										<a>Дата оплаты</a>
+									</th>
+									<th class="standardTable_Header" >
+										<a>Место оплаты</a>
+									</th>
+									<th class="standardTable_Header" >
+										<a>Сумма оплаты</a>
+									</th>
+									
+								</tr>
+							</thead>
+							<tbody id="j_id2:duties:tbody_element">
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>сентябрь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>+</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>22.09.2011</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">4к БГУИР</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>20.000</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>октябрь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>+</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>22.09.2011</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">4к БГУИР</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>20.000</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>ноябрь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>+</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>22.09.2011</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">4к БГУИР</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>20.000</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>декабрь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>+</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>22.09.2011</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">4к БГУИР</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>20.000</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>январь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">-</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>февраль</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">-</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>март</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">-</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>апрель</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">-</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>май</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">-</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+								<tr class="standardTable_Row1">
+									<td class="standardTable_Column" width="5%">
+										<span>июнь</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+									<td class="standardTable_Column">
+										<span><a href="">-</a></span>
+									</td>
+									<td class="standardTable_Column">
+										<span>-</span>
+									</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="clear"></div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,12 +1,12 @@
 package war.webapp.action;
 
+import war.webapp.listener.UserCounterListener;
+import war.webapp.model.User;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import war.webapp.listener.UserCounterListener;
-import war.webapp.model.User;
 
 public class ActiveUserList extends BasePage implements Serializable {
     private static final long serialVersionUID = -2725378005612769815L;

@@ -1,13 +1,13 @@
 package war.webapp.converter;
 
+import war.webapp.model.User;
+import war.webapp.service.UserManager;
+import war.webapp.service.impl.UserManagerImpl;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-
-import war.webapp.model.User;
-import war.webapp.service.UserManager;
-import war.webapp.service.impl.UserManagerImpl;
 
 public class UserConverter implements Converter {
 

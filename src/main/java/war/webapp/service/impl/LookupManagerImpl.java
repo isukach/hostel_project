@@ -2,7 +2,6 @@ package war.webapp.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import war.webapp.dao.LookupDao;
 import war.webapp.model.LabelValue;
 import war.webapp.model.Role;

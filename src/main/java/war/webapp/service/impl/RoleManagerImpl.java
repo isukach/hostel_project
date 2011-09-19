@@ -1,13 +1,12 @@
 package war.webapp.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import war.webapp.dao.RoleDao;
 import war.webapp.model.Role;
 import war.webapp.service.RoleManager;
+
+import java.util.List;
 
 /**
  * Implementation of RoleManager interface.

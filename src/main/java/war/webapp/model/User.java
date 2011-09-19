@@ -41,6 +41,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private boolean accountExpired = false;
     private boolean accountLocked;
     private boolean credentialsExpired = false;
+    private String imagePath;
+
+
+    /*new fields*/
+    private String department;
+    private boolean isFreePayStudy;
+
+    /*end new fields*/
 
     /**
      * Default constructor - creates a new instance with no values set.
@@ -132,6 +140,17 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
         return dateOfBirth.get(Calendar.YEAR);
     }
+    
+    @Transient
+    public String getBirthDayString() {
+        StringBuffer buf = new StringBuffer();
+        buf.append(getBirthdayDayOfMonth());
+        buf.append(".");
+        buf.append(getBirthdayMonth());
+        buf.append(".");
+        buf.append(getBirthdayYear());
+        return buf.toString();
+    }
 
     /**
      * Returns the full name.
@@ -149,6 +168,16 @@ public class User extends BaseObject implements Serializable, UserDetails {
             }
         }
         return result.toString();
+    }
+    
+    @Transient
+    public String getImagePath() {
+        String emptyPath = "/resources";
+        return emptyPath +"/"+ getUsername()+ "/" + getFirstName()+"_ava";
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Embedded
@@ -218,6 +247,16 @@ public class User extends BaseObject implements Serializable, UserDetails {
     @Column(name = "account_expired", nullable = false)
     public boolean isAccountExpired() {
         return accountExpired;
+    }
+    
+    @Column(name = "department", nullable = true)
+    public String getDepartment() {
+        return department;
+    }
+
+    @Column(name = "study_pay", columnDefinition = "BIT(1) DEFAULT 1")
+    public boolean isFreePayStudy() {
+        return isFreePayStudy;
     }
 
     /**
@@ -337,6 +376,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     public void setCredentialsExpired(boolean credentialsExpired) {
         this.credentialsExpired = credentialsExpired;
+    }
+    
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setFreePayStudy(boolean freePayStudy) {
+        isFreePayStudy = freePayStudy;
     }
 
     /**

@@ -12,6 +12,7 @@
         <menu:displayMenu name="DutyMenu" />
         <menu:displayMenu name="DutyAdmin" />
         <menu:displayMenu name="SlaveWorkMenuAdmin"/>
+        <menu:displayMenu name="HostelProfile" />
         <menu:displayMenu name="Logout" />
     </ul>
 </menu:useMenuDisplayer>
