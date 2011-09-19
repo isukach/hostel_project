@@ -47,13 +47,12 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private boolean credentialsExpired = false;
     private String imagePath;
 
-    private boolean profileImageExist;
-
 
     /*new fields*/
     private String department;
     private boolean isFreePayStudy;
 
+    private boolean profileImageExist;
     /*end new fields*/
 
     /**
@@ -146,7 +145,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
         return dateOfBirth.get(Calendar.YEAR);
     }
-
+    
     @Transient
     public String getBirthDayString() {
         StringBuffer buf = new StringBuffer();
@@ -157,6 +156,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         buf.append(getBirthdayYear());
         return buf.toString();
     }
+
     /**
      * Returns the full name.
      *
@@ -174,6 +174,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
         return result.toString();
     }
+    
     @Transient
     public String getImagePath() {
         String emptyPath = "/resources";
@@ -252,6 +253,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public boolean isAccountExpired() {
         return accountExpired;
     }
+    
     @Column(name = "department", nullable = true)
     public String getDepartment() {
         return department;
@@ -380,7 +382,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public void setCredentialsExpired(boolean credentialsExpired) {
         this.credentialsExpired = credentialsExpired;
     }
-
+    
     public void setDepartment(String department) {
         this.department = department;
     }
@@ -438,6 +440,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
     
     @Transient
+    public String getShortFio()
+    {
+        return this.getFirstName() + " " + this.getLastName().substring(0, 1)
+        + "." + this.getMiddleName().substring(0, 1) + ".";
+    }
+    
+    
+    @Transient
     public boolean isProfileImageExist(){
         String filename = getImagePath();
         ServletContext sc = (ServletContext)  FacesContext.getCurrentInstance().getExternalContext().getContext();
@@ -448,5 +458,5 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public void setProfileImageExist(boolean profileImageExist) {
         this.profileImageExist = profileImageExist;
     }
-    
 }
+

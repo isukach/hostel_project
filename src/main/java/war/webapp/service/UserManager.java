@@ -70,6 +70,19 @@ public interface UserManager extends GenericManager<User, Long> {
      */
     List<User> getUsersByFloor(String floor);
 
-
+    /**
+     * Returns user of given room and full name
+     * 
+     * @param room room number
+     * @param fullName full name of user
+     */
     User getUserByRoomAndFullName(String room, String fullName);
+    
+    /**
+     * Returns users of given room
+     * 
+     * @param room room number
+     */
+    List<User> getUsersByRoom(String room);
+    
 }

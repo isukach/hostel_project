@@ -10,6 +10,7 @@
         <mapping class="war.webapp.model.Role" />
         <mapping class="war.webapp.model.DayDuty" />
         <mapping class="war.webapp.model.DutyMonth" />
+        <mapping class="war.webapp.model.WorkUnit" />
         <mapping class="war.webapp.model.DutyRemark" />
     </session-factory>
 </hibernate-configuration>

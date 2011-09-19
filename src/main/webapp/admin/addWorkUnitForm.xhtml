@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    
+    <h:form>
+        <h:messages/>
+        <h:panelGrid columns="2">
+            
+            <t:htmlTag value="div" style="width:200px;">
+            <h:outputLabel for="wuDate" value="#{text['workunit.date'] }"/>
+            </t:htmlTag>
+            <h:inputText id="wuDate" value="#{addWorkUnit.date}" required="true">
+                 <f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:inputText>
+                
+            <h:outputLabel for="wuHours" value="#{text['workunit.hoursAmount'] }"/>
+            <h:inputText id="wuHours" value="#{addWorkUnit.hoursAmount}" required="true">
+                <f:validateLongRange minimum="1"/>
+            </h:inputText>                
+            
+        </h:panelGrid>               
+            
+        <a4j:region>
+            <h:panelGrid columns="2">
+             
+                <h:outputLabel for="wuRoom" value="Room"/>            
+                <h:inputText id="wuRoom" value="#{addWorkUnit.room}" required="true"> 
+                     <a4j:support event="onchange" reRender="employeesList"/>
+                </h:inputText>                
+                
+                <h:outputLabel for="employeesList" value="#{text['workunit.employee'] }"/>
+                <h:selectOneMenu id="employeesList" value="#{addWorkUnit.employee}" converter="roomUser">
+                    <f:selectItems id="wuEmployees" value="#{addWorkUnit.roomMates}"/>
+                </h:selectOneMenu>
+            
+            </h:panelGrid>
+         </a4j:region>
+         
+         <h:panelGrid columns="1">
+            <h:outputLabel for="wuDescription" value="#{text['workunit.description'] }"/>
+            <h:inputTextarea rows="4" cols="30" id="wuDescription" value="#{addWorkUnit.description}"/>
+         </h:panelGrid>             
+                
+         <h:commandButton type="submit" action="#{addWorkUnit.addWorkUnit}" value="#{text['workunit.addworkunitform.add']}"/>
+    </h:form>
+
+</ui:composition>
+

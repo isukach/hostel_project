@@ -1,21 +1,23 @@
 package war.webapp.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.jws.WebService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.providers.encoding.PasswordEncoder;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import war.webapp.dao.UserDao;
 import war.webapp.model.User;
 import war.webapp.service.UserExistsException;
 import war.webapp.service.UserManager;
 import war.webapp.service.UserService;
-
-import javax.jws.WebService;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Implementation of UserManager interface.
@@ -137,5 +139,9 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
     public User getUserByRoomAndFullName(String room, String fullName) {
         return userDao.loadUserByRoomAndFullName(room, fullName);
+    }
+
+    public List<User> getUsersByRoom(String room) {
+        return userDao.loadUsersByRoom(room);
     }
 }

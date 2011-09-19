@@ -1,5 +1,10 @@
 package war.webapp.dao.hibernate;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Table;
+
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
@@ -7,11 +12,9 @@ import org.springframework.security.userdetails.UserDetails;
 import org.springframework.security.userdetails.UserDetailsService;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
+
 import war.webapp.dao.UserDao;
 import war.webapp.model.User;
-
-import javax.persistence.Table;
-import java.util.List;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -121,6 +124,17 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
             throw new UsernameNotFoundException("user '" + fullName + "' not found...");
         } else {
             return (User) users.get(0);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<User> loadUsersByRoom(String room) {        
+        List<User> users = (List<User>)getHibernateTemplate().find("from User where address.hostelRoom=?", room);
+        if (users == null || users.isEmpty()) {
+            log.warn("no users was found for given room, maybe incorrect room number");
+            return new ArrayList<User>();
+        } else {
+            return users;
         }
     }
 }

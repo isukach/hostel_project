@@ -8,9 +8,11 @@ import java.util.List;
 public class FloorManagerImpl implements FloorManager{
     
     private List<String> floorsNames;
+    private List<String> availableRooms;
     
     public FloorManagerImpl() {
         floorsNames = new ArrayList<String>();
+        availableRooms = new ArrayList<String>();
     }
     
     public void setFloorsNames(List<String> floorsNames) {
@@ -19,6 +21,14 @@ public class FloorManagerImpl implements FloorManager{
     
     public List<String> getFloorsNames() {
         return floorsNames;
+    }
+
+    public List<String> getAvailableRooms() {
+        return availableRooms;
+    }
+
+    public void setAvailableRooms(List<String> availableRooms) {
+        this.availableRooms = availableRooms;
     }
     
 }

@@ -5,5 +5,6 @@ import java.util.List;
 public interface FloorManager {
     
     List<String> getFloorsNames();
+    public List<String> getAvailableRooms();
 
 }

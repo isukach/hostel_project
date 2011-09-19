@@ -36,7 +36,32 @@
                 <value>12</value>
             </list>
         </property>
+        <property name="availableRooms">
+            <list>
+                <value>01</value>
+                <value>02</value>
+                <value>03</value>
+                <value>04</value>
+                <value>05</value>
+                <value>06</value>
+                <value>07</value>
+                <value>08</value>
+                <value>09</value>
+                <value>10</value>
+                <value>11</value>
+                <value>12</value>
+                <value>13</value>
+                <value>14</value>
+                <value>15</value>
+                <value>16</value>
+                <value>17</value>
+                <value>19</value>
+                <value>21</value>
+                <value>23</value>                
+            </list>
+        </property>
     </bean>
+    <bean id="workUnitManager" class="war.webapp.service.impl.WorkUnitManagerImpl"/>
 
     <tx:annotation-driven />
 

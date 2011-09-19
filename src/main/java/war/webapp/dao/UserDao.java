@@ -1,12 +1,13 @@
 package war.webapp.dao;
 
+import java.util.List;
+
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import war.webapp.model.User;
 
-import java.util.List;
+import war.webapp.model.User;
 
 /**
  * User Data Access Object (GenericDao) interface.
@@ -61,4 +62,6 @@ public interface UserDao extends GenericDao<User, Long> {
 
     User loadUserByRoomAndFullName(String room, String fullName);
 
+    List<User> loadUsersByRoom(String room);
+    
 }
