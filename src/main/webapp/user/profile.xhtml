@@ -6,7 +6,7 @@
       xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
 
 <f:view>
-
+        <f:loadBundle var="text" basename="#{userList.bundleName}" />
         <c:set var="user" value="#{userProfile.user}" />
 
         <div class="profileContainer">
@@ -118,48 +118,7 @@
                                     <ui:param name="title" value="Hostel Job"/>
                                 </ui:include>
                             </f:subview>
-                            <table style="margin-top: 10px" class="scrollerTable table">
-                                <thead>
-                                    <tr>
-                                        <th class="standardTable_Header" width="20%">
-                                            <a>Месяц</a>
-                                        </th>
-                                        <th class="standardTable_Header" >
-                                            <a>Отработано(часы)</a>
-                                        </th>
-                                        <th class="standardTable_Header" >
-                                            <a>Задолженность(часы)</a>
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="standardTable_Row1 badDuty">
-                                        <td class="standardTable_Column" width="5%">
-                                            <span>октябрь</span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span>2</span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span>2</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <thead>
-                                    <tr>
-                                        <th  class="standardTable_Header" width="20%">
-                                            <span>ИТОГО:</span>
-                                        </th>
-                                        <th  class="standardTable_Header">
-                                            <span>30</span>
-                                        </th>
-                                        <th  class="standardTable_Header">
-                                            <span>2</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </table>
+                            <ui:include src="/user/profileWorkUnitTable.xhtml"/>
 
                         </div>
                         <div class="box" id="third">
