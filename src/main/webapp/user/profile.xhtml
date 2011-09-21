@@ -13,9 +13,9 @@
 
             <h1 style="font-size: 1.5em;"><h:outputText value="#{user.username}" /></h1>
 
-            <h:graphicImage styleClass="mainPhoto" value="/images/profile/addressbook.gif" rendered="#{!userForm.profileImageExist}"/>
-            <!--<h:graphicImage styleClass="mainPhoto" value="#{userForm.user.imagePath}" rendered="#{userForm.profileImageExist}" />-->
-
+            <h:graphicImage styleClass="mainPhoto" value="/images/profile/addressbook.gif" rendered="#{!userProfile.user.profileImageExist}"/>
+            <h:graphicImage styleClass="mainPhoto" value="#{userProfile.user.imagePath}" rendered="#{userProfile.user.profileImageExist}" />
+	
                     <!--<t:htmlTag value="div">-->
                 <div id="fullName">
                     <span class="mainLabel">
@@ -114,10 +114,52 @@
                         </div>
                         <div class="box current" id="second">
                             <f:subview id="editableVersionHostelJob" >
-                                <ui:include src="/common/profileWorkUnitTable.xhtml" >
-                                    <ui:param name="userId" value="#{user.id}"/>
+                                <ui:include src="pofileEditableView.jspf" >
+                                    <ui:param name="title" value="Hostel Job"/>
                                 </ui:include>
                             </f:subview>
+                            <table style="margin-top: 10px" class="scrollerTable table">
+                                <thead>
+                                    <tr>
+                                        <th class="standardTable_Header" width="20%">
+                                            <a>Месяц</a>
+                                        </th>
+                                        <th class="standardTable_Header" >
+                                            <a>Отработано(часы)</a>
+                                        </th>
+                                        <th class="standardTable_Header" >
+                                            <a>Задолженность(часы)</a>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="standardTable_Row1 badDuty">
+                                        <td class="standardTable_Column" width="5%">
+                                            <span>октябрь</span>
+                                        </td>
+                                        <td class="standardTable_Column">
+                                            <span>2</span>
+                                        </td>
+                                        <td class="standardTable_Column">
+                                            <span>2</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th  class="standardTable_Header" width="20%">
+                                            <span>ИТОГО:</span>
+                                        </th>
+                                        <th  class="standardTable_Header">
+                                            <span>30</span>
+                                        </th>
+                                        <th  class="standardTable_Header">
+                                            <span>2</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
 
                         </div>
                         <div class="box" id="third">
