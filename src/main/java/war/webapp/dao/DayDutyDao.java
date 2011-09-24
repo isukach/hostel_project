@@ -21,4 +21,6 @@ public interface DayDutyDao extends GenericDao<DayDuty, Long> {
     
     public DayDuty loadSingleDayDutyByExample(DayDuty exampleDayDuty);
 
+    public List<DayDuty> loadDutiesByUserId(Long userId);
+
 }

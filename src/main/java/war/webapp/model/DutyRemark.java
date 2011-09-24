@@ -6,6 +6,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "duty_remark")
 public class DutyRemark {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "day_duty", nullable = false)
@@ -17,10 +20,8 @@ public class DutyRemark {
     @Column(nullable = false)
     private String remark;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    @Column(nullable = true)
+    private String punishment;
 
     public Long getId() {
         return id;
@@ -52,5 +53,13 @@ public class DutyRemark {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getPunishment() {
+        return punishment;
+    }
+
+    public void setPunishment(String punishment) {
+        this.punishment = punishment;
     }
 }

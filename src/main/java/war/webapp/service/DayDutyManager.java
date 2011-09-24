@@ -18,4 +18,6 @@ public interface DayDutyManager extends GenericManager<DayDuty, Long> {
     public void deleteFirstDutyUser(DayDuty dayDuty);
     
     public void deleteSecondDutyUser(DayDuty dayDuty);
+
+    public List<DayDuty> loadDutiesByUserId(Long userId);
 }

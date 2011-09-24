@@ -22,17 +22,11 @@ public class UserProfile extends BasePage implements Serializable{
     private static final long serialVersionUID = -1141119853856834204L;
     private User user;
     private String id;
-    private UserManager userManager;
     private WorkUnitManager workUnitManager;
 
     public String getId() {
         return id;
     }
-
-    public UserManager getUserManager() {
-        return userManager;
-    }
-    
 
     public WorkUnitManager getWorkUnitManager() {
         return workUnitManager;
@@ -47,11 +41,6 @@ public class UserProfile extends BasePage implements Serializable{
             setUser((User) getContext().getAuthentication().getPrincipal());
         }
         return user;
-    }
-
-
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
     }
 
     public void setId(String id) {

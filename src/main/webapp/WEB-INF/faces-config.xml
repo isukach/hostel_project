@@ -68,6 +68,20 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>userDutiesHistory</managed-bean-name>
+        <managed-bean-class>war.webapp.action.UserDutiesHistoryForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>userId</property-name>
+            <value>#{param.userId}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>changePasswordForm</managed-bean-name>
         <managed-bean-class>war.webapp.action.ChangePasswordForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -76,7 +90,7 @@
             <value>#{userManager}</value>
         </managed-property>
     </managed-bean>
-    
+
     <managed-bean>
         <managed-bean-name>addRemarkForm</managed-bean-name>
         <managed-bean-class>war.webapp.action.RemarkForm</managed-bean-class>
