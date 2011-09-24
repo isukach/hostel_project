@@ -3,16 +3,16 @@ package war.webapp.model;
 import java.util.Calendar;
 
 public class Duty {
-    private Calendar date;
+    private String date;
     private String time;
     private String remarks;
     private String punishment;
 
-    public Calendar getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

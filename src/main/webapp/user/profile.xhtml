@@ -6,6 +6,7 @@
       xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
 
 <f:view>
+    <head><link rel="stylesheet" type="text/css" href="/styles/myfaces.css" /></head>
     <f:loadBundle var="text" basename="#{userList.bundleName}"/>
     <c:set var="user" value="#{userProfile.user}"/>
 
@@ -74,40 +75,9 @@
                                 <ui:param name="title" value="Duty Table"/>
                             </ui:include>
                         </f:subview>
-                        <table style="margin-top: 10px" class="scrollerTable table">
-                            <thead>
-                            <tr>
-                                <th class="standardTable_Header" width="10%">
-                                    <a>Число</a>
-                                </th>
-                                <th class="standardTable_Header">
-                                    <a>Время</a>
-                                </th>
-                                <th class="standardTable_Header">
-                                    <a>Замечания</a>
-                                </th>
-                                <th class="standardTable_Header">
-                                    <a>Наказание</a>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody id="j_id2:duties:tbody_element">
-                            <tr class="standardTable_Row1">
-                                <td class="standardTable_Column">
-                                    <span>26.08.2011</span>
-                                </td>
-                                <td class="standardTable_Column">
-                                    <span>8.00-16.00</span>
-                                </td>
-                                <td class="standardTable_Column">
-                                    <span>Дежурный отсутствовал на месте, грязные плиты, не вынесен мусор.</span>
-                                </td>
-                                <td class="standardTable_Column">
-                                    <span>Дополнительное дежурство.</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+
+                        <ui:include src="/common/userDutiesHistoryTable.xhtml"/>
+
                         <p>Итого:</p>
 
                         <p>Отработанных дежурств: 3.</p>

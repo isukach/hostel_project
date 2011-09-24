@@ -2,43 +2,36 @@
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<t:dataTable id="dutiesHistoryTable" var="duty" style="margin-top: 10px" value="#{userDutiesHistory.dutiesForUser}" rows="31">
+<h:dataTable id="dutiesHistoryTable" var="duty" value="#{userDutiesHistory.dutiesForUser}"
+             headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2">
 
-    <t:column>
+    <h:column>
         <f:facet name="header">
-            <t:commandSortHeader columnName="date" arrow="false">
-                <h:outputText value="#{text['duty.date']}"/>
-            </t:commandSortHeader>
+            <h:outputText value="#{text['duty.date']}"/>
         </f:facet>
-        <t:outputText value="#{duty.date}"/>
-    </t:column>
+        <h:outputText value="#{duty.date}"/>
+    </h:column>
 
-    <t:column>
+    <h:column>
         <f:facet name="header">
-            <t:commandSortHeader columnName="time" arrow="false">
-                <h:outputText value="#{text['duty.time']}"/>
-            </t:commandSortHeader>
+            <h:outputText value="#{text['duty.time']}"/>
         </f:facet>
-        <t:outputText value="#{duty.time}"/>
-    </t:column>
+        <h:outputText value="#{duty.time}"/>
+    </h:column>
 
-    <t:column>
+    <h:column>
         <f:facet name="header">
-            <t:commandSortHeader columnName="remarks" arrow="false">
-                <h:outputText value="#{text['duty.Remarks']}"/>
-            </t:commandSortHeader>
+            <h:outputText value="#{text['duty.Remarks']}"/>
         </f:facet>
-        <t:outputText value="#{duty.remarks}"/>
-    </t:column>
+        <h:outputText value="#{duty.remarks}"/>
+    </h:column>
 
-    <t:column>
+    <h:column>
         <f:facet name="header">
-            <t:commandSortHeader columnName="punishment" arrow="false">
-                <h:outputText value="#{text['duty.punishment']}"/>
-            </t:commandSortHeader>
+            <h:outputText value="#{text['duty.punishment']}"/>
         </f:facet>
-        <t:outputText value="#{duty.punishment}"/>
-    </t:column>
-</t:dataTable>
+        <h:outputText value="#{duty.punishment}"/>
+    </h:column>
+</h:dataTable>
 
 </html>

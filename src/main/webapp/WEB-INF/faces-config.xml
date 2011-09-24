@@ -76,6 +76,10 @@
             <value>#{dayDutyManager}</value>
         </managed-property>
         <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+        <managed-property>
             <property-name>userId</property-name>
             <value>#{param.userId}</value>
         </managed-property>
@@ -198,32 +202,10 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/dutyTable.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>ajax4jsf</from-outcome>
-            <to-view-id>/ajax4jsf.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/dutyTable.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>selectFile</from-outcome>
-            <to-view-id>/selectFile.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/*</from-view-id>
-        <navigation-case>
-            <from-outcome>dutyTable</from-outcome>
-            <to-view-id>/dutyTable.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>editProfile</from-outcome>
-            <to-view-id>/userForm.xhtml</to-view-id>
+            <to-view-id>/user/profile.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -244,14 +226,6 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/showFile.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/signup.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>cancel</from-outcome>
-            <to-view-id>/login.jsp</to-view-id>
-            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

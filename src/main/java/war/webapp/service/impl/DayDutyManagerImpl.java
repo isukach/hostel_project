@@ -3,6 +3,7 @@ package war.webapp.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import war.webapp.dao.DayDutyDao;
 import war.webapp.model.DayDuty;
+import war.webapp.model.User;
 import war.webapp.service.DayDutyManager;
 
 import java.util.Calendar;
@@ -52,7 +53,7 @@ public class DayDutyManagerImpl extends GenericManagerImpl<DayDuty, Long> implem
         dayDutyDao.deleteSecondDutyUser(dayDuty);        
     }
 
-    public List<DayDuty> loadDutiesByUserId(Long userId) {
-        return dayDutyDao.loadDutiesByUserId(userId);
+    public List<DayDuty> loadDutiesByUser(User user) {
+        return dayDutyDao.loadDutiesByUser(user);
     }
 }

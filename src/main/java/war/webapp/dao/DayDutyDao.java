@@ -1,6 +1,7 @@
 package war.webapp.dao;
 
 import war.webapp.model.DayDuty;
+import war.webapp.model.User;
 
 import java.util.Calendar;
 import java.util.List;
@@ -21,6 +22,6 @@ public interface DayDutyDao extends GenericDao<DayDuty, Long> {
     
     public DayDuty loadSingleDayDutyByExample(DayDuty exampleDayDuty);
 
-    public List<DayDuty> loadDutiesByUserId(Long userId);
+    public List<DayDuty> loadDutiesByUser(User user);
 
 }

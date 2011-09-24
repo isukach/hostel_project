@@ -2,28 +2,44 @@ package war.webapp.action;
 
 import war.webapp.model.DayDuty;
 import war.webapp.model.Duty;
+import war.webapp.model.User;
 import war.webapp.service.DayDutyManager;
+import war.webapp.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDutiesHistoryForm extends BasePage {
-    private Long userId;
+    public static final int FIRST_SHIFT = 1;
+    public static final int SECOND_SHIFT = 2;
+
+    private String userId;
     private DayDutyManager dayDutyManager;
 
     public List<Duty> getDutiesForUser() {
-        if (userId == null) {
-            userId = userManager.getUserByUsername(getRequest().getRemoteUser()).getId();
-        }
+        User user = getUser();
+        List<DayDuty> dayDutiesForUser = dayDutyManager.loadDutiesByUser(user);
+        return makeListOfDuties(user, dayDutiesForUser);
+    }
 
-        List<DayDuty> dayDuties = dayDutyManager.loadDutiesByUserId(userId);
+    private User getUser() {
+        User user;
+        if (userId == null) {
+            user = userManager.getUserByUsername(getRequest().getRemoteUser());
+        } else {
+            user = userManager.getUser(userId);
+        }
+        return user;
+    }
+
+    private List<Duty> makeListOfDuties(User user, List<DayDuty> dayDuties) {
         List<Duty> duties = new ArrayList<Duty>();
         for (DayDuty dayDuty : dayDuties) {
-            if (dayDuty.getFirstUser().getId().equals(userId)) {
-                addNewDutyToList(duties, dayDuty, 1);
+            if (dayDuty.getFirstUser() != null && dayDuty.getFirstUser().equals(user)) {
+                addNewDutyToList(duties, dayDuty, FIRST_SHIFT);
             }
-            if (dayDuty.getSecondUser().getId().equals(userId)) {
-                addNewDutyToList(duties, dayDuty, 2);
+            if (dayDuty.getSecondUser() != null && dayDuty.getSecondUser().equals(user)) {
+                addNewDutyToList(duties, dayDuty, SECOND_SHIFT);
             }
         }
         return duties;
@@ -32,8 +48,9 @@ public class UserDutiesHistoryForm extends BasePage {
     private void addNewDutyToList(List<Duty> duties, DayDuty dayDuty, int shift) {
         Duty duty = new Duty();
 
-        duty.setDate(dayDuty.getDate());
-        if (shift == 1) {
+        String date = DateUtil.convertDateToString(dayDuty.getDate().getTime());
+        duty.setDate(date);
+        if (shift == FIRST_SHIFT) {
             duty.setTime("8:00-16:00");
             duty.setRemarks(dayDuty.getFirstUserRemarks());
             duty.setPunishment(dayDuty.getFirstUserPunishment());
@@ -46,7 +63,7 @@ public class UserDutiesHistoryForm extends BasePage {
         duties.add(duty);
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
