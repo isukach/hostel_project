@@ -72,12 +72,12 @@
         <managed-bean-class>war.webapp.action.UserDutiesHistoryForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-            <property-name>userId</property-name>
-            <value>#{param.userId}</value>
+            <property-name>dayDutyManager</property-name>
+            <value>#{dayDutyManager}</value>
         </managed-property>
         <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
+            <property-name>userId</property-name>
+            <value>#{param.userId}</value>
         </managed-property>
     </managed-bean>
 
@@ -96,12 +96,8 @@
         <managed-bean-class>war.webapp.action.RemarkForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-            <property-name>remarkManager</property-name>
-            <value>#{remarkManager}</value>
-        </managed-property>
-        <managed-property>
             <property-name>dayDutyManager</property-name>
-            <value>#{dutyManager}</value>
+            <value>#{dayDutyManager}</value>
         </managed-property>
     </managed-bean>
 
@@ -154,7 +150,7 @@
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>dayDutyManager</property-name>
-            <value>#{dutyManager}</value>
+            <value>#{dayDutyManager}</value>
         </managed-property>
         <managed-property>
             <property-name>monthManager</property-name>

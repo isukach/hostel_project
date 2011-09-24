@@ -14,42 +14,90 @@ import java.util.Calendar;
 public class DayDuty extends BaseObject implements Serializable {
     private static final long serialVersionUID = 1842676162177859911L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar date;
+
+    @ManyToOne
+    @JoinColumn(name = "first_user")
     private User firstUser;
+
+    @ManyToOne
+    @JoinColumn(name = "second_user")
     private User secondUser;
+
+    @Column(name = "first_user_remarks", nullable = true)
+    private String firstUserRemarks;
+
+    @Column(name = "second_user_remarks", nullable = true)
+    private String secondUserRemarks;
+
+    @Column(name = "first_user_punishment", nullable = true)
+    private String firstUserPunishment;
+
+    @Column(name = "second_user_punishment", nullable = true)
+    private String secondUserPunishment;
+
+    @Column
     private String floor;
 
     public DayDuty() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
-    @Column(name = "date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getDate() {
         return date;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "first_user")
     public User getFirstUser() {
         return firstUser;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "second_user")
     public User getSecondUser() {
         return secondUser;
     }
 
-    @Column
     public String getFloor() {
         return floor;
+    }
+
+    public String getFirstUserRemarks() {
+        return firstUserRemarks;
+    }
+
+    public void setFirstUserRemarks(String firstUserRemarks) {
+        this.firstUserRemarks = firstUserRemarks;
+    }
+
+    public String getSecondUserRemarks() {
+        return secondUserRemarks;
+    }
+
+    public void setSecondUserRemarks(String secondUserRemarks) {
+        this.secondUserRemarks = secondUserRemarks;
+    }
+
+    public String getFirstUserPunishment() {
+        return firstUserPunishment;
+    }
+
+    public void setFirstUserPunishment(String firstUserPunishment) {
+        this.firstUserPunishment = firstUserPunishment;
+    }
+
+    public String getSecondUserPunishment() {
+        return secondUserPunishment;
+    }
+
+    public void setSecondUserPunishment(String secondUserPunishment) {
+        this.secondUserPunishment = secondUserPunishment;
     }
 
     @Transient

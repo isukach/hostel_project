@@ -91,9 +91,9 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     }
 
     public List<DayDuty> loadDutiesByUserId(Long userId) {
-        List duties = getHibernateTemplate().find("from DayDuty where firstUser=? or secondUser=?", new Object[] {userId, userId});
+        List duties = getHibernateTemplate().find("from DayDuty where firstUser=? or secondUser=?", new Object[]{userId, userId});
         if (duties == null || duties.isEmpty()) {
-            return Collections.emptyList();
+            return new ArrayList<DayDuty>(0);
         }
         return duties;
     }
