@@ -6,6 +6,7 @@ popup({popup: '#tablePopup',show: true,centralize: true,overlay: true,overlayID:
 $(document).ready(function() {	
 	
 	tabs(); // payment system tabs switcher
+
 		
 });
 

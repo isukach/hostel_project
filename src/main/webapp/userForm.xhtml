@@ -49,8 +49,8 @@
                     <t:htmlTag value="div">
                         <t:htmlTag value="div" styleClass="left" >
                             <h:outputLabel styleClass="desc" value="Фото" />
-                            <h:graphicImage value="/images/profile/addressbook.gif" rendered="#{!userForm.profileImageExist}" width="120" height="120"/>
-                            <h:graphicImage value="#{userForm.user.imagePath}" rendered="#{userForm.profileImageExist}" width="120" height="120"/>
+                            <h:graphicImage value="/images/profile/addressbook.gif" rendered="#{!userForm.user.profileImageExist}" width="120" height="120"/>
+                            <h:graphicImage value="#{userForm.user.imagePath}" rendered="#{userForm.user.profileImageExist}" width="120" height="120"/>
                         </t:htmlTag>
 
                         <t:htmlTag value="div">
@@ -60,7 +60,7 @@
                                 styleClass="text medium">
                                 <v:commonsValidator client="true" type="required" arg="#{text['user.username']}" />
                             </h:inputText>
-                            <h:commandButton action="selectFile" value="�?зменить фотографию" >
+                            <h:commandButton action="selectFile" value="Iзменить фотографию" >
                                 <f:param name="username" value="#{userForm.user.username}" />
                                 <f:param name="firstname" value="#{userForm.user.firstName}" />
                             </h:commandButton>

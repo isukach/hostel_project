@@ -178,6 +178,10 @@
             <from-outcome>dutyTable</from-outcome>
             <to-view-id>/dutyTableView.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>hostelNav</from-outcome>
+            <to-view-id>/hostelNavigation.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/*</from-view-id>

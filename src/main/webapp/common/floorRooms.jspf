@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
+    <f:view>
+        <div class="floorcontainer">
+             #{floorNumber} floor!!!
+          <div class="floor_plan">
+            <div class="left_part">
+                <c:forEach var="room" begin="1" end="23" step="2">
+                    <img alt="" class="room" room="#{room}"  onmouseout="this.src='../images/rooms/room701.gif'" onmouseover="this.src='../images/rooms/room701hover.gif'" src="../images/rooms/room701.gif" />
+                </c:forEach>
+            </div>
+
+            <div class="right_part">
+                <c:forEach var="room" begin="2" end="16" step="2">
+                    <img class="room" alt="" room="#{room}" onmouseout="this.src='../images/rooms/room701.gif'" onmouseover="this.src='../images/rooms/room701hover.gif'" src="../images/rooms/room701.gif" />
+                </c:forEach>
+            </div>
+          </div>
+          </div>
+    </f:view>
+</html>

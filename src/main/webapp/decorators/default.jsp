@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" media="print" href="<c:url value='/styles/${appConfig["csstheme"]}/print.css'/>" />
 
         <script type="text/javascript" src="<c:url value='/scripts/jquery-1.6.1.min.js'/>"></script>
+        <script type="text/javascript" src="<c:url value='/scripts/jquery.twirlie-1.1.js'/>"></script>
         <%--<script type="text/javascript" src="<c:url value='/scripts/prototype.js'/>"></script>--%>
         <%--<script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>--%>
         <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>

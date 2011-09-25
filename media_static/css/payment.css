@@ -16,5 +16,5 @@ table {width:100%;padding:10px;border:0px;}
 .box {display:none;}
 .box.current {display:block; background:none #fff;}
 
-
-
+.floorcontainer{padding: 0; margin: 0; width: 500}
+.floor_plan{ overflow:hidden; position: relative;}

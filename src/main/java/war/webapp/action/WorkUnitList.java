@@ -11,7 +11,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
-import war.webapp.dto.WorkUnitDto;
+//import war.webapp.dto.WorkUnitDto;
 import war.webapp.model.DayDuty;
 import war.webapp.model.State;
 import war.webapp.model.User;
@@ -19,6 +19,7 @@ import war.webapp.model.WorkUnit;
 import war.webapp.service.WorkUnitManager;
 
 public class WorkUnitList extends BasePage {
+/*
 
     private WorkUnitManager workUnitManager;
     private List<WorkUnitDto> unitsDto;
@@ -88,4 +89,5 @@ public class WorkUnitList extends BasePage {
         return null;
     }
 
+*/
 }
