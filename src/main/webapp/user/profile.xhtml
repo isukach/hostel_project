@@ -6,173 +6,149 @@
       xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
 
 <f:view>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
+    </head>
+    <f:loadBundle var="text" basename="#{userList.bundleName}"/>
+    <c:set var="user" value="#{userProfile.user}"/>
 
-        <c:set var="user" value="#{userProfile.user}" />
+    <div class="profileContainer">
 
-        <div class="profileContainer">
+        <h1 style="font-size: 1.5em;"><h:outputText value="#{user.username}"/></h1>
 
-            <h1 style="font-size: 1.5em;"><h:outputText value="#{user.username}" /></h1>
+        <h:graphicImage styleClass="mainPhoto" value="/images/profile/addressbook.gif"
+                        rendered="#{!userProfile.user.profileImageExist}"/>
+        <h:graphicImage styleClass="mainPhoto" value="#{userProfile.user.imagePath}"
+                        rendered="#{userProfile.user.profileImageExist}"/>
 
-            <h:graphicImage styleClass="mainPhoto" value="/images/profile/addressbook.gif" rendered="#{!userForm.profileImageExist}"/>
-            <!--<h:graphicImage styleClass="mainPhoto" value="#{userForm.user.imagePath}" rendered="#{userForm.profileImageExist}" />-->
+        <!--<t:htmlTag value="div">-->
+        <div id="fullName">
+            <span class="mainLabel">
+                ФИО:
+            </span>
+            <span class="mainValue">
+                <h:outputText value="#{user.fullName}"/>
+            </span>
+        </div>
+        <div id="mainBirthday">
+            <span class="mainLabel">Дата рождения:</span>
+            <span class="mainValue"><h:outputText value="#{user.birthDayString}"/></span>
+        </div>
+        <div id="room">
+            <span class="mainLabel">Комната:</span>
+            <span class="mainValue"><a href="/#"><span class="number"><h:outputText value="#{user.address.hostelRoom}"/></span></a></span>
+        </div>
+        <div id="telephoneNumber">
+            <span class="mainLabel">Номер телефона:</span>
+            <span class="mainValue"><h:outputText value="#{user.phoneNumber}"/></span>
+        </div>
+        <div id="faculty">
+            <span class="mainLabel">Факультет:</span>
+            <span class="mainValue"><a href="/#"><h:outputText value="#{user.department}"/></a></span>
+        </div>
+        <div id="mainBirthday">
+            <span class="mainLabel">Группа:</span>
+            <span class="mainValue"><h:outputText value="#{user.universityGroup}"/></span>
+        </div>
+        <div id="mainBirthday">
+            <span class="mainLabel">Оплата обучения:</span>
+            <span class="mainValue">
+            <c:choose>
+                <c:when test="#{user.freePayStudy}">
+                    бесплатно
+                </c:when>
+                <c:otherwise>
+                    платно
+                </c:otherwise>
+            </c:choose>
+            </span>
+        </div>
+        <h:form>
+            <div class="tabContent">
+                <ul class="tabList">
+                    <li><a href="#first">Дежурства</a></li>
+                    <li class="current"><a href="#second">Отработки</a></li>
+                    <li class="lastTab"><a href="#third">Сеть</a></li>
+                </ul>
+                <div class="tabText">
+                    <div class="box" id="first">
+                        <f:subview id="editableVersionDuty">
+                            <ui:include src="pofileEditableView.jspf">
+                                <ui:param name="title" value="Duty Table"/>
+                            </ui:include>
+                        </f:subview>
 
-                    <!--<t:htmlTag value="div">-->
-                <div id="fullName">
-                    <span class="mainLabel">
-                        FIO:
-                    </span>
-                    <span class="mainValue">
-                        <h:outputText value="#{user.fullName}" />
-                    </span>
-                </div>
-                <div id="mainBirthday">
-                    <span class="mainLabel">Дата рождения:</span>
-                    <span class="mainValue"><h:outputText value="#{user.birthDayString}" /></span>
-                </div>
-                <div id="room">
-                    <span class="mainLabel">Комната:</span>
-                    <span class="mainValue"><a href="/#"><span class="number"><h:outputText value="#{user.address.hostelRoom}" /></span></a></span>
-                </div>
-                <div id="telephoneNumber">
-                    <span class="mainLabel">Номер телефона:</span>
-                    <span class="mainValue"><h:outputText value="#{user.phoneNumber}" /></span>
-                </div>
-                <div id="faculty">
-                <span class="mainLabel">Факультет:</span>
-                    <span class="mainValue"><a href="/#"><h:outputText value="#{user.department}" /></a></span>
-                </div>
-                <div id="mainBirthday">
-                    <span class="mainLabel">Группа:</span>
-                    <span class="mainValue"><h:outputText value="#{user.universityGroup}" /></span>
-                </div>
-                <div id="mainBirthday">
-                    <span class="mainLabel">Оплата обучения:</span>
-                    <span class="mainValue">
-                    <c:choose>
-                        <c:when test="#{user.freePayStudy}">
-                            бесплатно
-                        </c:when>
-                        <c:otherwise>
-                            платно
-                        </c:otherwise>
-                    </c:choose>
-                    </span>
-                </div>
-            <h:form>
-                <div class="tabContent">
-                    <ul class="tabList">
-                        <li><a href="#first">Дежурства</a></li>
-                        <li class="current"><a href="#second" >Отработки</a></li>
-                        <li class="lastTab"><a href="#third">Сеть</a></li>
-                    </ul>
-                    <div class="tabText">
-                        <div class="box" id="first">
-                            <f:subview id="editableVersionDuty" >
-                                <ui:include src="pofileEditableView.jspf" >
-                                    <ui:param name="title" value="Duty Table"/>
-                                </ui:include>
-                            </f:subview>
-                            <table style="margin-top: 10px" class="scrollerTable table">
-                                <thead>
-                                    <tr>
+                        <ui:include src="/common/userDutiesHistoryTable.xhtml"/>
 
-                                        <th class="standardTable_Header" width="10%">
-                                            <a>Число</a>
-                                        </th>
-                                        <th class="standardTable_Header">
-                                            <a>Время</a>
-                                        </th>
-                                        <th class="standardTable_Header">
-                                            <a>Замечания</a>
-                                        </th>
-                                        <th class="standardTable_Header">
-                                            <a>Наказание</a>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="j_id2:duties:tbody_element">
-                                    <tr class="standardTable_Row1">
-                                        <td class="standardTable_Column">
-                                            <span>26.08.2011</span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span>8.00-16.00</span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span>Дежурный отсутствовал на месте, грязные плиты, не вынесен мусор.</span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span>Дополнительное дежурство.</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p>Bтого:</p>
-                            <p>Отработанных дежурств: 3.</p>
-                            <p>Дополнительных дежурств: <span style="color: red;">1</span>.</p>
-                            <p>Дополнительных отработок: <span style="color: red;">5</span>.</p>
-                        </div>
-                        <div class="box current" id="second">
-                            <f:subview id="editableVersionHostelJob" >
-                                <ui:include src="/common/profileWorkUnitTable.xhtml" >
-                                    <ui:param name="userId" value="#{user.id}"/>
-                                </ui:include>
-                            </f:subview>
+                        <p>Итого:</p>
 
-                        </div>
-                        <div class="box" id="third">
-                            <f:subview id="editableVersionNetworkPayment" >
-                                <ui:include src="pofileEditableView.jspf" >
-                                    <ui:param name="title" value="Network Payment"/>
-                                </ui:include>
-                            </f:subview>
-                            <table style="margin-top: 10px" class="scrollerTable table">
-                                <thead>
-                                    <tr>
-                                        <th class="standardTable_Header" width="15%">
-                                            <a>Месяц</a>
-                                        </th>
-                                        <th class="standardTable_Header" >
-                                            <a>Оплата</a>
-                                        </th>
-                                        <th class="standardTable_Header" >
-                                            <a>Дата оплаты</a>
-                                        </th>
-                                        <th class="standardTable_Header" >
-                                            <a>Место оплаты</a>
-                                        </th>
-                                        <th class="standardTable_Header" >
-                                            <a>Сумма оплаты</a>
-                                        </th>
+                        <p>Отработанных дежурств: 3.</p>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="standardTable_Row1">
-                                        <td class="standardTable_Column" width="5%">
-                                            <span>декабрь</span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span>+</span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span>22.09.2011</span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span><a href="/#">4к БГУ</a></span>
-                                        </td>
-                                        <td class="standardTable_Column">
-                                            <span>20.000</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <p>Дополнительных дежурств: <span style="color: red;">1</span>.</p>
+
+                        <p>Дополнительных отработок: <span style="color: red;">5</span>.</p>
                     </div>
-                    <div class="clear"></div>
+                    <div class="box current" id="second">
+                        <f:subview id="editableVersionHostelJob">
+                            <ui:include src="pofileEditableView.jspf">
+                                <ui:param name="title" value="Hostel Job"/>
+                            </ui:include>
+                        </f:subview>
+                        <ui:include src="/user/profileWorkUnitTable.xhtml"/>
+                    </div>
+                    <div class="box" id="third">
+                        <f:subview id="editableVersionNetworkPayment">
+                            <ui:include src="pofileEditableView.jspf">
+                                <ui:param name="title" value="Network Payment"/>
+                            </ui:include>
+                        </f:subview>
+                        <table style="margin-top: 10px" class="scrollerTable table">
+                            <thead>
+                            <tr>
+                                <th class="standardTable_Header" width="15%">
+                                    <a>Месяц</a>
+                                </th>
+                                <th class="standardTable_Header">
+                                    <a>Оплата</a>
+                                </th>
+                                <th class="standardTable_Header">
+                                    <a>Дата оплаты</a>
+                                </th>
+                                <th class="standardTable_Header">
+                                    <a>Место оплаты</a>
+                                </th>
+                                <th class="standardTable_Header">
+                                    <a>Сумма оплаты</a>
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="standardTable_Row1">
+                                <td class="standardTable_Column" width="5%">
+                                    <span>декабрь</span>
+                                </td>
+                                <td class="standardTable_Column">
+                                    <span>+</span>
+                                </td>
+                                <td class="standardTable_Column">
+                                    <span>22.09.2011</span>
+                                </td>
+                                <td class="standardTable_Column">
+                                    <span><a href="/#">4к БГУИР</a></span>
+                                </td>
+                                <td class="standardTable_Column">
+                                    <span>20.000</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </h:form>
-	</div>
+                <div class="clear"></div>
+            </div>
+        </h:form>
+    </div>
 
 </f:view>
 

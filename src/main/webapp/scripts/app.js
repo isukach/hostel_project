@@ -21,6 +21,22 @@ $(document).ready(function() {
         number : 'room'
     })
 
+    $(".room").live("mouseover mouseout", function(event) {
+        var roomTextEl =  $('.roomNumber');
+        var floorNumberText = $(this).attr('floor');
+        var roomNumberText = $(this).attr('room');
+        var calculatedRoomNumber = parseInt(floorNumberText)*100 + parseInt(roomNumberText);
+
+        if ( event.type == "mouseover" ) {
+               $('.roomNumber span').text(calculatedRoomNumber);
+               roomTextEl.positionOn($(this), 'center');
+               roomTextEl.show();
+        } else {
+            roomTextEl.hide();
+        }
+        return false;
+    });
+
 });
 
 function tabs() {

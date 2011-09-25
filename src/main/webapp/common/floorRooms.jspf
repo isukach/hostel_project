@@ -7,17 +7,17 @@
       xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
     <f:view>
         <div class="floorcontainer">
-             #{floorNumber} floor!!!
+             <span>#{floorNumber}</span> floor!!!
           <div class="floor_plan">
             <div class="left_part">
                 <c:forEach var="room" begin="1" end="23" step="2">
-                    <img alt="" class="room" room="#{room}"  onmouseout="this.src='../images/rooms/room701.gif'" onmouseover="this.src='../images/rooms/room701hover.gif'" src="../images/rooms/room701.gif" />
+                    <img alt="" class="room" floor="#{floorNumber}" room="#{room}"  onmouseout="this.src='../images/rooms/room701.gif'" onmouseover="this.src='../images/rooms/room701hover.gif'" src="../images/rooms/room701.gif" />
                 </c:forEach>
             </div>
 
             <div class="right_part">
                 <c:forEach var="room" begin="2" end="16" step="2">
-                    <img class="room" alt="" room="#{room}" onmouseout="this.src='../images/rooms/room701.gif'" onmouseover="this.src='../images/rooms/room701hover.gif'" src="../images/rooms/room701.gif" />
+                    <img class="room" alt="" floor="#{floorNumber}" room="#{room}" onmouseout="this.src='../images/rooms/room701.gif'" onmouseover="this.src='../images/rooms/room701hover.gif'" src="../images/rooms/room701.gif" />
                 </c:forEach>
             </div>
           </div>

@@ -10,8 +10,10 @@
             <div id="body">
 
             <div id="slider">
+                <div class="roomNumber"><span id="roomNumber">0</span></div>
                 <ul class="sliderelement">
                     <c:forEach var="floor" begin="2" end="12">
+
                             <li>
                                 <ui:include src="/common/floorRooms.jspf" >
                                     <ui:param name="floorNumber" value="#{floor}"/>
