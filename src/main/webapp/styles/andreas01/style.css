@@ -1,0 +1,161 @@
+/*
+
+reseting elements:
+
+*//*
+
+
+
+*/
+/* This takes out the fuzzy line around links when you click them, it's an optional addition *//*
+
+
+:focus {outline: none;}
+
+
+.slidecontainer {
+	margin: 0;
+	padding: 0;
+	width: 500px;
+	position: relative;
+}
+
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+
+
+.floorNumbers {
+	padding: 0;
+	overflow: hidden;
+}
+
+.prev, .next {
+	position: absolute;
+	top: 87px;
+	display: block;
+	width: 18px;
+	height: 28px;
+}
+
+.prev:hover, .next:hover { background-position: bottom; }
+
+.prev {
+	background: url('images/previous.png') no-repeat;
+	right: 537px
+}
+.next {
+	background: url('images/next.png') no-repeat;
+	left: 537px;
+}
+
+#slider {
+    margin-left: 0;
+	margin-bottom: 40px;
+}
+
+p {
+	margin-bottom: 30px;
+	text-shadow: 0px 1px 0px #fff;
+}
+
+*/
+/* button *//*
+
+
+.left p {
+	float: left;
+	margin-right: 30px;
+}
+
+.button {
+	background: url('images/button.jpg') no-repeat scroll top left;
+	color: #808080;
+	line-height: 30px;
+	font-family: Helvetica, Arial, sans-serif;
+	float: left;
+	clear: both;
+	text-decoration: none;
+}
+
+.button:active {
+	color: #fff;
+	text-shadow: 0px 1px 0px #5c6266;
+}
+
+.button span {
+	background: url('images/button-end.jpg') no-repeat scroll top right;
+	display: block;
+	height: 30px;
+	padding: 0 10px;
+}
+
+.button:hover { background-position: 0px -30px; }
+.button span:hover { background-position: right -30px; }
+.button:active { background-position: 0px -60px; }
+.button span:active { background-position: right -60px; }
+
+*/
+/* Begin Twirlie Mandatory Styles *//*
+
+
+#slider {
+    margin: 0;
+    padding: 0;
+	width: 500px; */
+/* The width of the display area *//*
+
+	height: 200px; */
+/* The height of the display area *//*
+
+	overflow: hidden; */
+/* So that slides are hidden when they go out of view *//*
+
+	position: relative; */
+/* So that the slides move relative to the display area *//*
+
+}
+
+#slider ul {
+	height: 200px; */
+/* Same as #slider *//*
+
+	width: 10000em; */
+/* So that the number of slides is unlimited *//*
+
+	list-style: none; */
+/* To get rid of those ugly default bullets *//*
+
+	position: absolute; */
+/* So that the slides are positioned absolute, relative to the display area *//*
+
+	left: 0px; */
+/* Starting position, 0px from the left *//*
+
+    margin: 0;
+    padding: 0;
+}
+
+#slider ul li {
+    margin: 0;
+    padding: 0;
+	width: 500px; */
+/* Same as #slider, but for each individual slide *//*
+
+	height: 200px; */
+/* Same as #slider, but for each individual slide *//*
+
+	float: left; */
+/* To arrange the items side by side *//*
+
+	display: block; */
+/* <li> is usually an inline element; this changes that *//*
+
+}
+*/
