@@ -48,9 +48,10 @@
             <h:inputHidden id="remarkDayDutyId" value="#{addRemarkForm.dayDutyId}"/>
             <h:inputHidden id="remarkShift" value="#{addRemarkForm.shift}"/>
 
-            <a4j:commandLink styleClass="commit" actionListener="#{addRemarkForm.addRemarkToUser}"
+            <a4j:commandButton styleClass="commit" actionListener="#{addRemarkForm.addRemarkToUser}"
                              value="#{text['menu.admin.addRemark']}"/>
-            <a class="close" href="/">#{text['button.cancel']}</a>
+            <h:commandButton styleClass="close" value="#{text['button.cancel']}"/>
+            <!--<a class="close" href="/">#{text['button.cancel']}</a>-->
         </a4j:region>
     </div>
 
