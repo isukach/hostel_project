@@ -17,7 +17,7 @@
     <!-- Add new DAOs here -->
 
     <!-- Add new Managers here -->
-    <bean id="dutyManager" class="war.webapp.service.impl.DayDutyManagerImpl" />
+    <bean id="dayDutyManager" class="war.webapp.service.impl.DayDutyManagerImpl" />
     <bean id="monthManager" class="war.webapp.service.impl.MonthManagerImpl" />
     <bean id="floorManager" class="war.webapp.service.impl.FloorManagerImpl">
         <property name="floorsNames">

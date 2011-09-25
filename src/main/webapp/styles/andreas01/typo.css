@@ -214,7 +214,6 @@
             .table tfoot th, .table tfoot td, .contribTable table.tableHeaderTable {
                 border: 1px solid #523A0B;
                 border-width: 1px 0;
-                background: #EBE5D9;
             }
             .table th {
                 font-weight: bold;

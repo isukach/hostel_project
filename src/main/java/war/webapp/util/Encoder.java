@@ -2,7 +2,8 @@ package war.webapp.util;
 
 public class Encoder {
     public static void main(String[] args) {
-        String s = "Пароль был успешно изменен";
+
+        String s = "Пароль";
         String result = "";
         for (int i = 0; i < s.length(); i++) {
             if ((int) s.charAt(i) < 1000) {
