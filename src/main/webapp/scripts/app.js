@@ -36,6 +36,14 @@ $(document).ready(function() {
         }
         return false;
     });
+    $('.goodMining').gradienter({ color_start: '56cb56', color_end: '165c16' });
+    $('.badMining').gradienter({ color_start: 'cb5656', color_end: '5c1616' });
+
+    $('.goodNetwork').gradienter({ color_start: '56cb56', color_end: '165c16' });
+    $('.badNetwork').gradienter({ color_start: 'cb5656', color_end: '5c1616' });
+
+    $('.goodDuty').gradienter({ color_start: '56cb56', color_end: '165c16' });
+    $('.badDuty').gradienter({ color_start: 'cb5656', color_end: '5c1616' });
 
 });
 

@@ -8,6 +8,7 @@
 <f:view>
     <head>
         <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
+        <script type="text/javascript" src="/scripts/gradienter.js"></script>
     </head>
     <f:loadBundle var="text" basename="#{userList.bundleName}"/>
     <c:set var="user" value="#{userProfile.user}"/>
@@ -74,6 +75,38 @@
                 </ul>
                 <div class="tabText">
                     <div class="box" id="first">
+                        <div class="dutyGradient">
+                            <div class="gradientMonth goodDuty">
+                                <p>Сент</p>
+                            </div>
+                            <div class="gradientMonth goodDuty">
+                                <p>Окт</p>
+                            </div>
+                            <div class="gradientMonth goodDuty">
+                                <p>Нояб</p>
+                            </div>
+                            <div class="gradientMonth goodDuty">
+                                <p>Дек</p>
+                            </div>
+                            <div class="gradientMonth badDuty">
+                                <p>Янв</p>
+                            </div>
+                            <div class="gradientMonth badDuty">
+                                <p>Февр</p>
+                            </div>
+                            <div class="gradientMonth badDuty">
+                                <p>Март</p>
+                            </div>
+                            <div class="gradientMonth badDuty">
+                                <p>Апр</p>
+                            </div>
+                            <div class="gradientMonth badDuty">
+                                <p>Май</p>
+                            </div>
+                            <div class="gradientMonth badDuty">
+                                <p>Июнь</p>
+                            </div>
+                        </div>
                         <f:subview id="editableVersionDuty">
                             <ui:include src="pofileEditableView.jspf">
                                 <ui:param name="title" value="Duty Table"/>
@@ -91,6 +124,38 @@
                         <p>Дополнительных отработок: <span style="color: red;">5</span>.</p>
                     </div>
                     <div class="box current" id="second">
+                        <div class="miningGradient">
+                            <div class="gradientMonth goodMining">
+                                <p>Сент</p>
+                            </div>
+                            <div class="gradientMonth goodMining">
+                                <p>Окт</p>
+                            </div>
+                            <div class="gradientMonth goodMining">
+                                <p>Нояб</p>
+                            </div>
+                            <div class="gradientMonth goodMining">
+                                <p>Дек</p>
+                            </div>
+                            <div class="gradientMonth badMining">
+                                <p>Янв</p>
+                            </div>
+                            <div class="gradientMonth badMining">
+                                <p>Февр</p>
+                            </div>
+                            <div class="gradientMonth badMining">
+                                <p>Март</p>
+                            </div>
+                            <div class="gradientMonth badMining">
+                                <p>Апр</p>
+                            </div>
+                            <div class="gradientMonth badMining">
+                                <p>Май</p>
+                            </div>
+                            <div class="gradientMonth badMining">
+                                <p>Июнь</p>
+                            </div>
+                        </div>
                         <f:subview id="editableVersionHostelJob">
                             <ui:include src="pofileEditableView.jspf">
                                 <ui:param name="title" value="Hostel Job"/>
@@ -99,6 +164,38 @@
                         <ui:include src="/user/profileWorkUnitTable.xhtml"/>
                     </div>
                     <div class="box" id="third">
+                        <div class="networkGradient">
+                            <div class="gradientMonth goodNetwork">
+                                <p>Сент</p>
+                            </div>
+                            <div class="gradientMonth goodNetwork">
+                                <p>Окт</p>
+                            </div>
+                            <div class="gradientMonth goodNetwork">
+                                <p>Нояб</p>
+                            </div>
+                            <div class="gradientMonth badNetwork">
+                                <p>Дек</p>
+                            </div>
+                            <div class="gradientMonth badNetwork">
+                                <p>Янв</p>
+                            </div>
+                            <div class="gradientMonth badNetwork">
+                                <p>Февр</p>
+                            </div>
+                            <div class="gradientMonth badNetwork">
+                                <p>Март</p>
+                            </div>
+                            <div class="gradientMonth badNetwork">
+                                <p>Апр</p>
+                            </div>
+                            <div class="gradientMonth badNetwork">
+                                <p>Май</p>
+                            </div>
+                            <div class="gradientMonth badNetwork">
+                                <p>Июнь</p>
+                            </div>
+                        </div>
                         <f:subview id="editableVersionNetworkPayment">
                             <ui:include src="pofileEditableView.jspf">
                                 <ui:param name="title" value="Network Payment"/>
