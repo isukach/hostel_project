@@ -34,7 +34,7 @@ Version: 1.0
             padding: 0;
             height: 271px;
             width: 100%;
-            background: #fff url(images/front.jpg) bottom center no-repeat;
+            background: #fff url(images/searchingForDevelopers.png) bottom center no-repeat;
         }
             div#switchLocale {
                 position: absolute;
