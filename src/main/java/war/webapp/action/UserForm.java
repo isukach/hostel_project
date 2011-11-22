@@ -8,6 +8,7 @@ import org.springframework.security.AuthenticationTrustResolverImpl;
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 import war.webapp.Constants;
+import war.webapp.dao.UserDao;
 import war.webapp.model.LabelValue;
 import war.webapp.model.Role;
 import war.webapp.model.User;
@@ -51,8 +52,7 @@ public class UserForm extends BasePage implements Serializable {
 
     private Map<String, Boolean> payModeToValue;
 
-
-
+    //Should be removed
     {
        payModeToValue = new LinkedHashMap<String, Boolean>();
        payModeToValue.put(getBundle().getString("user.studyPaymentFree"), true);
@@ -105,7 +105,10 @@ public class UserForm extends BasePage implements Serializable {
 
     public String edit() {
         HttpServletRequest request = getRequest();
-
+        String userId = request.getParameter("userId");
+        if (userId != null) {
+            id = userId;
+        }
         // if a user's id is passed in
         if (id != null) {
             // lookup the user using that id

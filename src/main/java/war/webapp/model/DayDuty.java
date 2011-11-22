@@ -2,6 +2,8 @@ package war.webapp.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.annotations.Cascade;
+
 import war.webapp.util.DateUtil;
 import war.webapp.util.MonthHelper;
 
@@ -22,11 +24,11 @@ public class DayDuty extends BaseObject implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar date;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "first_user")
     private User firstUser;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "second_user")
     private User secondUser;
 

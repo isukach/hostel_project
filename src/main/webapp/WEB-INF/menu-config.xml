@@ -32,6 +32,7 @@
             <Item name="ShowDutyTableMenu" title="menu.duty.show" page="/dutyTableView.html" />
             <Item name="WriteUserOnDuty" title="menu.duty.floorhead.writeuser" page="/floorhead/floorheadDutyTable.html" />
             <Item name="FloorheadViewUsers" title="menu.duty.floorhead.users" page="/floorhead/floorUsers.html" />
+            <Item name="MovedOutFloorheadViewUsers" title="menu.duty.floorhead.movedoutusers" page="/floorhead/movedOutFloorUsers.html" />
         </Menu>
         <Menu name="HostelProfile" title="menu.profile" description="Hostel Profile" roles="ROLE_ADMIN,ROLE_STAROSTA,ROLE_USER" width="120"
               page="/user/profile.html"/>

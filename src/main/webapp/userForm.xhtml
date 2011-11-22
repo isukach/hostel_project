@@ -74,6 +74,24 @@
                 <h:inputHidden value="#{userForm.user.username}" id="username" />
                 <h:inputHidden value="#{userForm.user.password}" id="password" />
             </c:if>
+            
+            <h:panelGroup>
+                <t:htmlTag value="div">
+                    <t:htmlTag value="div" styleClass="left">
+                        <h:outputLabel for="login" value="#{text['label.username']}" styleClass="desc" />
+                        <t:message for="login" styleClass="fieldError" />
+                        <h:inputText value="#{userForm.user.username}" id="login" maxlength="50"
+                            readonly="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                            <v:commonsValidator client="true" type="required" arg="#{text['user.login']}" />
+                        </h:inputText>
+                    </t:htmlTag>
+                    <t:htmlTag value="div">
+                        <br/><br/>
+                    </t:htmlTag>
+                </t:htmlTag>
+            </h:panelGroup>
+            <h:outputText />
+            <h:outputText />
 
             <h:panelGroup>
                 <t:htmlTag value="div">

@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:view>
+    <f:loadBundle var="text" basename="#{userList.bundleName}"/>
+    <head>
+        <title>#{text['userList.title']}</title>
+        <meta name="heading" content="#{text['movedOutUserList.heading']}"/>
+        <meta name="menu" content="MovedOutFloorheadViewUsers"/>
+        <link rel="stylesheet" type="text/css" href="/styles/forms.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
+    </head>
+
+    <h:form id="editMovedOutFloorUser">
+
+        <h2><h:outputFormat value="#{text['userList.floorNumber']}">
+            <f:param value="#{userList.currentUserFloor}"/>
+        </h:outputFormat></h2>
+
+        <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
+        <t:dataTable id="users" var="user" style="margin-top: 10px" value="#{userList.movedOutUsersByFloorheadFloor}" rows="25"
+                     sortColumn="#{userList.sortColumn}" sortAscending="#{userList.ascending}"
+                     styleClass="scrollerTable table"
+                     headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2">
+            <t:column>
+                <f:facet name="header">
+                    <h:outputText value="#{text['activeUsers.fullName']}"/>
+                </f:facet>
+                <h:commandLink action="#{userForm.edit}" value="#{user.fullName}">
+                    <f:param name="userId" value="#{user.id}"/>
+                    <f:param name="from" value="list"/>
+                </h:commandLink>
+            </t:column>
+            <t:column>
+                <f:facet name="header">
+                    <h:outputText value="#{text['user.room']}"/>
+                </f:facet>
+                <h:outputText value="#{user.address.hostelRoom}"/>
+            </t:column>
+        </t:dataTable>
+
+        <ui:include src="/common/tableFooter.xhtml">
+            <ui:param name="tableName" value="users"/>
+        </ui:include>
+
+        <script type="text/javascript">
+            highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
+        </script>
+
+    </h:form>
+</f:view>
+</html>

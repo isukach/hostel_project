@@ -7,6 +7,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.id.new_generator_mappings">true</property>
         <mapping class="war.webapp.model.User" />
+        <mapping class="war.webapp.model.DeletedUser" />
         <mapping class="war.webapp.model.Role" />
         <mapping class="war.webapp.model.DayDuty" />
         <mapping class="war.webapp.model.DutyMonth" />
