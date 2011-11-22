@@ -86,7 +86,8 @@
                         </h:inputText>
                     </t:htmlTag>
                     <t:htmlTag value="div">
-                        <br/><br/>
+                        <h:outputLabel value="#{text['label.password']}" styleClass="desc" />
+                        <h:commandButton value="#{text['button.reset.password']}" action="#{userForm.resetPassword}" styleClass="button" />
                     </t:htmlTag>
                 </t:htmlTag>
             </h:panelGroup>

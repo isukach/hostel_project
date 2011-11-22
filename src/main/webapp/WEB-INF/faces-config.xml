@@ -224,6 +224,11 @@
             <to-view-id>/floorhead/floorUsers.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>movedoutlist</from-outcome>
+            <to-view-id>/floorhead/movedOutFloorUsers.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/selectFile.xhtml</from-view-id>

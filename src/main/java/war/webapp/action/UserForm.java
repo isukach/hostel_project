@@ -127,6 +127,19 @@ public class UserForm extends BasePage implements Serializable {
 
         return "editProfile";
     }
+    
+    public String resetPassword() {
+        if (user.getId() != null) {
+            user = userManager.getUser(user.getId().toString());
+            user.setPassword("pass");
+            try {
+                userManager.saveUser(user);
+            } catch (UserExistsException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return "editProfile";
+    }
 
     /**
      * Convenience method for view templates to check if the user is logged in
