@@ -165,7 +165,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @return firstName + ' ' + lastName
      */
     @Transient
-    public String getFullName() {
+    public String getShortName() {
         StringBuilder result = new StringBuilder();
         result.append(lastName);
         if (firstName != null && firstName.length() > 0) {
@@ -442,10 +442,10 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
     
     @Transient
-    public String getShortFio()
+    public String getFullName()
     {
-        return this.getFirstName() + " " + this.getLastName().substring(0, 1)
-        + "." + this.getMiddleName().substring(0, 1) + ".";
+        return this.getFirstName() + " " + this.getLastName()
+        + " " + this.getMiddleName();
     }
     
     

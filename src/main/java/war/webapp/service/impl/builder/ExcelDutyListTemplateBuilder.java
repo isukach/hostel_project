@@ -213,13 +213,13 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
                 }
                 addLabelToSheet(sheet,distCol, dataRow, "" + dutyDate.get(Calendar.DAY_OF_MONTH), currentFormatDay);
 
-                addLabelToSheet(sheet, distCol + 1, dataRow, duty.getFirstUser().getFullName(), currentFormat);
+                addLabelToSheet(sheet, distCol + 1, dataRow, duty.getFirstUser().getShortName(), currentFormat);
                 String firstUSerGroup = duty.getFirstUser().getUniversityGroup();
                 addLabelToSheet(sheet, distCol + 2, dataRow, firstUSerGroup == null ? "" : firstUSerGroup, currentFormatGroup);
                 String firstUserRoom = duty.getFirstUser().getAddress().getHostelRoom();
                 addLabelToSheet(sheet, distCol + 3, dataRow,  firstUserRoom == null ? "" : firstUserRoom, currentFormat);
 
-                addLabelToSheet(sheet, distCol+4, dataRow, duty.getSecondUser().getFullName(), currentFormat);
+                addLabelToSheet(sheet, distCol+4, dataRow, duty.getSecondUser().getShortName(), currentFormat);
                 String secondUserGroup = duty.getSecondUser().getUniversityGroup();
                 addLabelToSheet(sheet,distCol + 5, dataRow, secondUserGroup == null ? "" : secondUserGroup,
                         currentFormatGroup);

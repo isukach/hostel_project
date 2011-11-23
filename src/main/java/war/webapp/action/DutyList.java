@@ -102,7 +102,7 @@ public class DutyList extends BasePage implements Serializable {
             });
             floorUsers.remove(getUser());
             for (User user : floorUsers) {
-                floorUsersList.add(new SelectItem(user.getAddress().getHostelRoom() + " " + user.getFullName()));
+                floorUsersList.add(new SelectItem(user.getAddress().getHostelRoom() + " " + user.getShortName()));
             }
         }
         return floorUsersList;

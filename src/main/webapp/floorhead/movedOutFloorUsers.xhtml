@@ -27,7 +27,7 @@
                 <f:facet name="header">
                     <h:outputText value="#{text['activeUsers.fullName']}"/>
                 </f:facet>
-                <h:commandLink action="#{userForm.edit}" value="#{user.fullName}">
+                <h:commandLink action="#{userForm.edit}" value="#{user.shortName}">
                     <f:param name="userId" value="#{user.id}"/>
                     <f:param name="from" value="movedoutlist"/>
                 </h:commandLink>

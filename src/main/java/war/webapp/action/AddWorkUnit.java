@@ -107,7 +107,7 @@ public class AddWorkUnit extends BasePage{
         List<SelectItem> usersList = new ArrayList<SelectItem>();
         if (lRoomMates.size() != 0) {
             for (User user: lRoomMates) {
-                SelectItem item = new SelectItem(user, user.getShortFio());
+                SelectItem item = new SelectItem(user, user.getShortName());
                 usersList.add(item);
             }
         } else {

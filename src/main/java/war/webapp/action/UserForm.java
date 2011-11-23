@@ -8,7 +8,6 @@ import org.springframework.security.AuthenticationTrustResolverImpl;
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
 import war.webapp.Constants;
-import war.webapp.dao.UserDao;
 import war.webapp.model.LabelValue;
 import war.webapp.model.Role;
 import war.webapp.model.User;
@@ -23,7 +22,6 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -199,7 +197,7 @@ public class UserForm extends BasePage implements Serializable {
             addMessage("user.saved");
             return "mainMenu"; // return to main Menu
         } else {
-            addMessage("user.added", user.getFullName());
+            addMessage("user.added", user.getShortName());
             return "list"; // return to list screen
         }
     }
@@ -229,8 +227,14 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     private void generatePassword() {
-        if (StringUtils.isEmpty(user.getPassword())) {
-            user.setPassword("pass");
+        String pass =  user.getPassword();
+        String sessionUserPass = ((User) getContext().getAuthentication().getPrincipal()).getPassword();
+        if (pass == null ) {
+            if(sessionUserPass == null){
+                user.setPassword("pass");
+            }else{
+                user.setPassword(sessionUserPass);
+            }
         }
     }
 
@@ -246,7 +250,7 @@ public class UserForm extends BasePage implements Serializable {
 
     public String delete() {
         userManager.removeUser(getUser().getId().toString());
-        addMessage("user.deleted", getUser().getFullName());
+        addMessage("user.deleted", getUser().getShortName());
 
         return "list";
     }

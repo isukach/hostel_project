@@ -16,7 +16,7 @@
 }
 
 .profileContainer tr.badDuty{background-color: red;}
-
+.profileContainer .links {float: right;}
 .profileContainer span.mainLabel{
 	color: #444444;
 	font-size: 1em;
