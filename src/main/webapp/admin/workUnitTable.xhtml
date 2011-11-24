@@ -26,7 +26,7 @@
                          columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
                 <t:column width="2%">
                     <f:facet name="header">
-                        <h:outputText value="Selected"/>
+                        <h:outputText value="#{text['workunit.selected']}"/>
                     </f:facet>
                     <h:selectBooleanCheckbox value="#{unit.selected}"/>
                 </t:column>
@@ -73,8 +73,8 @@
                 </t:column>
                 <f:facet name="footer">
                     <h:panelGroup>
-                        <h:commandButton value="Delete Selected" action="#{workUnitList.deleteSelected}"/>
-                        <h:commandButton value="Update Selected" action="#{workUnitList.updateSelected}"/>
+                        <h:commandButton value="#{text['workUnitList.delete']}" action="#{workUnitList.deleteSelected}"/>
+                        <h:commandButton value="#{text['workUnitList.update']}" action="#{workUnitList.updateSelected}"/>
                     </h:panelGroup>
                 </f:facet>
             </t:dataTable>
@@ -91,20 +91,29 @@
                 <t:dataScroller id="summary" for="workunits" rowsCountVar="rowsCount"
                                 displayedRowsCountVar="displayedRowsCountVar" firstRowIndexVar="firstRowIndex"
                                 lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" pageIndexVar="pageIndex">
-                    <h:outputFormat value="Itogo">
-                        <f:param value="#{rowsCount}"/>
-                        <f:param value="#{displayedRowsCountVar}"/>
-                        <f:param value="#{firstRowIndex}"/>
-                        <f:param value="#{lastRowIndex}"/>
+                    <h:outputFormat value="#{text['workUnitTable.summary']}">
                         <f:param value="#{pageIndex}"/>
                         <f:param value="#{pageCount}"/>
-                    </h:outputFormat>
-                </t:dataScroller>
+                    </h:outputFormat><br/>
+                    <h:panelGroup>
+            			<h:outputText value="Set rows per page:" />
+            			<h:inputText value="#{displayedRowsCountVar}" id="sc1" size="1"/>
+            			<h:commandButton value="Set" />
+        			</h:panelGroup>
+                	</t:dataScroller>
             </h:panelGrid>
         </t:buffer>
-
+        
         <h:outputText value="#{table}" escape="false"/>
         <h:outputText value="#{scroller}" escape="false"/>
+  
+        
+        <h:panelGrid>
+
+        
+
+    </h:panelGrid>
+     
 
     </h:form>
 
