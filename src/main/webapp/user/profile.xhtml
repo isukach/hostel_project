@@ -11,18 +11,28 @@
         <script type="text/javascript" src="/scripts/gradienter.js"></script>
     </head>
     <f:loadBundle var="text" basename="#{userList.bundleName}"/>
+
     <c:set var="user" value="#{userProfile.user}"/>
 
     <div class="profileContainer">
-        <div id="mainInfo">
+            <div class="links">
+                   <h:form id="editUser">
+                       <ul>
+                           <li><h:commandLink value="редактировать" action="#{userForm.edit}"/></li>
+                           <li><h:commandLink value="изменить пароль" action="changePass"/></li>
+                       </ul>
+                    </h:form>
+            </div>
+            <div id="mainInfo">
             <h1 style="font-size: 1.5em;"><h:outputText value="#{user.username}"/></h1>
 
             <h:graphicImage styleClass="mainPhoto" value="/images/profile/addressbook.gif"
-                            rendered="#{!userProfile.user.profileImageExist}"/>
+                            rendered="#{!user.profileImageExist}"/>
             <h:graphicImage styleClass="mainPhoto" value="#{userProfile.user.imagePath}"
-                            rendered="#{userProfile.user.profileImageExist}"/>
+                            rendered="#{user.profileImageExist}"/>
 
             <!--<t:htmlTag value="div">-->
+
             <div id="fullName">
             <span class="mainLabel">
                 ФИО:
@@ -107,11 +117,6 @@
                                 <p>Июнь</p>
                             </div>
                         </div>
-                        <f:subview id="editableVersionDuty">
-                            <ui:include src="pofileEditableView.jspf">
-                                <ui:param name="title" value="Duty Table"/>
-                            </ui:include>
-                        </f:subview>
 
                         <ui:include src="/common/userDutiesHistoryTable.xhtml"/>
 
@@ -156,11 +161,7 @@
                                 <p>Июнь</p>
                             </div>
                         </div>
-                        <f:subview id="editableVersionHostelJob">
-                            <ui:include src="pofileEditableView.jspf">
-                                <ui:param name="title" value="Hostel Job"/>
-                            </ui:include>
-                        </f:subview>
+
                         <ui:include src="/user/profileWorkUnitTable.xhtml"/>
                     </div>
                     <div class="box" id="third">
@@ -196,11 +197,7 @@
                                 <p>Июнь</p>
                             </div>
                         </div>
-                        <f:subview id="editableVersionNetworkPayment">
-                            <ui:include src="pofileEditableView.jspf">
-                                <ui:param name="title" value="Network Payment"/>
-                            </ui:include>
-                        </f:subview>
+
                         <table style="margin-top: 10px" class="scrollerTable table">
                             <thead>
                             <tr>

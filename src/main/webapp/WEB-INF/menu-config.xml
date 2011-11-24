@@ -5,10 +5,6 @@
     </Displayers>
     <Menus>
         <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
-        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile.html" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA">
-            <Item name="EditProfile" title="menu.user.editProfile" page="/editProfile.html"/>
-            <Item name="ChangePassword" title="menu.user.changePassword" page="/changePassword.html"/>
-        </Menu>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120"
             page="/admin/users.html">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users.html" />
@@ -32,6 +28,7 @@
             <Item name="ShowDutyTableMenu" title="menu.duty.show" page="/dutyTableView.html" />
             <Item name="WriteUserOnDuty" title="menu.duty.floorhead.writeuser" page="/floorhead/floorheadDutyTable.html" />
             <Item name="FloorheadViewUsers" title="menu.duty.floorhead.users" page="/floorhead/floorUsers.html" />
+            <Item name="MovedOutFloorheadViewUsers" title="menu.duty.floorhead.movedoutusers" page="/floorhead/movedOutFloorUsers.html" />
         </Menu>
         <Menu name="HostelProfile" title="menu.profile" description="Hostel Profile" roles="ROLE_ADMIN,ROLE_STAROSTA,ROLE_USER" width="120"
               page="/user/profile.html"/>

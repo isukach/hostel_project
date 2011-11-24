@@ -63,7 +63,7 @@
                                  rendered="#{duty.firstEmpty}"
                                  disabled="#{!dutyList.monthAvailable}"
                                  styleClass="button"/>
-                <h:outputText value="#{duty.firstUser.fullName}"
+                <h:outputText value="#{duty.firstUser.shortName}"
                               rendered="#{!duty.firstEmpty}"/>
             </t:column>
 
@@ -74,7 +74,7 @@
                 <h:commandButton value="#{text['duty.button.write']}" actionListener="#{dutyList.writeSecondOnDuty}"
                                  rendered="#{duty.secondEmpty}" disabled="#{!dutyList.monthAvailable}"
                                  styleClass="button"/>
-                <h:outputText value="#{duty.secondUser.fullName}"
+                <h:outputText value="#{duty.secondUser.shortName}"
                               rendered="#{!duty.secondEmpty}"/>
             </t:column>
         </t:dataTable>

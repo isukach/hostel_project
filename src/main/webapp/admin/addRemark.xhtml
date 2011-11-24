@@ -86,7 +86,7 @@
                 <f:facet name="header">
                     <h:outputText value="#{text['duty.fio']}"/>
                 </f:facet>
-                <a class="student" href="/">#{duty.firstUser.fullName}</a>
+                <a class="student" href="/">#{duty.firstUser.shortName}</a>
                 <span class="dayDutyId" style="display: none;">#{duty.id}</span>
                 <span class="shift" style="display: none;">1</span>
             </t:column>
@@ -109,7 +109,7 @@
                 <f:facet name="header">
                     <h:outputText value="#{text['duty.fio']}"/>
                 </f:facet>
-                <a class="student" href="/">#{duty.secondUser.fullName}</a>
+                <a class="student" href="/">#{duty.secondUser.shortName}</a>
                 <span class="dayDutyId" style="display: none;">#{duty.id}</span>
                 <span class="shift" style="display: none;">2</span>
             </t:column>

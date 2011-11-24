@@ -25,6 +25,8 @@ import java.util.*;
 @Entity
 @Table(name = "app_user")
 @Searchable
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
@@ -163,7 +165,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @return firstName + ' ' + lastName
      */
     @Transient
-    public String getFullName() {
+    public String getShortName() {
         StringBuilder result = new StringBuilder();
         result.append(lastName);
         if (firstName != null && firstName.length() > 0) {
@@ -440,10 +442,10 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
     
     @Transient
-    public String getShortFio()
+    public String getFullName()
     {
-        return this.getFirstName() + " " + this.getLastName().substring(0, 1)
-        + "." + this.getMiddleName().substring(0, 1) + ".";
+        return this.getFirstName() + " " + this.getLastName()
+        + " " + this.getMiddleName();
     }
     
     

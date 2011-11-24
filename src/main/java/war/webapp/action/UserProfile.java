@@ -1,14 +1,15 @@
 package war.webapp.action;
 
-import war.webapp.dao.WorkUnitDao;
-import war.webapp.dao.hibernate.WorkUnitDaoHibernate;
 import war.webapp.model.User;
 import war.webapp.model.WorkUnit;
-import war.webapp.service.UserManager;
 import war.webapp.service.WorkUnitManager;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 
 import static org.springframework.security.context.SecurityContextHolder.getContext;
 
@@ -37,9 +38,17 @@ public class UserProfile extends BasePage implements Serializable{
     }
 
     public User getUser() {
-         if (user == null) {
+         /*if (user == null) {
+            setUser((User) getContext().getAuthentication().getPrincipal());
+        }*/
+        HttpServletRequest request = getRequest();
+        String id = request.getParameter("id");
+        if(!StringUtils.isBlank(id)){
+            setUser(userManager.getUser(id));
+        }else{
             setUser((User) getContext().getAuthentication().getPrincipal());
         }
+        
         return user;
     }
 

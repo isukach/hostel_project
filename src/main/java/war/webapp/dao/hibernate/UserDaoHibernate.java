@@ -111,6 +111,16 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
             return (List<User>) users;
         }
     }
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public List<User> loadMovedOutUsersByFloor(String floor) {
+        List users = getHibernateTemplate().find("from User where address.hostelFloor=? and accountLocked=true", floor);
+        if (users == null || users.isEmpty()) {
+            throw new UsernameNotFoundException("users on '" + floor + "' floor not found...");
+        } else {
+            return (List<User>) users;
+        }
+    }
 
     public User loadUserByRoomAndFullName(String room, String fullName) {
         int n = fullName.indexOf(' ');

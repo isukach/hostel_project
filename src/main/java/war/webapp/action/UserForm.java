@@ -22,7 +22,6 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,8 +50,7 @@ public class UserForm extends BasePage implements Serializable {
 
     private Map<String, Boolean> payModeToValue;
 
-
-
+    //Should be removed
     {
        payModeToValue = new LinkedHashMap<String, Boolean>();
        payModeToValue.put(getBundle().getString("user.studyPaymentFree"), true);
@@ -105,7 +103,10 @@ public class UserForm extends BasePage implements Serializable {
 
     public String edit() {
         HttpServletRequest request = getRequest();
-
+        String userId = request.getParameter("userId");
+        if (userId != null) {
+            id = userId;
+        }
         // if a user's id is passed in
         if (id != null) {
             // lookup the user using that id
@@ -122,6 +123,19 @@ public class UserForm extends BasePage implements Serializable {
             addMessage("userProfile.cookieLogin");
         }
 
+        return "editProfile";
+    }
+    
+    public String resetPassword() {
+        if (user.getId() != null) {
+            user = userManager.getUser(user.getId().toString());
+            user.setPassword("pass");
+            try {
+                userManager.saveUser(user);
+            } catch (UserExistsException ex) {
+                ex.printStackTrace();
+            }
+        }
         return "editProfile";
     }
 
@@ -183,7 +197,7 @@ public class UserForm extends BasePage implements Serializable {
             addMessage("user.saved");
             return "mainMenu"; // return to main Menu
         } else {
-            addMessage("user.added", user.getFullName());
+            addMessage("user.added", user.getShortName());
             return "list"; // return to list screen
         }
     }
@@ -213,8 +227,14 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     private void generatePassword() {
-        if (StringUtils.isEmpty(user.getPassword())) {
-            user.setPassword("pass");
+        String pass =  user.getPassword();
+        String sessionUserPass = ((User) getContext().getAuthentication().getPrincipal()).getPassword();
+        if (pass == null ) {
+            if(sessionUserPass == null){
+                user.setPassword("pass");
+            }else{
+                user.setPassword(sessionUserPass);
+            }
         }
     }
 
@@ -230,7 +250,7 @@ public class UserForm extends BasePage implements Serializable {
 
     public String delete() {
         userManager.removeUser(getUser().getId().toString());
-        addMessage("user.deleted", getUser().getFullName());
+        addMessage("user.deleted", getUser().getShortName());
 
         return "list";
     }

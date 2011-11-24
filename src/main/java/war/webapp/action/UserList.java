@@ -29,6 +29,14 @@ public class UserList extends BasePage implements Serializable {
         floorUsers.remove(user);
         return sortByRoom(floorUsers);
     }
+    
+    public List<User> getMovedOutUsersByFloorheadFloor() {
+        User user = userManager.getUserByUsername(getRequest().getRemoteUser());
+        String floor = user.getAddress().getHostelFloor();
+        List<User> floorUsers = userManager.getMovedOutUsersByFloor(floor);
+        floorUsers.remove(user);
+        return sortByRoom(floorUsers);
+    }
 
     private List<User> sortByRoom(List<User> users) {
         Collections.sort(users, new Comparator<User>() {
