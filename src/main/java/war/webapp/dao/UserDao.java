@@ -33,6 +33,14 @@ public interface UserDao extends GenericDao<User, Long> {
      */
     @Transactional
     List<User> loadUsersByFloor(String floor);
+    
+    /**
+     * Gets list of moved out users by floor number
+     * 
+     * @param floor floor number
+     */
+    @Transactional
+    List<User> loadMovedOutUsersByFloor(String floor);
 
     /**
      * Gets a list of users ordered by the uppercase version of their username.
@@ -62,4 +70,6 @@ public interface UserDao extends GenericDao<User, Long> {
 
     User loadUserByRoomAndFullName(String room, String fullName);
 
+    List<User> loadUsersByRoom(String room);
+    
 }

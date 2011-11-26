@@ -4,11 +4,9 @@ import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 import war.webapp.dao.DayDutyDao;
 import war.webapp.model.DayDuty;
+import war.webapp.model.User;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -93,4 +91,11 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         getHibernateTemplate().update(loadedDayDuty);
     }
 
+    public List<DayDuty> loadDutiesByUser(User user) {
+        List duties = getHibernateTemplate().find("from DayDuty where firstUser=? or secondUser=?", new Object[]{user, user});
+        if (duties == null || duties.isEmpty()) {
+            return new ArrayList<DayDuty>(0);
+        }
+        return duties;
+    }
 }

@@ -6,12 +6,13 @@
 <f:view>
     <f:loadBundle var="text" basename="#{userForm.bundleName}" />
     <head>
-    <title>#{text['userProfile.title']}</title>
-    <meta name="menu" content="UserMenu" />
-    <meta name="heading" content="#{text['userProfile.heading']}" />
+        <title>#{text['userProfile.title']}</title>
+        <meta name="menu" content="HostelProfile" />
+        <meta name="heading" content="#{text['userProfile.heading']}" />
     </head>
 
     <div class="separator"></div>
+
 
     <h:form id="userForm" onsubmit="return validateUserForm(this)">
         <h:inputHidden value="#{userForm.user.id}" id="id" />
@@ -25,9 +26,10 @@
 
         <c:set var="addText" value="${text['button.add']}" />
 
+
         <h:panelGrid columns="3">
 
-            <h:panelGroup styleClass="info">
+            <h:panelGroup >
                 <c:choose>
                     <c:when test="${param.from == 'list' or empty userForm.user.id}">
                         <h:outputText value="#{text['userProfile.admin.message']}" />
@@ -41,15 +43,21 @@
             <h:outputText />
 
             <c:if test="${param.from != 'list'}">
+
+
                 <h:panelGroup>
                     <t:htmlTag value="div">
+                        <t:htmlTag value="div" styleClass="left" >
+                            <h:outputLabel styleClass="desc" value="Фото" />
+                            <h:graphicImage value="/images/profile/addressbook.gif" rendered="#{!userForm.user.profileImageExist}" width="110" height="150"/>
+                            <h:graphicImage value="#{userForm.user.imagePath}" rendered="#{userForm.user.profileImageExist}" width="110" height="150"/>
+                        </t:htmlTag>
+
                         <t:htmlTag value="div">
-                            <h:outputLabel for="username" styleClass="desc" value="#{text['user.username']}" />
-                            <t:message for="username" styleClass="fieldError" />
-                            <h:inputText value="#{userForm.user.username}" id="username" required="true"
-                                styleClass="text medium">
-                                <v:commonsValidator client="true" type="required" arg="#{text['user.username']}" />
-                            </h:inputText>
+                            <h:commandButton action="selectFile" value="Изменить фотографию" >
+                                <f:param name="username" value="#{userForm.user.username}" />
+                                <f:param name="firstname" value="#{userForm.user.firstName}" />
+                            </h:commandButton>
                         </t:htmlTag>
                     </t:htmlTag>
                 </h:panelGroup>
@@ -60,6 +68,25 @@
                 <h:inputHidden value="#{userForm.user.username}" id="username" />
                 <h:inputHidden value="#{userForm.user.password}" id="password" />
             </c:if>
+            
+            <h:panelGroup>
+                <t:htmlTag value="div">
+                    <t:htmlTag value="div" styleClass="left">
+                        <h:outputLabel for="login" value="#{text['label.username']}" styleClass="desc" />
+                        <t:message for="login" styleClass="fieldError" />
+                        <h:inputText value="#{userForm.user.username}" id="login" maxlength="50"
+                            readonly="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                            <v:commonsValidator client="true" type="required" arg="#{text['user.login']}" />
+                        </h:inputText>
+                    </t:htmlTag>
+                    <t:htmlTag value="div">
+                        <h:outputLabel value="#{text['label.password']}" styleClass="desc" />
+                        <h:commandButton value="#{text['button.reset.password']}" action="#{userForm.resetPassword}" styleClass="button" />
+                    </t:htmlTag>
+                </t:htmlTag>
+            </h:panelGroup>
+            <h:outputText />
+            <h:outputText />
 
             <h:panelGroup>
                 <t:htmlTag value="div">
@@ -143,6 +170,29 @@
                 <h:outputText />
                 <h:outputText />
             </c:if>
+
+            <h:panelGroup>
+
+                 <t:htmlTag value="div">
+                    <t:htmlTag value="div" styleClass="left">
+                         <h:outputLabel id="depLabelId" for="department" value="#{text['user.department']}   "
+                                styleClass="desc" />
+                         <t:message for="department" styleClass="fieldError" />
+                         <h:inputText id="department" value="#{userForm.user.department}" maxlength="50"
+                                required="false" styleClass="text medium">
+                            </h:inputText>
+                    </t:htmlTag>
+                    <t:htmlTag value="div">
+                         <h:outputLabel id="paymentLabelId" for="payment" value="#{text['user.studyPayment']}   "
+                                styleClass="desc" />
+                         <h:selectOneMenu id="payment" value="#{userForm.user.freePayStudy}">
+                             <f:selectItems value="#{userForm.payModeToValue}" />
+                         </h:selectOneMenu>
+                    </t:htmlTag>
+                </t:htmlTag>
+            </h:panelGroup>
+            <h:outputText />
+            <h:outputText />
 
             <h:panelGroup>
                 <t:htmlTag value="div">

@@ -1,11 +1,10 @@
 package war.webapp.dao.hibernate;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import war.webapp.dao.RoleDao;
 import war.webapp.model.Role;
+
+import java.util.List;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and

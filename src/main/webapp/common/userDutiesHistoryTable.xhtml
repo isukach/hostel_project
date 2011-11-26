@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<h:dataTable id="dutiesHistoryTable" var="duty" value="#{userDutiesHistory.dutiesForUser}"
+             headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2">
+
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="#{text['duty.date']}"/>
+        </f:facet>
+        <h:outputText value="#{duty.date}"/>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="#{text['duty.time']}"/>
+        </f:facet>
+        <h:outputText value="#{duty.time}"/>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="#{text['duty.Remarks']}"/>
+        </f:facet>
+        <h:outputText value="#{duty.remarks}"/>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="#{text['duty.punishment']}"/>
+        </f:facet>
+        <h:outputText value="#{duty.punishment}"/>
+    </h:column>
+</h:dataTable>
+
+</html>

@@ -1,0 +1,181 @@
+/*.profileContainer {width: 600px;background: #FFF; margin: 0 auto; *//* the auto value on the sides, coupled with the width, centers the layout *//*}*/
+
+
+.profileContainer .mainPhoto{
+	float: left;
+    border: 1px solid #C0CAD5;
+    cursor: default;
+    height: 133px;
+    overflow: hidden;
+    width: 100px;
+	margin-right: 20px;
+}
+
+.profileContainer #mainInfo span {
+    line-height: 1.7em;
+}
+
+.profileContainer tr.badDuty{background-color: red;}
+.profileContainer .links {float: right;}
+.profileContainer span.mainLabel{
+	color: #444444;
+	font-size: 1em;
+	font-weight: bold;
+	line-height: 1.3em;
+	margin: 4px 0 3px;
+}
+/* reusables */
+.profileContainer table {width:100%;padding:10px;border:0px;}
+.profileContainer .tabContent {padding-top: 0px;}
+.profileContainer .tabContent .current {text-decoration:none; padding: 0; }
+.profileContainer .tabContent img {display:inline-block;}
+.profileContainer .tabContent ul.tabList {list-style:none;margin-top:10px;overflow:hidden;margin-bottom: 0px; width: 100%;}
+.profileContainer .tabContent ul.tabList li {float:left; border:1px solid #b8d7ea; margin-right:9px; margin-left: 0px; border-bottom:none; margin-bottom: 0px; padding:  0;}
+.profileContainer .tabContent ul.tabList li.lastTab {margin-right:0px;}
+.profileContainer .tabContent ul.tabList li a {display:block;height:45px; /*background:url(../images/tab_background.png) repeat-x top left;*/ background-color: #cddfeb; line-height:40px;padding:0px 54px;text-decoration:none; color:#2f4b57;font-size:17px; font-weight:bold;}
+.profileContainer .tabContent ul.tabList li.current a {background:#fff;}
+.profileContainer .tabContent div.box {border:1px solid #b8d7ea;margin-top:-1px;padding:0px;}
+.profileContainer .tabContent div.box p {margin-bottom:20px;}
+.profileContainer .tabContent div.box ul {margin-bottom:20px;}
+.profileContainer .tabContent div.box .mapWrapper {overflow:hidden;zoom:1;}
+
+.profileContainer .box {display:none;}
+.profileContainer .box.current {display:block; background:none #fff;}
+
+
+.floorcontainer {padding: 0; margin: 0; width: 500px; height: 200px; }
+.floor_plan {overflow: hidden; position: relative;}
+
+
+/*
+
+reseting elements:
+
+*/
+
+
+/* This takes out the fuzzy line around links when you click them, it's an optional addition */
+
+:focus {outline: none;}
+
+
+.slidecontainer {
+	margin: 0;
+	padding: 0;
+	width: 500px;
+	position: relative;
+}
+
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+
+
+.floorNumbers {
+	padding: 0;
+	overflow: hidden;
+}
+
+.prev, .next {
+	position: absolute;
+	top: 87px;
+	display: block;
+	width: 18px;
+	height: 28px;
+}
+
+.prev:hover, .next:hover { background-position: bottom; }
+
+.prev {
+	background: url('images/previous.png') no-repeat;
+	right: 490px
+}
+.next {
+	background: url('images/next.png') no-repeat;
+	left: 510px;
+}
+
+
+p {
+	margin-bottom: 30px;
+	text-shadow: 0px 1px 0px #fff;
+}
+
+/* button */
+
+.left p {
+	float: left;
+	margin-right: 30px;
+}
+
+.slidecontainer .button {
+	background: url('images/button.jpg') no-repeat scroll top left;
+	color: #808080;
+	line-height: 30px;
+	font-family: Helvetica, Arial, sans-serif;
+	float: left;
+	clear: both;
+	text-decoration: none;
+}
+
+.slidecontainer .button:active {
+	color: #fff;
+	text-shadow: 0px 1px 0px #5c6266;
+}
+
+.slidecontainer .button span {
+	background: url('images/button-end.jpg') no-repeat scroll top right;
+	display: block;
+	height: 30px;
+	padding: 0 10px;
+}
+
+.slidecontainer .button:hover { background-position: 0px -30px; }
+.slidecontainer .button span:hover { background-position: right -30px; }
+.slidecontainer .button:active { background-position: 0px -60px; }
+.slidecontainer .button span:active { background-position: right -60px; }
+
+/* Begin Twirlie Mandatory Styles */
+
+#slider {
+    margin-left: 0;
+    margin-bottom: 40px;
+    padding: 0;
+	width: 500px; /* The width of the display area */
+	height: 200px; /* The height of the display area */
+	overflow: hidden; /* So that slides are hidden when they go out of view */
+	position: relative; /* So that the slides move relative to the display area */
+}
+
+#slider ul {
+	height: 200px; /* Same as #slider */
+	width: 10000em; /* So that the number of slides is unlimited */
+	list-style: none; /* To get rid of those ugly default bullets */
+	position: absolute; /* So that the slides are positioned absolute, relative to the display area */
+	left: 0px; /* Starting position, 0px from the left */
+    margin: 0;
+    padding: 0;
+}
+
+#slider ul li {
+    margin: 0;
+    padding: 0;
+	width: 500px; /* Same as #slider, but for each individual slide */
+	height: 200px; /* Same as #slider, but for each individual slide */
+	float: left; /* To arrange the items side by side */
+	display: block; /* <li> is usually an inline element; this changes that */
+}
+.slidecontainer #body{
+  padding-left: 20px;
+}
+
+.floor_plan .left_part {margin-top: 40px;margin-bottom: 20px; margin-left: 10px;}
+.floor_plan .right_part {margin-left: 80px;}
+
+

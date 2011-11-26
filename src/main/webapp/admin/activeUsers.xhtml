@@ -61,9 +61,11 @@
                                 alt="Not Sorted" />
                         </t:commandSortHeader>
                     </f:facet>
-                    <h:outputText value="#{user.fullName}" />
+                    <h:outputText value="#{user.shortName}" />
                     <h:outputText value="#{user.address.hostelRoom}" />
                 </t:column>
+                <f:facet name="footer">
+                </f:facet>
             </t:dataTable>
         </t:buffer>
 
@@ -78,22 +80,15 @@
                 <t:dataScroller id="summary" for="activeUsers" rowsCountVar="rowsCount"
                     displayedRowsCountVar="displayedRowsCountVar" firstRowIndexVar="firstRowIndex"
                     lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" pageIndexVar="pageIndex">
-                    <h:outputFormat value="#{text['activeUsers.summary']}">
-                        <f:param value="#{rowsCount}" />
-                        <f:param value="#{displayedRowsCountVar}" />
-                        <f:param value="#{firstRowIndex}" />
-                        <f:param value="#{lastRowIndex}" />
+                    <h:outputFormat value="#{text['workUnitTable.summary']}">
                         <f:param value="#{pageIndex}" />
                         <f:param value="#{pageCount}" />
                     </h:outputFormat>
                 </t:dataScroller>
             </h:panelGrid>
         </t:buffer>
-
-        <h:outputText value="#{summary}" escape="false" />
         <h:outputText value="#{table}" escape="false" />
         <h:outputText value="#{scroller}" escape="false" />
-
     </h:form>
     </body>
 </f:view>

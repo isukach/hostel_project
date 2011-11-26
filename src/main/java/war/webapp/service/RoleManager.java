@@ -1,8 +1,8 @@
 package war.webapp.service;
 
-import java.util.List;
-
 import war.webapp.model.Role;
+
+import java.util.List;
 
 /**
  * Business Service Interface to handle communication between web and

@@ -4,8 +4,6 @@ import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.context.SecurityContextHolder;
 
-import war.webapp.Constants;
-
 public class UserHelper {
     
     public boolean ifCurrentUserHasRole(String roleName) {
@@ -19,4 +17,5 @@ public class UserHelper {
         }
         return hasAskedRole;
     }
+
 }

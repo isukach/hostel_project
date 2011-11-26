@@ -1,5 +1,6 @@
 package war.webapp.dao.hibernate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Table;
@@ -110,6 +111,16 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
             return (List<User>) users;
         }
     }
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public List<User> loadMovedOutUsersByFloor(String floor) {
+        List users = getHibernateTemplate().find("from User where address.hostelFloor=? and accountLocked=true", floor);
+        if (users == null || users.isEmpty()) {
+            throw new UsernameNotFoundException("users on '" + floor + "' floor not found...");
+        } else {
+            return (List<User>) users;
+        }
+    }
 
     public User loadUserByRoomAndFullName(String room, String fullName) {
         int n = fullName.indexOf(' ');
@@ -123,6 +134,17 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
             throw new UsernameNotFoundException("user '" + fullName + "' not found...");
         } else {
             return (User) users.get(0);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<User> loadUsersByRoom(String room) {        
+        List<User> users = (List<User>)getHibernateTemplate().find("from User where address.hostelRoom=?", room);
+        if (users == null || users.isEmpty()) {
+            log.warn("no users was found for given room, maybe incorrect room number");
+            return new ArrayList<User>();
+        } else {
+            return users;
         }
     }
 }

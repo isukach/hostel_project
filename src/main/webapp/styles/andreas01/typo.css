@@ -82,7 +82,7 @@
 
 /* TEXT */
     p {
-        font-size: 1em;
+        font-size: 1.2em;
         margin: 0 0 10px 0;
         padding: 0;
         line-height: 1.6em;
@@ -311,4 +311,25 @@ div.announce {
         color: #505050;
     }
 
+/*profile gradient*/
+.dutyGradient,
+.miningGradient,
+.networkGradient {
+    padding:  0 10px;
+    height: 50px;
+    margin:  10px auto;
+}
+
+.gradientMonth {
+    width: 10%;
+    float: left;
+    height: 50px;
+}
+
+.gradientMonth p{
+    text-align: center;
+    margin-top: 15px;
+    color: white;
+    text-shadow: none;
+}
 /* END TYPOGRAPHY */

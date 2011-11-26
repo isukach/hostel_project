@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <!-- Add additional rules here -->
     <managed-bean>
         <managed-bean-name>basePage</managed-bean-name>
@@ -53,12 +54,54 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>userProfile</managed-bean-name>
+        <managed-bean-class>war.webapp.action.UserProfile</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>workUnitManager</property-name>
+            <value>#{workUnitManager}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>userDutiesHistory</managed-bean-name>
+        <managed-bean-class>war.webapp.action.UserDutiesHistoryForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>dayDutyManager</property-name>
+            <value>#{dayDutyManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>userId</property-name>
+            <value>#{param.userId}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>changePasswordForm</managed-bean-name>
         <managed-bean-class>war.webapp.action.ChangePasswordForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>userManager</property-name>
             <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>addRemarkForm</managed-bean-name>
+        <managed-bean-class>war.webapp.action.RemarkForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>dayDutyManager</property-name>
+            <value>#{dayDutyManager}</value>
         </managed-property>
     </managed-bean>
 
@@ -80,6 +123,30 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>workUnitList</managed-bean-name>
+        <managed-bean-class>war.webapp.action.WorkUnitList</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>workUnitManager</property-name>
+            <value>#{workUnitManager}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>addWorkUnit</managed-bean-name>
+        <managed-bean-class>war.webapp.action.AddWorkUnit</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>workUnitManager</property-name>
+            <value>#{workUnitManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
+
     <!-- Add additional beans here -->
     <managed-bean>
         <managed-bean-name>dutyList</managed-bean-name>
@@ -87,7 +154,7 @@
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>dayDutyManager</property-name>
-            <value>#{dutyManager}</value>
+            <value>#{dayDutyManager}</value>
         </managed-property>
         <managed-property>
             <property-name>monthManager</property-name>
@@ -125,42 +192,28 @@
             <from-outcome>dutyTable</from-outcome>
             <to-view-id>/dutyTableView.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>hostelNav</from-outcome>
+            <to-view-id>/hostelNavigation.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>mainMenu</from-outcome>
             <to-view-id>/mainMenu.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/dutyTable.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>ajax4jsf</from-outcome>
-            <to-view-id>/ajax4jsf.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/dutyTable.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>selectFile</from-outcome>
-            <to-view-id>/selectFile.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/*</from-view-id>
-        <navigation-case>
-            <from-outcome>dutyTable</from-outcome>
-            <to-view-id>/dutyTable.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/*</from-view-id>
+        <from-view-id>/user/profile.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>editProfile</from-outcome>
             <to-view-id>/userForm.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>changePass</from-outcome>
+            <to-view-id>/changePassword.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -168,12 +221,17 @@
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/floorhead/floorUsers.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
             <to-view-id>/floorhead/floorUsers.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>movedoutlist</from-outcome>
+            <to-view-id>/floorhead/movedOutFloorUsers.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -184,19 +242,11 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/signup.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>cancel</from-outcome>
-            <to-view-id>/login.jsp</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <from-view-id>/user/writeOnDuty.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>write</from-outcome>
             <to-view-id>/user/writeOnDuty.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -228,6 +278,16 @@
         <validator-class>org.apache.shale.validator.CommonsValidator</validator-class>
     </validator>
 
+    <validator>
+        <validator-id>war.webapp.validator.RoomValidator</validator-id>
+        <validator-class>war.webapp.validator.RoomValidator</validator-class>
+    </validator>
+
+    <validator>
+        <validator-id>employeeValidator</validator-id>
+        <validator-class>war.webapp.validator.EmployeeValidator</validator-class>
+    </validator>
+
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
         <locale-config>
@@ -238,4 +298,8 @@
     </application>
     <!--<converter> <converter-id>userConverter</converter-id> <converter-class>war.webapp.converter.UserConverter</converter-class> 
         </converter> -->
+    <converter>
+        <converter-id>roomUser</converter-id>
+        <converter-class>war.webapp.converter.RoomUserConverter</converter-class>
+    </converter>
 </faces-config>

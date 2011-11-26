@@ -9,7 +9,11 @@ import org.compass.annotations.SearchableProperty;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
 
+import javax.faces.context.FacesContext;
 import javax.persistence.*;
+import javax.servlet.ServletContext;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
@@ -21,6 +25,8 @@ import java.util.*;
 @Entity
 @Table(name = "app_user")
 @Searchable
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
@@ -41,6 +47,15 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private boolean accountExpired = false;
     private boolean accountLocked;
     private boolean credentialsExpired = false;
+    private String imagePath;
+
+
+    /*new fields*/
+    private String department;
+    private boolean isFreePayStudy;
+
+    private boolean profileImageExist;
+    /*end new fields*/
 
     /**
      * Default constructor - creates a new instance with no values set.
@@ -132,6 +147,17 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
         return dateOfBirth.get(Calendar.YEAR);
     }
+    
+    @Transient
+    public String getBirthDayString() {
+        StringBuffer buf = new StringBuffer();
+        buf.append(getBirthdayDayOfMonth());
+        buf.append(".");
+        buf.append(getBirthdayMonth());
+        buf.append(".");
+        buf.append(getBirthdayYear());
+        return buf.toString();
+    }
 
     /**
      * Returns the full name.
@@ -139,7 +165,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @return firstName + ' ' + lastName
      */
     @Transient
-    public String getFullName() {
+    public String getShortName() {
         StringBuilder result = new StringBuilder();
         result.append(lastName);
         if (firstName != null && firstName.length() > 0) {
@@ -149,6 +175,16 @@ public class User extends BaseObject implements Serializable, UserDetails {
             }
         }
         return result.toString();
+    }
+    
+    @Transient
+    public String getImagePath() {
+        String emptyPath = "/resources";
+        return emptyPath +"/"+ getUsername()+ "/" + getFirstName()+"_ava";
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Embedded
@@ -218,6 +254,16 @@ public class User extends BaseObject implements Serializable, UserDetails {
     @Column(name = "account_expired", nullable = false)
     public boolean isAccountExpired() {
         return accountExpired;
+    }
+    
+    @Column(name = "department", nullable = true)
+    public String getDepartment() {
+        return department;
+    }
+
+    @Column(name = "study_pay", columnDefinition = "BIT(1) DEFAULT 1")
+    public boolean isFreePayStudy() {
+        return isFreePayStudy;
     }
 
     /**
@@ -338,6 +384,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public void setCredentialsExpired(boolean credentialsExpired) {
         this.credentialsExpired = credentialsExpired;
     }
+    
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setFreePayStudy(boolean freePayStudy) {
+        isFreePayStudy = freePayStudy;
+    }
 
     /**
      * {@inheritDoc}
@@ -386,4 +440,25 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
         return sb.toString();
     }
+    
+    @Transient
+    public String getFullName()
+    {
+        return this.getFirstName() + " " + this.getLastName()
+        + " " + this.getMiddleName();
+    }
+    
+    
+    @Transient
+    public boolean isProfileImageExist(){
+        String filename = getImagePath();
+        ServletContext sc = (ServletContext)  FacesContext.getCurrentInstance().getExternalContext().getContext();
+        File file = new File(sc.getRealPath("") + filename);
+        return file.exists();
+    }
+
+    public void setProfileImageExist(boolean profileImageExist) {
+        this.profileImageExist = profileImageExist;
+    }
 }
+

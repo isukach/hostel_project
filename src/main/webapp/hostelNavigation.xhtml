@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jstl/core"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <link rel="stylesheet" type="text/css" media="print" href="/styles/andreas01/style.css" />
+    </head>
+   <f:view>
+        <div class="slidecontainer">
+            <div id="body">
+
+            <div id="slider">
+                <div class="roomNumber"><span id="roomNumber">0</span></div>
+                <ul class="sliderelement">
+                    <c:forEach var="floor" begin="2" end="12">
+
+                            <li>
+                                <ui:include src="/common/floorRooms.jspf" >
+                                    <ui:param name="floorNumber" value="#{floor}"/>
+                                </ui:include>
+                            </li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <a class="prev" href="#" />
+            <a class="next" href="#" />
+
+            <div class="floorNumbers">
+                <div class="left">
+                    <c:forEach var="floor" begin="2" end="12" >
+                        <p><a href="#" class="button" floornumber="#{floor - 1}" ><span>#{floor} этаж</span></a></p>
+                    </c:forEach>
+                </div>
+
+            </div>
+
+            </div> <!--/#body-->
+
+        </div> <!--/.container-->
+    </f:view>
+</html>

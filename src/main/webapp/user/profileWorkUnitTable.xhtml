@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="https://ajax4jsf.dev.java.net/ajax" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:dataTable id="workunits" var="unit" style="margin-top: 10px" value="#{userProfile.allWorkUnits}" rows="5"
+                 sortColumn="#{userProfile.sortColumn}" sortAscending="#{userProfile.ascending}"
+                 styleClass="scrollerTable table" headerClass="standardTable_Header"
+                 rowClasses="standardTable_Row1,standardTable_Row2"
+                 columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
+        <t:column width="10%">
+            <f:facet name="header">
+                <h:outputText value="#{text['workunit.date']}"/>
+            </f:facet>
+            <h:outputText value="#{unit.fullDate}">
+                <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+            </h:outputText>
+        </t:column>
+        <t:column width="5%">
+            <f:facet name="header">
+                <h:outputText value="#{text['workunit.hoursAmount']}"/>
+            </f:facet>
+            <h:outputText value="#{unit.hoursAmount}"/>
+        </t:column>
+        <t:column width="20%">
+            <f:facet name="header">
+                <h:outputText value="#{text['workunit.employee']}"/>
+            </f:facet>
+            <h:outputText value="#{unit.employee.shortName}"/>
+        </t:column>
+        <t:column width="20%">
+            <f:facet name="header">
+                <h:outputText value="#{text['workunit.employer']}"/>
+            </f:facet>
+            <h:outputText value="#{unit.employer.shortName}"/>
+        </t:column>
+        <t:column width="25%">
+            <f:facet name="header">
+                <h:outputText value="#{text['workunit.description']}"/>
+            </f:facet>
+            <h:outputText value="#{unit.workDescription}"/>
+        </t:column>
+        <t:column width="15%">
+            <f:facet name="header">
+                <h:outputText value="#{text['workunit.state']}"/>
+            </f:facet>
+            <h:outputText value="#{unit.state}"/>
+        </t:column>
+    </t:dataTable>
+
+</ui:composition>

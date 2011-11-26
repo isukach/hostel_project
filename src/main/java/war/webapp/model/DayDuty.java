@@ -1,67 +1,105 @@
 package war.webapp.model;
 
-import java.io.Serializable;
-import java.util.Calendar;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.annotations.Cascade;
 
 import war.webapp.util.DateUtil;
 import war.webapp.util.MonthHelper;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "day_duty")
 public class DayDuty extends BaseObject implements Serializable {
     private static final long serialVersionUID = 1842676162177859911L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar date;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "first_user")
     private User firstUser;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "second_user")
     private User secondUser;
+
+    @Column(name = "first_user_remarks", nullable = true)
+    private String firstUserRemarks;
+
+    @Column(name = "second_user_remarks", nullable = true)
+    private String secondUserRemarks;
+
+    @Column(name = "first_user_punishment", nullable = true)
+    private String firstUserPunishment;
+
+    @Column(name = "second_user_punishment", nullable = true)
+    private String secondUserPunishment;
+
+    @Column
     private String floor;
 
     public DayDuty() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
-    @Column(name = "date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getDate() {
         return date;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "first_user")
     public User getFirstUser() {
         return firstUser;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "second_user")
     public User getSecondUser() {
         return secondUser;
     }
 
-    @Column
     public String getFloor() {
         return floor;
+    }
+
+    public String getFirstUserRemarks() {
+        return firstUserRemarks;
+    }
+
+    public void setFirstUserRemarks(String firstUserRemarks) {
+        this.firstUserRemarks = firstUserRemarks;
+    }
+
+    public String getSecondUserRemarks() {
+        return secondUserRemarks;
+    }
+
+    public void setSecondUserRemarks(String secondUserRemarks) {
+        this.secondUserRemarks = secondUserRemarks;
+    }
+
+    public String getFirstUserPunishment() {
+        return firstUserPunishment;
+    }
+
+    public void setFirstUserPunishment(String firstUserPunishment) {
+        this.firstUserPunishment = firstUserPunishment;
+    }
+
+    public String getSecondUserPunishment() {
+        return secondUserPunishment;
+    }
+
+    public void setSecondUserPunishment(String secondUserPunishment) {
+        this.secondUserPunishment = secondUserPunishment;
     }
 
     @Transient

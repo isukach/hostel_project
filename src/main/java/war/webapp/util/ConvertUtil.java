@@ -1,18 +1,11 @@
 package war.webapp.util;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.ResourceBundle;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import war.webapp.model.LabelValue;
+
+import java.util.*;
 
 /**
  * Utility class to convert one object to another.
