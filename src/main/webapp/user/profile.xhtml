@@ -12,13 +12,17 @@
     </head>
     <f:loadBundle var="text" basename="#{userList.bundleName}"/>
 
-    <c:set var="user" value="#{userProfile.user}"/>
+    <c:set var="user" value="#{userForm.user}"/>
 
     <div class="profileContainer">
             <div class="links">
                    <h:form id="editUser">
                        <ul>
-                           <li><h:commandLink value="редактировать" action="#{userForm.edit}"/></li>
+                           <li>
+                           <h:commandLink value="редактировать" action="#{userForm.edit}">
+                               <f:param name="userId" value="#{user.id}"/>
+                           </h:commandLink>
+                           </li>
                            <li><h:commandLink value="изменить пароль" action="changePass"/></li>
                        </ul>
                     </h:form>
@@ -28,7 +32,7 @@
 
             <h:graphicImage styleClass="mainPhoto" value="/images/profile/addressbook.gif"
                             rendered="#{!user.profileImageExist}"/>
-            <h:graphicImage styleClass="mainPhoto" value="#{userProfile.user.imagePath}"
+            <h:graphicImage styleClass="mainPhoto" value="#{userForm.user.imagePath}"
                             rendered="#{user.profileImageExist}"/>
 
             <!--<t:htmlTag value="div">-->

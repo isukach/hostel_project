@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <!-- Add additional rules here -->
@@ -50,16 +50,6 @@
         <managed-property>
             <property-name>floorManager</property-name>
             <value>#{floorManager}</value>
-        </managed-property>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>userProfile</managed-bean-name>
-        <managed-bean-class>war.webapp.action.UserProfile</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
         </managed-property>
         <managed-property>
             <property-name>workUnitManager</property-name>
@@ -207,6 +197,10 @@
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>viewProfile</from-outcome>
+            <to-view-id>/user/profile.xhtml</to-view-id>
+        </navigation-case>
         <navigation-case>
             <from-outcome>editProfile</from-outcome>
             <to-view-id>/userForm.xhtml</to-view-id>
