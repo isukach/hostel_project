@@ -56,7 +56,7 @@ public class WorkUnitList extends BasePage {
         return workUnitManager;
     }
 
-    public void setworkUnitManager(WorkUnitManager workUnitManager) {
+    public void setWorkUnitManager(WorkUnitManager workUnitManager) {
         this.workUnitManager = workUnitManager;
     }
     
