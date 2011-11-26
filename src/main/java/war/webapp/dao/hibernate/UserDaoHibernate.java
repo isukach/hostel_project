@@ -1,6 +1,7 @@
 package war.webapp.dao.hibernate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Table;
@@ -116,10 +117,9 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     public List<User> loadMovedOutUsersByFloor(String floor) {
         List users = getHibernateTemplate().find("from User where address.hostelFloor=? and accountLocked=true", floor);
         if (users == null || users.isEmpty()) {
-            throw new UsernameNotFoundException("users on '" + floor + "' floor not found...");
-        } else {
-            return (List<User>) users;
+            users = Collections.emptyList();
         }
+        return users;
     }
 
     public User loadUserByRoomAndFullName(String room, String fullName) {
