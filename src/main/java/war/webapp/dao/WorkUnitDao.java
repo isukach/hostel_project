@@ -15,10 +15,7 @@ public interface WorkUnitDao extends GenericDao<WorkUnit, Long> {
     
     @SuppressWarnings("rawtypes")
     public WorkUnit loadWorkUnitByDate(Calendar date);
-    
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public List<WorkUnit> loadAllWorkUnitsByEmployer(User employer);
-    
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<WorkUnit> loadAllWorkUnitsByEmployee(User employee);
     

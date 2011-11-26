@@ -13,8 +13,6 @@ public interface WorkUnitManager extends GenericManager<WorkUnit, Long> {
 
     public WorkUnit loadWorkUnitByDate(Calendar date);
 
-    public List<WorkUnit> loadAllWorkUnitsByEmployer(User employer);
-
     public List<WorkUnit> loadAllWorkUnitsByEmployee(User employee);
 
     public List<WorkUnit> loadAllWorkUnitsByState(State state);

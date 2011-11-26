@@ -33,12 +33,6 @@ public class WorkUnitManagerImpl extends GenericManagerImpl<WorkUnit, Long> impl
     public WorkUnit loadWorkUnitByDate(Calendar date) {
         return workUnitDao.loadWorkUnitByDate(date);
     }
-    
-
-    public List<WorkUnit> loadAllWorkUnitsByEmployer(User employer) {
-        return workUnitDao.loadAllWorkUnitsByEmployer(employer);
-    }
-    
 
     public List<WorkUnit> loadAllWorkUnitsByEmployee(User employee) {
         return workUnitDao.loadAllWorkUnitsByEmployee(employee);

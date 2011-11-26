@@ -45,23 +45,12 @@ public class WorkUnitDaoHibernate extends GenericDaoHibernate<WorkUnit, Long> im
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public List<WorkUnit> loadAllWorkUnitsByEmployer(User employer) {
-        List workUnits = getHibernateTemplate().find("from WorkUnit where employer=?", employer);
-        if (workUnits == null || workUnits.isEmpty()) {
-            return new LinkedList<WorkUnit>();
-        }
-        List<WorkUnit> allWorkUnits = (List<WorkUnit>) workUnits;
-        return allWorkUnits;
-    }
-    
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<WorkUnit> loadAllWorkUnitsByEmployee(User employee) {
         List workUnits = getHibernateTemplate().find("from WorkUnit where employee=?", employee);
         if (workUnits == null || workUnits.isEmpty()) {
             return new LinkedList<WorkUnit>();
         }
-        List<WorkUnit> allWorkUnits = (List<WorkUnit>) workUnits;
-        return allWorkUnits;
+        return (List<WorkUnit>) workUnits;
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
