@@ -206,7 +206,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/user/profile.xhtml</from-view-id>
+        <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>editProfile</from-outcome>
             <to-view-id>/userForm.xhtml</to-view-id>
