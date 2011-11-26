@@ -21,7 +21,11 @@
                     <f:param name="userId" value="#{user.id}"/>
                 </h:commandLink>
             </li>
-            <li><h:commandLink value="изменить пароль" action="changePass"/></li>
+            <li>
+                <c:if test="${param.from != 'list'}">
+                    <h:commandLink value="изменить пароль" action="changePass"/>
+                </c:if>
+            </li>
         </ul>
     </h:form>
 </div>
