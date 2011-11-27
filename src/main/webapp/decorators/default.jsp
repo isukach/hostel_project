@@ -47,6 +47,10 @@
                     <h2 class="accessibility">Navigation</h2>
                     <jsp:include page="/common/menu.jsp"/>
                 </div>
+                <div id="manual">
+                    <a href="/styles/andreas01/files/UserGuideHostelProject.docx"><img src="/styles/andreas01/images/folder_documents.png" />
+                    <p>${text['manual.title']}</p></a>
+                </div>
                 <hr/>
             </div><!-- end nav -->
         </div>

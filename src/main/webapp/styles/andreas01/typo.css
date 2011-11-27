@@ -176,7 +176,8 @@
     www.456bereastreet.com
     ================================================*/
         .table {
-            font: normal "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            font: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            font-weight: normal;
             border-collapse: separate;
             border-spacing: 0;
             margin: 0 0 1em;
@@ -331,5 +332,16 @@ div.announce {
     margin-top: 15px;
     color: white;
     text-shadow: none;
+}
+
+#manual{
+    display: block;
+    margin-top: 20px;
+}
+
+#manual p{
+    text-align: center;
+    line-height: 12px;
+
 }
 /* END TYPOGRAPHY */

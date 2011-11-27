@@ -71,6 +71,7 @@ Version: 1.0
             text-align: left;
             padding: 0px;
             margin-left: 10px;
+            min-height: 290px;
         }
             div>div#content {
                 margin-left: 0px;
