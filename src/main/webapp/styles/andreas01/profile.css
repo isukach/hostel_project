@@ -27,12 +27,14 @@
 /* reusables */
 .profileContainer table {width:100%;padding:10px;border:0px;}
 .profileContainer .tabContent {padding-top: 0px;}
+.profileContainer .tabContent .tabText .box{padding-top: 10px !important;}
+.profileContainer .tabContent p{padding-left: 10px; padding-right: 10px;}
 .profileContainer .tabContent .current {text-decoration:none; padding: 0; }
 .profileContainer .tabContent img {display:inline-block;}
 .profileContainer .tabContent ul.tabList {list-style:none;margin-top:10px;overflow:hidden;margin-bottom: 0px; width: 100%;}
-.profileContainer .tabContent ul.tabList li {float:left; border:1px solid #b8d7ea; margin-right:9px; margin-left: 0px; border-bottom:none; margin-bottom: 0px; padding:  0;}
+.profileContainer .tabContent ul.tabList li {text-align: center; width: 32%; float:left; border:1px solid #b8d7ea; margin-right:9px; margin-left: 0px; border-bottom:none; margin-bottom: 0px; padding:  0;}
 .profileContainer .tabContent ul.tabList li.lastTab {margin-right:0px;}
-.profileContainer .tabContent ul.tabList li a {display:block;height:45px; /*background:url(../images/tab_background.png) repeat-x top left;*/ background-color: #cddfeb; line-height:40px;padding:0px 54px;text-decoration:none; color:#2f4b57;font-size:17px; font-weight:bold;}
+.profileContainer .tabContent ul.tabList li a {display:block;height:45px; /*background:url(../images/tab_background.png) repeat-x top left;*/ background-color: #cddfeb; line-height:40px; text-decoration:none; color:#2f4b57;font-size:17px; font-weight:bold;}
 .profileContainer .tabContent ul.tabList li.current a {background:#fff;}
 .profileContainer .tabContent div.box {border:1px solid #b8d7ea;margin-top:-1px;padding:0px;}
 .profileContainer .tabContent div.box p {margin-bottom:20px;}
