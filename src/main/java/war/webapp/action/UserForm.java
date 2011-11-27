@@ -202,12 +202,12 @@ public class UserForm extends BasePage implements Serializable {
             return "editProfile";
         }
 
-        if (!"list".equals(getParameter("from"))) {
-            addMessage("user.saved");
-            return "mainMenu"; // return to main Menu
-        } else {
+        if ("list".equals(getParameter("from"))) {
             addMessage("user.added", user.getShortName());
             return "list"; // return to list screen
+        } else {
+            addMessage("user.saved");
+            return "viewProfile"; // return to profile page
         }
     }
 

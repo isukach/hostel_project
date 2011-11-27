@@ -41,7 +41,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private Integer version;
     private String email;
     private String phoneNumber;
-    private Calendar dateOfBirth = Calendar.getInstance();
+    private Calendar dateOfBirth;
     private Set<Role> roles = new HashSet<Role>();
     private boolean enabled = true;
     private boolean accountExpired = false;
@@ -85,7 +85,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return username;
     }
 
-    @Column(name = "email", length = 50, unique = true)
+    @Column(name = "email", length = 50, unique = false)
     public String getEmail() {
         return email;
     }
@@ -150,13 +150,13 @@ public class User extends BaseObject implements Serializable, UserDetails {
     
     @Transient
     public String getBirthDayString() {
-        StringBuffer buf = new StringBuffer();
-        buf.append(getBirthdayDayOfMonth());
-        buf.append(".");
-        buf.append(getBirthdayMonth());
-        buf.append(".");
-        buf.append(getBirthdayYear());
-        return buf.toString();
+        StringBuilder birthday = new StringBuilder();
+        birthday.append(getBirthdayDayOfMonth());
+        birthday.append(".");
+        birthday.append(getBirthdayMonth());
+        birthday.append(".");
+        birthday.append(getBirthdayYear());
+        return birthday.toString();
     }
 
     /**
