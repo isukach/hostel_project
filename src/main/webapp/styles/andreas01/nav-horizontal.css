@@ -10,10 +10,14 @@
 
         div#nav ul {
             list-style: none;
-            width: 170px;
+            width: 120px;
             margin: 0;
             padding: 0;
             font-size: 1.1em;
+        }
+
+        div#nav ul ul {
+            width: 170px;
         }
 
         div#nav li {
@@ -24,16 +28,20 @@
             margin-bottom: 0;
         }
 
-        div#nav li a {
+        div#nav ul li a {
             font-weight: bold;
             height: 20px;
-            width: 90% !important;
+            width: 120px !important;
             text-decoration: none;
             color: #505050;
             display: block;
             padding: 4px 0 2px 10px;
             background: #f4f4f4;
             border-left: 4px solid #cccccc;
+        }
+
+        div#nav ul li ul li a {
+               width: 90% !important;
         }
 
         div#nav .pad {
@@ -83,9 +91,9 @@
             ul#primary-nav ul {
                 position: absolute;
                 display: none;
-                left: 169px; /* Set 1px less than menu width */
+                left: 139px; /* Set 1px less than menu width */
                 top: 0;
-                border: 1px solid black;
+               /* border: 1px solid black;*/
             }
 
                 ul#primary-nav li ul li a { padding: 2px 5px; } /* Sub Menu Styles */
