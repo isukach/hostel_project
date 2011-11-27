@@ -10,16 +10,81 @@
         <meta name="heading" content="#{text['workUnitTable.heading']}"/>
         <meta name="menu" content="AllWorkUnits"/>
         <link rel="stylesheet" type="text/css" href="/styles/forms.css"/>
+        <script type="text/javascript" src="/scripts/jquery-1.6.1.min.js"/>
+        <script type="text/javascript" src="/scripts/jquery-ui-1.8.16.custom.min.js"/>
+        
+        <script>
+           $(document).ready(function() {
+        	   $("#addWorkUnitForm").dialog();
+           });
+           
+           function showAddDialog() {
+        	   $("#addWorkUnitForm").dialog("open");
+           }
+           
+           function hideAddDialog() {
+        	   $("#addWorkUnitForm").dialog("close");
+           }
+        </script>
     </head>
-
-    <ui:include src="/admin/addWorkUnitForm.xhtml"/>
+   
+   <div id="addWorkUnitForm" style="background:white;">
+   <h:form>
+        <h:panelGrid columns="1">
+            
+            <t:htmlTag value="div">
+            <h:message for="wuDate"/>
+            <h:outputLabel for="wuDate" value="#{text['workunit.date'] }"/>
+            </t:htmlTag>
+            <h:inputText id="wuDate" binding="#{dateInpt}" value="#{addWorkUnit.date}" required="true">
+                 <f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:inputText>
+            
+            <t:htmlTag value="div">
+            <h:message for="wuHours"/>
+            <h:outputLabel for="wuHours" value="#{text['workunit.hoursAmount'] }"/>
+            </t:htmlTag>
+            <h:inputText id="wuHours" binding="#{hoursInpt}" value="#{addWorkUnit.hoursAmount}" required="true">
+                <f:validateLongRange minimum="1"/>
+            </h:inputText>
+            
+        </h:panelGrid>
+            
+        <a4j:region>
+            <h:panelGrid columns="1">
+                <t:htmlTag value="div">
+                <h:message for="wuRoom"/>
+                <h:outputLabel for="wuRoom" value="Room"/>
+                </t:htmlTag>
+                <h:inputText id="wuRoom" binding="#{roomInpt}" value="#{addWorkUnit.room}" required="true"> 
+                     <a4j:support event="onchange" reRender="employeesList"/>
+                </h:inputText>                
+                
+                <t:htmlTag value="div">
+                <h:outputLabel for="employeesList" value="#{text['workunit.employee'] }"/>
+                </t:htmlTag>
+                <h:selectOneMenu id="employeesList" value="#{addWorkUnit.employee}" converter="roomUser">
+                    <f:selectItems id="wuEmployees" value="#{addWorkUnit.roomMates}"/>
+                </h:selectOneMenu>
+            
+            </h:panelGrid>
+         </a4j:region>
+         
+         <h:panelGrid columns="1">
+            <h:outputLabel for="wuDescription" value="#{text['workunit.description'] }"/>
+            <h:inputTextarea rows="4" cols="30" id="wuDescription" value="#{addWorkUnit.description}"/>
+         </h:panelGrid>             
+                
+         <h:commandButton type="submit" action="#{addWorkUnit.addWorkUnit}" value="#{text['workunit.addworkunitform.add']}"/>
+    </h:form>
+    </div>
 
     <!-- <h:form id="allWorkUnits"> -->
     <h:form>
         <t:buffer into="#{table}">
             <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
             <t:dataTable id="workunits" var="unit" style="margin-top: 10px" value="#{workUnitList.allWorkUnits}"
-                         rows="5"
+                         rows="30"
                          sortColumn="#{workUnitList.sortColumn}" sortAscending="#{workUnitList.ascending}"
                          styleClass="scrollerTable table"
                          headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
@@ -75,6 +140,7 @@
                     <h:panelGroup>
                         <h:commandButton value="#{text['workUnitList.delete']}" action="#{workUnitList.deleteSelected}"/>
                         <h:commandButton value="#{text['workUnitList.update']}" action="#{workUnitList.updateSelected}"/>
+                        <h:commandButton value="#{text['workunit.addworkunitform.add']}" action="showDialog" onclick="return false;" onmousedown="showAddDialog();"/>
                     </h:panelGroup>
                 </f:facet>
             </t:dataTable>
