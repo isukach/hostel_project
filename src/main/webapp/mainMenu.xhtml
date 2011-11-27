@@ -12,18 +12,38 @@
     </head>
 
     <p>#{text['mainMenu.message']}</p>
-
+    <h2>Новости</h2>
+    <ol>
+        <li>
+            <p class="normal">Выпущена <strong>новая версия DutyHostel 1.1.</strong><br />
+            Новые возможности:</p>
+            <ul class="glassList">
+                <li>Учет общехозяйственных часов,</li>
+                <li>Возможность добавления и редактирования личной информации,</li>
+                <li>Отображение и учет данных жильцов общежития,</li>
+                <li>Визуализация дежурств,</li>
+                <li>Визуализация замечаний.</li>
+            </ul>
+        </li>
+        <li>
+            <p class="normal">Добавлена <strong>первая версия <a href="/styles/andreas01/files/UserGuideHostelProject.docx">Руководства пользователя</a></strong>.</p>
+        </li>
+        <li>
+            <p class="normal"><strong>Объявляется набор</strong> программистов, бизнес-аналитиков, верстальщиков и дизайнеров в нашу команду.</p>
+            <p class="normal">Отправляйте ваше резюме на e-mail <a href="mailto:andrei.misan@gmail.com">andrei.misan@gmail.com</a> или звоните по телефону: +37529 5866234 (Андрей).</p>
+        </li>
+    </ol>
     <div class="separator"></div>
 
-    <h:form id="editUser">
-        <ul class="glassList">
-            <li><h:commandLink value="#{text['menu.duty.show']}" action="dutyTable"/></li>
-            <li><h:commandLink value="#{text['menu.hostelNav']}" action="hostelNav"/></li>
-            <c:if test="#{userForm.currentUserJustUser}">
-                <li><h:commandLink value="#{text['menu.duty.write']}" action="writeOnDuty"/></li>
-            </c:if>
-        </ul>
-    </h:form>
+    <!--<h:form id="editUser">-->
+        <!--<ul class="glassList">-->
+            <!--<li><h:commandLink value="#{text['menu.duty.show']}" action="dutyTable"/></li>-->
+            <!--<li><h:commandLink value="#{text['menu.hostelNav']}" action="hostelNav"/></li>-->
+            <!--<c:if test="#{userForm.currentUserJustUser}">-->
+                <!--<li><h:commandLink value="#{text['menu.duty.write']}" action="writeOnDuty"/></li>-->
+            <!--</c:if>-->
+        <!--</ul>-->
+    <!--</h:form>-->
 
 </f:view>
 </html>

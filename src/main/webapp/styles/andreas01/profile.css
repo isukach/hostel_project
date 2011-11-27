@@ -27,6 +27,8 @@
 /* reusables */
 .profileContainer table {width:100%;padding:10px;border:0px;}
 .profileContainer .tabContent {padding-top: 0px;}
+.profileContainer .tabContent .tabText .box{padding-top: 10px !important;}
+.profileContainer .tabContent p{padding-left: 10px; padding-right: 10px;}
 .profileContainer .tabContent .current {text-decoration:none; padding: 0; }
 .profileContainer .tabContent img {display:inline-block;}
 .profileContainer .tabContent ul.tabList {list-style:none;margin-top:10px;overflow:hidden;margin-bottom: 0px; width: 100%;}
