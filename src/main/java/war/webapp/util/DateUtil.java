@@ -241,4 +241,23 @@ public final class DateUtil {
 
         return aDate;
     }
+
+    /**
+     * Returns Calendar instance that points to 31 August of current study year.
+     * Eg: if today is 15 March 2012 than method will return 31 August 2011
+     *
+     * @return 31 August of current study year
+     */
+    public static Calendar getFirstDayOfStudyYear() {
+        Calendar firstDayOfStudyYear = Calendar.getInstance();
+        int curMonth = firstDayOfStudyYear.get(Calendar.MONTH);
+        if (curMonth < Calendar.JULY) {
+            int currentYear = firstDayOfStudyYear.get(Calendar.YEAR);
+            firstDayOfStudyYear.set(Calendar.YEAR, currentYear - 1);
+            --currentYear;
+        }
+        firstDayOfStudyYear.set(Calendar.MONTH, Calendar.AUGUST);
+        firstDayOfStudyYear.set(Calendar.DAY_OF_MONTH, 31);
+        return firstDayOfStudyYear;
+    }
 }

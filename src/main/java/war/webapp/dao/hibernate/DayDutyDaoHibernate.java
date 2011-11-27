@@ -5,8 +5,12 @@ import org.springframework.stereotype.Repository;
 import war.webapp.dao.DayDutyDao;
 import war.webapp.model.DayDuty;
 import war.webapp.model.User;
+import war.webapp.util.DateUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -33,7 +37,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<DayDuty> loadAllDayDutyByMonthAndFloor(Integer month, String floor) {
-        List dayDuties = getHibernateTemplate().find("from DayDuty where floor=?", floor);
+        List dayDuties = getHibernateTemplate().find("from DayDuty where floor=? and date > ?", new Object[]{floor, DateUtil.getFirstDayOfStudyYear()});
         if (dayDuties == null || dayDuties.isEmpty()) {
             return new LinkedList<DayDuty>();
         }
@@ -92,7 +96,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     }
 
     public List<DayDuty> loadDutiesByUser(User user) {
-        List duties = getHibernateTemplate().find("from DayDuty where firstUser=? or secondUser=?", new Object[]{user, user});
+        List duties = getHibernateTemplate().find("from DayDuty where (firstUser=? or secondUser=?) and date > ?", new Object[]{user, user, DateUtil.getFirstDayOfStudyYear()});
         if (duties == null || duties.isEmpty()) {
             return new ArrayList<DayDuty>(0);
         }
