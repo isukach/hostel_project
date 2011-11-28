@@ -1,5 +1,7 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+﻿<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:hfn="http://hostelFunctions.test.by"
+      xmlns:fn="http://java.sun.com/jstl/functions"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
@@ -14,17 +16,15 @@
 
 <div class="profileContainer">
 <div class="links">
-    <h:form id="editUser">
+    <h:form id="editUser" rendered="${param.from != 'list'}">
         <ul>
             <li>
-                <h:commandLink value="редактировать" action="#{userForm.edit}">
+                <h:commandLink value="редактировать" action="#{userForm.edit}"  >
                     <f:param name="userId" value="#{user.id}"/>
                 </h:commandLink>
             </li>
             <li>
-                <c:if test="${param.from != 'list'}">
-                    <h:commandLink value="изменить пароль" action="changePass"/>
-                </c:if>
+                    <h:commandLink value="изменить пароль" action="changePass" rendered="#{!userForm.rememberMe}"/>
             </li>
         </ul>
     </h:form>
@@ -64,11 +64,11 @@
         <span class="mainLabel">Факультет:</span>
         <span class="mainValue"><a href="/#"><h:outputText value="#{user.department}"/></a></span>
     </div>
-    <div id="mainBirthday">
+    <div >
         <span class="mainLabel">Группа:</span>
         <span class="mainValue"><h:outputText value="#{user.universityGroup}"/></span>
     </div>
-    <div id="mainBirthday">
+    <div >
         <span class="mainLabel">Оплата обучения:</span>
             <span class="mainValue">
             <c:choose>
@@ -91,48 +91,31 @@
         </ul>
         <div class="tabText">
             <div class="box" id="first">
-                <div class="dutyGradient">
-                    <div class="gradientMonth goodDuty">
-                        <p>Сент</p>
-                    </div>
-                    <div class="gradientMonth goodDuty">
-                        <p>Окт</p>
-                    </div>
-                    <div class="gradientMonth goodDuty">
-                        <p>Нояб</p>
-                    </div>
-                    <div class="gradientMonth goodDuty">
-                        <p>Дек</p>
-                    </div>
-                    <div class="gradientMonth badDuty">
-                        <p>Янв</p>
-                    </div>
-                    <div class="gradientMonth badDuty">
-                        <p>Февр</p>
-                    </div>
-                    <div class="gradientMonth badDuty">
-                        <p>Март</p>
-                    </div>
-                    <div class="gradientMonth badDuty">
-                        <p>Апр</p>
-                    </div>
-                    <div class="gradientMonth badDuty">
-                        <p>Май</p>
-                    </div>
-                    <div class="gradientMonth badDuty">
-                        <p>Июнь</p>
-                    </div>
-                </div>
-
-                <ui:include src="/common/userDutiesHistoryTable.xhtml"/>
-
-                <p><strong>Итого:</strong></p>
-
-                <p>Отработанных дежурств: 3.</p>
-
-                <p>Дополнительных дежурств: <span style="color: red;">1</span>.</p>
-
-                <p>Дополнительных отработок: <span style="color: red;">5</span>.</p>
+                        <c:set var="count" value="#{userDutiesHistory.dutiesCount}"/>
+                        <c:choose>
+                            <c:when test="#{count == 0}">
+                                <span class="warningMsg">#{text['warning.duty']}</span>
+                            </c:when>
+                            <c:otherwise>
+                                 <div class="dutyGradient">
+                                    <!-- 9 as first month number in study -->
+                                    <c:forEach begin="8" end="#{dutyList.month}" varStatus="i" >
+                                        <c:choose>
+                                            <c:when test="${i.index lt count}">
+                                                <c:set var="gradientStyleClass" value="goodDuty" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="gradientStyleClass" value="badDuty" />
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="gradientMonth ${gradientStyleClass}">
+                                            <p>#{hfn:getShortMonthString(i.index, dutyList.bundle )}</p>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <ui:include src="/common/userDutiesHistoryTable.xhtml"/>
+                            </c:otherwise>
+                        </c:choose>
             </div>
             <div class="box current" id="second">
                 <div class="miningGradient">
@@ -205,6 +188,7 @@
                         <!--<p>Июнь</p>-->
                     <!--</div>-->
                 <!--</div>-->
+
 
                 <!--<table style="margin-top: 10px" class="scrollerTable table">-->
                     <!--<thead>-->

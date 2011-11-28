@@ -444,7 +444,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     @Transient
     public String getFullName()
     {
-        return this.getFirstName() + " " + this.getLastName()
+        return  this.getLastName() + " " + this.getFirstName()
         + " " + this.getMiddleName();
     }
     

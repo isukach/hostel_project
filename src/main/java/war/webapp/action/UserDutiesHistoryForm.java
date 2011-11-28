@@ -15,10 +15,12 @@ public class UserDutiesHistoryForm extends BasePage {
 
     private String userId;
     private DayDutyManager dayDutyManager;
+    private int dutiesCount;
 
     public List<Duty> getDutiesForUser() {
         User user = getUser();
         List<DayDuty> dayDutiesForUser = dayDutyManager.loadDutiesByUser(user);
+        setDutiesCount(dayDutiesForUser.size());
         return makeListOfDuties(user, dayDutiesForUser);
     }
 
@@ -69,5 +71,13 @@ public class UserDutiesHistoryForm extends BasePage {
 
     public void setDayDutyManager(DayDutyManager dayDutyManager) {
         this.dayDutyManager = dayDutyManager;
+    }
+
+    public int getDutiesCount() {
+        return getDutiesForUser().size();
+    }
+
+    public void setDutiesCount(int dutiesCount) {
+        //stub
     }
 }

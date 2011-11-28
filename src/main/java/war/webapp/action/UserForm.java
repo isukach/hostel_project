@@ -68,7 +68,9 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public User getUser() {
-        if (user == null || user.getId() == null) {
+        HttpServletRequest request = getRequest();
+        String addParam = request.getParameter("addUser");
+        if ((user == null || user.getId() == null) && addParam == null) {
             updateCurrentUser();
         }
         return user;
@@ -365,5 +367,9 @@ public class UserForm extends BasePage implements Serializable {
 
     public void setWorkUnitManager(WorkUnitManager workUnitManager) {
         this.workUnitManager = workUnitManager;
+    }
+
+    public void setRememberMe(boolean param){
+        //stub
     }
 }

@@ -3,7 +3,7 @@ package war.webapp.util;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class MonthHelper {
+public final class MonthHelper {
 
     public static String getMonthString(int month, ResourceBundle bundle) {
         if (month == 0) {
@@ -44,6 +44,47 @@ public class MonthHelper {
         }
         return null;
     }
+
+    public static String getShortMonthString(int month, ResourceBundle bundle) {
+        if (month == 0) {
+            return bundle.getString("month.jan.short");
+        }
+        if (month == 1) {
+            return bundle.getString("month.feb.short");
+        }
+        if (month == 2) {
+            return bundle.getString("month.mar.short");
+        }
+        if (month == 3) {
+            return bundle.getString("month.apr.short");
+        }
+        if (month == 4) {
+            return bundle.getString("month.may.short");
+        }
+        if (month == 5) {
+            return bundle.getString("month.jun.short");
+        }
+        if (month == 6) {
+            return bundle.getString("month.jul.short");
+        }
+        if (month == 7) {
+            return bundle.getString("month.aug.short");
+        }
+        if (month == 8) {
+            return bundle.getString("month.sep.short");
+        }
+        if (month == 9) {
+            return bundle.getString("month.oct.short");
+        }
+        if (month == 10) {
+            return bundle.getString("month.nov.short");
+        }
+        if (month == 11) {
+            return bundle.getString("month.dec.short");
+        }
+        return null;
+    }
+
 
     public static int getDaysNumInMonth(int month) {
         switch (month) {

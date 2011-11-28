@@ -16,6 +16,7 @@
         <h:commandButton value="#{text['button.add']}" action="#{userForm.add}" id="add" styleClass="button">
             <f:param name="from" value="list" />
             <f:param name="user_role" value="admin"/>
+            <f:param name="addUser" valuse="true" />
         </h:commandButton>
         <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true"
             styleClass="button" style="margin-left: 5px" />
@@ -31,8 +32,8 @@
                         <h:outputText value="#{text['user.username']}" />
                     </t:commandSortHeader>
                 </f:facet>
-                <h:commandLink action="#{userForm.edit}" value="#{user.username}">
-                    <f:param name="id" value="#{user.id}" />
+                <h:commandLink action="#{userForm.viewProfile}" value="#{user.username}">
+                    <f:param name="userId" value="#{user.id}" />
                     <f:param name="from" value="list" />
                 </h:commandLink>
             </t:column>

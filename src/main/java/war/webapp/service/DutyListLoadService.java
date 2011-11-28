@@ -10,8 +10,8 @@ import java.io.IOException;
 import static war.webapp.Constants.HTTP_DOWNLOADER;
 /**
  *  DutyListLoadService response for loading dutyList data
- *  by some protocol(i.e. http) 
- *  or save pass it to specified place(db for example or rmi loading)  
+ *  by some protocol(i.e. http)
+ *  or save pass it to specified place(db for example or rmi loading)
  *
  * @author <a href="mailto:andrei.misan@gmail.com">Andrei Misan</a>
  * 

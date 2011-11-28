@@ -56,7 +56,8 @@
         <param-value>
             /WEB-INF/taglibs/acegijsf.taglib.xml;
             /WEB-INF/taglibs/shale-validator.taglib.xml;
-            /WEB-INF/taglibs/tomahawk.taglib.xml
+            /WEB-INF/taglibs/tomahawk.taglib.xml;
+            /WEB-INF/taglibs/custom/hFn.taglib.xml
         </param-value>
     </context-param>
     <context-param> 
