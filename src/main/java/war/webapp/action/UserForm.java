@@ -180,7 +180,7 @@ public class UserForm extends BasePage implements Serializable {
             addError("errors.email", new Object[]{user.getEmail()});
             return "editProfile";
         }
-
+//        user.getRoles().clear();
         for (int i = 0; (userRoles != null) && (i < userRoles.length); i++) {
             String roleName = userRoles[i];
             user.addRole(roleManager.getRole(roleName));
@@ -322,6 +322,15 @@ public class UserForm extends BasePage implements Serializable {
         setSortColumn("date");
         setAscending(false);
         return workUnitManager.loadAllWorkUnitsByEmployee(getUser());
+    }
+    
+    public int getAllWorksOurs(){
+        List<WorkUnit> units = workUnitManager.loadAllWorkUnitsByEmployee(getUser());
+        int sum = 0;
+        for(WorkUnit u: units){
+            sum+=u.getHoursAmount();
+        }
+        return sum;
     }
 
     public List<SelectItem> getFloors() {

@@ -1,10 +1,9 @@
-﻿﻿<html xmlns="http://www.w3.org/1999/xhtml"
+﻿<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:hfn="http://hostelFunctions.test.by"
       xmlns:fn="http://java.sun.com/jstl/functions"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-
 <f:view>
 <head>
     <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
@@ -94,14 +93,14 @@
                         <c:set var="count" value="#{userDutiesHistory.dutiesCount}"/>
                         <c:choose>
                             <c:when test="#{count == 0}">
-                                <span class="warningMsg">#{text['warning.duty']}</span>
+                                <p><span class="warningMsg">#{text['warning.duty']}</span></p>
                             </c:when>
                             <c:otherwise>
                                  <div class="dutyGradient">
-                                    <!-- 9 as first month number in study -->
+                                    <!-- 8 as first month number in study -->
                                     <c:forEach begin="8" end="#{dutyList.month}" varStatus="i" >
                                         <c:choose>
-                                            <c:when test="${i.index lt count}">
+                                            <c:when test="${(i.index-8) lt count}">
                                                 <c:set var="gradientStyleClass" value="goodDuty" />
                                             </c:when>
                                             <c:otherwise>
@@ -119,36 +118,29 @@
             </div>
             <div class="box current" id="second">
                 <div class="miningGradient">
-                    <div class="gradientMonth goodMining">
-                        <p>Сент</p>
-                    </div>
-                    <div class="gradientMonth goodMining">
-                        <p>Окт</p>
-                    </div>
-                    <div class="gradientMonth goodMining">
-                        <p>Нояб</p>
-                    </div>
-                    <div class="gradientMonth goodMining">
-                        <p>Дек</p>
-                    </div>
-                    <div class="gradientMonth badMining">
-                        <p>Янв</p>
-                    </div>
-                    <div class="gradientMonth badMining">
-                        <p>Февр</p>
-                    </div>
-                    <div class="gradientMonth badMining">
-                        <p>Март</p>
-                    </div>
-                    <div class="gradientMonth badMining">
-                        <p>Апр</p>
-                    </div>
-                    <div class="gradientMonth badMining">
-                        <p>Май</p>
-                    </div>
-                    <div class="gradientMonth badMining">
-                        <p>Июнь</p>
-                    </div>
+                    <c:set var="workHours" value="#{userForm.allWorksOurs}"/>
+                    <c:choose>
+                        <c:when test="#{workHours == 0}">
+                            <p><span class="warningMsg">#{text['warning.workUnits']}</span></p>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="dutyGradient">
+                                    <c:forEach begin="8" end="#{dutyList.month}" varStatus="i" >
+                                        <c:choose>
+                                            <c:when test="${(i.index-8)*4 lt workHours}">
+                                                <c:set var="gradientStyleClass" value="goodDuty" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="gradientStyleClass" value="badDuty" />
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="gradientMonth ${gradientStyleClass}">
+                                            <p>#{hfn:getShortMonthString(i.index, dutyList.bundle )}</p>
+                                        </div>
+                                    </c:forEach>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <ui:include src="/user/profileWorkUnitTable.xhtml"/>

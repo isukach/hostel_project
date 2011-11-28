@@ -73,6 +73,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     public User saveUser(User user) throws UserExistsException {
 
         if (user.getVersion() == null) {
+            user.setId(null);
             // if new user, lowercase userId
             user.setUsername(user.getUsername().toLowerCase());
         }
