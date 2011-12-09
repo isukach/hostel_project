@@ -21,6 +21,7 @@
         <h:commandButton value="#{text['button.add']}" action="#{userForm.add}" id="add" styleClass="button">
             <f:param name="from" value="list"/>
             <f:param name="user_role" value="starosta"/>
+            <f:param name="addUser" value="true"/>
         </h:commandButton>
         <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true"
                          styleClass="button" style="margin-left: 5px"/>

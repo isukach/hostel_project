@@ -7,7 +7,10 @@ import org.springframework.security.AuthenticationTrustResolver;
 import org.springframework.security.AuthenticationTrustResolverImpl;
 import org.springframework.security.context.HttpSessionContextIntegrationFilter;
 import org.springframework.security.context.SecurityContext;
+import org.springframework.web.HttpSessionRequiredException;
+
 import war.webapp.Constants;
+import war.webapp.model.Address;
 import war.webapp.model.LabelValue;
 import war.webapp.model.Role;
 import war.webapp.model.User;
@@ -23,6 +26,8 @@ import war.webapp.util.UserHelper;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSessionEvent;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
@@ -37,16 +42,31 @@ import static org.springframework.security.context.SecurityContextHolder.getCont
  * @author mraible
  */
 public class UserForm extends BasePage implements Serializable {
+    
     private static final long serialVersionUID = -1141119853856863204L;
+    
     private RoleManager roleManager;
     private FloorManager floorManager;
     private WorkUnitManager workUnitManager;
+    
     private String id;
-    private User user = new User();
+    private User user;
     private Map<String, String> availableRoles;
     private String[] userRoles;
+    private String action;
+    
+    private static String ACTION_EDIT = "edit";
+    private static String ACTION_ADD = "add";
+    private static String ACTION_VIEW = "view";
+    private static String DEFAULT_PASSWORD = "pass";
 
     private Map<String, Boolean> payModeToValue;
+    
+    public UserForm() {
+        HttpServletRequest request = getRequest();
+        String action = request.getParameter("action");
+        setAction(action);
+    }
 
     //Should be removed
     {
@@ -68,10 +88,8 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public User getUser() {
-        HttpServletRequest request = getRequest();
-        String addParam = request.getParameter("addUser");
-        if ((user == null || user.getId() == null) && addParam == null) {
-            updateCurrentUser();
+        if (user == null) {
+            loadUser();
         }
         return user;
     }
@@ -83,12 +101,17 @@ public class UserForm extends BasePage implements Serializable {
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
     }
+    
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public String add() {
-        user = new User();
-        user.setVersion(null);
-        user.setEnabled(true);
-        user.addRole(new Role(Constants.USER_ROLE));
+        setAction(ACTION_ADD);
         return "editProfile";
     }
 
@@ -97,57 +120,67 @@ public class UserForm extends BasePage implements Serializable {
             log.debug("Entering 'cancel' method");
         }
 
-        if (!"list".equals(getParameter("from"))) {
+        /*if (!"list".equals(getParameter("from"))) {
             return "mainMenu";
         } else {
             return "cancel";
-        }
+        }*/
+        return "viewProfile";
     }
 
     public String edit() {
-        updateCurrentUser();
+        setAction(ACTION_EDIT);
         return "editProfile";
     }
 
     public String viewProfile() {
-        updateCurrentUser();
+        setAction(ACTION_VIEW);
         return "viewProfile";
     }
 
-    private void updateCurrentUser() {
+    private void loadUser() {
         HttpServletRequest request = getRequest();
         String userId = request.getParameter("userId");
+        String action = getAction();
         if (userId != null) {
             id = userId;
         }
+        
         // if a user's id is passed in
         if (id != null) {
             // lookup the user using that id
-            user = userManager.getUser(id);
+            setUser(userManager.getUser(id));
+        } else if (!ACTION_ADD.equals(action)){
+            setUser(userManager.getUserByUsername(request.getRemoteUser()));
         } else {
-            user = userManager.getUserByUsername(request.getRemoteUser());
+            setUser(new User());
+            getUser().setAddress(new Address());
+            getUser().setVersion(null);
+            getUser().setEnabled(true);
+            getUser().setDateOfBirth(Calendar.getInstance());
         }
 
-        if (user.getUsername() != null && isRememberMe()) {
+        if (getUser() != null && getUser().getUsername() != null && isRememberMe()) {
             // if user logged in with remember me, display a warning that
             // they can't change passwords
             log.debug("checking for remember me login...");
-            log.trace("User '" + user.getUsername() + "' logged in with cookie");
+            log.trace("User '" + getUser().getUsername() + "' logged in with cookie");
             addMessage("userProfile.cookieLogin");
         }
     }
 
     public String resetPassword() {
-        if (user.getId() != null) {
-            user = userManager.getUser(user.getId().toString());
-            user.setPassword("pass");
+        if (getUser().getId() != null) {
+            setUser(userManager.getUser(getUser().getId().toString()));
+            getUser().setPassword(DEFAULT_PASSWORD);
             try {
-                userManager.saveUser(user);
+                userManager.saveUser(getUser());
+                addMessage("user.password.reset", new Object[] {DEFAULT_PASSWORD});
             } catch (UserExistsException ex) {
                 ex.printStackTrace();
             }
         }
-        return "editProfile";
+        return "viewProfile";
     }
 
     /**
@@ -157,7 +190,7 @@ public class UserForm extends BasePage implements Serializable {
      * @return true/false - false if user interactively logged in.
      */
     public boolean isRememberMe() {
-        if (user != null && user.getId() == null)
+        if (getUser() != null && getUser().getId() == null)
             return false; // check for add()
 
         AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
@@ -171,25 +204,26 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String save() throws IOException {
+        
         setUserRoles(getRoles());
         generateFloor();
         generateUsername();
         generatePassword();
 
         if (!validateEmail()) {
-            addError("errors.email", new Object[]{user.getEmail()});
+            addError("errors.email", new Object[]{getUser().getEmail()});
             return "editProfile";
         }
 //        user.getRoles().clear();
         for (int i = 0; (userRoles != null) && (i < userRoles.length); i++) {
             String roleName = userRoles[i];
-            user.addRole(roleManager.getRole(roleName));
+            getUser().addRole(roleManager.getRole(roleName));
         }
 
-        Integer originalVersion = user.getVersion();
+        Integer originalVersion = getUser().getVersion();
 
         try {
-            user = userManager.saveUser(user);
+            setUser(userManager.saveUser(getUser()));
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor
             // userManagerSecurity
@@ -197,20 +231,28 @@ public class UserForm extends BasePage implements Serializable {
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {
-            addError("errors.existing.user", new Object[]{user.getUsername()});
+            addError("errors.existing.user", new Object[]{getUser().getUsername()});
 
             // reset the version # to what was passed in
-            user.setVersion(originalVersion);
+            getUser().setVersion(originalVersion);
             return "editProfile";
         }
 
-        if ("list".equals(getParameter("from"))) {
-            addMessage("user.added", user.getShortName());
+        /*if ("list".equals(getParameter("from"))) {
+            addMessage("user.added", getUser().getShortName());
             return "list"; // return to list screen
         } else {
             addMessage("user.saved");
             return "viewProfile"; // return to profile page
+        }*/
+        if (ACTION_ADD.equals(getAction())) {
+            addMessage("user.added", getUser().getShortName());
+            return "list"; // return to list screen
+        } else if (ACTION_EDIT.equals(getAction())) {
+            addMessage("user.saved");
+            return "viewProfile"; // return to profile page
         }
+        return "editProfile";
     }
 
     private String[] getRoles() {
@@ -221,40 +263,40 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     private void generateFloor() {
-        String floor = user.getAddress().getHostelFloor();
+        String floor = getUser().getAddress().getHostelFloor();
         if (floor == null) {
             floor = ((User) getContext().getAuthentication().getPrincipal()).getAddress().getHostelFloor();
         }
-        user.getAddress().setHostelFloor(floor);
+        getUser().getAddress().setHostelFloor(floor);
     }
 
     private void generateUsername() {
-        if (StringUtils.isEmpty(user.getUsername())) {
+        if (StringUtils.isEmpty(getUser().getUsername())) {
             StringBuilder username = new StringBuilder();
-            username.append(user.getAddress().getHostelRoom()).append(user.getLastName())
-                    .append(user.getFirstName().charAt(0)).append(user.getMiddleName().charAt(0));
-            user.setUsername(username.toString());
+            username.append(getUser().getAddress().getHostelRoom()).append(getUser().getLastName())
+                    .append(getUser().getFirstName().charAt(0)).append(getUser().getMiddleName().charAt(0));
+            getUser().setUsername(username.toString());
         }
     }
 
     private void generatePassword() {
-        String pass = user.getPassword();
+        String pass = getUser().getPassword();
         String sessionUserPass = ((User) getContext().getAuthentication().getPrincipal()).getPassword();
         if (pass == null) {
             if (sessionUserPass == null) {
-                user.setPassword("pass");
+                getUser().setPassword("pass");
             } else {
-                user.setPassword(sessionUserPass);
+                getUser().setPassword(sessionUserPass);
             }
         }
     }
 
     private boolean validateEmail() {
-        if (StringUtils.isEmpty(user.getEmail())) {
+        if (StringUtils.isEmpty(getUser().getEmail())) {
             return true;
         }
         Pattern p = Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        Matcher m = p.matcher(user.getEmail());
+        Matcher m = p.matcher(getUser().getEmail());
         return m.matches();
     }
 
@@ -296,14 +338,9 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public boolean isInputFieldShouldBeDisabled() {
-        boolean isInputToDisable = false;
-        String from = getFrom();
-        User currentUser = (User) ((SecurityContext) getSession().getAttribute(
-                HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
-        if (user.getUsername() != null) {
-            if (currentUser.getUsername().equals(user.getUsername()) && !"list".equals(from) && !isCurrentUserAdmin()) {
-                isInputToDisable = true;
-            }
+        boolean isInputToDisable = true;
+        if (isCurrentUserAdmin() || isCurrentUserStarosta()) {
+            isInputToDisable = false;
         }
         return isInputToDisable;
     }
@@ -311,6 +348,11 @@ public class UserForm extends BasePage implements Serializable {
     public boolean isCurrentUserAdmin() {
         UserHelper userHelperBean = (UserHelper) FacesUtils.getManagedBean("userHelper");
         return userHelperBean.ifCurrentUserHasRole(Constants.ADMIN_ROLE);
+    }
+    
+    public boolean isCurrentUserStarosta() {
+        UserHelper userHelperBean = (UserHelper) FacesUtils.getManagedBean("userHelper");
+        return userHelperBean.ifCurrentUserHasRole(Constants.STAROSTA_ROLE);
     }
 
     public boolean isCurrentUserJustUser() {
@@ -344,12 +386,12 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String[] getUserRoles() {
-        userRoles = new String[user.getRoles().size()];
+        userRoles = new String[getUser().getRoles().size()];
 
         int i = 0;
 
         if (userRoles.length > 0) {
-            for (Role role : user.getRoles()) {
+            for (Role role : getUser().getRoles()) {
                 userRoles[i] = role.getName();
                 i++;
             }

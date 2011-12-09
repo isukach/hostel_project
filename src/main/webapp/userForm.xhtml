@@ -19,6 +19,7 @@
         <h:inputHidden value="#{userForm.user.version}" id="version" />
 
         <input type="hidden" name="from" value="#{userForm.from}" />
+        <input type="hidden" name="action" value="#{userForm.action}"/>
 
         <c:if test="${empty userForm.user.version}">
             <input type="hidden" name="encryptPass" value="true" />
@@ -75,13 +76,15 @@
                         <h:outputLabel for="login" value="#{text['label.username']}" styleClass="desc" />
                         <t:message for="login" styleClass="fieldError" />
                         <h:inputText value="#{userForm.user.username}" id="login" maxlength="50"
-                            readonly="${userForm.inputFieldShouldBeDisabled}" styleClass="text medium">
+                            styleClass="text medium">
                             <v:commonsValidator client="true" type="required" arg="#{text['user.login']}" />
                         </h:inputText>
                     </t:htmlTag>
                     <t:htmlTag value="div">
                         <h:outputLabel value="#{text['label.password']}" styleClass="desc" />
-                        <h:commandButton value="#{text['button.reset.password']}" action="#{userForm.resetPassword}" styleClass="button" />
+                        <h:commandButton immediate="true" value="#{text['button.reset.password']}" action="#{userForm.resetPassword}" styleClass="button" >
+                            <f:param name="userId" value="#{userForm.user.id}"/>
+                        </h:commandButton>
                     </t:htmlTag>
                 </t:htmlTag>
             </h:panelGroup>
@@ -235,7 +238,7 @@
             <h:outputText />
 
             <c:choose>
-                <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
+                <c:when test="#{userForm.currentUserAdmin or userForm.currentUserStarosta}">
                     <h:panelGroup>
                         <t:htmlTag value="fieldset">
                             <t:htmlTag value="legend">
@@ -275,7 +278,11 @@
             </c:choose>
 
             <h:panelGroup styleClass="buttonBar bottom">
-                <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button" />
+                <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button" >
+                    <c:if test="#{not empty userForm.user.id}">
+                        <f:param name="userId" value="#{userForm.user.id}"/>
+                    </c:if>
+                </h:commandButton>
                 <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
                     styleClass="button" onclick="bCancel=true" />
             </h:panelGroup>
