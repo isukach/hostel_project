@@ -20,3 +20,5 @@ To get started, please complete the following steps:
 
 3. add in jvm property next values: -Xms256m -Xmx512m -XX:MaxPermSize=256m;
 
+4.all have to use "jQuery" instead "$" for jQuery-function invoking!
+
