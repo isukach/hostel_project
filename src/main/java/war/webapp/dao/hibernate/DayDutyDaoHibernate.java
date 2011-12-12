@@ -85,6 +85,8 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     public void deleteFirstDutyUser(DayDuty dayDuty) {
         DayDuty loadedDayDuty = loadSingleDayDutyByExample(dayDuty);
         loadedDayDuty.setFirstUser(null);
+        loadedDayDuty.setOwnFirstDuty(null);
+
         getHibernateTemplate().update(loadedDayDuty);
 
     }
@@ -92,6 +94,7 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
     public void deleteSecondDutyUser(DayDuty dayDuty) {
         DayDuty loadedDayDuty = loadSingleDayDutyByExample(dayDuty);
         loadedDayDuty.setSecondUser(null);
+        loadedDayDuty.setOwnSecondDuty(null);
         getHibernateTemplate().update(loadedDayDuty);
     }
 

@@ -47,6 +47,9 @@ public class DayDuty extends BaseObject implements Serializable {
     @Column
     private String floor;
 
+    private Boolean isOwnSecondDuty;
+    private Boolean isOwnFirstDuty;
+
     public DayDuty() {
     }
 
@@ -173,6 +176,24 @@ public class DayDuty extends BaseObject implements Serializable {
 
     public void setFloor(String floor) {
         this.floor = floor;
+    }
+
+    @Column(name = "own_first_duty", columnDefinition = "BIT(1)")
+    public Boolean isOwnFirstDuty() {
+        return isOwnFirstDuty;
+    }
+    @Column(name = "own_second_duty", columnDefinition = "BIT(1)")
+    public Boolean isOwnSecondDuty() {
+        return isOwnSecondDuty;
+    }
+    public void setOwnFirstDuty(Boolean ownFirstDuty) {
+        isOwnFirstDuty = ownFirstDuty;
+    }
+
+
+
+    public void setOwnSecondDuty(Boolean ownSecondDuty) {
+        isOwnSecondDuty = ownSecondDuty;
     }
 
     /**

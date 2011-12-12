@@ -144,8 +144,10 @@ public class DutyList extends BasePage implements Serializable {
         String shift = e.getComponent().getId();
         if (shift.equals(FIRST_SHIFT)) {
             dayDuty.setFirstUser(userToWriteOnDuty);
+            dayDuty.setOwnFirstDuty(false);
         } else if (shift.equals(SECOND_SHIFT)) {
             dayDuty.setSecondUser(userToWriteOnDuty);
+            dayDuty.setOwnSecondDuty(false);
         }
 
         dayDutyManager.saveDayDuty(dayDuty);
@@ -199,6 +201,7 @@ public class DutyList extends BasePage implements Serializable {
             return;
         }
         dayDuty.setFirstUser(getUser());
+        dayDuty.setOwnFirstDuty(true);
         getDayDutyManager().saveDayDuty(dayDuty);
     }
 
@@ -217,6 +220,7 @@ public class DutyList extends BasePage implements Serializable {
             return;
         }
         dayDuty.setSecondUser(getUser());
+        dayDuty.setOwnSecondDuty(true);
         getDayDutyManager().saveDayDuty(dayDuty);
     }
 

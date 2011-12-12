@@ -61,6 +61,7 @@
                         <h:selectOneMenu id="firstShift" rendered="#{empty duty.firstUser.firstName}"
                                          valueChangeListener="#{dutyList.floorUserChanged}">
                             <f:selectItems value="#{dutyList.usersForFloorhead}"/>
+                            <a4j:support event="onchange" reRender="dutiesTable"/>
                         </h:selectOneMenu>
                     </h:panelGroup>
                 </t:column>

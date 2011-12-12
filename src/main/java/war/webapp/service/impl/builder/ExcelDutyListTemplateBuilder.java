@@ -12,10 +12,12 @@ import jxl.format.VerticalAlignment;
 import jxl.write.*;
 import jxl.write.WritableFont.FontName;
 import jxl.write.biff.RowsExceededException;
+import war.webapp.action.DutyList;
 import war.webapp.model.DayDuty;
 import war.webapp.service.builder.BaseDutyListTemplateBuilder;
 
 import java.io.*;
+import java.lang.Boolean;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -122,6 +124,26 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
             ex.printStackTrace();
         }
     }
+    /**
+     * Defines user cell format:
+     *  - if weekend - grey background
+     *  - if user's duty was added by starosta - bold font
+     * */
+    private  WritableCellFormat defineUserCellFormat(int dayOfWeek , Boolean isOwnDuty, WritableCellFormat formatNoBold, WritableCellFormat formatNoBoldGrey, WritableCellFormat formatBold, WritableCellFormat formatBoldGrey){
+                if ((dayOfWeek == Calendar.SATURDAY) || (dayOfWeek == Calendar.SUNDAY)) {
+                    if(isOwnDuty != null && !isOwnDuty){
+                        return formatBoldGrey;
+                    }else{
+                        return formatNoBoldGrey;
+                    }
+                } else {
+                    if(isOwnDuty != null && !isOwnDuty){
+                        return formatBold;
+                    }else{
+                        return formatNoBold;
+                    }
+                }
+    }
 
     @Override
     public void createContent(Object... params) {
@@ -196,33 +218,28 @@ public class ExcelDutyListTemplateBuilder extends BaseDutyListTemplateBuilder {
             sheet.setRowView(distRow+1, 350);
             int dataRow = distRow + 2;
             WritableCellFormat currentFormat = null;
-            WritableCellFormat currentFormatDay = null;
-            WritableCellFormat currentFormatGroup = null;
+            WritableCellFormat currentFormatDay = dataFormatBorderAll;
             for (DayDuty duty : duties) {
 
                 Calendar dutyDate = duty.getDate();
                 int dayOfWeek = duty.getDayOfWeek();
-                if ((dayOfWeek == Calendar.SATURDAY) || (dayOfWeek == Calendar.SUNDAY)) {
-                    currentFormat = dataFormatBorderAllGrey;
-                    currentFormatGroup = dataFormatBorderAllGrey;
-                    currentFormatDay = dataFormatBorderAllGrey;
-                } else {
-                    currentFormat = dataFormatBorderAll;
-                    currentFormatGroup = dataFormatBorderAll;
-                    currentFormatDay = dataFormatBorderAll;
-                }
+
+
                 addLabelToSheet(sheet,distCol, dataRow, "" + dutyDate.get(Calendar.DAY_OF_MONTH), currentFormatDay);
+
+                currentFormat = defineUserCellFormat(dayOfWeek, duty.isOwnFirstDuty(), dataFormatBorderAll, dataFormatBorderAllGrey, dataFormatBorderAllBold, dataFormatBorderAllBoldGrey);
+
 
                 addLabelToSheet(sheet, distCol + 1, dataRow, duty.getFirstUser().getShortName(), currentFormat);
                 String firstUSerGroup = duty.getFirstUser().getUniversityGroup();
-                addLabelToSheet(sheet, distCol + 2, dataRow, firstUSerGroup == null ? "" : firstUSerGroup, currentFormatGroup);
+                addLabelToSheet(sheet, distCol + 2, dataRow, firstUSerGroup == null ? "" : firstUSerGroup, currentFormat);
                 String firstUserRoom = duty.getFirstUser().getAddress().getHostelRoom();
-                addLabelToSheet(sheet, distCol + 3, dataRow,  firstUserRoom == null ? "" : firstUserRoom, currentFormat);
+                addLabelToSheet(sheet, distCol + 3, dataRow, firstUserRoom == null ? "" : firstUserRoom, currentFormat);
 
-                addLabelToSheet(sheet, distCol+4, dataRow, duty.getSecondUser().getShortName(), currentFormat);
+                addLabelToSheet(sheet, distCol + 4, dataRow, duty.getSecondUser().getShortName(), currentFormat);
                 String secondUserGroup = duty.getSecondUser().getUniversityGroup();
-                addLabelToSheet(sheet,distCol + 5, dataRow, secondUserGroup == null ? "" : secondUserGroup,
-                        currentFormatGroup);
+                addLabelToSheet(sheet, distCol + 5, dataRow, secondUserGroup == null ? "" : secondUserGroup,
+                        currentFormat);
                 String secondUserRoom = duty.getSecondUser().getAddress().getHostelRoom();
                 addLabelToSheet(sheet, distCol + 6, dataRow, secondUserRoom == null ? "" : secondUserRoom,
                         currentFormat);
