@@ -75,6 +75,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         if (user.getVersion() == null) {
             user.setId(null);
             // if new user, lowercase userId
+            user.setPassword("pass");
             user.setUsername(user.getUsername().toLowerCase());
         }
 
