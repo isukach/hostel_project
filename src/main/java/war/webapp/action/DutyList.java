@@ -98,10 +98,10 @@ public class DutyList extends BasePage implements Serializable {
 
             Collections.sort(floorUsers, new Comparator<User>() {
                 public int compare(User user1, User user2) {
-                    List<DayDuty> firstUserDuties = dayDutyManager.loadDutiesByUser(user1);
-                    List<DayDuty> secondUserDuties = dayDutyManager.loadDutiesByUser(user2);
-//                    return user1.getAddress().getHostelRoom().compareToIgnoreCase(user2.getAddress().getHostelRoom());
-                    return firstUserDuties.size() - secondUserDuties.size();
+//                    List<DayDuty> firstUserDuties = dayDutyManager.loadDutiesByUser(user1);
+//                    List<DayDuty> secondUserDuties = dayDutyManager.loadDutiesByUser(user2);
+                    return user1.getAddress().getHostelRoom().compareToIgnoreCase(user2.getAddress().getHostelRoom());
+//                    return firstUserDuties.size() - secondUserDuties.size();
                 }
             });
             floorUsers.remove(getUser());
