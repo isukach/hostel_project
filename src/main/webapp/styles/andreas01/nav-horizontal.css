@@ -91,7 +91,7 @@
             ul#primary-nav ul {
                 position: absolute;
                 display: none;
-                left: 139px; /* Set 1px less than menu width */
+                left: 134px; /* Set 1px less than menu width */
                 top: 0;
                /* border: 1px solid black;*/
             }
