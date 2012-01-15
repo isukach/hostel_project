@@ -12,6 +12,88 @@
         <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
     </head>
 
+    <script type="text/javascript">	//<![CDATA[
+
+	function oamSetHiddenInput(formname, name, value)
+	{
+		var form = document.forms[formname];
+		if (typeof form.elements[name] == 'undefined')
+		{
+			var newInput = document.createElement('input');
+			newInput.setAttribute('type', 'hidden');
+			newInput.setAttribute('id', name);
+			newInput.setAttribute('name', name);
+			newInput.setAttribute('value', value);
+			form.appendChild(newInput);
+		}
+		else
+		{
+			form.elements[name].value = value;
+		}
+	}
+
+	function oamClearHiddenInput(formname, name, value)
+	{
+		var form = document.forms[formname];
+		if (typeof form.elements[name] != 'undefined')
+		{
+			form.elements[name].value = null;
+		}
+	}
+
+	function oamSubmitForm(formName, linkId, target, params)
+	{
+		var clearFn = 'clearFormHiddenParams_'
+				+ formName.replace(/-/g, '\$:').replace(/:/g, '_');
+		if (typeof eval('window.' + clearFn) != 'undefined')
+		{
+			eval('window.' + clearFn + '(formName)');
+		}
+		var oldTarget = '';
+		if ((typeof target != 'undefined') && target != null)
+		{
+			oldTarget = document.forms[formName].target;
+			document.forms[formName].target = target;
+		}
+		if ((typeof params != 'undefined') && params != null)
+		{
+			for ( var i = 0; i < params.length; i++)
+			{
+				oamSetHiddenInput(formName, params[i][0], params[i][1]);
+			}
+		}
+
+		oamSetHiddenInput(formName, formName + ':' + '_idcl', linkId);
+		if (document.forms[formName].onsubmit)
+		{
+			var result = document.forms[formName].onsubmit();
+			if ((typeof result == 'undefined') || result)
+			{
+				document.forms[formName].submit();
+			}
+		}
+		else
+		{
+			document.forms[formName].submit();
+		}
+		if (oldTarget == null)
+			oldTarget = '';
+
+		document.forms[formName].target = oldTarget;
+		if ((typeof params != 'undefined') && params != null)
+		{
+			for ( var i = 0; i < params.length; i++)
+			{
+				oamClearHiddenInput(formName, params[i][0], params[i][1]);
+			}
+		}
+		oamClearHiddenInput(formName, formName + ':' + '_idcl', linkId);
+		return false;
+	}
+	//
+	//]]>
+</script>
+
     <h:form id="editFloorUser">
 
         <h2><h:outputFormat value="#{text['userList.floorNumber']}">
