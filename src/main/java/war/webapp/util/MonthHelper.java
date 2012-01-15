@@ -1,6 +1,8 @@
 package war.webapp.util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public final class MonthHelper {
@@ -165,6 +167,24 @@ public final class MonthHelper {
                 bundle.getString("month.jun"), bundle.getString("month.jul"), bundle.getString("month.aug"),
                 bundle.getString("month.sep"), bundle.getString("month.oct"), bundle.getString("month.nov"),
                 bundle.getString("month.dec"), };
+    }
+
+    /**
+     * Return year number -5 from current, current and +5 from current year
+     * 
+     * @return list of years as {@link String}
+     */
+    public static List<String> getYears() {
+        Calendar currentDate = Calendar.getInstance();
+        List<String> years = new ArrayList<String>();
+        
+        int currentYear = currentDate.get(Calendar.YEAR);
+        
+        for (int year = currentYear - 5; year <= currentYear + 5; year++) {
+            years.add(Integer.toString(year));
+        }
+        
+        return years;
     }
 
 }

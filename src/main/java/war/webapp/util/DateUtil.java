@@ -260,4 +260,11 @@ public final class DateUtil {
         firstDayOfStudyYear.set(Calendar.DAY_OF_MONTH, 31);
         return firstDayOfStudyYear;
     }
+    
+    public static Calendar getDateByYearAndMonthNum(Integer year, Integer month) {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, year);
+        date.set(Calendar.MONTH, month);
+        return date;
+    }
 }

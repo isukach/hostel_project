@@ -9,6 +9,11 @@
         valueChangeListener="#{dutyList.monthSelectionChanged}">
         <f:selectItems value="#{dutyList.monthItems}" />
     </h:selectOneMenu>
+    <h:outputText value="#{text['duty.year']}" />
+    <h:selectOneMenu value="#{dutyList.yearString}" onchange="submit()"
+        valueChangeListener="#{dutyList.yearSelectionChanged}">
+        <f:selectItems value="#{dutyList.yearItems}" />
+    </h:selectOneMenu>
     <h:outputText value="#{text['duty.floor']}" />
     <h:selectOneMenu value="#{dutyList.floor}" onchange="submit()" valueChangeListener="#{dutyList.floorChanged}">
         <f:selectItems value="#{dutyList.floors}" />

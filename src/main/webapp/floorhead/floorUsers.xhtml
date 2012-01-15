@@ -48,9 +48,13 @@
             </t:column>
         </t:dataTable>
 
-        <ui:include src="/common/tableFooter.xhtml">
-            <ui:param name="tableName" value="users"/>
-        </ui:include>
+        <t:buffer into="#{scroller}">
+            <ui:include src="/common/tableFooter.xhtml">
+                <ui:param name="tableName" value="users"/>
+            </ui:include>
+        </t:buffer>
+        
+        <h:outputText value="#{scroller}" escape="false"/>
 
         <script type="text/javascript">
             highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row

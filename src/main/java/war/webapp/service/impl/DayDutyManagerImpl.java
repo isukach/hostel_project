@@ -25,8 +25,8 @@ public class DayDutyManagerImpl extends GenericManagerImpl<DayDuty, Long> implem
         return dayDutyDao.loadDayDutyByDateAndFloor(date, floor);
     }
 
-    public List<DayDuty> loadAllDayDutyByMonthAndFloor(Integer month, String floor) {
-        return dayDutyDao.loadAllDayDutyByMonthAndFloor(month, floor);
+    public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer year, Integer month, String floor) {
+        return dayDutyDao.loadAllDayDutyByDateAndFloor(year, month, floor);
     }
 
     public DayDuty saveDayDuty(DayDuty dayDuty) {
