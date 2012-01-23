@@ -71,5 +71,7 @@ public interface UserDao extends GenericDao<User, Long> {
     User loadUserByRoomAndFullName(String room, String fullName);
 
     List<User> loadUsersByRoom(String room);
+
+    int getNumberOfFloorUsers(String floor);
     
 }

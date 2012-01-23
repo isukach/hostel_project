@@ -97,18 +97,16 @@ public class DutyList extends BasePage implements Serializable {
             floorUsersList = new LinkedList<SelectItem>();
             floorUsersList.add(new SelectItem(SELECT_USER_STRING));
 
-            List<User> floorUsers = userManager.getUsersByFloor(getFloor());
+            List<User> users = userManager.getUsersByFloor(getFloor());
 
-            Collections.sort(floorUsers, new Comparator<User>() {
+            Collections.sort(users, new Comparator<User>() {
                 public int compare(User user1, User user2) {
-//                    List<DayDuty> firstUserDuties = dayDutyManager.loadDutiesByUser(user1);
-//                    List<DayDuty> secondUserDuties = dayDutyManager.loadDutiesByUser(user2);
                     return user1.getAddress().getHostelRoom().compareToIgnoreCase(user2.getAddress().getHostelRoom());
-//                    return firstUserDuties.size() - secondUserDuties.size();
                 }
             });
-            floorUsers.remove(getUser());
-            for (User user : floorUsers) {
+            
+            users.remove(getUser());
+            for (User user : users) {
                 List<DayDuty> userDuties = dayDutyManager.loadDutiesByUser(user);
                 floorUsersList.add(new SelectItem(user.getAddress().getHostelRoom() + " " + user.getShortName()+"("+userDuties.size()+")")) ;
             }
@@ -117,7 +115,13 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     private boolean userListAmountChanged() {
-        return floorUsersList == null || floorUsersList.size() - 1 != userManager.getUsersByFloor(getFloor()).size();
+        int floorUsersListSize = 0;
+        if (floorUsersList != null) {
+            floorUsersListSize  = floorUsersList.size();
+        }
+        int amountOfFloorUsers = userManager.getNumberOfFloorUsers(getFloor());
+        
+        return floorUsersList == null || floorUsersListSize != amountOfFloorUsers;
     }
 
     public void deleteUserFromDuty(ActionEvent e) {

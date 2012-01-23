@@ -1,5 +1,6 @@
 package war.webapp.action;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -19,8 +20,7 @@ import war.webapp.model.User;
 import war.webapp.model.WorkUnit;
 import war.webapp.service.WorkUnitManager;
 
-public class WorkUnitList extends BasePage {
-
+public class WorkUnitList extends BasePage implements Serializable{
 
     private WorkUnitManager workUnitManager;
     private List<WorkUnitDto> unitsDto;

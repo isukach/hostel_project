@@ -92,4 +92,12 @@ public interface UserManager extends GenericManager<User, Long> {
      */
     List<User> getUsersByRoom(String room);
     
+    /**
+     * Returns number of users on floorhead floor
+     * 
+     * @param floor floor number
+     * @return amount of users
+     */
+    int getNumberOfFloorUsers(String floor);
+    
 }

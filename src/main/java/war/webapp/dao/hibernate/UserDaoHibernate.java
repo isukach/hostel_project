@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Table;
 
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.security.userdetails.UserDetails;
@@ -146,5 +147,10 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         } else {
             return users;
         }
+    }
+
+    public int getNumberOfFloorUsers(String floor) {
+        int amount =  DataAccessUtils.intResult(getHibernateTemplate().find("select count(*) from User where address.hostelFloor=? and accountLocked != true", floor));
+        return amount;
     }
 }

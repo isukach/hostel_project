@@ -54,7 +54,7 @@
                     <f:facet name="header">
                         <t:outputText value="#{text['duty.firstShift']}"/>
                     </f:facet>
-                    <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
+                    <h:panelGroup columns="2" >
                         <a4j:commandLink id="firstShiftUser" rendered="#{!empty duty.firstUser.firstName}"
                                          actionListener="#{dutyList.deleteUserFromDuty}" reRender="dutiesTable"
                                          value="#{duty.firstUser.shortName}"/>
@@ -70,7 +70,7 @@
                     <f:facet name="header">
                         <t:outputText value="#{text['duty.secondShift']}"/>
                     </f:facet>
-                    <h:panelGroup columns="2" rendered="#{dutyList.onOwnFloor}">
+                    <h:panelGroup columns="2" >
                         <a4j:commandLink id="secondShiftUser" rendered="#{!empty duty.secondUser.firstName}"
                                          actionListener="#{dutyList.deleteUserFromDuty}" reRender="dutiesTable"
                                          value="#{duty.secondUser.shortName}"/>
