@@ -155,10 +155,20 @@ public class DutyList extends BasePage implements Serializable {
 
         String shift = e.getComponent().getId();
         if (shift.equals(FIRST_SHIFT)) {
-            dayDuty.setFirstUser(userToWriteOnDuty);
+            //workaround for hiberante exception
+            if (dayDuty.getSecondUser() != null && dayDuty.getSecondUser().equals(userToWriteOnDuty)) {
+                dayDuty.setFirstUser(dayDuty.getSecondUser());
+            } else {
+                dayDuty.setFirstUser(userToWriteOnDuty);
+            }
             dayDuty.setOwnFirstDuty(false);
         } else if (shift.equals(SECOND_SHIFT)) {
-            dayDuty.setSecondUser(userToWriteOnDuty);
+            //workaround for hiberante exception
+            if (dayDuty.getFirstUser() != null && dayDuty.getFirstUser().equals(userToWriteOnDuty)) {
+                dayDuty.setSecondUser(dayDuty.getFirstUser());
+            } else {
+                dayDuty.setSecondUser(userToWriteOnDuty);
+            }
             dayDuty.setOwnSecondDuty(false);
         }
 

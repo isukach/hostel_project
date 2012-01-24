@@ -56,7 +56,11 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
             log.debug("user's id: " + dayDuty.getId());
         }
         clearTime(dayDuty.getDate());
-        getHibernateTemplate().saveOrUpdate(dayDuty);
+        try {
+            getHibernateTemplate().saveOrUpdate(dayDuty);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // necessary to throw a DataIntegrityViolation and catch it in
         // UserManager
         getHibernateTemplate().flush();
