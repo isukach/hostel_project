@@ -82,7 +82,13 @@
     </div>
 </div>
 <h:form>
-    <div class="tabContent">
+	<c:set var="monthIndexDelta" value="0"  scope="request" />
+	<c:set var="monthIndex" value="#{dutyList.month}"  scope="request" />	
+	<c:if test="#{monthIndex lt 8}">
+		<c:set var="monthIndexDelta" value="#{monthIndex + 1}" />
+		<c:set var="monthIndex" value="#{monthIndex + 12}" />	
+	</c:if>
+	<div class="tabContent">
         <ul class="tabList">
             <li><a href="#first">Дежурства</a></li>
             <li class="current"><a href="#second">ОХР</a></li>
@@ -98,7 +104,8 @@
                             <c:otherwise>
                                  <div class="dutyGradient">
                                     <!-- 8 as first month number in study -->
-                                    <c:forEach begin="8" end="#{dutyList.month}" varStatus="i" >
+                                    
+                                    <c:forEach begin="8" end="#{monthIndex}" varStatus="i" >
                                         <c:choose>
                                             <c:when test="${(i.index-8) lt count}">
                                                 <c:set var="gradientStyleClass" value="goodDuty" />
@@ -108,7 +115,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <div class="gradientMonth ${gradientStyleClass}">
-                                            <p>#{hfn:getShortMonthString(i.index, dutyList.bundle )}</p>
+                                            <p>#{hfn:getShortMonthString(i.index - monthIndexDelta, dutyList.bundle )}</p>
                                         </div>
                                     </c:forEach>
                                 </div>
@@ -125,7 +132,7 @@
                         </c:when>
                         <c:otherwise>
                             <div class="dutyGradient">
-                                    <c:forEach begin="8" end="#{dutyList.month}" varStatus="i" >
+                                    <c:forEach begin="8" end="#{monthIndex}" varStatus="i" >
                                         <c:choose>
                                             <c:when test="${(i.index-8)*4 lt workHours}">
                                                 <c:set var="gradientStyleClass" value="goodDuty" />
@@ -135,7 +142,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <div class="gradientMonth ${gradientStyleClass}">
-                                            <p>#{hfn:getShortMonthString(i.index, dutyList.bundle )}</p>
+                                            <p>#{hfn:getShortMonthString(i.index - monthIndexDelta, dutyList.bundle )}</p>
                                         </div>
                                     </c:forEach>
                             </div>
