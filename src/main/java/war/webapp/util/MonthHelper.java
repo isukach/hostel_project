@@ -162,10 +162,10 @@ public final class MonthHelper {
     }
 
     public static String[] getMonths(ResourceBundle bundle) {
-        return new String[] { bundle.getString("month.jan"), bundle.getString("month.feb"),
+        return new String[] { bundle.getString("month.sep"), bundle.getString("month.oct"),
+                bundle.getString("month.nov"), bundle.getString("month.jan"), bundle.getString("month.feb"),
                 bundle.getString("month.mar"), bundle.getString("month.apr"), bundle.getString("month.may"),
                 bundle.getString("month.jun"), bundle.getString("month.jul"), bundle.getString("month.aug"),
-                bundle.getString("month.sep"), bundle.getString("month.oct"), bundle.getString("month.nov"),
                 bundle.getString("month.dec"), };
     }
 

@@ -24,11 +24,11 @@ public class DayDuty extends BaseObject implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar date;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "first_user")
     private User firstUser;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "second_user")
     private User secondUser;
 
