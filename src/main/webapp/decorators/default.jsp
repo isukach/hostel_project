@@ -2,7 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <%@ include file="/common/taglibs.jsp"%>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:c="http://java.sun.com/jstl/core" xml:lang="en">
     <head>
         <%@ include file="/common/meta.jsp" %>
         <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
@@ -51,7 +51,7 @@
                     <jsp:include page="/common/menu.jsp"/>
                 </div>
                 <div id="manual">
-                    <a href="/styles/andreas01/files/UserGuideHostelProject.docx"><img src="/styles/andreas01/images/folder_documents.png" />
+                    <a href="<c:url value='/styles/andreas01/files/UserGuideHostelProject.docx'/>"><img src="/styles/andreas01/images/folder_documents.png" />
                     <p>${text['manual.title']}</p></a>
                 </div>
                 <hr/>
