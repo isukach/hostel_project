@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.Semaphore;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.springframework.security.context.SecurityContextHolder.getContext;
 
@@ -31,7 +33,6 @@ public class DutyList extends BasePage implements Serializable {
     private static final String SECOND_SHIFT_USER = "secondShiftUser";
     private static final String SELECT_USER_STRING = "-";
     private static final int MAX_COUNT_OF_DUTIES_FOR_ONE_USER = 2;
-    private String[] responsibleFloors = new String[]{"2_3_4_12", "5_6_7_8", "9_10_11"};
     private DayDutyManager dayDutyManager;
     private MonthManager monthManager;
     private UserManager userManager;
@@ -376,12 +377,21 @@ public class DutyList extends BasePage implements Serializable {
             sem.acquire();
             //TODO forth param must be name of vospetka and starosta
             String monthForExcelReport = MonthHelper.getMonthString(getMonth(), getBundle(new Locale("ru")));
-            Object[] params = new Object[]{getFloor(), monthForExcelReport, "Федоров В.В", getNameOfVospetka(getFloor()), getDutyList()};
+            String floor = getFloor();
+            Pattern patter = Pattern.compile("[0-9]+");
+            boolean isNotZeroFloor = patter.matcher(floor).lookingAt();
+            if(!isNotZeroFloor){
+            	floor = "0";
+            }
+            Object[] params = new Object[]{floor, monthForExcelReport, getBundle().getString("starosta_"+floor), 
+            			getBundle().getString("vospetka_"+floor), getDutyList()};
             DutyListLoadService.getService(Constants.HTTP_DOWNLOADER).download(params);
         } catch (InterruptedException ex) {
             logger.error("Current thread was interrupted!");
         } catch (IOException ex) {
             logger.error("IO error:" + ex.getMessage());
+        }catch (MissingResourceException resEx) {
+        	logger.error("Missing resource error:" + resEx.getMessage());
         } catch (NullPointerException exc) {
             //no critic, it's joke! :)
             logger.error("Something wrong.." + exc.getMessage());
@@ -472,28 +482,6 @@ public class DutyList extends BasePage implements Serializable {
     public void setYearString(String yearString) {
         //stub
     }
-
-    private String getNameOfVospetka(String floor) {
-        StringBuilder buf = new StringBuilder("vospetka_");
-        for (String floors : responsibleFloors) {
-            if (isResponseForFloor(floors, floor)) {
-                buf.append(floors);
-                break;
-            }
-        }
-        return getBundle().getString(buf.toString());
-    }
-
-    private boolean isResponseForFloor(String floors, String floor) {
-        String[] existingFloors = floors.split("_");
-        for (String fl : existingFloors) {
-            if (fl.equals(floor)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
