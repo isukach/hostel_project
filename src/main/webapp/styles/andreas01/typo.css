@@ -182,7 +182,7 @@
             border-spacing: 0;
             margin: 0 0 1em;
             color: #000;
-            width: 600px;
+            width: 785px;
         }
             .table a {
                 color: #523A0B !important;
@@ -336,6 +336,7 @@ div.announce {
 #manual{
     display: block;
     margin-top: 20px;
+    margin-left: 20px;
 }
 
 #manual p{
