@@ -7,10 +7,7 @@ import war.webapp.model.DayDuty;
 import war.webapp.model.User;
 import war.webapp.util.DateUtil;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -37,18 +34,23 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<DayDuty> loadAllDayDutyByDateAndFloor(Integer year, Integer month, String floor) {
-        List dayDuties = getHibernateTemplate().find("from DayDuty where floor=? and month(date)=? and year(date)=?", new Object[]{floor, month+1, year});
-        if (dayDuties == null || dayDuties.isEmpty()) {
-            return new LinkedList<DayDuty>();
+        List dayDutiesFromHibernate = getHibernateTemplate().find("from DayDuty where floor=? and month(date)=? and year(date)=?", new Object[]{floor, month+1, year});
+        if (dayDutiesFromHibernate == null || dayDutiesFromHibernate.isEmpty()) {
+            return Collections.emptyList();
         }
-        List<DayDuty> allDuties = (List<DayDuty>) dayDuties;
-        List<DayDuty> newDuties = new ArrayList<DayDuty>();
-        for (DayDuty d : allDuties) {
-            if (d.getDate().get(Calendar.MONTH) == month) {
-                newDuties.add(d);
+
+        List<DayDuty> resultDuties = new ArrayList<DayDuty>();
+        for (DayDuty d : (List<DayDuty>) dayDutiesFromHibernate) {
+            if (isEligibleDayDuty(month, d)) {
+                resultDuties.add(d);
             }
         }
-        return newDuties;
+        return resultDuties;
+    }
+
+    //todo we need to check a year as well
+    private boolean isEligibleDayDuty(Integer month, DayDuty d) {
+        return d.getDate().get(Calendar.MONTH) == month;
     }
 
     public DayDuty saveDayDuty(DayDuty dayDuty) {
@@ -57,7 +59,6 @@ public class DayDutyDaoHibernate extends GenericDaoHibernate<DayDuty, Long> impl
         }
         clearTime(dayDuty.getDate());
         try{
-//        	getHibernateTemplate().merge(dayDuty);
         	getHibernateTemplate().saveOrUpdate(dayDuty);
         }catch(Exception ex){
         	if(log.isErrorEnabled()){
