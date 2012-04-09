@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.Semaphore;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.springframework.security.context.SecurityContextHolder.getContext;
@@ -47,7 +46,7 @@ public class DutyList extends BasePage implements Serializable {
     private List<SelectItem> floorUsersList;
 
     private List<DayDuty> dutyList;
-    private static final User emptyUser = new EmptyUser();
+    private static final User EMPTY_USER = new EmptyUser();
     private List<DayDuty> emptyDayDutyList;
     private boolean monthAvailable = false;
 
@@ -61,13 +60,12 @@ public class DutyList extends BasePage implements Serializable {
         emptyDayDutyList = new LinkedList<DayDuty>();
         //28 - minimum days num in any month
         int size = 28;
-        while (size != 0) {
+        while (size-- != 0) {
             DayDuty dayDuty = new DayDuty();
             Calendar date = Calendar.getInstance();
-            dayDuty.setFirstUser(emptyUser);
-            dayDuty.setSecondUser(emptyUser);
+            dayDuty.setFirstUser(EMPTY_USER);
+            dayDuty.setSecondUser(EMPTY_USER);
             dayDuty.setDate(date);
-            size--;
         }
     }
 
@@ -90,12 +88,12 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     private User getEmptyUser() {
-        return emptyUser;
+        return EMPTY_USER;
     }
 
     public List<SelectItem> getUsersForFloorhead() {
         if (isOnOwnFloor() && isUserFloorhead() && userListAmountChanged()) {
-            floorUsersList = new LinkedList<SelectItem>();
+            floorUsersList = new ArrayList<SelectItem>();
             floorUsersList.add(new SelectItem(SELECT_USER_STRING));
 
             List<User> users = userManager.getUsersByFloor(getFloor());
@@ -105,7 +103,7 @@ public class DutyList extends BasePage implements Serializable {
                     return user1.getAddress().getHostelRoom().compareToIgnoreCase(user2.getAddress().getHostelRoom());
                 }
             });
-            
+
             users.remove(getUser());
             for (User user : users) {
                 List<DayDuty> userDuties = dayDutyManager.loadDutiesByUser(user);
@@ -121,7 +119,7 @@ public class DutyList extends BasePage implements Serializable {
             floorUsersListSize  = floorUsersList.size();
         }
         int amountOfFloorUsers = userManager.getNumberOfFloorUsers(getFloor());
-        
+
         return floorUsersList == null || floorUsersListSize != amountOfFloorUsers;
     }
 
@@ -294,8 +292,8 @@ public class DutyList extends BasePage implements Serializable {
             dd.getDate().set(Calendar.YEAR, getYear());
             dd.getDate().set(Calendar.MONTH, getMonth());
             dd.getDate().set(Calendar.DAY_OF_MONTH, counter);
-            dd.setFirstUser(emptyUser);
-            dd.setSecondUser(emptyUser);
+            dd.setFirstUser(EMPTY_USER);
+            dd.setSecondUser(EMPTY_USER);
             dd.setFloor(null);
             dd.setId(null);
             counter++;
@@ -318,8 +316,8 @@ public class DutyList extends BasePage implements Serializable {
             for (int i = 0; i < Math.abs(delta); i++) {
                 DayDuty dd = new DayDuty();
                 Calendar date = Calendar.getInstance();
-                dd.setFirstUser(emptyUser);
-                dd.setSecondUser(emptyUser);
+                dd.setFirstUser(EMPTY_USER);
+                dd.setSecondUser(EMPTY_USER);
                 dd.setDate(date);
                 emptyDayDutyList.add(dd);
             }
@@ -340,13 +338,13 @@ public class DutyList extends BasePage implements Serializable {
         setMonth(MonthHelper.getMonth(newValue, getBundle()));
         dutyList = null;
     }
-    
+
     public void yearSelectionChanged(ValueChangeEvent e) {
         String newValue = (String) e.getNewValue();
         setYear(Integer.parseInt(newValue));
         dutyList = null;
     }
-    
+
     public List<SelectItem> getYearItems() {
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         List<String> years = MonthHelper.getYears();
@@ -383,7 +381,7 @@ public class DutyList extends BasePage implements Serializable {
             if(!isNotZeroFloor){
             	floor = "0";
             }
-            Object[] params = new Object[]{floor, monthForExcelReport, getBundle().getString("starosta_"+floor), 
+            Object[] params = new Object[]{floor, monthForExcelReport, getBundle().getString("starosta_"+floor),
             			getBundle().getString("vospetka_"+floor), getDutyList()};
             DutyListLoadService.getService(Constants.HTTP_DOWNLOADER).download(params);
         } catch (InterruptedException ex) {
@@ -391,7 +389,7 @@ public class DutyList extends BasePage implements Serializable {
         } catch (IOException ex) {
             logger.error("IO error:" + ex.getMessage());
         }catch (MissingResourceException resEx) {
-        	logger.error("Missing resource error:" + resEx.getMessage());
+        	  logger.error("Missing resource error:" + resEx.getMessage());
         } catch (NullPointerException exc) {
             //no critic, it's joke! :)
             logger.error("Something wrong.." + exc.getMessage());
@@ -400,14 +398,14 @@ public class DutyList extends BasePage implements Serializable {
         }
 
     }
-    
+
     public void changeMonthAvailability(ActionEvent e) {
         DutyMonth dutyMonth = monthManager.loadMonth(getYear(), getMonth(), getFloor());
-        if (dutyMonth == null) {
+        if (dutyMonth != null) {
+            dutyMonth.setAvailable(!dutyMonth.getAvailable());
+        } else {
             dutyMonth = createDutyMonth();
             dutyMonth.setAvailable(true);
-        } else {
-            dutyMonth.setAvailable(!dutyMonth.getAvailable());
         }
         monthManager.saveMonth(dutyMonth);
         monthAvailable = !monthAvailable;
@@ -474,11 +472,11 @@ public class DutyList extends BasePage implements Serializable {
     public void setMonthString(String monthString) {
         //stub
     }
-    
+
     public String getYearString() {
         return Integer.toString(getYear());
     }
-    
+
     public void setYearString(String yearString) {
         //stub
     }
@@ -509,7 +507,7 @@ public class DutyList extends BasePage implements Serializable {
         this.month = month;
         refreshMonthAvailability();
     }
-    
+
     public Integer getYear() {
         return year;
     }
