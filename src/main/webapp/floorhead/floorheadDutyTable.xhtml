@@ -16,12 +16,8 @@
     </head>
     <a4j:region>
         <h:form>
-            <table>
-                <tr>
-                    <th style="vertical-align: top;"><ui:include src="/common/manageDutyButtons.xhtml"/></th>
-                    <th style="vertical-align: top;"><ui:include src="/common/month.xhtml"/></th>
-                </tr>
-            </table>
+            <ui:include src="/common/manageDutyButtons.xhtml"/>
+            <ui:include src="/common/month.xhtml"/>
 
             <t:dataTable id="dutiesTable" var="duty" style="margin-top: 10px" value="#{dutyList.dutyList}" rows="31"
                          styleClass="scrollerTable table" headerClass="standardTable_Header"
