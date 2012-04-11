@@ -8,6 +8,7 @@
         </c:if>
         <menu:displayMenu name="MainMenu" />
         <menu:displayMenu name="AdminMenu" />
+        <menu:displayMenu name="FloorHeads" />
         <menu:displayMenu name="DutyMenu" />
         <menu:displayMenu name="DutyAdmin" />
         <menu:displayMenu name="SlaveWorkMenuAdmin"/>

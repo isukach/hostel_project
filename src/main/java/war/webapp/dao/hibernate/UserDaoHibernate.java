@@ -153,4 +153,8 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         int amount =  DataAccessUtils.intResult(getHibernateTemplate().find("select count(*) from User where address.hostelFloor=? and accountLocked != true", floor));
         return amount;
     }
+
+    public List<User> getAllFloorheads() {
+        return null;
+    }
 }

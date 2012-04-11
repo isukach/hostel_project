@@ -199,4 +199,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     public int getNumberOfFloorUsers(String floor) {
         return userDao.getNumberOfFloorUsers(floor);
     }
+
+    public List<User> getAllFloorheads() {
+        return userDao.getAllFloorheads();
+    }
 }

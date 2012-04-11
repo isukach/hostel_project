@@ -99,5 +99,7 @@ public interface UserManager extends GenericManager<User, Long> {
      * @return amount of users
      */
     int getNumberOfFloorUsers(String floor);
-    
+
+    List<User> getAllFloorheads();
+
 }

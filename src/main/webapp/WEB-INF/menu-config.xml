@@ -13,6 +13,9 @@
             <!--<Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/> -->
             <!--<Item name="FileUpload" title="menu.selectFile" page="/selectFile.html"/> -->
         </Menu>
+
+        <Menu name="FloorHeads" title="menu.superAdmin.floorheads" page="/superadmin/floorheads.html" roles="ROLE_SUPER_ADMIN" />
+
         <Menu name="SlaveWorkMenuAdmin" title="menu.slavework.admin" description="Slave work menu for ROLE_ADMIN" roles="ROLE_ADMIN" width="120"
             page="/admin/workUnitTable.html">
             <Item name="AllWorkUnits" title="menu.slavework.all" page="/admin/workUnitTable.html" />
@@ -32,6 +35,6 @@
         </Menu>
         <Menu name="HostelProfile" title="menu.profile" description="Hostel Profile" roles="ROLE_ADMIN,ROLE_STAROSTA,ROLE_USER" width="120"
               page="/user/profile.html"/>
-        <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
+        <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA,ROLE_SUPER_ADMIN" />
     </Menus>
 </MenuConfig>

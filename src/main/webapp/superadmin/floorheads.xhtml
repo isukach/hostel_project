@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:view>
+    <f:loadBundle var="text" basename="#{userList.bundleName}"/>
+    <head>
+        <title>#{text['floorheads.title']}</title>
+        <meta name="heading" content="#{text['floorheads.title']}"/>
+        <meta name="menu" content="FloorHeads"/>
+        <link rel="stylesheet" type="text/css" href="/styles/forms.css"/>
+        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
+    </head>
+
+
+    FLOOR_HEADS_LIST
+</f:view>
+</html>
