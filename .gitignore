@@ -1,0 +1,9 @@
+*.log
+.settings
+.project
+.classpath
+target
+*.cmd
+*.bat
+.idea
+*.iml
