@@ -108,39 +108,12 @@
         <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true"
                          styleClass="button" style="margin-left: 5px"/>
 
-        <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
-        <t:dataTable id="users" var="user" style="margin-top: 10px" value="#{userList.usersByFloorheadFloor}" rows="25"
-                     sortColumn="#{userList.sortColumn}" sortAscending="#{userList.ascending}"
-                     styleClass="scrollerTable table"
-                     headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2">
-            <t:column>
-                <f:facet name="header">
-                    <h:outputText value="#{text['activeUsers.fullName']}"/>
-                </f:facet>
-                <h:commandLink action="#{userForm.viewProfile}" value="#{user.shortName}">
-                    <f:param name="userId" value="#{user.id}"/>
-                    <f:param name="from" value="list"/>
-                </h:commandLink>
-            </t:column>
-            <t:column>
-                <f:facet name="header">
-                    <h:outputText value="#{text['user.room']}"/>
-                </f:facet>
-                <h:outputText value="#{user.address.hostelRoom}"/>
-            </t:column>
-        </t:dataTable>
 
-        <t:buffer into="#{scroller}">
-            <ui:include src="/common/tableFooter.xhtml">
-                <ui:param name="tableName" value="users"/>
-            </ui:include>
-        </t:buffer>
-        
-        <h:outputText value="#{scroller}" escape="false"/>
+        <ui:include src="../common/usersTable.xhtml">
+            <ui:param name="users" value="#{userList.usersByFloorheadFloor}"/>
+        </ui:include>
 
-        <script type="text/javascript">
-            highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
-        </script>
+
 
     </h:form>
 </f:view>

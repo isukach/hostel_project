@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:view>
+    <f:loadBundle var="text" basename="#{userList.bundleName}"/>
+
+    <t:dataTable id="users" var="user" style="margin-top: 10px" value="#{users}" rows="25"
+                 sortColumn="#{userList.sortColumn}" sortAscending="#{userList.ascending}"
+                 styleClass="scrollerTable table"
+                 headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2">
+        <t:column>
+            <f:facet name="header">
+                <h:outputText value="#{text['activeUsers.fullName']}"/>
+            </f:facet>
+            <h:commandLink action="#{userForm.viewProfile}" value="#{user.shortName}">
+                <f:param name="userId" value="#{user.id}"/>
+                <f:param name="from" value="list"/>
+            </h:commandLink>
+        </t:column>
+        <t:column>
+            <f:facet name="header">
+                <h:outputText value="#{text['user.room']}"/>
+            </f:facet>
+            <h:outputText value="#{user.address.hostelRoom}"/>
+        </t:column>
+    </t:dataTable>
+
+    <t:buffer into="#{scroller}">
+        <ui:include src="/common/tableFooter.xhtml">
+            <ui:param name="tableName" value="users"/>
+        </ui:include>
+    </t:buffer>
+
+    <h:outputText value="#{scroller}" escape="false"/>
+
+    <script type="text/javascript">
+        highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
+    </script>
+</f:view>
+</html>

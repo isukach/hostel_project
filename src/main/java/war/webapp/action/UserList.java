@@ -28,9 +28,13 @@ public class UserList extends BasePage implements Serializable {
         return excludeCurrentUserAndSort(movedOutUsers);
     }
 
-    private List<User> excludeCurrentUserAndSort(List<User> floorUsers) {
-        floorUsers.remove(getCurrentUser());
-        return sortByRoom(floorUsers);
+    private List<User> excludeCurrentUserAndSort(List<User> users) {
+        users.remove(getCurrentUser());
+        return sortByRoom(users);
+    }
+
+    public List<User> getAllUsers() {
+        return userManager.getAll();
     }
 
     private List<User> sortByRoom(List<User> users) {
