@@ -441,12 +441,12 @@ public class DutyList extends BasePage implements Serializable {
     }
 
     public boolean isOnOwnFloor() {
-        return getUser().getAddress().getHostelFloor().equals(getFloor());
+        return getFloorOf(getUser()).equals(getFloor());
     }
 
     public String getFloor() {
         if (floor == null) {
-            setFloor(getUser().getAddress().getHostelFloor());
+            setFloor(getFloorOf(getUser()));
         }
         return floor;
     }
@@ -487,7 +487,7 @@ public class DutyList extends BasePage implements Serializable {
 
     public User getUser() {
         if (user == null) {
-            setUser((User) getContext().getAuthentication().getPrincipal());
+            setUser(getCurrentUser());
         }
         return user;
     }

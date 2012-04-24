@@ -17,7 +17,7 @@ public class ChangePasswordForm extends BasePage {
     private String newPasswordConfirm;
 
     public String changePassword() {
-        User user = userManager.getUserByUsername(getRequest().getRemoteUser());
+        User user = getCurrentUser();
         if (validateForm(user)) {
             try {
                 user.setPassword(newPassword);
