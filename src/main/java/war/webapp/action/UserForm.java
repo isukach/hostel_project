@@ -263,9 +263,9 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     private void generateFloor() {
-        String floor = getFloorOf(getUser());
+        String floor = getUser().getAddress().getHostelFloor();
         if (floor == null) {
-            floor = getFloorOf(getCurrentUser());
+            floor = ((User) getContext().getAuthentication().getPrincipal()).getAddress().getHostelFloor();
         }
         getUser().getAddress().setHostelFloor(floor);
     }
@@ -281,7 +281,7 @@ public class UserForm extends BasePage implements Serializable {
 
     private void generatePassword() {
         String pass = getUser().getPassword();
-        String sessionUserPass = (getCurrentUser()).getPassword();
+        String sessionUserPass = ((User) getContext().getAuthentication().getPrincipal()).getPassword();
         if (pass == null) {
             if (sessionUserPass == null) {
                 getUser().setPassword("pass");

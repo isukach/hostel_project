@@ -455,11 +455,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-        </dependency>
     </dependencies>
 
     <properties>
@@ -507,7 +502,7 @@
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>jdbc:mysql://127.0.0.1:3306/${db.name}?createDatabaseIfNotExist=true&amp;amp;autoReconnect=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8</jdbc.url>
         <jdbc.username>root</jdbc.username>
-        <jdbc.password>root</jdbc.password>
+        <jdbc.password>ldgcrxe8</jdbc.password>
 
         <skipTests>true</skipTests>
     </properties>

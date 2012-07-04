@@ -1,6 +1,9 @@
 package war.webapp.action;
 
+import org.springframework.security.context.HttpSessionContextIntegrationFilter;
+import org.springframework.security.context.SecurityContext;
 import war.webapp.model.User;
+import war.webapp.util.FacesUtils;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -11,30 +14,28 @@ public class UserList extends BasePage implements Serializable {
     private static final long serialVersionUID = 972359310602744018L;
 
     public UserList() {
+
         setSortColumn("username");
     }
 
-    public List<User> getUsersByRoom() {
+    public List<User> getUsers() {
         return sortByRoom(userManager.getUsers());
     }
 
     public List<User> getUsersByFloorheadFloor() {
-        List<User> floorUsers = userManager.getUsersByFloor(getCurrentUserFloor());
-        return excludeCurrentUserAndSort(floorUsers);
+        User user = userManager.getUserByUsername(getRequest().getRemoteUser());
+        String floor = user.getAddress().getHostelFloor();
+        List<User> floorUsers = userManager.getUsersByFloor(floor);
+        floorUsers.remove(user);
+        return sortByRoom(floorUsers);
     }
-
-    public List<User> getMovedOutUsersByFloorOfCurrentUser() {
-        List<User> movedOutUsers = userManager.getMovedOutUsersByFloor(getCurrentUserFloor());
-        return excludeCurrentUserAndSort(movedOutUsers);
-    }
-
-    private List<User> excludeCurrentUserAndSort(List<User> users) {
-        users.remove(getCurrentUser());
-        return sortByRoom(users);
-    }
-
-    public List<User> getAllUsers() {
-        return userManager.getAll();
+    
+    public List<User> getMovedOutUsersByFloorheadFloor() {
+        User user = userManager.getUserByUsername(getRequest().getRemoteUser());
+        String floor = user.getAddress().getHostelFloor();
+        List<User> floorUsers = userManager.getMovedOutUsersByFloor(floor);
+        floorUsers.remove(user);
+        return sortByRoom(floorUsers);
     }
 
     private List<User> sortByRoom(List<User> users) {
@@ -47,6 +48,8 @@ public class UserList extends BasePage implements Serializable {
     }
 
     public String getCurrentUserFloor() {
-        return getFloorOf(getCurrentUser());
+        User user = (User) ((SecurityContext) FacesUtils.getSession().getAttribute(
+                HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY)).getAuthentication().getPrincipal();
+        return user.getAddress().getHostelFloor();
     }
 }

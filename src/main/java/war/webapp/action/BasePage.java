@@ -20,8 +20,6 @@ import javax.servlet.http.HttpSession;
 import java.text.MessageFormat;
 import java.util.*;
 
-import static org.springframework.security.context.SecurityContextHolder.getContext;
-
 public class BasePage {
     protected final Log log = LogFactory.getLog(getClass());
     protected UserManager userManager;
@@ -253,13 +251,5 @@ public class BasePage {
         }
         Collections.sort(list, comparator);
         return list;
-    }
-
-    protected User getCurrentUser() {
-        return (User) getContext().getAuthentication().getPrincipal();
-    }
-
-    protected String getFloorOf(User user) {
-        return user.getAddress().getHostelFloor();
     }
 }

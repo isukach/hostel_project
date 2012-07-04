@@ -1,33 +1,162 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <f:view>
-    <f:loadBundle var="text" basename="#{userList.bundleName}"/>
+    <f:loadBundle var="text" basename="#{userList.bundleName}" />
     <head>
-        <title>#{text['menu.admin.users']}</title>
-        <meta name="heading" content="#{text['menu.admin.users']}"/>
-        <meta name="menu" content="FloorheadViewUsers"/>
-        <link rel="stylesheet" type="text/css" href="/styles/forms.css"/>
-        <link rel="stylesheet" type="text/css" href="/styles/myfaces.css"/>
+    <title>#{text['userList.title']}</title>
+    <meta name="heading" content="#{text['userList.heading']}" />
+    <meta name="menu" content="AdminMenu" />
+    <link rel="stylesheet" type="text/css" href="/styles/forms.css" />
     </head>
+    
+    
+    <script type="text/javascript">//<![CDATA[
+        function oamSetHiddenInput(formname, name, value)
+        {
+                var form = document.forms[formname];
+                if(typeof form.elements[name]=='undefined')
+                {
+                        var newInput = document.createElement('input');
+                        newInput.setAttribute('type','hidden');
+                        newInput.setAttribute('id',name);
+                        newInput.setAttribute('name',name);
+                        newInput.setAttribute('value',value);
+                        form.appendChild(newInput);
+                }
+                else
+                {
+                        form.elements[name].value=value;
+                }
+                
+        }
+        
+        
+        function oamClearHiddenInput(formname, name, value)
+        {
+                var form = document.forms[formname];
+                if(typeof form.elements[name]!='undefined')
+                {
+                        form.elements[name].value=null;
+                }
+                
+        }
+        
+        function oamSubmitForm(formName, linkId, target, params)
+        {
+                
+                var clearFn = 'clearFormHiddenParams_'+formName.replace(/-/g, '\$:').replace(/:/g,'_');
+                if(typeof eval('window.'+clearFn)!='undefined')
+                {
+                        eval('window.'+clearFn+'(formName)');
+                }
+                
+                var oldTarget = '';
+                if((typeof target!='undefined') && target != null)
+                {
+                        oldTarget=document.forms[formName].target;
+                        document.forms[formName].target=target;
+                }
+                if((typeof params!='undefined') && params != null)
+                {
+                        for(var i=0; i<params.length; i++)
+                        {
+                                oamSetHiddenInput(formName,params[i][0], params[i][1]);
+                        }
+                        
+                }
+                
+                oamSetHiddenInput(formName,formName +':'+'_idcl',linkId);
+                
+                if(document.forms[formName].onsubmit)
+                {
+                        var result=document.forms[formName].onsubmit();
+                        if((typeof result=='undefined')||result)
+                        {
+                                document.forms[formName].submit();
+                        }
+                        
+                }
+                else 
+                {
+                        document.forms[formName].submit();
+                }
+                if(oldTarget==null) oldTarget='';
+                document.forms[formName].target=oldTarget;
+                if((typeof params!='undefined') && params != null)
+                {
+                        for(var i=0; i<params.length; i++)
+                        {
+                                oamClearHiddenInput(formName,params[i][0], params[i][1]);
+                        }
+                        
+                }
+                oamClearHiddenInput(formName,formName +':'+'_idcl',linkId);return false;
+        }
+//
+//]]>
+</script>
 
-
-    <h:form id="editFloorUser">
-
-        <h2><h:outputFormat value="#{text['userList.floorNumber']}">
-            <f:param value="#{userList.currentUserFloor}"/>
-        </h:outputFormat></h2>
+    <h:form id="editUser">
 
         <h:commandButton value="#{text['button.add']}" action="#{userForm.add}" id="add" styleClass="button">
-            <f:param name="from" value="list"/>
+            <f:param name="from" value="list" />
             <f:param name="user_role" value="admin"/>
-            <f:param name="addUser" value="true"/>
+            <f:param name="addUser" valuse="true" />
         </h:commandButton>
+        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true"
+            styleClass="button" style="margin-left: 5px" />
 
-        <ui:include src="../common/usersTable.xhtml">
-            <ui:param name="users" value="#{userList.allUsers}"/>
+        <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
+        <t:dataTable id="users" var="user" style="margin-top: 10px" value="#{userList.users}" rows="25"
+            sortColumn="#{userList.sortColumn}" sortAscending="#{userList.ascending}" styleClass="scrollerTable table"
+            headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
+            columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
+            <t:column width="25%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="username" arrow="true">
+                        <h:outputText value="#{text['user.username']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                <h:commandLink action="#{userForm.viewProfile}" value="#{user.username}">
+                    <f:param name="userId" value="#{user.id}" />
+                    <f:param name="from" value="list" />
+                </h:commandLink>
+            </t:column>
+            <t:column width="34%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="fullName" arrow="true">
+                        <h:outputText value="#{text['activeUsers.fullName']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                <h:outputText value="#{user.shortName}" />
+            </t:column>
+            <t:column width="25%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="room" arrow="true">
+                        <h:outputText value="#{text['user.room']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                <h:outputText value="#{user.address.hostelRoom}" />
+            </t:column>
+            <t:column width="16%">
+                <f:facet name="header">
+                    <t:commandSortHeader columnName="enabled" arrow="true">
+                        <h:outputText value="#{text['user.enabled']}" />
+                    </t:commandSortHeader>
+                </f:facet>
+                <h:selectBooleanCheckbox value="#{user.enabled}" disabled="true" />
+            </t:column>
+        </t:dataTable>
+
+        <ui:include src="/common/tableFooter.xhtml">
+            <ui:param name="tableName" value="users" />
         </ui:include>
+
+        <script type="text/javascript">
+	highlightTableRows("editUser:users"); // doesn't currently work to allow clicking row
+</script>
 
     </h:form>
 </f:view>

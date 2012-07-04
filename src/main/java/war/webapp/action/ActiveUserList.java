@@ -19,7 +19,7 @@ public class ActiveUserList extends BasePage implements Serializable {
     public List<User> getUsers() {
         Set<User> users = (Set<User>) getServletContext().getAttribute(UserCounterListener.USERS_KEY);
         if (users != null) {
-            return sort(new ArrayList<User>(users));
+            return (List<User>) sort(new ArrayList<User>(users));
         } else {
             return new ArrayList<User>();
         }

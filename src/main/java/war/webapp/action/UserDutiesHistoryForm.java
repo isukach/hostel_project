@@ -27,7 +27,7 @@ public class UserDutiesHistoryForm extends BasePage {
     private User getUser() {
         User user;
         if (userId == null) {
-            user = getCurrentUser();
+            user = userManager.getUserByUsername(getRequest().getRemoteUser());
         } else {
             user = userManager.getUser(userId);
         }

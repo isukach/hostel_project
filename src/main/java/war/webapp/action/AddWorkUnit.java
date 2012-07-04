@@ -47,8 +47,16 @@ public class AddWorkUnit extends BasePage implements Serializable {
         return null;
     }
     
+    private User getCurrentUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+    
     public UserManager getUserManager() {
         return userManager;
+    }
+    
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
     }
     
     public WorkUnitManager getWorkUnitManager() {

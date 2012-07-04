@@ -5,7 +5,7 @@
     div#main {
         float: left;
         width: 445px;
-        margin-left: 190px;
+        margin-left: 170px;
         display: inline;
     }
 
@@ -45,7 +45,8 @@
         top: 0;
         left: 0;
         float: left;
-        width: 190px;
+        width: 150px;
         display: inline;
+        margin-left: 10px;
     }
 /* END CONTENT */

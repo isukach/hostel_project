@@ -8,11 +8,10 @@
         <!--intercept-url pattern="/images/*" filters="none"/> <intercept-url pattern="/styles/*" filters="none"/> <intercept-url 
             pattern="/scripts/*" filters="none"/ -->
         <intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
-        <intercept-url pattern="/superadmin/*" access="ROLE_SUPER_ADMIN" />
         <intercept-url pattern="/floorhead/*" access="ROLE_ADMIN,ROLE_STAROSTA" />
         <!-- APF-737, OK to remove line below if you're not using JSF -->
-        <intercept-url pattern="/a4j.res/*.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA,ROLE_SUPER_ADMIN" />
-        <intercept-url pattern="/**/*.html*" access="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA,ROLE_SUPER_ADMIN" />
+        <intercept-url pattern="/a4j.res/*.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
+        <intercept-url pattern="/**/*.html*" access="ROLE_ADMIN,ROLE_USER,ROLE_STAROSTA" />
         <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true"
             login-processing-url="/j_security_check" />
         <remember-me user-service-ref="userDao" key="e37f4b31-0c45-11dd-bd0b-0800200c9a66" />
@@ -26,7 +25,7 @@
     <!-- <bean id="passwordEncoder" class="org.springframework.security.providers.encoding.ShaPasswordEncoder"/> -->
 
     <global-method-security>
-        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN,ROLE_STAROSTA,ROLE_SUPER_ADMIN" />
-        <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN,ROLE_STAROSTA,ROLE_SUPER_ADMIN" />
+        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN,ROLE_STAROSTA" />
+        <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN,ROLE_STAROSTA" />
     </global-method-security>
 </beans:beans>

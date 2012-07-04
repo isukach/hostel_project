@@ -10,13 +10,13 @@ Version: 1.0
         margin: 0 auto;
         padding: 0;
         font: 76% Verdana, Tahoma, Arial, sans-serif;
-        background: #e7e9ed url(images/bg2.png) top center repeat-y;
+        background: #f4f4f4 url(images/bg.gif) top center repeat-y;
     }
     div#page {
-        background: white;
+        background: #ffffff;
         color: #303030;
         margin: 0 auto;
-        width: 994px;
+        width: 780px;
     }
 
     div#content {
@@ -34,7 +34,7 @@ Version: 1.0
             padding: 0;
             height: 271px;
             width: 100%;
-            background: #fff url(images/searchingForDevelopers.png) top center no-repeat;
+            background: #fff url(images/searchingForDevelopers.png) bottom center no-repeat;
         }
             div#switchLocale {
                 position: absolute;
@@ -96,7 +96,7 @@ Version: 1.0
                 div#main img {
                     padding: 1px;
                     display: inline;
-                    background: #2a2ecc;
+                    background: #cccccc;
                     border: 4px solid #f0f0f0;
                 }
 
@@ -117,7 +117,7 @@ Version: 1.0
             margin: 0 auto;
             padding: 10px 0 20px 0;
             border-top: 4px solid #f0f0f0;
-            width: 960px;
+            width: 760px;
             text-align: center;
             background-color: white;
             color: #808080;

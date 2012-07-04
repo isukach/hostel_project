@@ -20,16 +20,6 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>floorheadsList</managed-bean-name>
-        <managed-bean-class>war.webapp.action.FloorheadsList</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>userManager</property-name>
-            <value>#{userManager}</value>
-        </managed-property>
-    </managed-bean>
-
-    <managed-bean>
         <managed-bean-name>userForm</managed-bean-name>
         <managed-bean-class>war.webapp.action.UserForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
